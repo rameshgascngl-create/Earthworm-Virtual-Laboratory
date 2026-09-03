@@ -1,0 +1,9 @@
+{
+  "date": "2026-09-03",
+  "status": "collected-not-executed",
+  "testsCollected": 73,
+  "browserChecksPassed": null,
+  "projects": ["renderer-capabilities", "desktop", "phone", "small-phone"],
+  "appViewportWidths": [1366, 390, 360],
+  "note": "Test declarations and configuration loaded successfully. No browser was launched. Actual rendering, screenshots and geometry remain pending."
+}

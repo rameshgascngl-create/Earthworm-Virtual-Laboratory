@@ -1,0 +1,12 @@
+{
+  "date": "2026-09-03",
+  "htmlSHA256": "229b7d4751eaf7ffe23bdc766b398bab221f0cdb392f19063134de7144aead8c",
+  "checks": 1491,
+  "systems": 9,
+  "structures": 55,
+  "guidedSteps": 56,
+  "questions": 72,
+  "microscopicExplanations": 9,
+  "errors": [],
+  "testScope": "Data validation and DOM interaction simulation; no browser layout, touch, TTS, Android build or device test implied."
+}

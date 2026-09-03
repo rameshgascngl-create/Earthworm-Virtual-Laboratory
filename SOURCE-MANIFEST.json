@@ -1,0 +1,20 @@
+{
+  "original": {
+    "bytes": 300988,
+    "sha256": "ba7674b8cec93ddea8b2f3dbd3404ff6cbf9073f91880d673d4cfc643ab26c83"
+  },
+  "revised": {
+    "bytes": 549308,
+    "sha256": "229b7d4751eaf7ffe23bdc766b398bab221f0cdb392f19063134de7144aead8c"
+  },
+  "version": "1.3.3-beta",
+  "androidApplicationId": "in.ramesh.zoology.earthwormlab",
+  "androidVersionCode": 10303,
+  "androidBuildStatus": "not run",
+  "browserLayoutStatus": "Pending full-page Chromium CI/device validation; older extracted proofs are not acceptance evidence",
+  "apkProduced": false,
+  "previousDelivered": {
+    "version": "1.3.2-beta",
+    "sha256": "8ca2c5f4234fdba52b7c6de42e0b033d336daa6a05ab31ac63147850a907158d"
+  }
+}

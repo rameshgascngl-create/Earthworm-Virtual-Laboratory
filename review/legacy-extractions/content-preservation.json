@@ -1,0 +1,31 @@
+{
+  "baseline": "1.3.1-beta",
+  "revision": "1.3.2-beta",
+  "results": [
+    {
+      "recordSet": "STRUCTURES",
+      "unchanged": true,
+      "sha256": "fd57a43e2cfd4fec07015cbad335666cb27690657d181e9dd2ecd016cc132b7a"
+    },
+    {
+      "recordSet": "MODULES",
+      "unchanged": true,
+      "sha256": "4104e2c785add4e07323f39a05b199f9ab689b0ece86c628c4a2c4e7df0b1ea0"
+    },
+    {
+      "recordSet": "QUESTIONS",
+      "unchanged": true,
+      "sha256": "af801a67bd35b8df12252c9b03b3f0f8839f48843c6ece050bf13d4d45875950"
+    },
+    {
+      "recordSet": "DEEP_DIVES",
+      "unchanged": true,
+      "sha256": "a97432414583fb507735080b8837f2ae85865f13b960631c13c58e48955eafb0"
+    },
+    {
+      "recordSet": "PROCEDURE_STEPS",
+      "unchanged": true,
+      "sha256": "b886cb43064007f2b486d6c5c38e8f062c9e390ccc651e04544dd57b78edcf54"
+    }
+  ]
+}

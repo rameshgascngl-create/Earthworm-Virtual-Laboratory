@@ -1,0 +1,17 @@
+{
+  "private": true,
+  "name": "earthworm-lab-validation",
+  "version": "1.3.3-beta",
+  "engines": { "node": ">=22 <25" },
+  "scripts": {
+    "test": "node tests/preflight.cjs && node tests/verify.cjs app/src/main/assets/index.html && node tests/tamil-voice.cjs app/src/main/assets/index.html",
+    "test:browser": "playwright test",
+    "test:browser:list": "playwright test --list"
+  },
+  "devDependencies": {
+    "jsdom": "26.1.0",
+    "@playwright/test": "1.62.1",
+    "yaml": "2.9.0",
+    "pngjs": "7.0.0"
+  }
+}

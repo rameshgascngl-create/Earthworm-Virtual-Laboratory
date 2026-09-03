@@ -1,0 +1,8 @@
+{
+  "date": "2026-09-03",
+  "command": "npm audit --json",
+  "exitCode": 0,
+  "knownVulnerabilities": {"info":0,"low":0,"moderate":0,"high":0,"critical":0,"total":0},
+  "dependencyCount": 45,
+  "scope": "npm advisory database result for the locked development dependencies at the time checked; not an Android dependency scan or whole-application security certification."
+}

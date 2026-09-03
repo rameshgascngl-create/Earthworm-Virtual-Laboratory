@@ -1,0 +1,2710 @@
+{
+  "en-circulatory": [
+    {
+      "id": "proof-label-0",
+      "text": "Vascular connections · schematic",
+      "bounds": [
+        80.5781,
+        76.3438,
+        301.484,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Anterior ←   ·   Posterior →",
+      "bounds": [
+        80.6016,
+        104.623,
+        154.646,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Dorsal vessel",
+      "bounds": [
+        844.969,
+        141.344,
+        120.391,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "Ventral vessel",
+      "bounds": [
+        848.578,
+        365.344,
+        129.383,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "Supra-oesophageal vessel",
+      "bounds": [
+        429.357,
+        114.623,
+        171.854,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "VII",
+      "bounds": [
+        234.602,
+        147.023,
+        18.1836,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "IX",
+      "bounds": [
+        335.776,
+        147.023,
+        14.0576,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "XII",
+      "bounds": [
+        504.887,
+        147.023,
+        17.9106,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "XIII",
+      "bounds": [
+        604.887,
+        147.023,
+        21.7446,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "Four pairs · eight hearts",
+      "bounds": [
+        232.969,
+        386.344,
+        219.766,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "Lateral-oesophageal vessels",
+      "bounds": [
+        109.776,
+        317.623,
+        185.965,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "Capillary beds",
+      "bounds": [
+        789.297,
+        108.344,
+        129.859,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-12",
+      "text": "Subneural vessel",
+      "bounds": [
+        839.648,
+        427.344,
+        154.914,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-13",
+      "text": "Below the nerve cord",
+      "bounds": [
+        839.776,
+        450.623,
+        139.132,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-14",
+      "text": "VII, IX: lateral hearts · XII, XIII: latero-oesophageal hearts",
+      "bounds": [
+        89.1016,
+        490.123,
+        372.018,
+        14.5811
+      ]
+    },
+    {
+      "id": "proof-label-15",
+      "text": "Vessel positions are separated to show connections; see the transverse section for depth.",
+      "bounds": [
+        89.1016,
+        514.123,
+        585.483,
+        14.5811
+      ]
+    }
+  ],
+  "en-crosssection": [
+    {
+      "id": "proof-label-0",
+      "text": "Transverse section through an intestinal segment",
+      "bounds": [
+        58.5781,
+        34.3438,
+        452.523,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Dorsal ↑ · Ventral ↓ · cylindrical, coelomate organization",
+      "bounds": [
+        59.7759,
+        64.623,
+        371.12,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Cuticle",
+      "bounds": [
+        61.2969,
+        131.344,
+        63.5156,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "Epidermis",
+      "bounds": [
+        61.9688,
+        188.344,
+        90.5156,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "Circular muscle",
+      "bounds": [
+        61.2969,
+        245.344,
+        140.57,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "Longitudinal muscle",
+      "bounds": [
+        61.9688,
+        302.344,
+        182.898,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Peritoneum",
+      "bounds": [
+        61.9688,
+        359.344,
+        105.164,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Coelom",
+      "bounds": [
+        61.2969,
+        416.344,
+        67.6719,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Gut and typhlosole",
+      "bounds": [
+        792.297,
+        206.344,
+        172.633,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "Dorsal vessel",
+      "bounds": [
+        792.969,
+        131.344,
+        120.391,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "Ventral vessel",
+      "bounds": [
+        791.578,
+        321.344,
+        129.383,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "Ventral nerve cord",
+      "bounds": [
+        791.578,
+        371.344,
+        169.523,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-12",
+      "text": "Subneural vessel",
+      "bounds": [
+        792.648,
+        421.344,
+        154.914,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-13",
+      "text": "Perichaetine setae",
+      "bounds": [
+        792.969,
+        472.344,
+        169.852,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-14",
+      "text": "Wall thickness and coelomic space enlarged for teaching",
+      "bounds": [
+        58.9316,
+        514.623,
+        371.475,
+        15.5811
+      ]
+    }
+  ],
+  "en-digestive": [
+    {
+      "id": "proof-label-0",
+      "text": "Pharynx IV",
+      "bounds": [
+        129.969,
+        196.344,
+        99.3047,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Oesophagus V–VII",
+      "bounds": [
+        223.23,
+        234.623,
+        117.759,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Gizzard VIII†",
+      "bounds": [
+        310.297,
+        200.344,
+        112.922,
+        16.6953
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "Stomach IX–XIV",
+      "bounds": [
+        422.648,
+        228.344,
+        142.812,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "Intestine XV–posterior",
+      "bounds": [
+        679.969,
+        208.344,
+        203.242,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "Intestinal caeca XXVI†",
+      "bounds": [
+        622.969,
+        171.344,
+        200.789,
+        16.6953
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Typhlosole",
+      "bounds": [
+        835.578,
+        302.344,
+        97.7656,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Opened intestinal wall",
+      "bounds": [
+        822.23,
+        332.623,
+        146.355,
+        15.5811
+      ]
+    }
+  ],
+  "en-excretory": [
+    {
+      "id": "proof-label-0",
+      "text": "Excretory pathways · enlarged schematic",
+      "bounds": [
+        74.9688,
+        64.3438,
+        373.094,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Anterior ←   ·   Posterior →",
+      "bounds": [
+        73.6016,
+        94.623,
+        154.646,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Alimentary canal",
+      "bounds": [
+        832.602,
+        300.623,
+        111.862,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "IV",
+      "bounds": [
+        147.776,
+        172.023,
+        14.3433,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "V",
+      "bounds": [
+        197.602,
+        172.023,
+        11.6836,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "VI",
+      "bounds": [
+        248.602,
+        172.023,
+        14.3496,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Pharyngeal · 3 paired tufts",
+      "bounds": [
+        89.9688,
+        389.344,
+        243.578,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Septal · 15/16 onward",
+      "bounds": [
+        656.648,
+        141.344,
+        198.734,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Ducts discharge into intestine",
+      "bounds": [
+        662.776,
+        399.623,
+        195.62,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "Integumentary · III onward → exterior",
+      "bounds": [
+        365.969,
+        450.344,
+        340.281,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "Septal unit",
+      "bounds": [
+        350.357,
+        336.623,
+        72.3291,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "Septal units have a nephrostome; pharyngeal and integumentary units lack one.",
+      "bounds": [
+        81.3569,
+        499.623,
+        526.669,
+        15.5811
+      ]
+    }
+  ],
+  "en-external": [
+    {
+      "id": "proof-label-0",
+      "text": "External morphology · segment positions shown schematically",
+      "bounds": [
+        79.9688,
+        66.3438,
+        566.297,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Anterior ←   ·   Posterior →",
+      "bounds": [
+        78.6016,
+        96.623,
+        154.646,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Dorsal surface · darker pigmentation",
+      "bounds": [
+        79.9688,
+        126.344,
+        333.867,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "Prostomium",
+      "bounds": [
+        63.9688,
+        213.344,
+        109.258,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "Clitellum XIV–XVI",
+      "bounds": [
+        413.297,
+        153.344,
+        155.883,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "Setal ring · enlarged",
+      "bounds": [
+        703.648,
+        398.344,
+        185.992,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Anus",
+      "bounds": [
+        1092.58,
+        315.836,
+        46.8516,
+        14.8906
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Dorsal pores · from 12/13 posteriorly",
+      "bounds": [
+        698.776,
+        239.623,
+        241.177,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Body proportions and posterior segments are compressed; use the stated segment numbers.",
+      "bounds": [
+        79.7759,
+        498.623,
+        608.128,
+        15.5811
+      ]
+    }
+  ],
+  "en-external-ventral": [
+    {
+      "id": "proof-label-0",
+      "text": "External morphology · segment positions shown schematically",
+      "bounds": [
+        79.9688,
+        66.3438,
+        566.297,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Anterior ←   ·   Posterior →",
+      "bounds": [
+        78.6016,
+        96.623,
+        154.646,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Ventral surface · genital openings visible",
+      "bounds": [
+        78.5781,
+        126.344,
+        372.906,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "Prostomium",
+      "bounds": [
+        63.9688,
+        213.344,
+        109.258,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "Clitellum XIV–XVI",
+      "bounds": [
+        413.297,
+        153.344,
+        155.883,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "Setal ring · enlarged",
+      "bounds": [
+        703.648,
+        398.344,
+        185.992,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Anus",
+      "bounds": [
+        1092.58,
+        315.836,
+        46.8516,
+        14.8906
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Mouth · segment I",
+      "bounds": [
+        77.7759,
+        318.623,
+        118.578,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Spermathecal pores 5/6–8/9",
+      "bounds": [
+        165.648,
+        401.344,
+        251.742,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "Female pore XIV",
+      "bounds": [
+        386.776,
+        437.623,
+        107.781,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "Male pores XVIII",
+      "bounds": [
+        515.776,
+        397.623,
+        104.842,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "Body proportions and posterior segments are compressed; use the stated segment numbers.",
+      "bounds": [
+        79.7759,
+        498.623,
+        608.128,
+        15.5811
+      ]
+    }
+  ],
+  "en-nervous": [
+    {
+      "id": "proof-label-0",
+      "text": "Nervous system · enlarged schematic",
+      "bounds": [
+        74.9688,
+        64.3438,
+        339.445,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Anterior ←   ·   Posterior →",
+      "bounds": [
+        73.6016,
+        93.623,
+        154.646,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Cerebral ganglia III",
+      "bounds": [
+        95.2969,
+        153.344,
+        173.547,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "Nerve ring",
+      "bounds": [
+        299.776,
+        206.623,
+        68.8823,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "Subpharyngeal ganglion IV",
+      "bounds": [
+        81.6484,
+        414.344,
+        246.0,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "Double, ganglionated ventral nerve cord",
+      "bounds": [
+        633.969,
+        421.344,
+        366.922,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Segmental ganglia and lateral nerves",
+      "bounds": [
+        422.648,
+        455.344,
+        340.438,
+        18.6094
+      ]
+    }
+  ],
+  "en-procedure-1": [
+    {
+      "id": "proof-label-5",
+      "text": "Anterior · prostomium",
+      "bounds": [
+        62.5781,
+        108.344,
+        202.125,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Posterior",
+      "bounds": [
+        1014.97,
+        150.344,
+        84.4844,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Dorsal vessel — preserve",
+      "bounds": [
+        433.969,
+        90.3438,
+        227.844,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Safer dorsolateral incision corridor",
+      "bounds": [
+        433.357,
+        130.623,
+        226.463,
+        13.061
+      ]
+    }
+  ],
+  "en-procedure-2": [
+    {
+      "id": "proof-label-5",
+      "text": "Anterior · prostomium",
+      "bounds": [
+        62.5781,
+        108.344,
+        202.125,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Posterior",
+      "bounds": [
+        1014.97,
+        150.344,
+        84.4844,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Dorsal vessel — preserve",
+      "bounds": [
+        433.969,
+        90.3438,
+        227.844,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Safer dorsolateral incision corridor",
+      "bounds": [
+        433.357,
+        130.623,
+        226.463,
+        13.061
+      ]
+    }
+  ],
+  "en-procedure-3": [
+    {
+      "id": "proof-label-5",
+      "text": "Anterior · prostomium",
+      "bounds": [
+        62.5781,
+        108.344,
+        202.125,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Posterior",
+      "bounds": [
+        1014.97,
+        150.344,
+        84.4844,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Dorsal vessel — preserve",
+      "bounds": [
+        433.969,
+        90.3438,
+        227.844,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Safer dorsolateral incision corridor",
+      "bounds": [
+        433.357,
+        130.623,
+        226.463,
+        13.061
+      ]
+    }
+  ],
+  "en-procedure-4": [
+    {
+      "id": "proof-label-5",
+      "text": "Anterior · prostomium",
+      "bounds": [
+        62.5781,
+        108.344,
+        202.125,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Posterior",
+      "bounds": [
+        1014.97,
+        150.344,
+        84.4844,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Dorsal vessel — preserve",
+      "bounds": [
+        433.969,
+        90.3438,
+        227.844,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Safer dorsolateral incision corridor",
+      "bounds": [
+        433.357,
+        130.623,
+        226.463,
+        13.061
+      ]
+    }
+  ],
+  "en-procedure-5": [
+    {
+      "id": "proof-label-5",
+      "text": "Anterior · prostomium",
+      "bounds": [
+        62.5781,
+        108.344,
+        202.125,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "Posterior",
+      "bounds": [
+        1014.97,
+        150.344,
+        84.4844,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Dorsal vessel — preserve",
+      "bounds": [
+        433.969,
+        90.3438,
+        227.844,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Safer dorsolateral incision corridor",
+      "bounds": [
+        433.357,
+        130.623,
+        226.463,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "Blunt probe: release septa",
+      "bounds": [
+        259.776,
+        160.623,
+        172.432,
+        15.5811
+      ]
+    }
+  ],
+  "en-procedure-6": [
+    {
+      "id": "proof-label-11",
+      "text": "Anterior ←   ·   Posterior →",
+      "bounds": [
+        73.6016,
+        28.623,
+        154.646,
+        13.061
+      ]
+    }
+  ],
+  "en-procedure-7": [
+    {
+      "id": "proof-label-10",
+      "text": "Opened dorsal dissection · organs preserved",
+      "bounds": [
+        129.297,
+        489.344,
+        405.609,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "Anterior ←   ·   Posterior →",
+      "bounds": [
+        73.6016,
+        28.623,
+        154.646,
+        13.061
+      ]
+    }
+  ],
+  "en-reproductive": [
+    {
+      "id": "proof-label-0",
+      "text": "Reproductive organs · dorsal schematic",
+      "bounds": [
+        74.9688,
+        65.3438,
+        358.594,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Anterior ←   ·   Posterior →",
+      "bounds": [
+        73.6016,
+        95.623,
+        154.646,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Gut position",
+      "bounds": [
+        948.23,
+        293.623,
+        80.2002,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "VI",
+      "bounds": [
+        159.602,
+        274.023,
+        14.3496,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "VII",
+      "bounds": [
+        211.602,
+        274.023,
+        18.1836,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "VIII",
+      "bounds": [
+        263.602,
+        274.023,
+        22.0176,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "IX",
+      "bounds": [
+        316.776,
+        274.023,
+        14.0576,
+        12.4771
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "Spermathecae · 4 pairs",
+      "bounds": [
+        127.648,
+        131.344,
+        210.375,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "Seminal vesicles XI–XII",
+      "bounds": [
+        381.648,
+        155.344,
+        205.883,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "Testes X–XI · 2 pairs",
+      "bounds": [
+        356.578,
+        403.344,
+        182.617,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "Ovaries XIII · 1 pair",
+      "bounds": [
+        529.297,
+        131.344,
+        176.047,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "Oviducts → XIV",
+      "bounds": [
+        561.23,
+        386.623,
+        99.9985,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-12",
+      "text": "Prostate glands · 1 pair",
+      "bounds": [
+        739.969,
+        126.344,
+        213.781,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-13",
+      "text": "Vasa deferentia → XVIII",
+      "bounds": [
+        677.602,
+        429.623,
+        151.599,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-14",
+      "text": "Paired organs shown on both sides; organ spacing and relative size are enlarged.",
+      "bounds": [
+        81.7759,
+        473.623,
+        528.77,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-15",
+      "text": "Partner sperm: spermathecae · Developing own sperm: seminal vesicles",
+      "bounds": [
+        81.7759,
+        503.623,
+        472.022,
+        15.5811
+      ]
+    }
+  ],
+  "en-respiratory": [
+    {
+      "id": "proof-label-0",
+      "text": "Cutaneous gas exchange · enlarged skin schematic",
+      "bounds": [
+        74.2969,
+        55.3438,
+        463.219,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Tissue thickness is exaggerated for clarity.",
+      "bounds": [
+        73.4619,
+        84.623,
+        278.241,
+        15.5811
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Moist epidermis",
+      "bounds": [
+        75.9688,
+        214.344,
+        145.578,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "Mucus film",
+      "bounds": [
+        75.9688,
+        131.344,
+        97.5625,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "Subepidermal capillaries",
+      "bounds": [
+        75.6484,
+        317.344,
+        224.703,
+        18.4844
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "O₂ inward",
+      "bounds": [
+        491.23,
+        102.623,
+        64.4834,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "CO₂ outward",
+      "bounds": [
+        649.23,
+        102.623,
+        82.9995,
+        13.061
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "No lungs or gills: gas exchange is cutaneous",
+      "bounds": [
+        95.4688,
+        439.844,
+        401.891,
+        17.6094
+      ]
+    }
+  ],
+  "en-setup": [
+    {
+      "id": "proof-label-0",
+      "text": "Anterior",
+      "bounds": [
+        68.0781,
+        163.844,
+        78.4062,
+        16.3828
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "Posterior",
+      "bounds": [
+        1014.97,
+        164.344,
+        84.4844,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "Dorsolateral incision line",
+      "bounds": [
+        526.969,
+        221.344,
+        225.977,
+        15.3828
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "Body-wall flaps",
+      "bounds": [
+        509.969,
+        332.344,
+        138.234,
+        18.6094
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "Lateral pins",
+      "bounds": [
+        504.969,
+        424.344,
+        107.859,
+        18.4844
+      ]
+    }
+  ],
+  "ta-circulatory": [
+    {
+      "id": "proof-label-0",
+      "text": "இரத்த நாளத் தொடர்புகள் · திட்டப்படம்",
+      "bounds": [
+        80.948,
+        74.884,
+        347.848,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "முன்முனை ← · பின்முனை →",
+      "bounds": [
+        81.452,
+        102.698,
+        206.013,
+        18.764
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "முதுகுப்புற நாளம்",
+      "bounds": [
+        844.38,
+        140.252,
+        164.008,
+        21.384
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "வயிற்றுப்புற நாளம்",
+      "bounds": [
+        849.22,
+        363.884,
+        182.216,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "உணவுக்குழாய் மேல்நாளம்",
+      "bounds": [
+        429.298,
+        112.698,
+        200.89,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "VII",
+      "bounds": [
+        234.5,
+        147.218,
+        19.081,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "IX",
+      "bounds": [
+        335.02,
+        147.218,
+        14.453,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "XII",
+      "bounds": [
+        504.552,
+        147.218,
+        18.847,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "XIII",
+      "bounds": [
+        604.552,
+        147.218,
+        23.254,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "4 இணைகள் · 8 இதயங்கள்",
+      "bounds": [
+        231.772,
+        384.884,
+        247.624,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "உணவுக்குழாய் பக்கநாளங்கள்",
+      "bounds": [
+        109.298,
+        316.132,
+        228.358,
+        18.862
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "நுண்நாள வலைகள்",
+      "bounds": [
+        789.012,
+        107.252,
+        188.824,
+        21.384
+      ]
+    },
+    {
+      "id": "proof-label-12",
+      "text": "நரம்புவடக் கீழ்நாளம்",
+      "bounds": [
+        839.14,
+        425.884,
+        192.36,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-13",
+      "text": "நரம்புவடத்திற்குக் கீழே",
+      "bounds": [
+        839.158,
+        448.698,
+        171.35,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-14",
+      "text": "VII, IX: பக்கவாட்டு இதயங்கள் · XII, XIII: பக்கவாட்டு உணவுக்குழாய் இதயங்கள்",
+      "bounds": [
+        89.0,
+        488.198,
+        563.666,
+        18.296
+      ]
+    },
+    {
+      "id": "proof-label-15",
+      "text": "தொடர்புகளைக் காட்ட நாளங்கள் பிரிக்கப்பட்டுள்ளன; ஆழநிலைக்குக் குறுக்குவெட்டைப் பார்க்கவும்.",
+      "bounds": [
+        89.798,
+        512.198,
+        725.492,
+        18.296
+      ]
+    }
+  ],
+  "ta-crosssection": [
+    {
+      "id": "proof-label-0",
+      "text": "குடற்பகுதி வழியான குறுக்குவெட்டு",
+      "bounds": [
+        59.38,
+        32.884,
+        330.328,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "முதுகுப்புறம் ↑ · வயிற்றுப்புறம் ↓ · உருளை வடிவ உடற்குழி அமைப்பு",
+      "bounds": [
+        59.452,
+        62.698,
+        496.623,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "கியூட்டிக்கிள்",
+      "bounds": [
+        61.156,
+        129.884,
+        120.552,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "புறத்தோல்",
+      "bounds": [
+        61.764,
+        186.884,
+        99.272,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "வட்டத் தசை",
+      "bounds": [
+        61.22,
+        244.252,
+        110.456,
+        21.384
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "நீளவாட்டுத் தசை",
+      "bounds": [
+        61.14,
+        300.884,
+        160.616,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "பெரிட்டோனியம்",
+      "bounds": [
+        61.364,
+        357.884,
+        150.376,
+        20.024
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "உடற்குழி",
+      "bounds": [
+        61.22,
+        414.884,
+        84.536,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "குடலும் டைஃப்ளோசோலும்",
+      "bounds": [
+        792.38,
+        204.884,
+        251.704,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "முதுகுப்புற நாளம்",
+      "bounds": [
+        792.38,
+        130.252,
+        164.008,
+        21.384
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "வயிற்றுப்புற நாளம்",
+      "bounds": [
+        792.22,
+        319.884,
+        182.216,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "வயிற்றுப்புற நரம்புவடம்",
+      "bounds": [
+        792.22,
+        369.884,
+        222.344,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-12",
+      "text": "நரம்புவடக் கீழ்நாளம்",
+      "bounds": [
+        792.14,
+        425.884,
+        192.36,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-13",
+      "text": "சுற்றமைந்த சீட்டாக்கள்",
+      "bounds": [
+        792.156,
+        470.884,
+        212.264,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-14",
+      "text": "விளக்கத்திற்காகத் திசு அடுக்குகளும் உடற்குழியும் பெரிதாக்கப்பட்டுள்ளன.",
+      "bounds": [
+        59.298,
+        512.698,
+        549.182,
+        19.296
+      ]
+    }
+  ],
+  "ta-digestive": [
+    {
+      "id": "proof-label-0",
+      "text": "தொண்டை IV",
+      "bounds": [
+        129.364,
+        194.884,
+        125.192,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "உணவுக்குழாய் V–VII",
+      "bounds": [
+        213.298,
+        234.132,
+        151.624,
+        18.862
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "அரவைப்பை VIII†",
+      "bounds": [
+        309.9,
+        199.252,
+        159.515,
+        19.656
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "இரைப்பை IX–XIV",
+      "bounds": [
+        421.948,
+        226.884,
+        157.448,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "குடல் XV–பின்முனை",
+      "bounds": [
+        679.38,
+        206.884,
+        185.192,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "குடல் நீட்சிகள் XXVI†",
+      "bounds": [
+        622.38,
+        153.884,
+        181.915,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "டைஃப்ளோசோல்",
+      "bounds": [
+        836.22,
+        300.884,
+        159.416,
+        16.808
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "திறந்த குடற்சுவர்",
+      "bounds": [
+        822.158,
+        330.698,
+        128.174,
+        19.296
+      ]
+    }
+  ],
+  "ta-excretory": [
+    {
+      "id": "proof-label-0",
+      "text": "கழிவுநீக்கப் பாதைகள் · பெரிதாக்கப்பட்ட திட்டப்படம்",
+      "bounds": [
+        74.156,
+        62.884,
+        471.464,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "முன்முனை ← · பின்முனை →",
+      "bounds": [
+        74.452,
+        92.698,
+        206.013,
+        18.764
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "உணவுப்பாதை",
+      "bounds": [
+        833.298,
+        299.132,
+        111.822,
+        18.862
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "IV",
+      "bounds": [
+        147.02,
+        172.218,
+        14.687,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "V",
+      "bounds": [
+        197.5,
+        172.218,
+        10.8,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "VI",
+      "bounds": [
+        248.5,
+        172.218,
+        14.674,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "தொண்டை நெஃப்ரிடியாக்கள் · 3 இணைகள்",
+      "bounds": [
+        89.364,
+        387.884,
+        401.144,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "இடைத்திரை · 15/16 முதல்",
+      "bounds": [
+        655.948,
+        139.884,
+        232.312,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "குழல்கள் குடலுக்குள் திறக்கின்றன",
+      "bounds": [
+        662.452,
+        397.698,
+        260.852,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "உடற்சுவர் · III முதல் → வெளிப்புறம்",
+      "bounds": [
+        365.22,
+        448.884,
+        315.478,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "இடைத்திரை அலகு",
+      "bounds": [
+        350.186,
+        334.698,
+        143.7,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "இடைத்திரை நெஃப்ரிடியாக்களில் நெஃப்ரோஸ்டோம் உண்டு; மற்ற இரு வகைகளில் இல்லை.",
+      "bounds": [
+        81.186,
+        497.698,
+        675.994,
+        19.296
+      ]
+    }
+  ],
+  "ta-external": [
+    {
+      "id": "proof-label-0",
+      "text": "புற அமைப்பியல் · கண்ட அமைவிடங்கள்",
+      "bounds": [
+        79.764,
+        64.884,
+        370.968,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "முன்முனை ← · பின்முனை →",
+      "bounds": [
+        79.452,
+        94.698,
+        206.013,
+        18.764
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "முதுகுப்புறம் · கருமையான பகுதி",
+      "bounds": [
+        79.38,
+        124.884,
+        302.296,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "முன்வாய்மடல்",
+      "bounds": [
+        63.38,
+        212.252,
+        132.936,
+        21.032
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "கிளைட்டெல்லம் XIV–XVI",
+      "bounds": [
+        413.156,
+        151.884,
+        216.856,
+        16.808
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "சீட்டா வளையம் · பெரிதாக்கம்",
+      "bounds": [
+        703.156,
+        396.884,
+        270.04,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "மலத்துளை",
+      "bounds": [
+        1047.76,
+        314.252,
+        107.56,
+        21.384
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "முதுகுத் துளைகள் · 12/13 முதல் பின்புறம்",
+      "bounds": [
+        698.452,
+        237.698,
+        299.1,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "உடல் அளவும் பின்புறக் கண்டங்களும் சுருக்கப்பட்டுள்ளன. குறிக்கப்பட்ட கண்ட எண்களைப் பார்க்கவும்.",
+      "bounds": [
+        79.298,
+        496.698,
+        749.382,
+        19.296
+      ]
+    }
+  ],
+  "ta-external-ventral": [
+    {
+      "id": "proof-label-0",
+      "text": "புற அமைப்பியல் · கண்ட அமைவிடங்கள்",
+      "bounds": [
+        79.764,
+        64.884,
+        370.968,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "முன்முனை ← · பின்முனை →",
+      "bounds": [
+        79.452,
+        94.698,
+        206.013,
+        18.764
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "வயிற்றுப்புறம் · இனத்துளைகள்",
+      "bounds": [
+        79.22,
+        124.884,
+        294.712,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "முன்வாய்மடல்",
+      "bounds": [
+        63.38,
+        212.252,
+        132.936,
+        21.032
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "கிளைட்டெல்லம் XIV–XVI",
+      "bounds": [
+        413.156,
+        151.884,
+        216.856,
+        16.808
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "சீட்டா வளையம் · பெரிதாக்கம்",
+      "bounds": [
+        703.156,
+        396.884,
+        270.04,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "மலத்துளை",
+      "bounds": [
+        1047.76,
+        314.252,
+        107.56,
+        21.384
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "வாய் · கண்டம் I",
+      "bounds": [
+        77.298,
+        317.132,
+        114.454,
+        14.536
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "விந்தேற்புத் துளைகள் 5/6–8/9",
+      "bounds": [
+        165.22,
+        399.884,
+        267.096,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "பெண் இனத்துளை XIV",
+      "bounds": [
+        386.298,
+        435.698,
+        167.878,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "ஆண் இனத்துளைகள் XVIII",
+      "bounds": [
+        514.906,
+        365.698,
+        197.18,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "உடல் அளவும் பின்புறக் கண்டங்களும் சுருக்கப்பட்டுள்ளன. குறிக்கப்பட்ட கண்ட எண்களைப் பார்க்கவும்.",
+      "bounds": [
+        79.298,
+        496.698,
+        749.382,
+        19.296
+      ]
+    }
+  ],
+  "ta-nervous": [
+    {
+      "id": "proof-label-0",
+      "text": "நரம்பு மண்டலம் · பெரிதாக்கப்பட்ட தோற்றம்",
+      "bounds": [
+        74.14,
+        62.884,
+        399.096,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "முன்முனை ← · பின்முனை →",
+      "bounds": [
+        74.452,
+        91.698,
+        206.013,
+        18.764
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "மூளை நரம்புத் திரள்கள் III",
+      "bounds": [
+        95.332,
+        151.884,
+        244.52,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "நரம்பு வளையம்",
+      "bounds": [
+        299.252,
+        203.508,
+        135.992,
+        21.128
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "கீழ்த்தொண்டை நரம்புத் திரள் IV",
+      "bounds": [
+        81.156,
+        412.884,
+        294.44,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "இரட்டை வயிற்றுப்புற நரம்புவடம்",
+      "bounds": [
+        632.948,
+        419.884,
+        301.912,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "கண்ட நரம்புத் திரள்கள் · பக்க நரம்புகள்",
+      "bounds": [
+        422.156,
+        453.884,
+        362.84,
+        21.752
+      ]
+    }
+  ],
+  "ta-procedure-1": [
+    {
+      "id": "proof-label-5",
+      "text": "முன்முனை · முன்வாய்மடல்",
+      "bounds": [
+        63.38,
+        107.252,
+        248.856,
+        21.032
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "பின்முனை",
+      "bounds": [
+        1014.76,
+        148.884,
+        103.016,
+        21.4
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "முதுகுப்புற இரத்த நாளம் — பாதுகாக்கவும்",
+      "bounds": [
+        433.38,
+        88.884,
+        382.52,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "முதுகின் பக்கவாட்டு வெட்டுப் பாதை",
+      "bounds": [
+        433.452,
+        128.698,
+        266.634,
+        19.296
+      ]
+    }
+  ],
+  "ta-procedure-2": [
+    {
+      "id": "proof-label-5",
+      "text": "முன்முனை · முன்வாய்மடல்",
+      "bounds": [
+        63.38,
+        107.252,
+        248.856,
+        21.032
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "பின்முனை",
+      "bounds": [
+        1014.76,
+        148.884,
+        103.016,
+        21.4
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "முதுகுப்புற இரத்த நாளம் — பாதுகாக்கவும்",
+      "bounds": [
+        433.38,
+        88.884,
+        382.52,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "முதுகின் பக்கவாட்டு வெட்டுப் பாதை",
+      "bounds": [
+        433.452,
+        128.698,
+        266.634,
+        19.296
+      ]
+    }
+  ],
+  "ta-procedure-3": [
+    {
+      "id": "proof-label-5",
+      "text": "முன்முனை · முன்வாய்மடல்",
+      "bounds": [
+        63.38,
+        107.252,
+        248.856,
+        21.032
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "பின்முனை",
+      "bounds": [
+        1014.76,
+        148.884,
+        103.016,
+        21.4
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "முதுகுப்புற இரத்த நாளம் — பாதுகாக்கவும்",
+      "bounds": [
+        433.38,
+        88.884,
+        382.52,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "முதுகின் பக்கவாட்டு வெட்டுப் பாதை",
+      "bounds": [
+        433.452,
+        128.698,
+        266.634,
+        19.296
+      ]
+    }
+  ],
+  "ta-procedure-4": [
+    {
+      "id": "proof-label-5",
+      "text": "முன்முனை · முன்வாய்மடல்",
+      "bounds": [
+        63.38,
+        107.252,
+        248.856,
+        21.032
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "பின்முனை",
+      "bounds": [
+        1014.76,
+        148.884,
+        103.016,
+        21.4
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "முதுகுப்புற இரத்த நாளம் — பாதுகாக்கவும்",
+      "bounds": [
+        433.38,
+        88.884,
+        382.52,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "முதுகின் பக்கவாட்டு வெட்டுப் பாதை",
+      "bounds": [
+        433.452,
+        128.698,
+        266.634,
+        19.296
+      ]
+    }
+  ],
+  "ta-procedure-5": [
+    {
+      "id": "proof-label-5",
+      "text": "முன்முனை · முன்வாய்மடல்",
+      "bounds": [
+        63.38,
+        107.252,
+        248.856,
+        21.032
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "பின்முனை",
+      "bounds": [
+        1014.76,
+        148.884,
+        103.016,
+        21.4
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "முதுகுப்புற இரத்த நாளம் — பாதுகாக்கவும்",
+      "bounds": [
+        433.38,
+        88.884,
+        382.52,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "முதுகின் பக்கவாட்டு வெட்டுப் பாதை",
+      "bounds": [
+        433.452,
+        128.698,
+        266.634,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "மழுங்கிய ஆய்வூசி: இடைத்திரைகளைப் பிரிக்கவும்",
+      "bounds": [
+        259.732,
+        158.698,
+        291.708,
+        40.464
+      ]
+    }
+  ],
+  "ta-procedure-6": [
+    {
+      "id": "proof-label-11",
+      "text": "முன்முனை ← · பின்முனை →",
+      "bounds": [
+        74.452,
+        26.698,
+        206.013,
+        18.764
+      ]
+    }
+  ],
+  "ta-procedure-7": [
+    {
+      "id": "proof-label-10",
+      "text": "திறந்த உடற்சுவர் · பாதுகாக்கப்பட்ட உள்ளுறுப்புகள்",
+      "bounds": [
+        129.156,
+        487.884,
+        467.128,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "முன்முனை ← · பின்முனை →",
+      "bounds": [
+        74.452,
+        26.698,
+        206.013,
+        18.764
+      ]
+    }
+  ],
+  "ta-reproductive": [
+    {
+      "id": "proof-label-0",
+      "text": "இனப்பெருக்க உறுப்புகள் · முதுகுப்புறத் திட்டப்படம்",
+      "bounds": [
+        73.948,
+        63.884,
+        464.008,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "முன்முனை ← · பின்முனை →",
+      "bounds": [
+        74.452,
+        93.698,
+        206.013,
+        18.764
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "உணவுப்பாதை அமைவிடம்",
+      "bounds": [
+        948.298,
+        291.698,
+        199.224,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "VI",
+      "bounds": [
+        159.5,
+        274.218,
+        14.674,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "VII",
+      "bounds": [
+        211.5,
+        274.218,
+        19.081,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "VIII",
+      "bounds": [
+        263.5,
+        274.218,
+        23.488,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "IX",
+      "bounds": [
+        316.02,
+        274.218,
+        14.453,
+        12.282
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "விந்தேற்புப் பைகள் · 4 இணைகள்",
+      "bounds": [
+        93.22,
+        119.884,
+        308.168,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-8",
+      "text": "விந்துப் பைகள் XI–XII",
+      "bounds": [
+        353.22,
+        180.884,
+        195.432,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-9",
+      "text": "விந்தகங்கள் X–XI · 2 இணைகள்",
+      "bounds": [
+        357.22,
+        401.884,
+        289.4,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-10",
+      "text": "அண்டகங்கள் XIII · 1 இணை",
+      "bounds": [
+        518.9,
+        109.884,
+        259.368,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-11",
+      "text": "அண்டநாளங்கள் → XIV",
+      "bounds": [
+        560.906,
+        369.132,
+        167.945,
+        18.862
+      ]
+    },
+    {
+      "id": "proof-label-12",
+      "text": "புரோஸ்டேட் சுரப்பிகள் · 1 இணை",
+      "bounds": [
+        799.764,
+        114.884,
+        299.336,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-13",
+      "text": "விந்துநாளங்கள் → XVIII",
+      "bounds": [
+        678.298,
+        427.698,
+        172.593,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-14",
+      "text": "இணை உறுப்புகள் இருபுறமும் காட்டப்பட்டுள்ளன; உறுப்புகளின் அளவும் இடைவெளியும் மிகைப்படுத்தப்பட்டுள்ளன.",
+      "bounds": [
+        81.186,
+        463.698,
+        845.632,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-15",
+      "text": "பிற மண்புழுவின் விந்தணுக்கள்: விந்தேற்புப் பைகள் · வளரும் சொந்த விந்தணுக்கள்: விந்துப் பைகள்",
+      "bounds": [
+        81.732,
+        509.698,
+        740.114,
+        19.296
+      ]
+    }
+  ],
+  "ta-respiratory": [
+    {
+      "id": "proof-label-0",
+      "text": "தோல் வழி வாயுப் பரிமாற்றம் · பெரிதாக்கப்பட்ட தோற்றம்",
+      "bounds": [
+        74.252,
+        53.884,
+        518.712,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "விளக்கத்திற்காகத் திசு அடுக்குகள் தடிமனாகக் காட்டப்பட்டுள்ளன.",
+      "bounds": [
+        74.298,
+        82.698,
+        482.766,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "ஈரமான புறத்தோல்",
+      "bounds": [
+        75.764,
+        212.884,
+        175.32,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "சளிப்பொருள் படலம்",
+      "bounds": [
+        75.156,
+        129.884,
+        190.984,
+        21.752
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "புறத்தோலடித் தந்துகிகள்",
+      "bounds": [
+        75.156,
+        315.884,
+        128.616,
+        46.552
+      ]
+    },
+    {
+      "id": "proof-label-5",
+      "text": "O₂ உட்புறம்",
+      "bounds": [
+        491.354,
+        101.132,
+        81.9985,
+        18.862
+      ]
+    },
+    {
+      "id": "proof-label-6",
+      "text": "CO₂ வெளிப்புறம்",
+      "bounds": [
+        649.354,
+        100.698,
+        122.696,
+        19.296
+      ]
+    },
+    {
+      "id": "proof-label-7",
+      "text": "தோல் வழியே வாயுப் பரிமாற்றம்; நுரையீரலும் செவுளும் இல்லை.",
+      "bounds": [
+        94.752,
+        438.384,
+        597.936,
+        20.752
+      ]
+    }
+  ],
+  "ta-setup": [
+    {
+      "id": "proof-label-0",
+      "text": "முன்முனை",
+      "bounds": [
+        68.88,
+        162.752,
+        105.888,
+        22.032
+      ]
+    },
+    {
+      "id": "proof-label-1",
+      "text": "பின்முனை",
+      "bounds": [
+        1014.76,
+        148.884,
+        103.016,
+        21.4
+      ]
+    },
+    {
+      "id": "proof-label-2",
+      "text": "மேல்பக்கவாட்டு வெட்டுக்கோடு",
+      "bounds": [
+        526.252,
+        219.884,
+        288.04,
+        21.608
+      ]
+    },
+    {
+      "id": "proof-label-3",
+      "text": "உடற்சுவர் மடல்கள்",
+      "bounds": [
+        509.22,
+        331.252,
+        173.832,
+        21.384
+      ]
+    },
+    {
+      "id": "proof-label-4",
+      "text": "பக்கவாட்டு நிலைநிறுத்து ஊசிகள்",
+      "bounds": [
+        504.764,
+        422.884,
+        321.304,
+        21.752
+      ]
+    }
+  ]
+}
