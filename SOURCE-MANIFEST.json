@@ -4,8 +4,8 @@
     "sha256": "ba7674b8cec93ddea8b2f3dbd3404ff6cbf9073f91880d673d4cfc643ab26c83"
   },
   "revised": {
-    "bytes": 549308,
-    "sha256": "229b7d4751eaf7ffe23bdc766b398bab221f0cdb392f19063134de7144aead8c"
+    "bytes": 549328,
+    "sha256": "d22bd650486a0dfd94f1d8513fbcc95ae7f2d331762d684ce8567d6fcbf00c9c"
   },
   "version": "1.3.3-beta",
   "androidApplicationId": "in.ramesh.zoology.earthwormlab",

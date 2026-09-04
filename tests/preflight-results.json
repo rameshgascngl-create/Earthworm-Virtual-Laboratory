@@ -1,8 +1,8 @@
 {
-  "date": "2026-09-03",
+  "date": "2026-09-04",
   "version": "1.3.3-beta",
-  "htmlSHA256": "229b7d4751eaf7ffe23bdc766b398bab221f0cdb392f19063134de7144aead8c",
-  "checks": 231,
+  "htmlSHA256": "d22bd650486a0dfd94f1d8513fbcc95ae7f2d331762d684ce8567d6fcbf00c9c",
+  "checks": 232,
   "errors": [],
   "evidence": [
     "No replacement characters in the HTML",
@@ -20,8 +20,9 @@
     "Reviewed educational data preserved: DEEP_DIVES",
     "Reviewed educational data preserved: PROCEDURE_STEPS",
     "Reviewed educational data preserved: TA_INTROS",
-    "SVG markup unchanged from 1.3.2",
-    "All style blocks unchanged from 1.3.2",
+    "SVG markup matches the reviewed rendering baseline",
+    "Style blocks match the reviewed rendering baseline",
+    "Probe animation preserves its base SVG translation",
     "No external executable/style startup resources",
     "Offline CSP retains default-src 'none'",
     "Offline CSP retains connect-src 'none'",

@@ -1,7 +1,7 @@
 # Earthworm simulator — pre-GitHub audit, 1.3.3-beta
 
-Date: 3 September 2026  
-Status: revised source candidate, prepared for a verification build. **No GitHub changes, browser execution, Android compilation, APK generation or publication occurred in this revision.**
+Date: 4 September 2026  
+Status: revised source candidate under GitHub verification. **Android compilation, APK generation and publication have not yet succeeded.**
 
 ## What was corrected
 
@@ -12,13 +12,14 @@ Status: revised source candidate, prepared for a verification build. **No GitHub
 | Old WebView error/message callbacks could affect a replacement view. | Added current-view checks and cleanup of speech, print and pending Back state during recovery. | Source review and Java syntax parsing only. |
 | Back handling could stay pending indefinitely if JavaScript did not answer. | Added a 1.5-second guarded fallback that offers a deliberate close choice, with stale-callback and lifecycle cleanup. | Source review and syntax parsing only; native timing requires device verification. |
 | Print-adapter creation occurred outside the error cleanup; an old completion could affect a later print job. | Moved setup inside the guarded path; added request-specific completion and safe reply cleanup. | Source review and syntax parsing only; printing remains a device acceptance item. |
-| Previous visual evidence overclaimed what an approximate SVG export could establish. | Explicitly withdrew those acceptance claims, segregated historical proofs, inventoried the complete style context and prepared real-browser tests. | Source inventory and test collection completed; browser execution is pending. |
+| Previous visual evidence overclaimed what an approximate SVG export could establish. | Explicitly withdrew those acceptance claims, segregated historical proofs and required real-browser evidence. | The first real Chromium run completed and correctly stopped the build at a demonstrated procedure-stage defect. |
+| The probe animation replaced, rather than composed with, the probe group's SVG translation. | The animation now carries the base 260 × 212 translation through all keyframes. | GitHub Chromium run 1 placed the probe label above the viewport in English and Tamil at all three widths; 67 browser tests passed and six procedure tests stopped at this defect. |
 
 Android documents onStop separately from normal utterance completion. This supports handling cancellation explicitly; it does not prove that the revised native path has executed successfully here. [Android utterance callbacks](https://developer.android.com/reference/android/speech/tts/UtteranceProgressListener).
 
-## No speculative diagram changes
+## Evidence-bounded diagram change
 
-The full anatomy SVG and every style block are **byte-identical to 1.3.2-beta**. Scientific records, all question answers, procedure scripts, microscopic lessons and Tamil spoken introductions also match frozen content hashes.
+The full anatomy SVG remains **byte-identical to 1.3.2-beta**. One CSS keyframe was changed in response to direct Chromium geometry evidence. Scientific records, all question answers, procedure scripts, microscopic lessons and Tamil spoken introductions still match frozen content hashes.
 
 Inventory retained: 55 structure records, 56 guided actions, 72 questions, nine microscopic panels and nine sections including preparation and transverse section.
 
@@ -42,13 +43,13 @@ Application projects cover English/Tamil views at desktop, 390-pixel and 360-pix
 |---|---|
 | DOM/data interaction tests | **1,491 passed**, including added microscopic-panel DOM-ID and SVG-reference checks. Not layout or touch testing. |
 | Tamil speech and lifecycle contracts | **238 passed**, including pause, page-hide, cancellation and stale-event cases. Speech events are simulated; no listening assessment. |
-| Source preflight | Passed version/hash consistency, educational-data preservation, SVG/style preservation, complete rule inventory, offline-resource checks, workflow structure, XML and JavaScript syntax checks. |
+| Source preflight | Passed version/hash consistency, educational-data preservation, reviewed SVG/style baselines, complete rule inventory, offline-resource checks, workflow structure, XML and JavaScript syntax checks. |
 | Native Java | Both application and instrumentation source files parsed successfully as Java 17. No Android symbol/type checking, bytecode compilation or device execution is implied. |
 | npm dependency audit | No known advisories reported for the locked npm development dependencies at the time checked. Not an Android dependency scan or a security certification. |
-| Browser test collection | **73 tests collected successfully; zero browser tests executed here.** Collection is not a pass result. |
+| First full-browser run | **67 passed and six failed** at one reproduced probe-label overflow across English/Tamil and three widths. The targeted correction must pass the current GitHub rerun before browser acceptance. |
 | Build configuration | Pinned JDK 17 / Gradle 8.13 / AGP 8.13.2 / SDK 36 settings match the published compatibility baseline. Actual dependency resolution and build remain pending. |
 
-The session's browser access policy prevented local browser verification; it was not bypassed through another renderer or automation route. Gradle and the Android SDK were unavailable. Neither limitation is reported as a passed test.
+Local browser access and Android tooling remain unavailable. Real Chromium execution is performed by the repository workflow; its current result controls acceptance.
 
 The pinned Android baseline supports Gradle 8.13, JDK 17 and the selected SDK level. [AGP compatibility table](https://developer.android.com/build/releases/agp-8-13-0-release-notes).
 
@@ -61,7 +62,7 @@ The revised workflow has a read-only repository permission and two dependent job
 
 No signed production release or automatic publication is configured. Test results, screenshots and real build logs must be reviewed before distribution. A browser-gate failure is a diagnostic stop, not a reason to bypass validation.
 
-Upload the archive contents to the repository root, keeping .github/workflows/android.yml in place. Then run Actions → Validate and build Android beta. The README supplies exact commands and artifact names.
+The archive contents are now in the repository root with .github/workflows/android.yml in place. The README supplies exact commands and artifact names.
 
 ## Remaining acceptance requirements
 
@@ -77,7 +78,7 @@ Upload the archive contents to the repository root, keeping .github/workflows/an
 Application ID: in.ramesh.zoology.earthwormlab  
 versionName: 1.3.3-beta  
 versionCode: 10303  
-HTML bytes: 549308  
-HTML SHA-256: 229b7d4751eaf7ffe23bdc766b398bab221f0cdb392f19063134de7144aead8c
+HTML bytes: 549328  
+HTML SHA-256: d22bd650486a0dfd94f1d8513fbcc95ae7f2d331762d684ce8567d6fcbf00c9c
 
 The standalone HTML and bundled Android asset are byte-identical. This audit supersedes the visual-certification wording in the preceding audit.

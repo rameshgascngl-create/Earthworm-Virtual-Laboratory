@@ -1,6 +1,6 @@
 {
-  "date": "2026-09-03",
-  "htmlSHA256": "229b7d4751eaf7ffe23bdc766b398bab221f0cdb392f19063134de7144aead8c",
+  "date": "2026-09-04",
+  "htmlSHA256": "d22bd650486a0dfd94f1d8513fbcc95ae7f2d331762d684ce8567d6fcbf00c9c",
   "checks": 238,
   "errors": [],
   "scope": "Tamil text and narration event contracts with mocked browser/native speech. No audio or device execution."

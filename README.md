@@ -7,7 +7,7 @@ Department of Zoology, Government Arts and Science College, Nagercoil, Tamil Nad
 
 This is a source candidate prepared for a verification build, not a compiled or production-certified Android app. No repository was created or changed in this revision.
 
-The revision fixes a reproduced silent-procedure pause defect and adds native cancellation handling and recovery safeguards. It preserves the SVG, every style block, all 55 structure records, 56 guided actions, 72 questions, nine microscopic lessons and reviewed Tamil narration.
+The revision fixes a reproduced silent-procedure pause defect and adds native cancellation handling and recovery safeguards. A real Chromium run also exposed and corrected one probe-animation transform defect that moved its bilingual label outside the SVG. It preserves the SVG markup, all 55 structure records, 56 guided actions, 72 questions, nine microscopic lessons and reviewed Tamil narration.
 
 Earlier extracted SVG proofs are historical, non-authoritative evidence. They do not establish live-browser layout correctness. See AUDIT.md and review/SVG-AUDIT-PROTOCOL.md.
 

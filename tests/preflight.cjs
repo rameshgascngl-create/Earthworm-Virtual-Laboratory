@@ -20,8 +20,9 @@ const dom=new JSDOM(code,{url:'https://appassets.androidplatform.net/assets/inde
 const d=dom.window.document,data=JSON.parse(JSON.stringify(dom.window.__releaseData));
 for(const [key,expected] of Object.entries(baseline.dataHashes))check(sha(JSON.stringify(data[key]))===expected,'Reviewed educational data preserved: '+key);
 const svg=html.match(/<svg id="anatomySvg"[\s\S]*?<\/svg>/)[0],styles=[...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map(m=>m[1]);
-check(sha(svg)===baseline.renderingContext.svgSHA256,'SVG markup unchanged from 1.3.2');
-check(JSON.stringify(styles.map(sha))===JSON.stringify(baseline.renderingContext.styleSHA256),'All style blocks unchanged from 1.3.2');
+check(sha(svg)===baseline.renderingContext.svgSHA256,'SVG markup matches the reviewed rendering baseline');
+check(JSON.stringify(styles.map(sha))===JSON.stringify(baseline.renderingContext.styleSHA256),'Style blocks match the reviewed rendering baseline');
+check(html.includes('@keyframes probeTravel{0%{transform:translate(260px,212px)}50%{transform:translate(710px,212px)}100%{transform:translate(1020px,212px)}}'),'Probe animation preserves its base SVG translation');
 check(d.querySelectorAll('script[src],link[rel="stylesheet"]').length===0,'No external executable/style startup resources');
 const csp=d.querySelector('meta[http-equiv="Content-Security-Policy"]')?.content||'';
 for(const rule of ["default-src 'none'","connect-src 'none'","font-src data:"])check(csp.includes(rule),'Offline CSP retains '+rule);

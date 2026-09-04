@@ -11,8 +11,9 @@
     "TA_INTROS": "9351273b1a6ea759ef52dc49cfc52c2ee8e91a0f13be54101e3bbcc15d248103"
   },
   "renderingContext": {
+    "version": "1.3.3-beta-probe-transform-fix",
     "svgSHA256": "9dede901609e2ff90391797d339d0e7351e305e96190c5be93b7f512c8b00f0a",
-    "styleSHA256": ["0b54a8d0a7ba3a4b5047f4d637ab8c0812a05663f22e95c924d8fb9be08e3842"]
+    "styleSHA256": ["6844b9bfe9a52fe39bdd4527bc74d7fb28bc8299fcbaa029b3e22c271d7781be"]
   },
   "microscopicTargets": [
     {"id":"gizzard","system":"digestive","deep":"gizzard"},

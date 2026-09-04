@@ -8,4 +8,5 @@
 - Made Android artifacts depend on successful source and browser validation.
 - Added microscopic-panel DOM ID/reference checks.
 - Explicitly superseded unsupported earlier visual claims and segregated historical extraction evidence.
-- Kept scientific text, answers, Tamil narration, drawings, styles and local-progress identity unchanged.
+- Kept scientific text, answers, Tamil narration, drawings and local-progress identity unchanged.
+- Corrected the probe-travel CSS animation after real Chromium evidence showed that it replaced the SVG group's base translation and moved its bilingual label above the viewport.
