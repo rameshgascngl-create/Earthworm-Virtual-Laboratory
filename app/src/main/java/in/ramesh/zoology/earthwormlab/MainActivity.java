@@ -333,6 +333,7 @@ public final class MainActivity extends Activity {
         backPending=false;backRequest++;
         if (backTimeout!=null) { root.removeCallbacks(backTimeout);backTimeout=null; }
     }
+    @SuppressLint("GestureBackNavigation")
     @Override public void onBackPressed() { handleBack(); }
     @Override protected void onPause() {
         clearBackRequest();stopSpeech();

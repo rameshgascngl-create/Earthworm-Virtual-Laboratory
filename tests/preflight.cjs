@@ -53,6 +53,7 @@ check(validate.includes('npm test')&&validate.includes('npm run test:browser'),'
 check(!workflow.on.pull_request_target,'No privileged pull-request-target workflow');
 const native=read('app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java');
 check(!native.includes('addJavascriptInterface('),'No unrestricted JavaScript bridge');
+check(native.includes('registerOnBackInvokedCallback')&&native.includes('@SuppressLint("GestureBackNavigation")'),'Predictive Back is registered while the legacy API 24–32 fallback is retained');
 const android=new JSDOM(read('app/src/main/AndroidManifest.xml'),{contentType:'text/xml'});
 check(android.window.document.querySelectorAll('uses-permission').length===0,'Android manifest requests no permissions');android.window.close();
 function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>['node_modules','.git','.gradle','build','test-results','playwright-report'].includes(e.name)?[]:e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)])}

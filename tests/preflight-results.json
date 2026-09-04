@@ -2,7 +2,7 @@
   "date": "2026-09-04",
   "version": "1.3.3-beta",
   "htmlSHA256": "d22bd650486a0dfd94f1d8513fbcc95ae7f2d331762d684ce8567d6fcbf00c9c",
-  "checks": 232,
+  "checks": 233,
   "errors": [],
   "evidence": [
     "No replacement characters in the HTML",
@@ -120,6 +120,7 @@
     "Both DOM/data and full-browser gates are configured",
     "No privileged pull-request-target workflow",
     "No unrestricted JavaScript bridge",
+    "Predictive Back is registered while the legacy API 24–32 fallback is retained",
     "Android manifest requests no permissions",
     "Java source parses without syntax errors: ",
     "No private build/signing file: .github/workflows/android.yml",
