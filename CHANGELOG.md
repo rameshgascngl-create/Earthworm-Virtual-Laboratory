@@ -1,3 +1,14 @@
+# 1.3.5 — Advanced practical track
+
+- Species banner: *Metaphire posthuma* — no crop; four heart pairs in VII, IX, XII and XIII.
+- Added buccal cavity, calciferous glands (stomach wall), blood glands, testis sacs and accessory glands.
+- Guided walks now include female pore, mouth, dorsal pores and the new internal landmarks.
+- Schematic vs Tray look: tray image is an original wet-appearance reconstruction, not a college photograph and not a Lumbricus plate.
+- Advanced spotter mode: the lab names an organ; the student must click it on the schematic.
+- On-the-tray appearance notes for organs students mis-identify.
+- Progress export/import (JSON). Extra viva items reject Lumbricus crop/five-heart labels.
+- Android versionCode 10305. Package id unchanged: `in.ramesh.zoology.earthwormlab`.
+
 # 1.3.3-beta — pre-GitHub revision
 
 - Reproduced and fixed silent procedure auto-advance continuing after native pause; page-hide now uses the same complete pause handler.
