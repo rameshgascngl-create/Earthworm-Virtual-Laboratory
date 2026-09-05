@@ -18,3 +18,58 @@ ok(Object.keys(t.DEEP_DIVES).length>=5,'Microscopic explanations preserved');
 const ids=[...d.querySelectorAll('[id]')].map(x=>x.id);ok(new Set(ids).size===ids.length,'No duplicate DOM IDs');
 for(const node of d.querySelectorAll('[fill],[stroke],[filter],[marker-end]'))for(const a of ['fill','stroke','filter','marker-end']){const m=(node.getAttribute(a)||'').match(/^url\\(#(.+)\\)$/);if(m)ok(d.getElementById(m[1]),'SVG reference '+m[1])}
 for(const [id,s] of Object.entries(t.STRUCTURES))for(const key of ['en','ta','locEn','locTa','fnEn','fnTa','sigEn','sigTa','fixEn','fixTa'])ok(typeof s[key]==='string'&&s[key].trim(),'Bilingual field '+id+' '+key);
+for(const lang of ['en','ta']){
+  t.setState({lang,sound:false,voice:false});t.renderAll();
+  for(const system of Object.keys(t.SYSTEMS)){
+    t.selectSystem(system);t.selectMode('guided');
+    for(const step of t.MODULES[system]){
+      const current=t.getState().steps[system];
+      d.querySelector(`[data-tool="${step.tool}"]`).click();
+      if(t.getState().tool!==step.tool)d.querySelector(`[data-tool="${step.tool}"]`).click();
+      const node=t.activeStructure(step.target);ok(node,'Visible guided target '+system+':'+step.target);
+      node.dispatchEvent(new w.MouseEvent('click',{bubbles:true}));
+      ok(t.getState().steps[system]===current+1,'Guided progression '+lang+':'+step.target);
+    }
+    t.selectMode('assessment');
+    const total=t.QUESTIONS[system].length;
+    for(let i=0;i<total;i++){
+      const a=t.getState().assessment[system],q=t.QUESTIONS[system][a.order[a.index]];
+      ok(q.oEn.length===4&&q.oTa.length===4&&Number.isInteger(q.a)&&q.a>=0&&q.a<4,'Valid choices');
+      const wrong=(q.a+1)%4;
+      d.querySelector(`[data-original="${wrong}"]`).click();
+      d.querySelector(`[data-original="${q.a}"]`).click();
+      ok(t.getState().assessment[system].firstCorrect===0,'Retry never counts as first attempt');
+      d.querySelector('[data-next-question]').click();
+    }
+    const a=t.getState().assessment[system];ok(a.finished&&a.masteryCorrect===total&&a.firstCorrect===0,'Correct completion state');
+    ok(t.validateAssessmentData(a,total),'Completed assessment reloads');
+    if(system!=='setup'){
+      t.selectMode('explore');
+      for(const [id,x] of Object.entries(t.STRUCTURES).filter(([,x])=>x.system===system)){
+        const picker=d.querySelector('#structureSelect');picker.value=id;picker.dispatchEvent(new w.Event('change'));
+        ok(d.querySelector('#detailCard h3').textContent===x[lang],'Picker opens matching detail '+id);
+        ok(t.activeStructure(id),'External orientation resolves '+id);
+        if(x.deep){
+          d.querySelector('[data-deep]').click();ok(d.querySelector('#deepBody svg'),'Deep diagram '+x.deep);
+          const openIds=[...d.querySelectorAll('[id]')].map(n=>n.id);ok(openIds.length===new Set(openIds).size,'Open microscopic panel has unique DOM IDs: '+x.deep);
+          const refs=[...d.querySelectorAll('#deepBody svg *')].flatMap(n=>[...n.attributes].flatMap(a=>[...a.value.matchAll(/url\\(#([^)]*)\\)/g)].map(m=>m[1])));
+          ok(refs.every(id=>d.getElementById(id)),'Microscopic SVG references resolve in full document: '+x.deep);
+          d.querySelector('#deepDialog [data-close-dialog]').click();
+        }
+      }
+    }
+  }
+}
+for(const system of ['__proto__','constructor','toString','no-such-system'])ok(t.normalizeState({system,tool:system}).system==='setup','Prototype key rejected');
+let bad=JSON.parse(JSON.stringify(t.getState()));bad.assessment.crosssection.finished=false;ok(!t.normalizeState(bad).assessment.crosssection,'Inconsistent completion rejected');
+bad=JSON.parse(JSON.stringify(t.getState()));bad.assessment.crosssection.firstCorrect=100;ok(!t.normalizeState(bad).assessment.crosssection,'Impossible score rejected');
+t.setState({system:'digestive',mode:'review',sound:false,voice:false,review:Object.fromEntries(Object.keys(t.STRUCTURES).map(id=>[id,{box:3,due:'2099-01-01',last:'2026-09-03'}]))});t.reviewView.optional=false;t.reviewView.id=null;t.reviewView.seen.clear();t.renderAll();
+ok(d.querySelector('[data-review-restart]'),'No-due review shows optional action');d.querySelector('[data-review-restart]').click();ok(d.querySelector('[data-review-reveal]'),'Optional review includes future-due structures');
+t.selectMode('explore');const picker=d.querySelector('#structureSelect');picker.value='gizzard';picker.dispatchEvent(new w.Event('change'));d.querySelector('#langBtn').click();ok(d.querySelector('#detailCard h3').textContent===t.STRUCTURES.gizzard[t.getState().lang],'Selected detail translates on switch');
+const snapshot=w.localStorage.getItem('earthwormDissection.v1'),restored=create(snapshot);ok(restored.window.__test.getState().system==='digestive','Progress restores after reload');restored.window.close();
+const malformed=create('{broken');ok(malformed.window.__test.getState().system==='setup','Malformed JSON recovers');malformed.window.close();
+const unavailable=create(null,true);ok(unavailable.window.document.querySelector('#storageWarning').classList.contains('show'),'Storage denied shows warning without crash');unavailable.window.close();
+t.openProcedure();for(let i=0;i<6;i++)t.moveProcedure(1);ok(!d.querySelector('#procedurePanel').hidden,'Seven-step demonstration renders');t.closeProcedure();
+ok(errors.length===0,'No DOM runtime errors: '+errors.join('\n'));
+const report={date:new Date().toISOString().slice(0,10),htmlSHA256:require('node:crypto').createHash('sha256').update(fs.readFileSync(input)).digest('hex'),checks,systems:9,structures:55,guidedSteps:56,questions:72,microscopicExplanations:9,errors,testScope:'Data validation and DOM interaction simulation; no browser layout, touch, TTS, Android build or device test implied.'};
+fs.writeFileSync('tests/test-results.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));w.close();
