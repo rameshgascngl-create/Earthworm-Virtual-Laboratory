@@ -4,17 +4,17 @@
     "sha256": "ba7674b8cec93ddea8b2f3dbd3404ff6cbf9073f91880d673d4cfc643ab26c83"
   },
   "revised": {
-    "bytes": 549328,
-    "sha256": "d22bd650486a0dfd94f1d8513fbcc95ae7f2d331762d684ce8567d6fcbf00c9c"
+    "bytes": 709554,
+    "sha256": "35ec540ca1034e84ab7e1a9d7d17cd997d634b7943a47550c77d21c66b4dc51e"
   },
-  "version": "1.3.3-beta",
+  "version": "1.3.5",
   "androidApplicationId": "in.ramesh.zoology.earthwormlab",
-  "androidVersionCode": 10303,
-  "androidBuildStatus": "not run",
-  "browserLayoutStatus": "Pending full-page Chromium CI/device validation; older extracted proofs are not acceptance evidence",
-  "apkProduced": false,
+  "androidVersionCode": 10305,
+  "androidBuildStatus": "sideload debug APK produced outside CI",
+  "browserLayoutStatus": "Manual review; schematic plus tray-look reconstruction",
+  "apkProduced": true,
   "previousDelivered": {
-    "version": "1.3.2-beta",
-    "sha256": "8ca2c5f4234fdba52b7c6de42e0b033d336daa6a05ab31ac63147850a907158d"
+    "version": "1.3.3-beta",
+    "sha256": "d22bd650486a0dfd94f1d8513fbcc95ae7f2d331762d684ce8567d6fcbf00c9c"
   }
 }
