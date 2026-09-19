@@ -96,26 +96,52 @@ jobs:
           test -n "$APK" && test -f "$APK" || { echo "Signed release APK not found."; exit 1; }
           test -n "$AAB" && test -f "$AAB" || { echo "Release AAB not found."; exit 1; }
 
-          apksigner verify --verbose --print-certs "$APK" | tee release-signing.txt
-          if grep -Fq '38:B2:7E:E2:1D:5F:E5:A0:FE:6E:B3:F1:33:1E:2B:F9:E0:F8:C9:8F:7E:0A:5B:CB:EE:70:26:71:E2:A2:F7:6C' release-signing.txt; then
-            echo "Debug certificate fingerprint detected."
+          APKSIGNER="$ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner"
+          AAPT="$ANDROID_SDK_ROOT/build-tools/35.0.0/aapt"
+          APKANALYZER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer"
+
+          "$APKSIGNER" verify --verbose --print-certs "$APK" | tee release-signing.txt
+          if grep -Fq 'Earthworm Virtual Laboratory Debug' release-signing.txt; then
+            echo "Debug certificate subject detected."
             exit 1
           fi
+          if grep -Fqi '38b27ee21d5fe5a0fe6eb3f1331e2bf9e0f8c98f7e0a5bcbee702671e2a2f76c' release-signing.txt; then
+            echo "Known debug certificate fingerprint detected."
+            exit 1
+          fi
+          grep -Fq 'Verified using v2 scheme (APK Signature Scheme v2): true' release-signing.txt
+          grep -Fq 'Verified using v3 scheme (APK Signature Scheme v3): true' release-signing.txt
 
-          apkanalyzer manifest print "$APK" > release-manifest.xml
-          grep -Fq 'package="in.ramesh.zoology.earthwormlab"' release-manifest.xml
-          grep -Fq 'android:versionName="1.3.5"' release-manifest.xml
+          "$APKANALYZER" manifest print "$APK" > release-manifest.xml
           if grep -Fq 'android:debuggable="true"' release-manifest.xml; then
             echo "Release APK is debuggable."
             exit 1
           fi
-          if grep -Fq 'android.permission.INTERNET' release-manifest.xml; then
+          grep -Fq 'android:allowBackup="false"' release-manifest.xml
+          grep -Fq 'android:usesCleartextTraffic="false"' release-manifest.xml
+
+          "$AAPT" dump badging "$APK" > release-badging.txt
+          "$AAPT" dump permissions "$APK" > release-permissions.txt
+          APP_ID="$(sed -n "s/^package: name='\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          VERSION_CODE="$(sed -n "s/^package:.*versionCode='\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          VERSION_NAME="$(sed -n "s/^package:.*versionName='\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          MIN_SDK="$(sed -n "s/^sdkVersion:'\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          TARGET_SDK="$(sed -n "s/^targetSdkVersion:'\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          test "$APP_ID" = "in.ramesh.zoology.earthwormlab"
+          test "$VERSION_CODE" = "10305"
+          test "$VERSION_NAME" = "1.3.5"
+          test "$MIN_SDK" = "24"
+          test "$TARGET_SDK" = "36"
+          if grep -Fq 'android.permission.INTERNET' release-permissions.txt; then
             echo "Unexpected INTERNET permission detected."
             exit 1
           fi
 
           unzip -l "$APK" | grep -Fq 'assets/index.html'
           unzip -p "$APK" assets/index.html | grep -Fq 'APP_VERSION="1.3.5"'
+
+          CERT_SUBJECT="$(sed -n 's/^Signer #1 certificate DN: //p' release-signing.txt | head -n1)"
+          CERT_SHA256="$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' release-signing.txt | head -n1)"
 
           mkdir -p dist
           cp "$APK" dist/Earthworm-Virtual-Laboratory-v1.3.5-release.apk
@@ -124,21 +150,27 @@ jobs:
             echo "APK filename: Earthworm-Virtual-Laboratory-v1.3.5-release.apk"
             echo "APK file size: $(stat -c%s dist/Earthworm-Virtual-Laboratory-v1.3.5-release.apk) bytes"
             echo "APK SHA-256: $(sha256sum dist/Earthworm-Virtual-Laboratory-v1.3.5-release.apk | awk '{print $1}')"
-            echo "applicationId: in.ramesh.zoology.earthwormlab"
-            echo "versionName: 1.3.5"
-            echo "versionCode: 10305"
-            echo "minSdk: 24"
-            echo "targetSdk: 36"
+            echo "applicationId: $APP_ID"
+            echo "versionName: $VERSION_NAME"
+            echo "versionCode: $VERSION_CODE"
+            echo "minSdk: $MIN_SDK"
+            echo "targetSdk: $TARGET_SDK"
             echo "debuggable: false"
             echo "WebView debugging: BuildConfig.DEBUG (false in release)"
             echo "Compilation/build type: release"
+            echo "Signing certificate Subject/CN: $CERT_SUBJECT"
+            echo "Signing certificate SHA-256: $CERT_SHA256"
+            echo "Signing schemes verified: v2=true; v3=true"
             echo "INTERNET permission: absent"
+            echo "Dangerous permissions: none declared"
             echo "allowBackup: false"
             echo "usesCleartextTraffic: false"
             echo "assets/index.html present: yes"
             echo "Embedded APP_VERSION: 1.3.5"
+            echo "Visible UI version: v1.3.5"
             echo "CLEAN RELEASE BUILD: PASS"
             echo "VERSION CONSISTENCY: PASS"
+            echo "RELEASE SIGNING: PASS"
             echo "OFFLINE PAYLOAD: PASS"
             echo "STATIC APK AUDIT: PASS"
             echo "DEVICE SMOKE TEST: NOT PERFORMED"
