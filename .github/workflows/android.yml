@@ -1,4 +1,4 @@
-name: Validate and build Android beta
+name: Validate Earthworm Android source and release candidate
 on:
   workflow_dispatch:
   push:
@@ -64,12 +64,12 @@ jobs:
         run: gradle --no-daemon :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.3-beta-debug-APK
+          name: Earthworm-1.3.5-validation-debug-DO-NOT-SUBMIT
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.3-beta-unsigned-release-candidates
+          name: Earthworm-1.3.5-unsigned-release-candidates
           path: |
             app/build/outputs/apk/release/*unsigned.apk
             app/build/outputs/bundle/release/*.aab
