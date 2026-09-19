@@ -1,4 +1,4 @@
-# Earthworm Virtual Laboratory — 1.3.3-beta
+# Earthworm Virtual Laboratory — 1.3.5
 
 Offline bilingual teaching simulator for *Metaphire posthuma* (syn. *Pheretima posthuma*).  
 Department of Zoology, Government Arts and Science College, Nagercoil, Tamil Nadu. R.Ramesh.
@@ -17,7 +17,7 @@ Earlier extracted SVG proofs are historical, non-authoritative evidence. They do
 2. Open Actions → Validate and build Android beta → Run workflow.
 3. The validate job runs source/data/speech tests, then isolated renderer checks and the complete unchanged HTML in Chromium at desktop, 390-pixel and 360-pixel widths.
 4. The build job runs only after validation succeeds. It runs Android lint and compiles the app, instrumentation APK and unsigned release candidates.
-5. After a successful build, download Earthworm-1.3.3-beta-debug-APK. Review browser screenshots and complete DEVICE-ACCEPTANCE.md before classroom distribution.
+5. After a successful build, download Earthworm-1.3.5-validation-debug-DO-NOT-SUBMIT. Review browser screenshots and complete DEVICE-ACCEPTANCE.md before classroom distribution.
 
 The browser suite has been syntax-checked and collected, but not executed here. A first CI failure must be investigated from its evidence; do not disable the gate merely to obtain an APK. Renderer-fixture failures are tooling issues, not anatomical defects.
 
@@ -48,11 +48,25 @@ The Android wrapper uses WebViewAssetLoader and an origin-scoped, main-frame nat
 ## Signing and identity
 
 Application ID: `in.ramesh.zoology.earthwormlab`  
-versionName: `1.3.3-beta`  
-versionCode: `10303`
+versionName: `1.3.5`  
+versionCode: `10305`
 
 Confirm the application ID before the first public signed release. CI debug APKs use a test key, which may change between clean runners; installing over a differently signed build can fail. Do not uninstall an app containing needed progress just to bypass a signature mismatch—uninstalling removes local data. Use a test device/profile.
 
 Unsigned release outputs are not final distributable apps. Use an owner-controlled signing key, keep it secure, preserve the package ID and signing identity, and increase versionCode for updates.
 
 The source includes no signing key, credentials, account connection or publication. See AUDIT.md, RESOURCES.md, DEVICE-ACCEPTANCE.md and PRIVACY.md.
+
+
+## Production release
+
+Do not submit the validation debug APK or unsigned release candidates. Production release signing is performed only by the manual **Build signed Earthworm v1.3.5 release** workflow on the `main` branch.
+
+Required GitHub Actions repository secrets:
+
+- `EARTHWORM_KEYSTORE_BASE64`
+- `EARTHWORM_KEYSTORE_PASSWORD`
+- `EARTHWORM_KEY_ALIAS`
+- `EARTHWORM_KEY_PASSWORD`
+
+The keystore must be the permanent Earthworm production signing identity. Do not commit the keystore or passwords to the repository.
