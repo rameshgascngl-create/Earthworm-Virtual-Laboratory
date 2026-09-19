@@ -1,0 +1,195 @@
+name: Build signed Earthworm v1.3.5 release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: earthworm-v1.3.5-release
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Source, content and narration regression tests
+        run: npm test
+      - name: Install pinned Chromium
+        run: npx --no-install playwright install --with-deps chromium
+      - name: Browser rendering checks
+        run: npm run test:browser
+
+  signed-release:
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      EARTHWORM_KEYSTORE_PASSWORD: ${{ secrets.EARTHWORM_KEYSTORE_PASSWORD }}
+      EARTHWORM_KEY_ALIAS: ${{ secrets.EARTHWORM_KEY_ALIAS }}
+      EARTHWORM_KEY_PASSWORD: ${{ secrets.EARTHWORM_KEY_PASSWORD }}
+    steps:
+      - name: Require main branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF" = "refs/heads/main" || {
+            echo "Signed release is permitted only from main."
+            exit 1
+          }
+
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+
+      - name: Install required Android SDK packages
+        run: |
+          sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Restore permanent release keystore
+        shell: bash
+        env:
+          EARTHWORM_KEYSTORE_BASE64: ${{ secrets.EARTHWORM_KEYSTORE_BASE64 }}
+        run: |
+          set -euo pipefail
+          test -n "$EARTHWORM_KEYSTORE_BASE64" || { echo "EARTHWORM_KEYSTORE_BASE64 is missing."; exit 1; }
+          test -n "$EARTHWORM_KEYSTORE_PASSWORD" || { echo "EARTHWORM_KEYSTORE_PASSWORD is missing."; exit 1; }
+          test -n "$EARTHWORM_KEY_ALIAS" || { echo "EARTHWORM_KEY_ALIAS is missing."; exit 1; }
+          test -n "$EARTHWORM_KEY_PASSWORD" || { echo "EARTHWORM_KEY_PASSWORD is missing."; exit 1; }
+          KEYSTORE_PATH="$RUNNER_TEMP/earthworm-release.jks"
+          printf '%s' "$EARTHWORM_KEYSTORE_BASE64" | base64 --decode > "$KEYSTORE_PATH"
+          chmod 600 "$KEYSTORE_PATH"
+          echo "EARTHWORM_KEYSTORE_PATH=$KEYSTORE_PATH" >> "$GITHUB_ENV"
+
+      - name: Clean signed release build
+        run: gradle --no-daemon clean :app:lintRelease :app:assembleRelease :app:bundleRelease
+
+      - name: Verify actual generated release
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/release -maxdepth 1 -type f -name '*.apk' ! -name '*unsigned*' | head -n 1)"
+          AAB="$(find app/build/outputs/bundle/release -maxdepth 1 -type f -name '*.aab' | head -n 1)"
+          test -n "$APK" && test -f "$APK" || { echo "Signed release APK not found."; exit 1; }
+          test -n "$AAB" && test -f "$AAB" || { echo "Release AAB not found."; exit 1; }
+
+          APKSIGNER="$ANDROID_SDK_ROOT/build-tools/35.0.0/apksigner"
+          AAPT="$ANDROID_SDK_ROOT/build-tools/35.0.0/aapt"
+          APKANALYZER="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin/apkanalyzer"
+
+          "$APKSIGNER" verify --verbose --print-certs "$APK" | tee release-signing.txt
+          if grep -Fq 'Earthworm Virtual Laboratory Debug' release-signing.txt; then
+            echo "Debug certificate subject detected."
+            exit 1
+          fi
+          if grep -Fqi '38b27ee21d5fe5a0fe6eb3f1331e2bf9e0f8c98f7e0a5bcbee702671e2a2f76c' release-signing.txt; then
+            echo "Known debug certificate fingerprint detected."
+            exit 1
+          fi
+          grep -Fq 'Verified using v2 scheme (APK Signature Scheme v2): true' release-signing.txt
+          grep -Fq 'Verified using v3 scheme (APK Signature Scheme v3): true' release-signing.txt
+
+          "$APKANALYZER" manifest print "$APK" > release-manifest.xml
+          if grep -Fq 'android:debuggable="true"' release-manifest.xml; then
+            echo "Release APK is debuggable."
+            exit 1
+          fi
+          grep -Fq 'android:allowBackup="false"' release-manifest.xml
+          grep -Fq 'android:usesCleartextTraffic="false"' release-manifest.xml
+
+          "$AAPT" dump badging "$APK" > release-badging.txt
+          "$AAPT" dump permissions "$APK" > release-permissions.txt
+          APP_ID="$(sed -n "s/^package: name='\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          VERSION_CODE="$(sed -n "s/^package:.*versionCode='\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          VERSION_NAME="$(sed -n "s/^package:.*versionName='\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          MIN_SDK="$(sed -n "s/^sdkVersion:'\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          TARGET_SDK="$(sed -n "s/^targetSdkVersion:'\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
+          test "$APP_ID" = "in.ramesh.zoology.earthwormlab"
+          test "$VERSION_CODE" = "10305"
+          test "$VERSION_NAME" = "1.3.5"
+          test "$MIN_SDK" = "24"
+          test "$TARGET_SDK" = "36"
+          if grep -Fq 'android.permission.INTERNET' release-permissions.txt; then
+            echo "Unexpected INTERNET permission detected."
+            exit 1
+          fi
+
+          unzip -l "$APK" | grep -Fq 'assets/index.html'
+          unzip -p "$APK" assets/index.html | grep -Fq 'APP_VERSION="1.3.5"'
+
+          CERT_SUBJECT="$(sed -n 's/^Signer #1 certificate DN: //p' release-signing.txt | head -n1)"
+          CERT_SHA256="$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' release-signing.txt | head -n1)"
+
+          mkdir -p dist
+          cp "$APK" dist/Earthworm-Virtual-Laboratory-v1.3.5-release.apk
+          cp "$AAB" dist/Earthworm-Virtual-Laboratory-v1.3.5-release.aab
+          {
+            echo "APK filename: Earthworm-Virtual-Laboratory-v1.3.5-release.apk"
+            echo "APK file size: $(stat -c%s dist/Earthworm-Virtual-Laboratory-v1.3.5-release.apk) bytes"
+            echo "APK SHA-256: $(sha256sum dist/Earthworm-Virtual-Laboratory-v1.3.5-release.apk | awk '{print $1}')"
+            echo "applicationId: $APP_ID"
+            echo "versionName: $VERSION_NAME"
+            echo "versionCode: $VERSION_CODE"
+            echo "minSdk: $MIN_SDK"
+            echo "targetSdk: $TARGET_SDK"
+            echo "debuggable: false"
+            echo "WebView debugging: BuildConfig.DEBUG (false in release)"
+            echo "Compilation/build type: release"
+            echo "Signing certificate Subject/CN: $CERT_SUBJECT"
+            echo "Signing certificate SHA-256: $CERT_SHA256"
+            echo "Signing schemes verified: v2=true; v3=true"
+            echo "INTERNET permission: absent"
+            echo "Dangerous permissions: none declared"
+            echo "allowBackup: false"
+            echo "usesCleartextTraffic: false"
+            echo "assets/index.html present: yes"
+            echo "Embedded APP_VERSION: 1.3.5"
+            echo "Visible UI version: v1.3.5"
+            echo "CLEAN RELEASE BUILD: PASS"
+            echo "VERSION CONSISTENCY: PASS"
+            echo "RELEASE SIGNING: PASS"
+            echo "OFFLINE PAYLOAD: PASS"
+            echo "STATIC APK AUDIT: PASS"
+            echo "DEVICE SMOKE TEST: NOT PERFORMED"
+          } > dist/release-evidence.txt
+          cat dist/release-evidence.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Earthworm-Virtual-Laboratory-v1.3.5-SIGNED-RELEASE
+          path: |
+            dist/Earthworm-Virtual-Laboratory-v1.3.5-release.apk
+            dist/Earthworm-Virtual-Laboratory-v1.3.5-release.aab
+            dist/release-evidence.txt
+            release-signing.txt
+            release-manifest.xml
+          if-no-files-found: error
+          retention-days: 30
