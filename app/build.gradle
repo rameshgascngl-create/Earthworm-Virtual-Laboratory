@@ -28,6 +28,8 @@ android {
                 storePassword releaseStorePassword
                 keyAlias releaseKeyAlias
                 keyPassword releaseKeyPassword
+                enableV2Signing true
+                enableV3Signing true
             }
         }
     }
