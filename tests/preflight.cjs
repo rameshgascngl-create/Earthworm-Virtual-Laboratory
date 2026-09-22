@@ -61,10 +61,27 @@ check(privacyActivity.includes('PUBLIC_POLICY_URL')&&privacyActivity.includes('P
 check(native.includes('registerOnBackInvokedCallback')&&native.includes('@SuppressLint("GestureBackNavigation")'),'Predictive Back is registered while the legacy API 24–32 fallback is retained');
 const android=new JSDOM(read('app/src/main/AndroidManifest.xml'),{contentType:'text/xml'});
 check(android.window.document.querySelectorAll('uses-permission').length===0,'Android manifest requests no permissions');
+const appNode=android.window.document.querySelector('application');
+check(appNode?.getAttribute('android:icon')==='@mipmap/ic_launcher','Manifest uses canonical mipmap launcher icon');
+check(appNode?.getAttribute('android:roundIcon')==='@mipmap/ic_launcher_round','Manifest declares canonical round launcher icon');
 const activities=[...android.window.document.querySelectorAll('activity')];
 const launcher=activities.find(a=>a.querySelector('action[android\\:name="android.intent.action.MAIN"]')&&a.querySelector('category[android\\:name="android.intent.category.LAUNCHER"]'));
 check(launcher?.getAttribute('android:name')==='.NativeHomeActivity','Native dashboard is the Android launcher activity');
 check(activities.some(a=>a.getAttribute('android:name')==='.PrivacyActivity'),'Native privacy activity is packaged');
+const iconDir='app/src/main/icon-payload';
+const iconParts=fs.readdirSync(iconDir).filter(n=>/^part\d\d\.b64$/.test(n)).sort();
+check(JSON.stringify(iconParts)===JSON.stringify(Array.from({length:8},(_,i)=>'part'+String(i).padStart(2,'0')+'.b64')),'Launcher payload has exactly eight ordered parts');
+const iconBytes=Buffer.from(iconParts.map(n=>read(path.join(iconDir,n)).trim()).join(''),'base64');
+check(iconBytes.length===23974,'Launcher WebP byte length is exact');
+check(sha(iconBytes)==='2ade2a9eedd49679a0b0f15a42a4d75852771272ea6ba0944e8f118a93a8a931','Launcher WebP SHA-256 matches accepted artwork');
+check(iconBytes.subarray(0,4).toString('ascii')==='RIFF'&&iconBytes.subarray(8,12).toString('ascii')==='WEBP','Launcher payload is RIFF/WebP');
+check(iconBytes.readUInt32LE(4)+8===iconBytes.length,'Launcher WebP RIFF length is internally consistent');
+const adaptiveFiles=['app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml','app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml'];
+for(const f of adaptiveFiles){const x=read(f);check(x.includes('@drawable/ic_launcher_foreground')&&x.includes('@color/ic_launcher_background'),'Adaptive icon is wired to accepted foreground/background: '+f);}
+for(const density of ['mdpi','hdpi','xhdpi','xxhdpi','xxxhdpi'])for(const name of ['ic_launcher.xml','ic_launcher_round.xml']){const f='app/src/main/res/mipmap-'+density+'/'+name;check(read(f).includes('@drawable/ic_launcher_source'),'Legacy launcher alias uses accepted artwork: '+f);}
+check(read('app/src/main/res/drawable/ic_launcher_foreground.xml').includes('@drawable/ic_launcher_source'),'Adaptive foreground uses accepted artwork');
+check(!fs.existsSync('app/src/main/res/drawable/ic_launcher.xml'),'Superseded vector launcher removed');
+check(!fs.existsSync('app/src/main/res/drawable-nodpi/ic_launcher_photo.webp'),'Malformed v1.3.7 launcher asset removed');
 android.window.close();
 function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>['node_modules','.git','.gradle','build','test-results','playwright-report'].includes(e.name)?[]:e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)])}
 const javaFiles=files(path.join(root,'app/src')).filter(f=>f.endsWith('.java'));

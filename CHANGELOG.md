@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.3.8 — launcher resource correction
+
+- Corrected the launcher resource architecture after v1.3.7 displayed a fallback/generic icon on a physical device.
+- Added canonical `android:icon` and `android:roundIcon` mipmap entry points.
+- Added API 26+ adaptive launcher and round-launcher resources plus legacy mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi aliases.
+- Removed the superseded vector launcher and malformed v1.3.7 photo resource.
+- Added a fail-closed Gradle reconstruction gate for the accepted Earthworm/book/laboratory WebP (23,974 bytes; SHA-256 `2ade2a9eedd49679a0b0f15a42a4d75852771272ea6ba0944e8f118a93a8a931`).
+- Release identity advanced to 1.3.8 / 10308.
+
 ## 1.3.7 — launcher icon refresh
 
 - Replaced the legacy launcher artwork with the new Earthworm Virtual Laboratory icon selected for the Indus Appstore resubmission.

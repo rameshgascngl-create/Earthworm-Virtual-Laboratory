@@ -1,4 +1,4 @@
-name: Build signed Earthworm v1.3.7 release
+name: Build signed Earthworm v1.3.8 release
 
 on:
   workflow_dispatch:
@@ -7,7 +7,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: earthworm-v1.3.7-release
+  group: earthworm-v1.3.8-release
   cancel-in-progress: false
 
 jobs:
@@ -133,8 +133,8 @@ jobs:
           MIN_SDK="$(sed -n "s/^sdkVersion:'\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
           TARGET_SDK="$(sed -n "s/^targetSdkVersion:'\([^']*\)'.*/\1/p" release-badging.txt | head -n1)"
           test "$APP_ID" = "in.ramesh.zoology.earthwormlab"
-          test "$VERSION_CODE" = "10307"
-          test "$VERSION_NAME" = "1.3.7"
+          test "$VERSION_CODE" = "10308"
+          test "$VERSION_NAME" = "1.3.8"
           test "$MIN_SDK" = "24"
           test "$TARGET_SDK" = "36"
           if grep -Fq 'android.permission.INTERNET' release-permissions.txt; then
@@ -143,7 +143,10 @@ jobs:
           fi
 
           unzip -l "$APK" | grep -Fq 'assets/index.html'
-          unzip -p "$APK" assets/index.html | grep -Fq 'APP_VERSION="1.3.7"'
+          test "$(sha256sum app/build/generated/iconRes/drawable-nodpi/ic_launcher_source.webp | awk '{print $1}')" = "2ade2a9eedd49679a0b0f15a42a4d75852771272ea6ba0944e8f118a93a8a931"
+          grep -Fq 'android:icon=' release-manifest.xml
+          grep -Fq 'android:roundIcon=' release-manifest.xml
+          unzip -p "$APK" assets/index.html | grep -Fq 'APP_VERSION="1.3.8"'
           grep -Fq 'in.ramesh.zoology.earthwormlab.NativeHomeActivity' release-manifest.xml
           grep -Fq 'in.ramesh.zoology.earthwormlab.PrivacyActivity' release-manifest.xml
           grep -Fq 'android.intent.action.MAIN' release-manifest.xml
@@ -153,12 +156,12 @@ jobs:
           CERT_SHA256="$(sed -n 's/^Signer #1 certificate SHA-256 digest: //p' release-signing.txt | head -n1)"
 
           mkdir -p dist
-          cp "$APK" dist/Earthworm-Virtual-Laboratory-v1.3.7-release.apk
-          cp "$AAB" dist/Earthworm-Virtual-Laboratory-v1.3.7-release.aab
+          cp "$APK" dist/Earthworm-Virtual-Laboratory-v1.3.8-release.apk
+          cp "$AAB" dist/Earthworm-Virtual-Laboratory-v1.3.8-release.aab
           {
-            echo "APK filename: Earthworm-Virtual-Laboratory-v1.3.7-release.apk"
-            echo "APK file size: $(stat -c%s dist/Earthworm-Virtual-Laboratory-v1.3.7-release.apk) bytes"
-            echo "APK SHA-256: $(sha256sum dist/Earthworm-Virtual-Laboratory-v1.3.7-release.apk | awk '{print $1}')"
+            echo "APK filename: Earthworm-Virtual-Laboratory-v1.3.8-release.apk"
+            echo "APK file size: $(stat -c%s dist/Earthworm-Virtual-Laboratory-v1.3.8-release.apk) bytes"
+            echo "APK SHA-256: $(sha256sum dist/Earthworm-Virtual-Laboratory-v1.3.8-release.apk | awk '{print $1}')"
             echo "applicationId: $APP_ID"
             echo "versionName: $VERSION_NAME"
             echo "versionCode: $VERSION_CODE"
@@ -175,8 +178,10 @@ jobs:
             echo "allowBackup: false"
             echo "usesCleartextTraffic: false"
             echo "assets/index.html present: yes"
-            echo "Embedded APP_VERSION: 1.3.7"
-            echo "Visible UI version: v1.3.7"
+            echo "Launcher source SHA-256: 2ade2a9eedd49679a0b0f15a42a4d75852771272ea6ba0944e8f118a93a8a931"
+            echo "Launcher resource wiring: adaptive + round + legacy density aliases"
+            echo "Embedded APP_VERSION: 1.3.8"
+            echo "Visible UI version: v1.3.8"
             echo "CLEAN RELEASE BUILD: PASS"
             echo "VERSION CONSISTENCY: PASS"
             echo "RELEASE SIGNING: PASS"
@@ -188,10 +193,10 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-Virtual-Laboratory-v1.3.7-SIGNED-RELEASE
+          name: Earthworm-Virtual-Laboratory-v1.3.8-SIGNED-RELEASE
           path: |
-            dist/Earthworm-Virtual-Laboratory-v1.3.7-release.apk
-            dist/Earthworm-Virtual-Laboratory-v1.3.7-release.aab
+            dist/Earthworm-Virtual-Laboratory-v1.3.8-release.apk
+            dist/Earthworm-Virtual-Laboratory-v1.3.8-release.aab
             dist/release-evidence.txt
             release-signing.txt
             release-manifest.xml
