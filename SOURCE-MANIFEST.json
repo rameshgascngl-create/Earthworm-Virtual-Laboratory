@@ -5,13 +5,13 @@
   },
   "revised": {
     "bytes": 549273,
-    "sha256": "6ce654d2532c63b2cd5c847488b407344a921030a34b7d22c6e2b0412a6b0173"
+    "sha256": "08686b529840b5b0478f2dec0532c9479313314df3f55d6a59d97fe771a959f9"
   },
-  "version": "1.3.6",
+  "version": "1.3.7",
   "androidApplicationId": "in.ramesh.zoology.earthwormlab",
-  "androidVersionCode": 10306,
+  "androidVersionCode": 10307,
   "androidBuildStatus": "pending CI validation and signed release",
-  "browserLayoutStatus": "Pending v1.3.6 Chromium CI/device validation; academic payload hashes are still gated by tests/release-baseline.json",
+  "browserLayoutStatus": "Pending v1.3.7 Chromium CI/device validation; academic payload hashes are still gated by tests/release-baseline.json",
   "apkProduced": false,
   "previousDelivered": {
     "version": "1.3.2-beta",
