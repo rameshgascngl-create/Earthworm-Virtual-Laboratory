@@ -1,11 +1,13 @@
-# Earthworm Virtual Laboratory — 1.3.5
+# Earthworm Virtual Laboratory — 1.3.6
 
 Offline bilingual teaching simulator for *Metaphire posthuma* (syn. *Pheretima posthuma*).  
 Department of Zoology, Government Arts and Science College, Nagercoil, Tamil Nadu. R.Ramesh.
 
-## Status before GitHub
+## v1.3.6 Indus Appstore remediation
 
-This is a source candidate prepared for a verification build, not a compiled or production-certified Android app. No repository was created or changed in this revision.
+v1.3.6 adds a real native Android app shell in front of the existing offline laboratory. The launch screen now provides native entry points for continuing the laboratory, guided dissection, anatomy exploration, assessment/revision, and About & Privacy. A native toolbar remains visible above the laboratory WebView with Home and Privacy controls. The educational WebView payload remains bundled and offline.
+
+The public privacy policy is `PRIVACY.md` in this repository and is also accessible from the app's native About & Privacy dialog. The app still requests no INTERNET, camera, microphone, storage or location permission; deliberate reference/privacy links open in the external browser.
 
 The revision fixes a reproduced silent-procedure pause defect and adds native cancellation handling and recovery safeguards. A real Chromium run also exposed and corrected one probe-animation transform defect that moved its bilingual label outside the SVG. It preserves the SVG markup, all 55 structure records, 56 guided actions, 72 questions, nine microscopic lessons and reviewed Tamil narration.
 
@@ -17,7 +19,7 @@ Earlier extracted SVG proofs are historical, non-authoritative evidence. They do
 2. Open Actions → Validate and build Android beta → Run workflow.
 3. The validate job runs source/data/speech tests, then isolated renderer checks and the complete unchanged HTML in Chromium at desktop, 390-pixel and 360-pixel widths.
 4. The build job runs only after validation succeeds. It runs Android lint and compiles the app, instrumentation APK and unsigned release candidates.
-5. After a successful build, download Earthworm-1.3.5-validation-debug-DO-NOT-SUBMIT. Review browser screenshots and complete DEVICE-ACCEPTANCE.md before classroom distribution.
+5. After a successful build, download Earthworm-1.3.6-validation-debug-DO-NOT-SUBMIT. Verify the native dashboard, in-app privacy dialog, laboratory launch routes and browser-rendering evidence, then complete DEVICE-ACCEPTANCE.md before release.
 
 The browser suite has been syntax-checked and collected, but not executed here. A first CI failure must be investigated from its evidence; do not disable the gate merely to obtain an APK. Renderer-fixture failures are tooling issues, not anatomical defects.
 
@@ -48,8 +50,8 @@ The Android wrapper uses WebViewAssetLoader and an origin-scoped, main-frame nat
 ## Signing and identity
 
 Application ID: `in.ramesh.zoology.earthwormlab`  
-versionName: `1.3.5`  
-versionCode: `10305`
+versionName: `1.3.6`  
+versionCode: `10306`
 
 Confirm the application ID before the first public signed release. CI debug APKs use a test key, which may change between clean runners; installing over a differently signed build can fail. Do not uninstall an app containing needed progress just to bypass a signature mismatch—uninstalling removes local data. Use a test device/profile.
 
@@ -60,7 +62,7 @@ The source includes no signing key, credentials, account connection or publicati
 
 ## Production release
 
-Do not submit the validation debug APK or unsigned release candidates. Production release signing is performed only by the manual **Build signed Earthworm v1.3.5 release** workflow on the `main` branch.
+Do not submit the validation debug APK or unsigned release candidates. Production release signing is performed only by the manual **Build signed Earthworm v1.3.6 release** workflow on the `main` branch.
 
 Required GitHub Actions repository secrets:
 
