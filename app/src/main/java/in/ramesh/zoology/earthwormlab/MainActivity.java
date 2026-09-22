@@ -134,7 +134,12 @@ public final class MainActivity extends Activity {
 
     private void destroyWebView() {
         if (webView == null) return;
+        try { webView.evaluateJavascript("window.EarthwormApp && window.EarthwormApp.pause()", null); } catch (RuntimeException ignored) { }
         try { webView.stopLoading(); } catch (RuntimeException ignored) { }
+        android.view.ViewParent parent = webView.getParent();
+        if (parent instanceof android.view.ViewGroup) {
+            try { ((android.view.ViewGroup) parent).removeView(webView); } catch (RuntimeException ignored) { }
+        }
         try { webView.destroy(); } catch (RuntimeException ignored) { }
         webView = null;
     }
@@ -142,8 +147,8 @@ public final class MainActivity extends Activity {
     private void showDashboard() {
         clearBackRequest();
         stopSpeech();
-        root.removeAllViews();
         destroyWebView();
+        root.removeAllViews();
         dashboardVisible = true;
         pendingNativeTarget = null;
 
@@ -153,7 +158,7 @@ public final class MainActivity extends Activity {
         panel.setOrientation(LinearLayout.VERTICAL);
         panel.setPadding(dp(20), dp(24), dp(20), dp(30));
         panel.setBackgroundColor(Color.rgb(6,21,21));
-        scroll.addView(panel, new ScrollView.LayoutParams(-1,-2));
+        scroll.addView(panel, new FrameLayout.LayoutParams(-1,-2));
 
         TextView title = dashboardText("Earthworm Virtual Laboratory", 27, Color.WHITE);
         title.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
@@ -235,10 +240,10 @@ public final class MainActivity extends Activity {
         TextView policy = new TextView(this);
         policy.setText(privacyText());
         policy.setTextSize(16);
-        policy.setTextColor(Color.rgb(20,20,20));
+        policy.setTextColor(Color.WHITE);
         policy.setPadding(dp(20), dp(12), dp(20), dp(18));
         policy.setLineSpacing(0, 1.15f);
-        scroll.addView(policy, new ScrollView.LayoutParams(-1,-2));
+        scroll.addView(policy, new FrameLayout.LayoutParams(-1,-2));
         new AlertDialog.Builder(this)
             .setTitle("About & Privacy / அறிமுகம் மற்றும் தனியுரிமை")
             .setView(scroll)
@@ -494,7 +499,7 @@ public final class MainActivity extends Activity {
     private void showRecovery(String message) {
         if (isFinishing() || isDestroyed()) return;
         stopSpeech();clearBackRequest();finishPrinting(printRequest);
-        if (webView != null) { root.removeView(webView);webView.destroy();webView=null; }
+        destroyWebView();
         root.removeAllViews();
         dashboardVisible=false;
         LinearLayout panel = new LinearLayout(this);panel.setOrientation(LinearLayout.VERTICAL);panel.setPadding(32,48,32,32);
@@ -539,7 +544,7 @@ public final class MainActivity extends Activity {
         clearBackRequest();currentUtteranceId=null;currentSpeechReply=null;printReply=null;
         if (Build.VERSION.SDK_INT >= 33 && backCallback != null) getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(backCallback);
         if (tts != null) { tts.stop();tts.shutdown();tts=null; }
-        if (webView != null) { root.removeView(webView);webView.destroy();webView=null; }
+        destroyWebView();
         super.onDestroy();
     }
     WebView webViewForTest() { return webView; }
