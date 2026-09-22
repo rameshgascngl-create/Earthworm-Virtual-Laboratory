@@ -187,7 +187,7 @@ public final class MainActivity extends Activity {
             v -> showPrivacyDialog()));
 
         TextView nativeFeatures = dashboardText(
-            "Android features: offline bundled lessons, native text-to-speech, Android print/save, predictive Back navigation, renderer recovery and device-local progress.",
+            "Android features: bundled offline lessons (no remote website is loaded), native text-to-speech, Android print/save, predictive Back navigation, renderer recovery and device-local progress.",
             13, Color.rgb(185,211,203));
         nativeFeatures.setPadding(0, dp(16), 0, dp(4));
         panel.addView(nativeFeatures);
