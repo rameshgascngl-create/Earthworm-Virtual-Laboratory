@@ -48,6 +48,7 @@ import org.json.JSONObject;
 
 /** Offline source candidate. Build, instrumentation, and device acceptance are required before release. */
 public final class MainActivity extends Activity {
+    public static final String EXTRA_LAUNCH_ACTION = "earthworm.launch.action";
     private static final String ORIGIN = "https://appassets.androidplatform.net";
     static final String START_URL = ORIGIN + "/assets/index.html";
     private FrameLayout root;
@@ -64,9 +65,13 @@ public final class MainActivity extends Activity {
     private int printRequest;
     private JavaScriptReplyProxy printReply;
     private android.window.OnBackInvokedCallback backCallback;
+    private String launchAction = "continue";
+    private boolean launchActionApplied;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        launchAction = getIntent() != null ? getIntent().getStringExtra(EXTRA_LAUNCH_ACTION) : null;
+        if (launchAction == null || launchAction.isBlank()) launchAction = "continue";
         root = new FrameLayout(this);
         root.setBackgroundColor(Color.rgb(6,21,21));
         setContentView(root);
@@ -105,6 +110,7 @@ public final class MainActivity extends Activity {
     @SuppressLint("SetJavaScriptEnabled")
     private void createWebView() {
         root.removeAllViews();
+        launchActionApplied = false;
         try {
             webView = new WebView(this);
         } catch (RuntimeException unavailable) {
@@ -136,8 +142,12 @@ public final class MainActivity extends Activity {
             @Override public void onPageFinished(WebView view, String url) {
                 if (view != webView || !START_URL.equals(url)) return;
                 view.evaluateJavascript("Boolean(window.EarthwormApp)", ready -> {
-                    if (view == webView && !"true".equals(ready))
+                    if (view != webView) return;
+                    if (!"true".equals(ready)) {
                         showRecovery("The lesson could not initialise. Update Android System WebView and retry.");
+                        return;
+                    }
+                    applyNativeLaunchAction(view);
                 });
             }
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
@@ -189,6 +199,30 @@ public final class MainActivity extends Activity {
                 });
         }
         webView.loadUrl(START_URL);
+    }
+
+    private void applyNativeLaunchAction(WebView view) {
+        if (launchActionApplied || view != webView) return;
+        launchActionApplied = true;
+        String js;
+        switch (launchAction) {
+            case "guided":
+                js = "(()=>{document.querySelector('[data-mode=guided]')?.click();document.querySelector('#main')?.scrollIntoView({block:'start'});return true})()";
+                break;
+            case "explore":
+                js = "(()=>{document.querySelector('[data-system=external]')?.click();document.querySelector('[data-mode=explore]')?.click();document.querySelector('#main')?.scrollIntoView({block:'start'});return true})()";
+                break;
+            case "assessment":
+                js = "(()=>{document.querySelector('[data-system=setup]')?.click();document.querySelector('[data-mode=assessment]')?.click();document.querySelector('#main')?.scrollIntoView({block:'start'});return true})()";
+                break;
+            case "review":
+                js = "(()=>{document.querySelector('[data-system=external]')?.click();document.querySelector('[data-mode=review]')?.click();document.querySelector('#main')?.scrollIntoView({block:'start'});return true})()";
+                break;
+            default:
+                js = "true";
+        }
+        try { view.evaluateJavascript(js, null); }
+        catch (RuntimeException ignored) { }
     }
 
     private void speak(JSONObject payload, JavaScriptReplyProxy reply) throws org.json.JSONException {
