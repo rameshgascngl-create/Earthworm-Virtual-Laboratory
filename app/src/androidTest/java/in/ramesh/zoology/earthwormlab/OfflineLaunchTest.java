@@ -19,6 +19,11 @@ public class OfflineLaunchTest {
         Intent intent=new Intent(instrumentation.getTargetContext(),MainActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         MainActivity activity=(MainActivity)instrumentation.startActivitySync(intent);
         try {
+            instrumentation.runOnMainSync(() -> {
+                assertTrue(activity.dashboardVisibleForTest());
+                assertNull(activity.webViewForTest());
+                activity.launchLaboratoryForTest();
+            });
             String result="";
             for(int i=0;i<30;i++) {
                 CountDownLatch latch=new CountDownLatch(1);AtomicReference<String> value=new AtomicReference<>();

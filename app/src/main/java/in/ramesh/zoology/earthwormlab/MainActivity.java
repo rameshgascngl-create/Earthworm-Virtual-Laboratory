@@ -32,6 +32,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.webkit.JavaScriptReplyProxy;
@@ -50,6 +51,7 @@ import org.json.JSONObject;
 public final class MainActivity extends Activity {
     private static final String ORIGIN = "https://appassets.androidplatform.net";
     static final String START_URL = ORIGIN + "/assets/index.html";
+    static final String PRIVACY_URL = "https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md";
     private FrameLayout root;
     private WebView webView;
     private TextToSpeech tts;
@@ -64,6 +66,8 @@ public final class MainActivity extends Activity {
     private int printRequest;
     private JavaScriptReplyProxy printReply;
     private android.window.OnBackInvokedCallback backCallback;
+    private boolean dashboardVisible;
+    private String pendingNativeTarget;
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,12 +103,203 @@ public final class MainActivity extends Activity {
                 });
             });
         } catch (RuntimeException ignored) { speechReady = false;speechInitialised = true; }
+        showDashboard();
+    }
+
+    private int dp(int value) {
+        return Math.round(value * getResources().getDisplayMetrics().density);
+    }
+
+    private TextView dashboardText(String text, float size, int color) {
+        TextView view = new TextView(this);
+        view.setText(text);
+        view.setTextSize(size);
+        view.setTextColor(color);
+        view.setPadding(0, dp(4), 0, dp(8));
+        return view;
+    }
+
+    private Button dashboardButton(String label, View.OnClickListener listener) {
+        Button button = new Button(this);
+        button.setText(label);
+        button.setAllCaps(false);
+        button.setTextSize(16);
+        button.setMinHeight(dp(54));
+        button.setOnClickListener(listener);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(-1, -2);
+        lp.setMargins(0, dp(6), 0, dp(6));
+        button.setLayoutParams(lp);
+        return button;
+    }
+
+    private void destroyWebView() {
+        if (webView == null) return;
+        try { webView.evaluateJavascript("window.EarthwormApp && window.EarthwormApp.pause()", null); } catch (RuntimeException ignored) { }
+        try { webView.stopLoading(); } catch (RuntimeException ignored) { }
+        android.view.ViewParent parent = webView.getParent();
+        if (parent instanceof android.view.ViewGroup) {
+            try { ((android.view.ViewGroup) parent).removeView(webView); } catch (RuntimeException ignored) { }
+        }
+        try { webView.destroy(); } catch (RuntimeException ignored) { }
+        webView = null;
+    }
+
+    private void showDashboard() {
+        clearBackRequest();
+        stopSpeech();
+        destroyWebView();
+        root.removeAllViews();
+        dashboardVisible = true;
+        pendingNativeTarget = null;
+
+        ScrollView scroll = new ScrollView(this);
+        scroll.setFillViewport(true);
+        LinearLayout panel = new LinearLayout(this);
+        panel.setOrientation(LinearLayout.VERTICAL);
+        panel.setPadding(dp(20), dp(24), dp(20), dp(30));
+        panel.setBackgroundColor(Color.rgb(6,21,21));
+        scroll.addView(panel, new FrameLayout.LayoutParams(-1,-2));
+
+        TextView title = dashboardText("Earthworm Virtual Laboratory", 27, Color.WHITE);
+        title.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        panel.addView(title);
+
+        TextView edition = dashboardText("Version " + BuildConfig.VERSION_NAME + " · Offline Android laboratory", 14, Color.rgb(185,211,203));
+        edition.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+        panel.addView(edition);
+
+        TextView intro = dashboardText(
+            "Interactive bilingual virtual practical for earthworm anatomy, guided dissection, assessment and revision.\n\n" +
+            "தமிழ் / English · No login · No advertising · Study progress stays on this device.",
+            16, Color.rgb(238,249,244));
+        intro.setLineSpacing(0, 1.15f);
+        panel.addView(intro);
+
+        panel.addView(dashboardButton("Continue Laboratory / ஆய்வகத்தைத் தொடர்க",
+            v -> openLaboratory("resume")));
+        panel.addView(dashboardButton("Guided Dissection / வழிகாட்டும் பிரித்தாய்வு",
+            v -> openLaboratory("guided")));
+        panel.addView(dashboardButton("Explore Anatomy / உடற்கூறியல் ஆராய்வு",
+            v -> openLaboratory("anatomy")));
+        panel.addView(dashboardButton("Assessment & Revision / மதிப்பீடு மற்றும் மீள்பார்வை",
+            v -> openLaboratory("assessment")));
+        panel.addView(dashboardButton("About & Privacy / அறிமுகம் மற்றும் தனியுரிமை",
+            v -> showPrivacyDialog()));
+
+        TextView nativeFeatures = dashboardText(
+            "Android features: bundled offline lessons (no remote website is loaded), native text-to-speech, Android print/save, predictive Back navigation, renderer recovery and device-local progress.",
+            13, Color.rgb(185,211,203));
+        nativeFeatures.setPadding(0, dp(16), 0, dp(4));
+        panel.addView(nativeFeatures);
+
+        root.addView(scroll, new FrameLayout.LayoutParams(-1,-1));
+    }
+
+    private void openLaboratory(String target) {
+        pendingNativeTarget = target;
         createWebView();
+    }
+
+    private void applyNativeLaunchTarget(WebView view) {
+        String target = pendingNativeTarget;
+        pendingNativeTarget = null;
+        if (target == null || "resume".equals(target)) return;
+        String script;
+        switch (target) {
+            case "guided":
+                script = "(function(){var s=document.querySelector('#systemTabs [data-system=\"setup\"]');if(s)s.click();setTimeout(function(){var b=document.querySelector('#modeButtons [data-mode=\"guided\"]');if(b)b.click();},0);})();";
+                break;
+            case "anatomy":
+                script = "(function(){var s=document.querySelector('#systemTabs [data-system=\"digestive\"]');if(s)s.click();setTimeout(function(){var b=document.querySelector('#modeButtons [data-mode=\"explore\"]');if(b)b.click();},0);})();";
+                break;
+            case "assessment":
+                script = "(function(){var s=document.querySelector('#systemTabs [data-system=\"setup\"]');if(s)s.click();setTimeout(function(){var b=document.querySelector('#modeButtons [data-mode=\"assessment\"]');if(b)b.click();},0);})();";
+                break;
+            default:
+                return;
+        }
+        try { view.evaluateJavascript(script, null); } catch (RuntimeException ignored) { }
+    }
+
+    private String privacyText() {
+        return "Earthworm Virtual Laboratory — Privacy Policy\n\n" +
+            "Version: " + BuildConfig.VERSION_NAME + "\n\n" +
+            "This educational app does not require an account and does not collect a student's name, email address, phone number, precise location, contacts, camera images, microphone audio or files. " +
+            "The app requests no INTERNET, camera, microphone, storage or location permission and contains no advertising or analytics SDK.\n\n" +
+            "Language preference, guided-study progress, assessment results and review dates are stored only on this device in the app's local WebView storage. Android cloud backup is disabled. " +
+            "The information remains until app data is cleared or the app is uninstalled.\n\n" +
+            "Narration uses an installed Android text-to-speech voice selected on the device. The app does not upload narration text to an online speech service.\n\n" +
+            "When a user deliberately opens a scientific reference or this public privacy policy, Android opens the external browser. The destination website and browser then apply their own privacy practices. " +
+            "Printing uses the Android print service selected by the user.\n\n" +
+            "Developer: Department of Zoology, Government Arts and Science College, Nagercoil.\n" +
+            "Public policy: " + PRIVACY_URL;
+    }
+
+    private void showPrivacyDialog() {
+        ScrollView scroll = new ScrollView(this);
+        TextView policy = new TextView(this);
+        policy.setText(privacyText());
+        policy.setTextSize(16);
+        policy.setTextColor(Color.WHITE);
+        policy.setPadding(dp(20), dp(12), dp(20), dp(18));
+        policy.setLineSpacing(0, 1.15f);
+        scroll.addView(policy, new FrameLayout.LayoutParams(-1,-2));
+        new AlertDialog.Builder(this)
+            .setTitle("About & Privacy / அறிமுகம் மற்றும் தனியுரிமை")
+            .setView(scroll)
+            .setNeutralButton("Open public policy", (dialog, which) -> openPrivacyPolicy())
+            .setPositiveButton("Close", null)
+            .show();
+    }
+
+    private void openPrivacyPolicy() {
+        try {
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(PRIVACY_URL))
+                .addCategory(Intent.CATEGORY_BROWSABLE));
+        } catch (ActivityNotFoundException absent) {
+            toast("No browser is available. The full privacy policy is shown inside the app.");
+        }
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     private void createWebView() {
         root.removeAllViews();
+        dashboardVisible = false;
+
+        LinearLayout labShell = new LinearLayout(this);
+        labShell.setOrientation(LinearLayout.VERTICAL);
+        labShell.setBackgroundColor(Color.rgb(6,21,21));
+
+        LinearLayout toolbar = new LinearLayout(this);
+        toolbar.setOrientation(LinearLayout.HORIZONTAL);
+        toolbar.setPadding(dp(6), dp(4), dp(6), dp(4));
+        toolbar.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        toolbar.setBackgroundColor(Color.rgb(9,37,35));
+
+        Button home = new Button(this);
+        home.setText("Home");
+        home.setAllCaps(false);
+        home.setMinHeight(dp(44));
+        home.setOnClickListener(v -> showDashboard());
+        toolbar.addView(home, new LinearLayout.LayoutParams(-2,-2));
+
+        TextView toolbarTitle = new TextView(this);
+        toolbarTitle.setText("Earthworm Virtual Laboratory");
+        toolbarTitle.setTextColor(Color.WHITE);
+        toolbarTitle.setTextSize(16);
+        toolbarTitle.setGravity(android.view.Gravity.CENTER);
+        toolbar.addView(toolbarTitle, new LinearLayout.LayoutParams(0,-2,1f));
+
+        Button privacy = new Button(this);
+        privacy.setText("Privacy");
+        privacy.setAllCaps(false);
+        privacy.setMinHeight(dp(44));
+        privacy.setOnClickListener(v -> showPrivacyDialog());
+        toolbar.addView(privacy, new LinearLayout.LayoutParams(-2,-2));
+
+        labShell.addView(toolbar, new LinearLayout.LayoutParams(-1,-2));
+        root.addView(labShell, new FrameLayout.LayoutParams(-1,-1));
+
         try {
             webView = new WebView(this);
         } catch (RuntimeException unavailable) {
@@ -112,7 +307,7 @@ public final class MainActivity extends Activity {
             return;
         }
         webView.setBackgroundColor(Color.rgb(6,21,21));
-        root.addView(webView, new FrameLayout.LayoutParams(-1,-1));
+        labShell.addView(webView, new LinearLayout.LayoutParams(-1,0,1f));
         WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
         WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
@@ -136,8 +331,12 @@ public final class MainActivity extends Activity {
             @Override public void onPageFinished(WebView view, String url) {
                 if (view != webView || !START_URL.equals(url)) return;
                 view.evaluateJavascript("Boolean(window.EarthwormApp)", ready -> {
-                    if (view == webView && !"true".equals(ready))
+                    if (view != webView) return;
+                    if (!"true".equals(ready)) {
                         showRecovery("The lesson could not initialise. Update Android System WebView and retry.");
+                        return;
+                    }
+                    applyNativeLaunchTarget(view);
                 });
             }
             @Override public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
@@ -300,18 +499,21 @@ public final class MainActivity extends Activity {
     private void showRecovery(String message) {
         if (isFinishing() || isDestroyed()) return;
         stopSpeech();clearBackRequest();finishPrinting(printRequest);
-        if (webView != null) { root.removeView(webView);webView.destroy();webView=null; }
+        destroyWebView();
         root.removeAllViews();
+        dashboardVisible=false;
         LinearLayout panel = new LinearLayout(this);panel.setOrientation(LinearLayout.VERTICAL);panel.setPadding(32,48,32,32);
         TextView title = new TextView(this);title.setText("Earthworm Virtual Laboratory");title.setTextSize(22);title.setTextColor(Color.WHITE);panel.addView(title);
         TextView detail = new TextView(this);detail.setText(message+"\n\n"+"பாடத்தை மீண்டும் திறக்கவும். சேமிக்கப்பட்ட முன்னேற்றம் அழிக்கப்படாது.");detail.setTextColor(Color.WHITE);detail.setTextSize(17);panel.addView(detail);
-        Button retry = new Button(this);retry.setText("Reopen lesson / மீண்டும் திற");retry.setOnClickListener(v->createWebView());panel.addView(retry);
+        Button retry = new Button(this);retry.setText("Reopen lesson / மீண்டும் திற");retry.setOnClickListener(v->openLaboratory("resume"));panel.addView(retry);
+        Button home = new Button(this);home.setText("Home / முகப்பு");home.setOnClickListener(v->showDashboard());panel.addView(home);
         root.addView(panel);
     }
     private void toast(String text) { Toast.makeText(this,text,Toast.LENGTH_LONG).show(); }
     private void handleBack() {
         if (backPending) return;
-        if (webView == null) { finish();return; }
+        if (dashboardVisible) { finish();return; }
+        if (webView == null) { showDashboard();return; }
         backPending=true;
         final WebView source=webView;
         final int request=++backRequest;
@@ -324,10 +526,7 @@ public final class MainActivity extends Activity {
     private void completeBack(WebView source,int request,boolean handled) {
         if (request!=backRequest || source!=webView || !backPending || isFinishing() || isDestroyed()) return;
         clearBackRequest();
-        if (!handled) new AlertDialog.Builder(this)
-                .setTitle("Close laboratory? / ஆய்வகத்தை மூடவா?")
-                .setMessage("Progress already saved on this device is retained. / சேமித்த முன்னேற்றம் பாதுகாக்கப்படும்.")
-                .setNegativeButton("Stay / தொடர்க",null).setPositiveButton("Close / மூடு",(dialog,which)->finish()).show();
+        if (!handled) showDashboard();
     }
     private void clearBackRequest() {
         backPending=false;backRequest++;
@@ -345,8 +544,10 @@ public final class MainActivity extends Activity {
         clearBackRequest();currentUtteranceId=null;currentSpeechReply=null;printReply=null;
         if (Build.VERSION.SDK_INT >= 33 && backCallback != null) getOnBackInvokedDispatcher().unregisterOnBackInvokedCallback(backCallback);
         if (tts != null) { tts.stop();tts.shutdown();tts=null; }
-        if (webView != null) { root.removeView(webView);webView.destroy();webView=null; }
+        destroyWebView();
         super.onDestroy();
     }
     WebView webViewForTest() { return webView; }
+    boolean dashboardVisibleForTest() { return dashboardVisible; }
+    void launchLaboratoryForTest() { openLaboratory("resume"); }
 }

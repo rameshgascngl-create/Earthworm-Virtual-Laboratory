@@ -1,3 +1,13 @@
+# 1.3.6 — Indus Appstore remediation
+
+- Added a native Android home/dashboard so the app launches as an educational Android application rather than directly into the WebView.
+- Added native entry points for Continue Laboratory, Guided Dissection, Explore Anatomy, Assessment & Revision, and About & Privacy.
+- Added a persistent native laboratory toolbar with Home and Privacy actions.
+- Added an in-app native privacy policy and a public HTTPS privacy-policy link.
+- Preserved the offline bundled laboratory, native Android TTS, Android print/save, predictive Back integration, renderer recovery and device-local progress.
+- Kept the Android manifest permission-free; no INTERNET, camera, microphone, storage or location permission is requested.
+- Bumped versionName to 1.3.6 and versionCode to 10306 without changing the reviewed academic data sets or SVG anatomy baseline.
+
 # 1.3.3-beta — pre-GitHub revision
 
 - Reproduced and fixed silent procedure auto-advance continuing after native pause; page-hide now uses the same complete pause handler.
