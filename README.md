@@ -1,4 +1,4 @@
-# Earthworm Virtual Laboratory — 1.3.7
+# Earthworm Virtual Laboratory — 1.3.8
 
 Offline bilingual teaching simulator for *Metaphire posthuma* (syn. *Pheretima posthuma*).  
 Department of Zoology, Government Arts and Science College, Nagercoil, Tamil Nadu. R.Ramesh.
@@ -17,7 +17,7 @@ Earlier extracted SVG proofs are historical, non-authoritative evidence. They do
 2. Open Actions → Validate and build Android beta → Run workflow.
 3. The validate job runs source/data/speech tests, then isolated renderer checks and the complete unchanged HTML in Chromium at desktop, 390-pixel and 360-pixel widths.
 4. The build job runs only after validation succeeds. It runs Android lint and compiles the app, instrumentation APK and unsigned release candidates.
-5. After a successful build, download Earthworm-1.3.7-validation-debug-DO-NOT-SUBMIT. Review browser screenshots and complete DEVICE-ACCEPTANCE.md before classroom distribution.
+5. After a successful build, download Earthworm-1.3.8-validation-debug-DO-NOT-SUBMIT. Review browser screenshots and complete DEVICE-ACCEPTANCE.md before classroom distribution.
 
 The browser suite has been syntax-checked and collected, but not executed here. A first CI failure must be investigated from its evidence; do not disable the gate merely to obtain an APK. Renderer-fixture failures are tooling issues, not anatomical defects.
 
@@ -48,8 +48,8 @@ The Android wrapper uses WebViewAssetLoader and an origin-scoped, main-frame nat
 ## Signing and identity
 
 Application ID: `in.ramesh.zoology.earthwormlab`  
-versionName: `1.3.7`  
-versionCode: `10307`
+versionName: `1.3.8`  
+versionCode: `10308`
 
 Confirm the application ID before the first public signed release. CI debug APKs use a test key, which may change between clean runners; installing over a differently signed build can fail. Do not uninstall an app containing needed progress just to bypass a signature mismatch—uninstalling removes local data. Use a test device/profile.
 
@@ -60,7 +60,7 @@ The source includes no signing key, credentials, account connection or publicati
 
 ## Production release
 
-Do not submit the validation debug APK or unsigned release candidates. Production release signing is performed only by the manual **Build signed Earthworm v1.3.7 release** workflow on the `main` branch.
+Do not submit the validation debug APK or unsigned release candidates. Production release signing is performed only by the manual **Build signed Earthworm v1.3.8 release** workflow on the `main` branch.
 
 Required GitHub Actions repository secrets:
 
@@ -70,3 +70,10 @@ Required GitHub Actions repository secrets:
 - `EARTHWORM_KEY_PASSWORD`
 
 The keystore must be the permanent Earthworm production signing identity. Do not commit the keystore or passwords to the repository.
+
+
+## Launcher icon gate — v1.3.8
+
+The launcher is wired through `@mipmap/ic_launcher` and `@mipmap/ic_launcher_round`. API 26+ uses adaptive-icon XML resources; mdpi through xxxhdpi have explicit legacy aliases. Every path resolves to the same accepted Earthworm/book/laboratory WebP reconstructed deterministically during Gradle preBuild from eight hash-pinned payload parts. The superseded vector launcher and malformed v1.3.7 launcher resource are removed.
+
+Accepted launcher source: 23,974 bytes; SHA-256 `2ade2a9eedd49679a0b0f15a42a4d75852771272ea6ba0944e8f118a93a8a931`.
