@@ -4,7 +4,10 @@ All items below are **pending real device verification**. Record phone model, An
 
 | Test | Expected result |
 |---|---|
-| Fresh install; airplane-mode launch | All nine systems, diagrams and lesson text load without a network connection. |
+| Fresh install; airplane-mode launch | Native Android dashboard appears first; Continue Laboratory opens all nine systems, diagrams and lesson text without a network connection. |
+| Native dashboard routes | Continue, Guided Dissection, Explore Anatomy and Assessment & Revision open the intended laboratory mode without losing local progress. |
+| Native About & Privacy | Full privacy text is readable inside the app; Open public policy launches the public HTTPS policy in the external browser. |
+| Native laboratory toolbar | Home returns to the dashboard and Privacy opens the native policy dialog without corrupting WebView state. |
 | Every guided module, both languages | All 56 target actions complete; selected tools and current target agree. |
 | External dorsal/ventral selection | Mouth and genital openings appear only on the appropriate surface. |
 | Small phone at 360×800 and 320px width; large font | No page-level horizontal overflow; all controls reachable; Tamil labels readable with zoom. |
@@ -18,12 +21,12 @@ All items below are **pending real device verification**. Record phone model, An
 | One wrong and then correct answer; reload mid-quiz | First-attempt score stays lower; completion-after-retry is distinct; order/progress restore. |
 | All questions completed | Practice record represents local activity only; it must not be described as an accredited certificate. |
 | Review with all cards due in future | Optional review starts and rating saves a new due date. |
-| Close/relaunch, rotation, Android Back | Progress persists, dialogs/zoom dismiss, app exit is deliberate. |
+| Close/relaunch, rotation, Android Back | Progress persists; dialogs/zoom dismiss; Back from the laboratory returns to the native dashboard; Back from the dashboard exits deliberately. |
 | Print labelled diagram; print record; cancel print | Correct output; no blank page; screen styling restores after cancel or finish. |
 | Renderer termination / low memory | Recovery screen appears and retry reloads bundled lessons. |
 | Silent procedure; Home, lock screen or app switch | The procedure pauses without advancing offscreen; resumption is deliberate. |
 | Native speech interruption | A stopped utterance ends the narration job immediately and does not restart from a stale callback. |
-| Unresponsive page followed by Android Back | The bounded fallback offers a deliberate close choice; the Back control does not remain permanently locked. |
+| Unresponsive page followed by Android Back | The bounded fallback remains responsive and returns to the native dashboard rather than leaving the Back control locked. |
 | Print startup failure and rapid recovery/retry | Print state resets; a late callback from an older page/job cannot alter the new page/job. |
 | External link tap | Opens system browser; external navigation does not replace local app content. |
 | Release lint, package validation and signing | No blocking lint failures; install/update succeeds with expected certificate and versionCode. |
