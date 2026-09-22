@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.7 — launcher icon refresh
+
+- Replaced the legacy launcher artwork with the new Earthworm Virtual Laboratory icon selected for the Indus Appstore resubmission.
+- Preserved the native dashboard, About & Privacy screen, offline laboratory payload, package ID and permanent release signing identity.
+- Updated release identity from 1.3.6 / 10306 to 1.3.7 / 10307 so the rebuilt signed APK is unambiguous.
+
 ## 1.3.6 — Indus Appstore review correction
 
 - Added a native Android launcher/dashboard with direct entry points for continuing study, guided study, systems exploration, assessment and review.
