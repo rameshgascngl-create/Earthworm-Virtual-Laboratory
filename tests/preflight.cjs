@@ -54,6 +54,10 @@ check(!workflow.on.pull_request_target,'No privileged pull-request-target workfl
 const native=read('app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java');
 check(!native.includes('addJavascriptInterface('),'No unrestricted JavaScript bridge');
 check(native.includes('registerOnBackInvokedCallback')&&native.includes('@SuppressLint("GestureBackNavigation")'),'Predictive Back is registered while the legacy API 24–32 fallback is retained');
+check(native.includes('showDashboard()')&&native.includes('Continue Laboratory / ஆய்வகத்தைத் தொடர்க'),'Native Android dashboard is the launch surface');
+check(native.includes('Guided Dissection / வழிகாட்டும் பிரித்தாய்வு')&&native.includes('Explore Anatomy / உடற்கூறியல் ஆராய்வு')&&native.includes('Assessment & Revision / மதிப்பீடு மற்றும் மீள்பார்வை'),'Native dashboard exposes substantive laboratory routes');
+check(native.includes('showPrivacyDialog()')&&native.includes('PRIVACY_URL')&&native.includes('Open public policy'),'Privacy policy is readable in-app and linked to a public HTTPS page');
+check(native.includes('Android features: offline bundled lessons, native text-to-speech, Android print/save'),'Native dashboard describes Android-specific functionality');
 const android=new JSDOM(read('app/src/main/AndroidManifest.xml'),{contentType:'text/xml'});
 check(android.window.document.querySelectorAll('uses-permission').length===0,'Android manifest requests no permissions');android.window.close();
 function files(dir){return fs.readdirSync(dir,{withFileTypes:true}).flatMap(e=>['node_modules','.git','.gradle','build','test-results','playwright-report'].includes(e.name)?[]:e.isDirectory()?files(path.join(dir,e.name)):[path.join(dir,e.name)])}
