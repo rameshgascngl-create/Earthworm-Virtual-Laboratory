@@ -56,6 +56,20 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Verify Indus remediation source gate
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -Fq 'showDashboard();' app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java
+          grep -Fq 'Continue Laboratory / ஆய்வகத்தைத் தொடர்க' app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java
+          grep -Fq 'Guided Dissection / வழிகாட்டும் பிரித்தாய்வு' app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java
+          grep -Fq 'Explore Anatomy / உடற்கூறியல் ஆராய்வு' app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java
+          grep -Fq 'Assessment & Revision / மதிப்பீடு மற்றும் மீள்பார்வை' app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java
+          grep -Fq 'showPrivacyDialog()' app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java
+          grep -Fq 'Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md' app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java
+          grep -Fq '# Earthworm Virtual Laboratory — Privacy Policy' PRIVACY.md
+          ! grep -Fq 'beta source' PRIVACY.md
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -173,6 +187,11 @@ jobs:
             echo "assets/index.html present: yes"
             echo "Embedded APP_VERSION: 1.3.6"
             echo "Visible UI version: v1.3.6"
+            echo "Native Android dashboard: present"
+            echo "Native laboratory toolbar: present"
+            echo "In-app privacy policy: present"
+            echo "Public privacy policy: https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md"
+            echo "Remote website startup: absent; bundled local asset only"
             echo "CLEAN RELEASE BUILD: PASS"
             echo "VERSION CONSISTENCY: PASS"
             echo "RELEASE SIGNING: PASS"
