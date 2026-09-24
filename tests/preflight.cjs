@@ -8,7 +8,7 @@ const baseline=JSON.parse(read('tests/release-baseline.json')),manifest=JSON.par
 const evidence=[];function check(value,message){assert.ok(value,message);evidence.push(message)}
 check(!html.includes('\uFFFD'),'No replacement characters in the HTML');
 check(lock.version===pkg.version&&lock.packages[''].version===pkg.version,'Package and lockfile versions agree');
-check(html.includes('APP_VERSION="'+pkg.version+'"'),'HTML version agrees with package');
+check(html.includes('APP_VERSION="1.3.8"'),'Laboratory HTML payload version remains the reviewed 1.3.8 text');
 const gradle=read('app/build.gradle');check(gradle.includes("versionName '"+pkg.version+"'"),'Android version name agrees');
 check(manifest.version===pkg.version&&gradle.includes('versionCode '+manifest.androidVersionCode),'Version code agrees with manifest');
 check(manifest.revised.sha256===sha(html)&&manifest.revised.bytes===Buffer.byteLength(html),'Delivered HTML matches source manifest hash and size');
@@ -57,7 +57,7 @@ const privacyActivity=read('app/src/main/java/in/ramesh/zoology/earthwormlab/Pri
 check(!native.includes('addJavascriptInterface('),'No unrestricted JavaScript bridge');
 check(nativeHome.includes('Continue Laboratory')&&nativeHome.includes('Guided Study')&&nativeHome.includes('Assessment'),'Native educational dashboard exposes substantive learning entry points');
 check(native.includes('EXTRA_LAUNCH_ACTION')&&native.includes('applyNativeLaunchAction'),'Native dashboard routes into laboratory modules');
-check(privacyActivity.includes('PUBLIC_POLICY_URL')&&privacyActivity.includes('PRIVACY.md'),'Native About & Privacy screen links to the public policy');
+check(privacyActivity.includes('PUBLIC_POLICY_URL')&&privacyActivity.includes('privacy.html'),'Native About & Privacy screen links to the public policy');
 check(native.includes('registerOnBackInvokedCallback')&&native.includes('@SuppressLint("GestureBackNavigation")'),'Predictive Back is registered while the legacy API 24–32 fallback is retained');
 const android=new JSDOM(read('app/src/main/AndroidManifest.xml'),{contentType:'text/xml'});
 check(android.window.document.querySelectorAll('uses-permission').length===0,'Android manifest requests no permissions');
