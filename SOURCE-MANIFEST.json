@@ -5,13 +5,13 @@
   },
   "revised": {
     "bytes": 549273,
-    "sha256": "d9b8cca85459764f4169edf4a74aa2e159ea5281968fd49586b15c69176795ed"
+    "sha256": "866867ce68fca4021fd0f12011d032c998b59f946a69cd0d3b7b5d689a8011b3"
   },
-  "version": "1.3.8",
+  "version": "1.3.9",
   "androidApplicationId": "in.ramesh.zoology.earthwormlab",
-  "androidVersionCode": 10308,
+  "androidVersionCode": 10309,
   "androidBuildStatus": "pending CI validation and signed release",
-  "browserLayoutStatus": "Pending v1.3.8 Chromium CI/device validation; launcher resource gate added; academic payload hashes remain gated by tests/release-baseline.json",
+  "browserLayoutStatus": "Pending v1.3.9 Chromium CI/device validation; Indus native-shell and public privacy HTML added; academic payload hashes remain gated by tests/release-baseline.json",
   "apkProduced": false,
   "previousDelivered": {
     "version": "1.3.2-beta",

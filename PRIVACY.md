@@ -4,7 +4,8 @@
 **App:** Earthworm Virtual Laboratory  
 **Package:** `in.ramesh.zoology.earthwormlab`  
 **Developer / Institution:** Department of Zoology, Government Arts and Science College, Nagercoil, Tamil Nadu, India  
-**Contact:** rameshgascngl@gmail.com
+**Contact:** rameshgascngl@gmail.com  
+**Public URL:** https://rameshgascngl-create.github.io/Earthworm-Virtual-Laboratory/privacy.html
 
 ## Overview
 
