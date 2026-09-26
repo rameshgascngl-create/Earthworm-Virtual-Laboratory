@@ -7,6 +7,28 @@ def releaseKeyPassword = System.getenv('EARTHWORM_KEY_PASSWORD')
 def hasReleaseSigning = [releaseStorePath, releaseStorePassword, releaseKeyAlias, releaseKeyPassword]
         .every { it != null && !it.isBlank() }
 
+def generatedIconResDir = file("$buildDir/generated/iconRes")
+
+tasks.register('generateLauncherIcon') {
+    def payloadDir = file('src/main/icon-payload')
+    def outputFile = file("$buildDir/generated/iconRes/drawable-nodpi/ic_launcher_source.webp")
+    inputs.files(fileTree(payloadDir) { include 'part*.b64' })
+    outputs.file(outputFile)
+    doLast {
+        def parts = fileTree(payloadDir) { include 'part*.b64' }.files.sort { it.name }
+        if (parts*.name != (0..7).collect { String.format('part%02d.b64', it) }) {
+            throw new GradleException("Launcher payload must contain exactly part00.b64 through part07.b64")
+        }
+        byte[] bytes = parts.collect { it.getText('UTF-8').trim() }.join('').decodeBase64()
+        def expectedSha = '2ade2a9eedd49679a0b0f15a42a4d75852771272ea6ba0944e8f118a93a8a931'
+        def actualSha = java.security.MessageDigest.getInstance('SHA-256').digest(bytes).encodeHex().toString()
+        if (bytes.length != 23974) throw new GradleException("Launcher WebP size mismatch: " + bytes.length)
+        if (actualSha != expectedSha) throw new GradleException("Launcher WebP SHA-256 mismatch: " + actualSha)
+        outputFile.parentFile.mkdirs()
+        outputFile.bytes = bytes
+    }
+}
+
 android {
     namespace 'in.ramesh.zoology.earthwormlab'
     compileSdk 36
@@ -20,6 +42,7 @@ android {
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
+    sourceSets { main { res.srcDir generatedIconResDir } }
     buildFeatures { buildConfig true }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
@@ -56,3 +79,6 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
 }
+
+
+tasks.named('preBuild').configure { dependsOn tasks.named('generateLauncherIcon') }
