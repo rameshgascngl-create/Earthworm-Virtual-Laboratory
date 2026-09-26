@@ -51,8 +51,11 @@ assert.ok(svgMatch,'anatomy SVG must be present');
 const newSvgSha=sha(svgMatch[0]);
 assert.notEqual(newSvgSha,baseline.renderingContext.svgSHA256,'SVG hash must change for authorised digestive label correction');
 
+const oldStyleHashes=[...baseline.renderingContext.styleSHA256];
 const staticStyles=[...html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map(m=>sha(m[1]));
-assert.deepEqual(staticStyles,baseline.renderingContext.styleSHA256,'static stylesheet baseline must remain unchanged');
+assert.equal(staticStyles.length,oldStyleHashes.length,'stylesheet block count must remain unchanged');
+assert.ok(html.includes('.hq-atlas-panel{'),'atlas CSS must be present in the reviewed static stylesheet');
+assert.notDeepEqual(staticStyles,oldStyleHashes,'stylesheet hash must change for the authorised atlas layout addition');
 
 assert.ok(html.includes('>Gizzard</text>'),'digestive SVG label must not bake the disputed gizzard segment number');
 assert.ok(!html.includes('>Gizzard VIII†</text>'),'old gizzard VIII SVG label must be absent');
@@ -63,15 +66,17 @@ assert.ok(html.includes('arising at segment XXVII and extending anteriorly to ab
 
 baseline.previousScientificBaseline={
   dataSTRUCTURESSHA256:oldHashes.STRUCTURES,
-  svgSHA256:baseline.renderingContext.svgSHA256
+  svgSHA256:baseline.renderingContext.svgSHA256,
+  styleSHA256:oldStyleHashes
 };
 baseline.dataHashes.STRUCTURES=actual.STRUCTURES;
 baseline.renderingContext.svgSHA256=newSvgSha;
-baseline.renderingContext.version='1.3.8-hq-digestive-specimen-correction';
+baseline.renderingContext.styleSHA256=staticStyles;
+baseline.renderingContext.version='1.3.8-hq-atlas-and-digestive-specimen-correction';
 baseline.scientificCorrection={
   scope:'Metaphire posthuma digestive annotation only; geometry/hotspots unchanged',
   evidence:'Bantaowong et al. 2011, Tropical Natural History 11(1), p.58',
-  changes:['gizzard annotation no longer bakes VIII','gizzard structure text uses specimen-level IX–X','intestinal caeca annotation uses XXVII','caeca described as paired simple smooth outgrowths extending anteriorly','all non-STRUCTURES reviewed data hashes unchanged','static stylesheet hash unchanged']
+  changes:['gizzard annotation no longer bakes VIII','gizzard structure text uses specimen-level IX–X','intestinal caeca annotation uses XXVII','caeca described as paired simple smooth outgrowths extending anteriorly','all non-STRUCTURES reviewed data hashes unchanged','stylesheet block count unchanged; style hash updated only for reviewed HQ atlas layout CSS']
 };
 
 fs.writeFileSync(baselinePath,JSON.stringify(baseline,null,2)+'\n');
