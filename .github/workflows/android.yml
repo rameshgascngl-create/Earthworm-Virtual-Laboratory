@@ -52,7 +52,7 @@ jobs:
           # Scientific regression checks for Phase-1 corrected characters.
           structures=d['structures']
           questions=[q for group in d['questions'].values() for q in group]
-          assert 'IX–X' in structures['gizzard']['locEn']
+          assert 'VIII' in structures['gizzard']['locEn'] and 'IX–X' in structures['gizzard']['locEn'] and 'differ' in structures['gizzard']['locEn']
           assert 'XXVII' in structures['intestinal-caeca']['locEn']
           assert 'retained ventrally on the clitellum' in structures['setae']['locEn']
           assert 'last hearts are in XIII' in structures['lateral-hearts']['locEn']
