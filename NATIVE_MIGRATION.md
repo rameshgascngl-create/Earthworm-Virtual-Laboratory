@@ -48,7 +48,7 @@ Before native production release:
 3. **DONE:** migrate all 72 questions with preserved answer indices and bilingual options.
 4. **DONE:** migrate all nine microscopic lesson texts.
 5. **OPEN:** complete English/Tamil UI-resource parity and scientific terminology review.
-6. **OPEN:** reconstruct high-fidelity anatomy diagrams as native vector/drawable or Canvas layers.
+6. **IMPLEMENTED / QA OPEN:** native system-specific Canvas plates and all nine microscopy/deep-dive Canvas plates now exist; academic/device acceptance is tracked in `NATIVE_DIAGRAM_AUDIT.md`.
 7. **OPEN:** add accessibility semantics/content descriptions and large-font testing.
 8. **OPEN:** add instrumentation tests for persistence, rotation, process death, predictive Back and offline launch.
 9. **OPEN:** perform physical-device QA.
