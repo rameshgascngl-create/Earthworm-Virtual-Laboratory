@@ -15,6 +15,7 @@ public final class MicroscopyActivity extends Activity {
     @Override public void onCreate(Bundle b){
         super.onCreate(b);
         repo=new ContentRepository(this);
+        if(b!=null)tamil=b.getBoolean("tamil",false);
         render();
     }
 
@@ -46,6 +47,9 @@ public final class MicroscopyActivity extends Activity {
 
             MicroscopyCanvas plate=new MicroscopyCanvas(this);
             plate.setLessonId(m.id);
+            plate.setContentDescription(
+                (tamil&&!m.ta.trim().isEmpty()?m.ta:m.en)
+                +(tamil?" — சொந்த Android நுண்ணமைப்பு விளக்கப்படம்":" — native Android microscopy diagram"));
             LinearLayout.LayoutParams plateParams=
                 new LinearLayout.LayoutParams(-1,dp(260));
             plateParams.setMargins(0,0,0,dp(10));
@@ -66,6 +70,11 @@ public final class MicroscopyActivity extends Activity {
             12,Color.rgb(244,198,91),false);
         gate.setPadding(0,dp(18),0,0);
         body.addView(gate);
+    }
+
+    @Override protected void onSaveInstanceState(Bundle out){
+        out.putBoolean("tamil",tamil);
+        super.onSaveInstanceState(out);
     }
 
     private TextView text(String v,int sp,int c,boolean bold){
