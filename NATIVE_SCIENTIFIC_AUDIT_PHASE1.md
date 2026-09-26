@@ -27,16 +27,13 @@ Species-specific redescription supports:
 
 ### Digestive system — SPECIES SEGMENT DATA VERIFIED
 
-Species-specific redescription supports:
-- gizzard IX–X;
-- intestine origin XV;
-- paired simple intestinal caeca originating XXVII and extending anteriorly to XXV;
-- typhlosole present.
+Published *M. posthuma* accounts agree on the sequence of a muscular gizzard before the intestine but differ in exact gizzard segment placement. The 2011 Thai redescription reports IX–X, while Indian material and classic practical accounts report VIII. The intestine begins at XV. Published accounts consistently place the origin of the paired simple intestinal caeca in XXVII, while their anterior reach varies approximately between XXIV and XXV.
 
 **Corrections applied:**
-- species model now uses IX–X for the gizzard rather than making VIII primary;
-- caecal origin corrected from the older XXVI teaching convention to XXVII;
-- assessment answer corrected to XXVII.
+- removed the false implication that either VIII or IX–X is universal for every *M. posthuma* specimen;
+- redefined the traditional "stomach" as the post-gizzard, pre-intestinal teaching region so it cannot overlap the gizzard after a source-specific segment choice;
+- caecal origin corrected to XXVII while anterior extent is explicitly treated as variable;
+- assessment answer tests the robust XXVII caecal origin rather than a variable endpoint.
 
 ### Circulatory system — PARTIAL EVIDENCE / PROVENANCE CAUTION
 
@@ -82,6 +79,7 @@ The native plate now explicitly shows:
 
 ## Explicit unresolved items
 
+- Published *M. posthuma* specimens show genuine variation in gizzard placement and male-pore surface morphology; the app must preserve specimen/source awareness rather than manufacture one universal morphology.
 - The complete segment-by-segment four-heart map remains a **curriculum convention with provenance warning**, not a direct claim from the cited modern redescription.
 - Nephridial visual scale and exact duct-course representation remain schematic.
 - Canvas plates are not segment-proportional unless explicitly stated.
