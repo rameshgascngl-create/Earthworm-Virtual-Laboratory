@@ -7,52 +7,24 @@ def releaseKeyPassword = System.getenv('EARTHWORM_KEY_PASSWORD')
 def hasReleaseSigning = [releaseStorePath, releaseStorePassword, releaseKeyAlias, releaseKeyPassword]
         .every { it != null && !it.isBlank() }
 
-def generatedIconResDir = file("$buildDir/generated/iconRes")
-
-tasks.register('generateLauncherIcon') {
-    def payloadDir = file('src/main/icon-payload')
-    def outputFile = file("$buildDir/generated/iconRes/drawable-nodpi/ic_launcher_source.webp")
-    inputs.files(fileTree(payloadDir) { include 'part*.b64' })
-    outputs.file(outputFile)
-    doLast {
-        def parts = fileTree(payloadDir) { include 'part*.b64' }.files.sort { it.name }
-        if (parts*.name != (0..7).collect { String.format('part%02d.b64', it) }) {
-            throw new GradleException("Launcher payload must contain exactly part00.b64 through part07.b64")
-        }
-        def encoded = parts.collect { it.getText('UTF-8').trim() }.join('')
-        byte[] bytes = encoded.decodeBase64()
-        def expectedSize = 23974
-        def expectedSha = '2ade2a9eedd49679a0b0f15a42a4d75852771272ea6ba0944e8f118a93a8a931'
-        def actualSha = java.security.MessageDigest.getInstance('SHA-256').digest(bytes).encodeHex().toString()
-        if (bytes.length != expectedSize) throw new GradleException("Launcher WebP size mismatch: " + bytes.length)
-        if (actualSha != expectedSha) throw new GradleException("Launcher WebP SHA-256 mismatch: " + actualSha)
-        def ascii = java.nio.charset.StandardCharsets.US_ASCII
-        if (new String(bytes, 0, 4, ascii) != 'RIFF' || new String(bytes, 8, 4, ascii) != 'WEBP') {
-            throw new GradleException("Launcher payload is not a RIFF/WebP image")
-        }
-        def riffLength = java.nio.ByteBuffer.wrap(bytes, 4, 4).order(java.nio.ByteOrder.LITTLE_ENDIAN).getInt() + 8
-        if (riffLength != bytes.length) throw new GradleException("Launcher WebP RIFF length mismatch")
-        outputFile.parentFile.mkdirs()
-        outputFile.bytes = bytes
-    }
-}
-
 android {
     namespace 'in.ramesh.zoology.earthwormlab'
     compileSdk 36
+
     defaultConfig {
         applicationId 'in.ramesh.zoology.earthwormlab'
         minSdk 24
         targetSdk 36
-        versionCode 10308
-        versionName '1.3.8'
+        versionCode 200001
+        versionName '2.0.0-alpha1'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
-    sourceSets {
-        main { res.srcDir generatedIconResDir }
-    }
+
     buildFeatures { buildConfig true }
-    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 
     signingConfigs {
         if (hasReleaseSigning) {
@@ -73,21 +45,14 @@ android {
             minifyEnabled true
             shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            if (hasReleaseSigning) {
-                signingConfig signingConfigs.release
-            }
+            if (hasReleaseSigning) signingConfig signingConfigs.release
         }
     }
+
     lint { abortOnError true; checkReleaseBuilds true }
 }
 
 dependencies {
-    implementation 'androidx.webkit:webkit:1.14.0'
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
-}
-
-
-tasks.named('preBuild').configure {
-    dependsOn tasks.named('generateLauncherIcon')
 }
