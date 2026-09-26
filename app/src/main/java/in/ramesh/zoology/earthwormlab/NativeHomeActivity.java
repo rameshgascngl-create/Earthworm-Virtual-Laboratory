@@ -176,6 +176,7 @@ public final class NativeHomeActivity extends Activity {
         card.setBackground(bg);
         card.setClickable(true);
         card.setFocusable(true);
+        card.setMinHeight(dp(56));
 
         card.addView(text(title,18,Color.WHITE,true));
         TextView d=text(detail,14,Color.rgb(185,211,203),false);
@@ -199,7 +200,7 @@ public final class NativeHomeActivity extends Activity {
         b.setText(label);
         b.setTextSize(16);
         b.setAllCaps(false);
-        b.setMinHeight(dp(48));
+        b.setMinHeight(dp(56));
         b.setPadding(dp(12),dp(10),dp(12),dp(10));
         return b;
     }
