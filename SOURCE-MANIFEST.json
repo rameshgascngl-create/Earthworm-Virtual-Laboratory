@@ -4,17 +4,22 @@
     "sha256": "ba7674b8cec93ddea8b2f3dbd3404ff6cbf9073f91880d673d4cfc643ab26c83"
   },
   "revised": {
-    "bytes": 549273,
-    "sha256": "d9b8cca85459764f4169edf4a74aa2e159ea5281968fd49586b15c69176795ed"
+    "bytes": 7422127,
+    "sha256": "5a6dc4e4117a4ef5517799c6e3573079ba3d2474319c92f8dfc9db6469ce30ec"
   },
   "version": "1.3.8",
   "androidApplicationId": "in.ramesh.zoology.earthwormlab",
   "androidVersionCode": 10308,
   "androidBuildStatus": "pending CI validation and signed release",
-  "browserLayoutStatus": "Pending v1.3.8 Chromium CI/device validation; launcher resource gate added; academic payload hashes remain gated by tests/release-baseline.json",
+  "browserLayoutStatus": "HQ atlas reconstruction candidate on isolated branch; browser/Android/device QA required before version promotion",
   "apkProduced": false,
   "previousDelivered": {
     "version": "1.3.2-beta",
     "sha256": "8ca2c5f4234fdba52b7c6de42e0b033d336daa6a05ab31ac63147850a907158d"
+  },
+  "hqAtlasCandidate": {
+    "historicalSha256": "5dbc6fe5754891a0c6dd6b5d307be232e35a1d244fcca72788749991cbc8affd",
+    "candidateSha256": "5a6dc4e4117a4ef5517799c6e3573079ba3d2474319c92f8dfc9db6469ce30ec",
+    "plateManifest": "review/HQ_ATLAS_RELEASE_CANDIDATE_MANIFEST.json"
   }
 }
