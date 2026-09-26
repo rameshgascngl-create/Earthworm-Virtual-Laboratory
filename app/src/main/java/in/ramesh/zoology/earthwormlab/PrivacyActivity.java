@@ -14,8 +14,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 public final class PrivacyActivity extends Activity {
+    // Alpha QA intentionally points at the audit branch policy because production
+    // main remains untouched. Release candidate promotion must switch this to the
+    // final stable public policy URL after the policy is merged/published.
     static final String PUBLIC_POLICY_URL =
-        "https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md";
+        "https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/native/v2.0.0-alpha1/PRIVACY.md";
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
