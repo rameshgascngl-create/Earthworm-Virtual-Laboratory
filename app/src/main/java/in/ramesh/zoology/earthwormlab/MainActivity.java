@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.speech.tts.Voice;
 import android.view.WindowInsets;
+import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -19,9 +20,10 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
     private ProgressStore progress;
     private ContentRepository content;
     private TextToSpeech tts;
-    private TextView heading,detail,indexTitle;
+    private TextView heading,detail,indexTitle,atlasTitle,interactiveTitle;
     private LinearLayout structureList,tabs;
     private Button speakButton;
+    private AtlasSvgView atlas;
     private AnatomyCanvas anatomy;
     private String currentSystem = "external";
     private boolean tamil=false;
@@ -52,7 +54,24 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         tabs.setOrientation(LinearLayout.VERTICAL);
         body.addView(tabs);
 
-        anatomy=new AnatomyCanvas(this);anatomy.setListener(this);LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(-1,dp(340));cp.setMargins(0,dp(12),0,dp(12));body.addView(anatomy,cp);
+        atlasTitle=text("",18,Color.rgb(244,198,91),true);
+        atlasTitle.setPadding(0,dp(16),0,dp(8));
+        body.addView(atlasTitle);
+
+        atlas=new AtlasSvgView(this);
+        LinearLayout.LayoutParams ap=new LinearLayout.LayoutParams(-1,-2);
+        ap.setMargins(0,0,0,dp(12));
+        body.addView(atlas,ap);
+
+        interactiveTitle=text("",17,Color.rgb(56,214,188),true);
+        interactiveTitle.setPadding(0,dp(4),0,dp(8));
+        body.addView(interactiveTitle);
+
+        anatomy=new AnatomyCanvas(this);
+        anatomy.setListener(this);
+        LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(-1,dp(340));
+        cp.setMargins(0,0,0,dp(12));
+        body.addView(anatomy,cp);
 
         detail=text("",15,Color.rgb(226,242,237),false);detail.setLineSpacing(0,1.16f);body.addView(detail);
         speakButton=new Button(this);
@@ -81,6 +100,8 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
             b.setMinHeight(dp(56));b.setPadding(dp(10),dp(8),dp(10),dp(8));tabs.addView(b,new LinearLayout.LayoutParams(-1,-2));
         }
         speakButton.setText(tamil?"தேர்ந்த அமைப்பின் விளக்கத்தை ஒலிக்க":"Speak selected structure");
+        atlasTitle.setText(tamil?"உயர் தர உடற்கூறு அட்லஸ் படம்":"High-resolution anatomy atlas");
+        interactiveTitle.setText(tamil?"தொடுதிறன் கொண்ட அமைப்பு வரைபடம்":"Interactive structure map");
         indexTitle.setText(tamil?"அமைப்புகளின் பட்டியல்":"Native structure index");
         anatomy.setTamil(tamil);
         anatomy.setContentDescription(
@@ -92,13 +113,48 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
 
     private void showSystem(String id){
         if(!content.systemIds().contains(id))return;
-        currentSystem=id;selectedContent=null;heading.setText(content.systemName(id,tamil));detail.setText(tamil?"அமைப்பைத் தேர்ந்து கட்டமைப்பைத் தொடவும்.":"Select a structure below or use the native diagram.");
-        NativeData.SystemRecord visual=NativeData.system(id);anatomy.setSystem(visual);
+        currentSystem=id;
+        selectedContent=null;
+        heading.setText(content.systemName(id,tamil));
+        detail.setText(tamil
+            ?"கீழுள்ள உயர் தர அட்லஸ் படத்தைப் பாருங்கள்; பின்னர் அமைப்பைத் தேர்ந்து தொடுதிறன் வரைபடத்தில் உறுதிப்படுத்துங்கள்."
+            :"Study the high-resolution atlas plate, then select a structure and confirm it on the interactive map.");
+
+        int atlasRes=atlasResourceFor(id);
+        if(atlasRes==0){
+            atlasTitle.setVisibility(View.GONE);
+            atlas.setVisibility(View.GONE);
+        }else{
+            atlasTitle.setVisibility(View.VISIBLE);
+            atlas.setVisibility(View.VISIBLE);
+            atlas.setSvgResource(atlasRes);
+            atlas.setContentDescription(
+                tamil
+                    ? content.systemName(id,true)+" — உயர்தர சொந்த Android வெக்டர் அட்லஸ் படம்"
+                    : content.systemName(id,false)+" — high-resolution native Android vector atlas plate");
+        }
+
+        NativeData.SystemRecord visual=NativeData.system(id);
+        anatomy.setSystem(visual);
         structureList.removeAllViews();
         List<ContentRepository.Structure> records=content.structures(id);
         if(records.isEmpty()){TextView none=text(tamil?"இந்தப் பிரிவு செய்முறை/குறுக்குவெட்டு வழிகாட்டுதலால் கற்பிக்கப்படுகிறது.":"This section is taught through the guided procedure/cross-section workflow.",14,Color.rgb(185,211,203),false);structureList.addView(none);}
         for(ContentRepository.Structure s:records){Button b=new Button(this);b.setAllCaps(false);b.setText(s.title(tamil));b.setOnClickListener(v->selectContent(s));b.setMinHeight(dp(56));b.setPadding(dp(10),dp(8),dp(10),dp(8));structureList.addView(b,new LinearLayout.LayoutParams(-1,-2));}
         progress.setLastSystem(id);
+    }
+
+    private int atlasResourceFor(String id){
+        switch(id){
+            case "external": return R.raw.atlas_external;
+            case "digestive": return R.raw.atlas_digestive;
+            case "circulatory": return R.raw.atlas_circulatory;
+            case "respiratory": return R.raw.atlas_respiratory;
+            case "excretory": return R.raw.atlas_excretory;
+            case "reproductive": return R.raw.atlas_reproductive;
+            case "nervous": return R.raw.atlas_nervous;
+            case "crosssection": return R.raw.atlas_crosssection;
+            default: return 0;
+        }
     }
 
     private void selectContent(ContentRepository.Structure s){
