@@ -78,7 +78,7 @@ public final class PrivacyActivity extends Activity {
         Button lang=new Button(this);
         lang.setText("தமிழ் / English");
         lang.setAllCaps(false);
-        lang.setMinHeight(dp(48));
+        lang.setMinHeight(dp(56));
         lang.setOnClickListener(v->{tamil=!tamil;render();});
         body.addView(lang,new LinearLayout.LayoutParams(-1,-2));
 
@@ -116,7 +116,7 @@ public final class PrivacyActivity extends Activity {
         publicPolicy.setText(tamil?"பொது தனியுரிமைக் கொள்கையைப் பார்க்க":"View public Privacy Policy");
         publicPolicy.setAllCaps(false);
         publicPolicy.setTextSize(16);
-        publicPolicy.setMinHeight(dp(48));
+        publicPolicy.setMinHeight(dp(56));
         publicPolicy.setPadding(dp(10),dp(8),dp(10),dp(8));
         publicPolicy.setOnClickListener(v->openPolicy());
         LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(-1,-2);
@@ -126,7 +126,7 @@ public final class PrivacyActivity extends Activity {
         Button close=new Button(this);
         close.setText(tamil?"பயன்பாட்டிற்குத் திரும்புக":"Back to app");
         close.setAllCaps(false);
-        close.setMinHeight(dp(48));
+        close.setMinHeight(dp(56));
         close.setPadding(dp(10),dp(8),dp(10),dp(8));
         close.setOnClickListener(v->finish());
         body.addView(close,new LinearLayout.LayoutParams(-1,-2));
