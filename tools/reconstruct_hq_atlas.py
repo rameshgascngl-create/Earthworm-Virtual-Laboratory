@@ -84,6 +84,33 @@ def main():
     if sha(baseb)!=BASELINE_SHA: raise SystemExit("Target is not hardened v1.3.8 baseline")
     if sha(histb)!=HISTORICAL_SHA: raise SystemExit("Historical HQ candidate hash mismatch")
     html=baseb.decode(); hist=histb.decode()
+    # Authorised species-specific corrections for the release-authoritative line.
+    # Hotspot geometry and organ drawings remain unchanged; only application-rendered
+    # labels/explanations are corrected to the cited Metaphire posthuma specimen evidence.
+    corrections=[
+      ('Gizzard VIII†','Gizzard'),
+      ('அரவைப்பை VIII†','அரவைப்பை'),
+      ('Intestinal caeca XXVI†','Intestinal caeca XXVII'),
+      ('குடல் நீட்சிகள் XXVI†','குடல் சீக்காக்கள் XXVII'),
+      ('"Gizzard VIII":"அரவைப்பை VIII"','"Gizzard":"அரவைப்பை"'),
+      ('"Intestinal caeca XXVI":"குடல் நீட்சிகள் XXVI"','"Intestinal caeca XXVII":"குடல் சீக்காக்கள் XXVII"'),
+      ('"Gizzard VIII": {"lines": ["அரவைப்பை VIII"], "size": 16}','"Gizzard": {"lines": ["அரவைப்பை"], "size": 16}'),
+      ('"Intestinal caeca XXVI": {"lines": ["குடல் நீட்சிகள் XXVI"], "size": 16}','"Intestinal caeca XXVII": {"lines": ["குடல் சீக்காக்கள் XXVII"], "size": 16}'),
+      ('"Gizzard VIII†": {"lines": ["அரவைப்பை VIII†"], "size": 16}','"Gizzard": {"lines": ["அரவைப்பை"], "size": 16}'),
+      ('"Intestinal caeca XXVI†": {"lines": ["குடல் நீட்சிகள் XXVI†"], "size": 16, "y": 169}','"Intestinal caeca XXVII": {"lines": ["குடல் சீக்காக்கள் XXVII"], "size": 16, "y": 169}'),
+      ('A thick, muscular chamber in segment VIII.','A thick, muscular chamber occupying segments IX–X in identified Metaphire posthuma specimens.'),
+      ('VIII-ஆம் கண்டத்தில் அமைந்த தடித்த தசைமிகு அறை.','அடையாளம் உறுதிசெய்யப்பட்ட Metaphire posthuma மாதிரிகளில் IX–X கண்டங்களை ஆக்கிரமிக்கும் தடித்த தசைமிகு அறை.'),
+      ('A paired, forwardly directed outgrowth arising near segment XXVI.','Paired, simple, smooth, forwardly directed intestinal outgrowths arising at segment XXVII and extending anteriorly to about XXV in identified Metaphire posthuma specimens.'),
+      ('XXVI-ஆம் கண்டத்திற்கு அருகில் தோன்றி முன்நோக்கி நீளும் ஓர் இணை குடல் நீட்சிகள்.','அடையாளம் உறுதிசெய்யப்பட்ட Metaphire posthuma மாதிரிகளில் XXVII-ஆம் கண்டத்தில் தோன்றி சுமார் XXV வரை முன்நோக்கி நீளும் இணையான, எளிய, வழுவழுப்பான குடல் சீக்காக்கள்.'),
+      ('STRUCTURES.gizzard.fixEn="Identify by its thick grinding wall; verify segment boundaries in the actual specimen."','STRUCTURES.gizzard.fixEn="Identify the gizzard by its thick grinding wall. This release uses the specimen-level IX–X position reported for Metaphire posthuma; older teaching accounts may use different conventional numbering."'),
+      ('STRUCTURES.gizzard.fixTa="தடித்த அரைக்கும் சுவரால் அடையாளம் காண்க; மாதிரியில் கண்ட எல்லைகளைச் சரிபார்க்கவும்."','STRUCTURES.gizzard.fixTa="தடித்த அரைக்கும் சுவரால் அரவைப்பையை அடையாளம் காண்க. இப்பதிப்பில் Metaphire posthuma மாதிரி ஆய்வுச் சான்றின்படி IX–X கண்ட அமைவிடம் பயன்படுத்தப்படுகிறது; சில பழைய பாட விளக்கங்களில் வேறு மரபு எண்கள் காணப்படலாம்."'),
+      ('these plates retain conventional teaching positions. Bantaowong et al. (2011), p. 58, report caeca XXVII, gizzard IX–X and ventral clitellar setae in identified specimens. Confirm the institutional account before using segment-number items in an examination.','this release uses specimen-level Metaphire posthuma positions for the corrected digestive teaching content. Bantaowong et al. (2011), p. 58, report caeca XXVII, gizzard IX–X and retained ventral clitellar setae in identified specimens. Some institutional manuals retain older conventional numbering; confirm local examination requirements.'),
+      ('வரைபடங்கள் பாட மரபின் அமைவிடங்களைப் பின்பற்றுகின்றன. Bantaowong மற்றும் குழுவினர் (2011), பக். 58: குடல் நீட்சிகள் XXVII; அரவைப்பை IX–X; கிளைட்டெல்லத்தின் வயிற்றுப்புறத்தில் சீட்டாக்கள். தேர்விற்கு முன் நிறுவனப் பாட விளக்கத்தை உறுதிப்படுத்தவும்.','திருத்தப்பட்ட செரிமானப் பகுதி இப்பதிப்பில் Metaphire posthuma மாதிரி ஆய்வுச் சான்றின் அமைவிடங்களைப் பின்பற்றுகிறது. Bantaowong மற்றும் குழுவினர் (2011), பக். 58: குடல் சீக்காக்கள் XXVII; அரவைப்பை IX–X; கிளைட்டெல்லத்தின் வயிற்றுப்புறத்தில் சீட்டாக்கள் நீடிக்கலாம். சில நிறுவனப் பாடநூல்களில் பழைய மரபு எண்கள் இருக்கலாம்; தேர்விற்கு உள்ளூர் பாட விளக்கத்தை உறுதிப்படுத்தவும்.')
+    ]
+    for old,new in corrections:
+        if old not in html:
+            raise SystemExit("Scientific-correction source text not found: "+old[:100])
+        html=html.replace(old,new)
     invariants=['const APP_VERSION="1.3.8", STORAGE_KEY="earthwormDissection.v1";',
       'function pauseLaboratory(){demo.playing=false;clearProcedureTimer();stopSpeech();saveState();renderProcedure()}',
       'window.addEventListener("pagehide",pauseLaboratory)','pause:pauseLaboratory']
