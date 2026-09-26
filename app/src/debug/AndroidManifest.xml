@@ -2,24 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
     <application>
-        <activity
-            android:name=".MainActivity"
+        <!-- QA-only shell launch access. Production/main manifest remains non-exported. -->
+        <activity android:name=".MainActivity"
             android:exported="true"
             tools:replace="android:exported" />
-        <activity
-            android:name=".GuidedActivity"
+        <activity android:name=".GuidedActivity"
             android:exported="true"
             tools:replace="android:exported" />
-        <activity
-            android:name=".AssessmentActivity"
+        <activity android:name=".AssessmentActivity"
             android:exported="true"
             tools:replace="android:exported" />
-        <activity
-            android:name=".MicroscopyActivity"
+        <activity android:name=".MicroscopyActivity"
             android:exported="true"
             tools:replace="android:exported" />
-        <activity
-            android:name=".PrivacyActivity"
+        <activity android:name=".PrivacyActivity"
             android:exported="true"
             tools:replace="android:exported" />
     </application>
