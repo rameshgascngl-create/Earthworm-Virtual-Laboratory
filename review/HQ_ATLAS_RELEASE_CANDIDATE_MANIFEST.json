@@ -11,10 +11,11 @@
     "status": "FROZEN — DO NOT RELEASE"
   },
   "candidate": {
-    "html_sha256": "2f599d1f5709fec5adf74caa65fec0a1e5aa8e61b527171fb2d23c06da207c5f",
-    "bytes": 7423177,
+    "html_sha256": "4921509f78c91f3f9c0a52bfccef6c22a52652e66c26a930b534d597679829ec",
+    "bytes": 7424244,
     "app_version_during_reconstruction": "1.3.8",
-    "planned_production_version_after_all_gates": "1.3.9 / 10309"
+    "planned_production_version_after_all_gates": "1.3.9 / 10309",
+    "ui_revision": "mobile horizontal system tabs; native system dropdown hidden on <=640px"
   },
   "plates": {
     "external": {
@@ -105,5 +106,11 @@
     "assessments",
     "bilingual content",
     "offline CSP"
-  ]
+  ],
+  "mobile_system_navigation": {
+    "input_sha256": "2f599d1f5709fec5adf74caa65fec0a1e5aa8e61b527171fb2d23c06da207c5f",
+    "output_sha256": "4921509f78c91f3f9c0a52bfccef6c22a52652e66c26a930b534d597679829ec",
+    "scope": "CSS-only mobile presentation change; existing systemTabs/selectSystem/state logic reused",
+    "physical_device_qa_required": true
+  }
 }

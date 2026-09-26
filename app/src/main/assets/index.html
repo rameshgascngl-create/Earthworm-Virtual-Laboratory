@@ -97,6 +97,42 @@
     .svg-structure.selected .surface-detail,.svg-structure.targeted .surface-detail{filter:none!important;stroke-width:inherit}
     @media print{.plate-caption rect{fill:#fff;stroke:#777}.plate-caption .organ-label,.plate-caption .micro-label{fill:#111;stroke:#fff}.svg-structure.selected>text,.svg-structure.targeted>text{fill:#111;stroke:#fff!important}}
     .hq-atlas-panel{border-top:1px solid var(--line);background:linear-gradient(180deg,#071d1b,#0a2522);padding:.85rem .9rem 1rem}.hq-atlas-panel[hidden]{display:none}.hq-atlas-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;flex-wrap:wrap;margin-bottom:.65rem}.hq-atlas-title-wrap{min-width:0}.hq-atlas-kicker{font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--teal);font-weight:850;margin-bottom:.18rem}.hq-atlas-title{margin:0;font-size:1rem;color:#fff}.hq-atlas-meta{font-size:.72rem;color:var(--muted);margin-top:.2rem}.hq-atlas-figure{margin:0;border:1px solid #3e6962;border-radius:.9rem;overflow:hidden;background:#031513;box-shadow:0 16px 34px #0006}.hq-atlas-image{display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:contain;background:#032421;cursor:zoom-in;image-rendering:auto}.hq-atlas-caption{margin:0;padding:.7rem .8rem;color:#d9eee8;background:#071b19;border-top:1px solid var(--line);font-size:.78rem;line-height:1.5}.hq-atlas-caption strong{color:var(--gold)}.hq-atlas-caution{display:block;margin-top:.35rem;color:#ffe0a3}.hq-atlas-dialog{max-width:min(96vw,2100px);width:96vw;max-height:94vh}.hq-atlas-dialog .dialog-body{padding:.55rem;overflow:auto;max-height:calc(94vh - 64px);background:#02110f;overscroll-behavior:contain}.hq-atlas-dialog img{display:block;width:2048px;height:1536px;max-width:none;margin:auto;background:#032421;touch-action:pan-x pan-y}@media(max-width:640px){.hq-atlas-panel{padding:.65rem}.hq-atlas-head{align-items:stretch}.hq-atlas-head .ghost-btn{width:100%}.hq-atlas-caption{font-size:.76rem}}@media print{.hq-atlas-panel,.hq-atlas-dialog{display:none!important}}
+
+    /* mobile-system-tabs-v1: expose the existing system button navigator on phones. */
+    @media(max-width:640px){
+      .top-nav{display:block;padding:.5rem .65rem;overflow:hidden}
+      #systemSelectLabel,#systemSelect{display:none!important}
+      #systemTabs{
+        display:flex!important;
+        flex-direction:row;
+        align-items:stretch;
+        gap:.5rem;
+        width:100%;
+        max-height:none;
+        overflow-x:auto;
+        overflow-y:hidden;
+        padding:.15rem .05rem .4rem;
+        scroll-snap-type:x proximity;
+        scroll-padding-inline:.1rem;
+        scrollbar-width:thin;
+        -webkit-overflow-scrolling:touch
+      }
+      #systemTabs .seg-btn{
+        flex:0 0 auto;
+        width:auto;
+        min-width:max-content;
+        min-height:46px;
+        justify-content:center;
+        white-space:nowrap;
+        padding:.55rem .78rem;
+        border-radius:999px;
+        scroll-snap-align:center
+      }
+      html[data-lang="ta"] #systemTabs .seg-btn{
+        white-space:nowrap;
+        line-height:1.45
+      }
+    }
   </style>
 <!-- Bundled font license
 Copyright 2022 The Noto Project Authors (https://github.com/notofonts/tamil)
