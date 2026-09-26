@@ -36,6 +36,7 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
             String restored=state.getString("system","external");
             if(content.systemIds().contains(restored)) currentSystem=restored;
         }else{
+            tamil=getIntent()!=null && getIntent().getBooleanExtra(NativeHomeActivity.EXTRA_TAMIL,false);
             String requested=getIntent()!=null?getIntent().getStringExtra(EXTRA_SYSTEM):null;
             if(requested!=null && content.systemIds().contains(requested)) currentSystem=requested;
         }
