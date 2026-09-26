@@ -39,7 +39,7 @@ public final class ContentRepository {
     public static final class GuidedAction {
         public final String system,tool,target,en,ta;
         GuidedAction(String system,JSONObject o){this.system=system;tool=o.optString("tool");target=o.optString("target");en=o.optString("en");ta=o.optString("ta");}
-        public String instruction(boolean tamil){String x=tamil?ta:en;return x.trim().isEmpty()?target:x;}
+        public String instruction(boolean tamil){String x=tamil?ta:en;return x==null?"":x;}
     }
 
     public static final class Question {
