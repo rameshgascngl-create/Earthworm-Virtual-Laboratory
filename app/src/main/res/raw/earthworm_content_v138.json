@@ -59,6 +59,16 @@
         "Keep species names and Roman segment numerals unchanged.",
         "Tamil must preserve the same scientific uncertainty/provenance as English."
       ]
+    },
+    "guidedScientificAudit": {
+      "phase": "native-v2-guided-action-audit-1",
+      "status": "TOOL_MAPPING_CORRECTIONS_APPLIED",
+      "corrections": [
+        "Cutaneous gas exchange is an observed physiological relationship, not a structure to probe.",
+        "Mucus film is observed rather than created/identified by a dropper in the guided identification sequence.",
+        "Transverse-section tissue and vessel identification uses magnification/inspection rather than dissection probing."
+      ],
+      "instructionPolicy": "Non-procedural guided steps derive bilingual target names from the authoritative structure repository and use tool-appropriate generic instructions; raw internal IDs must never be student-facing."
     }
   },
   "systems": {
@@ -958,7 +968,7 @@
         "target": "moist-epidermis"
       },
       {
-        "tool": "dropper",
+        "tool": "inspect",
         "target": "mucus-film"
       },
       {
@@ -966,7 +976,7 @@
         "target": "cutaneous-capillaries"
       },
       {
-        "tool": "probe",
+        "tool": "inspect",
         "target": "cutaneous-exchange"
       }
     ],
@@ -1050,15 +1060,15 @@
         "target": "cs-epidermis"
       },
       {
-        "tool": "probe",
+        "tool": "magnifier",
         "target": "cs-circular-muscle"
       },
       {
-        "tool": "probe",
+        "tool": "magnifier",
         "target": "cs-longitudinal-muscle"
       },
       {
-        "tool": "inspect",
+        "tool": "magnifier",
         "target": "cs-peritoneum"
       },
       {
@@ -1070,11 +1080,11 @@
         "target": "cs-gut"
       },
       {
-        "tool": "probe",
+        "tool": "magnifier",
         "target": "cs-dorsal-vessel"
       },
       {
-        "tool": "probe",
+        "tool": "magnifier",
         "target": "cs-ventral-vessel"
       },
       {
@@ -1082,11 +1092,11 @@
         "target": "cs-nerve-cord"
       },
       {
-        "tool": "probe",
+        "tool": "magnifier",
         "target": "cs-subneural-vessel"
       },
       {
-        "tool": "inspect",
+        "tool": "magnifier",
         "target": "cs-setae"
       }
     ]
