@@ -65,7 +65,7 @@ jobs:
           # exactly one native hotspot and there must be no orphan hotspot IDs.
           import re
           native=open('app/src/main/java/in/ramesh/zoology/earthwormlab/NativeData.java',encoding='utf-8').read()
-          hotspot_ids=re.findall(r'\\bs\\("([^"]+)"',native)
+          hotspot_ids=re.findall(r'\bs\("([^"]+)"',native)
           assert len(hotspot_ids)==55, len(hotspot_ids)
           assert len(set(hotspot_ids))==55, 'duplicate native hotspot id'
           assert set(hotspot_ids)==set(structures.keys()), (
