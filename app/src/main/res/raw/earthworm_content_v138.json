@@ -38,6 +38,27 @@
         "Nephridial segment/discharge details remain under separate audit because the cited 2011 redescription does not enumerate them.",
         "Published M. posthuma descriptions show intraspecific/geographic variation in gizzard placement and male-pore surface morphology; the native app must avoid universalising one specimen account."
       ]
+    },
+    "tamilTerminologyAudit": {
+      "phase": "native-v2-tamil-terminology-pass-1",
+      "status": "TARGETED_REGISTER_POLISH_APPLIED",
+      "register": "Tamil Nadu textbook-style scientific Tamil with recognised zoological loan terms retained where clarity benefits",
+      "retainedTerms": [
+        "இரத்த ஓட்ட மண்டலம்",
+        "கழிவு நீக்க மண்டலம்",
+        "நெஃப்ரிடியா",
+        "கிளைட்டெல்லம்",
+        "டைஃப்ளோசோல்",
+        "பெரிட்டோனியம்",
+        "விந்துநாளங்கள்",
+        "அண்டநாளம்"
+      ],
+      "policy": [
+        "Do not replace established zoological loan terms with obscure literal coinages.",
+        "Use explanatory Tamil aliases when they improve textbook recognisability.",
+        "Keep species names and Roman segment numerals unchanged.",
+        "Tamil must preserve the same scientific uncertainty/provenance as English."
+      ]
     }
   },
   "systems": {
@@ -189,8 +210,8 @@
       "fnTa": "தசை இயக்கத்தால் மண்ணையும் கரிம உணவுத் துகள்களையும் உள்ளிழுக்கிறது; தொண்டைச் சுரப்பிகள் சுரப்பைச் சேர்க்கின்றன.",
       "sigEn": "The foregut begins as a food-ingestion pump, not merely a passive tube.",
       "sigTa": "முன்குடல் வெறும் குழாய் அல்ல; உணவை உள்ளிழுக்கும் இயக்கப்பகுதியாகத் தொடங்குகிறது.",
-      "fixEn": "Do not confuse the pharynx with the thick-walled gizzard in segment VIII.",
-      "fixTa": "தொண்டை உணவை உள்ளிழுக்கிறது; அரவைப்பை உணவை அரைக்கிறது. இவற்றின் அமைப்பையும் பணியையும் வேறுபடுத்திப் பார்க்கவும்."
+      "fixEn": "Do not confuse the muscular pharynx, which draws food inward, with the thick-walled gizzard, which performs mechanical grinding.",
+      "fixTa": "உணவை உள்ளிழுக்கும் தசைமயமான தொண்டையையும், உணவை இயந்திரமாக அரைக்கும் தடித்த சுவருடைய அரவைப்பையையும் ஒன்றாகக் குழப்பக்கூடாது."
     },
     "oesophagus": {
       "system": "digestive",
@@ -328,7 +349,7 @@
     "capillary-networks": {
       "system": "circulatory",
       "en": "Segmental capillary networks",
-      "ta": "கண்ட நுண்நாள வலையமைப்புகள்",
+      "ta": "கண்டவாரியான இரத்த நுண்நாள வலையமைப்புகள்",
       "locEn": "Fine networks in body wall, gut and other tissues.",
       "locTa": "உடற்சுவர், குடல் மற்றும் பிற திசுக்களில் அமைந்த நுண்ணிய நாள வலைகள்.",
       "fnEn": "Permit exchange of gases, nutrients and wastes between blood and tissues.",
@@ -367,13 +388,13 @@
     "cutaneous-capillaries": {
       "system": "respiratory",
       "en": "Subepidermal capillaries",
-      "ta": "புறத்தோலடித் தந்துகிகள்",
+      "ta": "புறத்தோலுக்குக் கீழுள்ள இரத்த நுண்நாளங்கள் (தந்துகிகள்)",
       "locEn": "Dense blood capillaries immediately beneath the epidermis.",
-      "locTa": "புறத்தோலுக்குச் சற்றுக் கீழே அடர்த்தியாக அமைந்த இரத்தத் தந்துகிகள்.",
+      "locTa": "புறத்தோலுக்குச் சற்றுக் கீழே அடர்த்தியாகப் பரவியுள்ள இரத்த நுண்நாளங்கள்.",
       "fnEn": "Carry O₂ away from and deliver CO₂ toward the diffusion surface.",
       "fnTa": "தோல் வழியாகப் பெறும் ஆக்சிஜனைத் திசுக்களுக்குக் கொண்டு செல்கின்றன. திசுக்களிலிருந்து கார்பன் டைஆக்சைடைத் தோலுக்குக் கொண்டுவருகின்றன.",
       "sigEn": "Circulation maintains diffusion gradients across the skin.",
-      "sigTa": "இரத்த ஓட்டம் தோலின் இருபுறமும் வாயு செறிவுச் சரிவை நிலைநிறுத்துகிறது.",
+      "sigTa": "தோல் வழி வாயுப் பரிமாற்றத்தில் இரத்த நுண்நாளங்களின் மேற்பரப்பருகிய அமைவிடம் முக்கியமானது.",
       "fixEn": "Skin respiration still requires blood transport; diffusion alone does not supply the entire body directly.",
       "fixTa": "தோல் சுவாசத்திற்கும் இரத்தக் கடத்தல் தேவை; வெளிப்புறத்திலிருந்து பரவல் மட்டும் முழு உடலுக்கும் நேரடியாக வாயுவை வழங்காது."
     },
@@ -541,7 +562,7 @@
     "cerebral-ganglia": {
       "system": "nervous",
       "en": "Cerebral ganglia",
-      "ta": "மூளை நரம்புத் திரள்கள்",
+      "ta": "மூளை நரம்புத் திரள்கள் (தொண்டைமேல் நரம்புத் திரள்கள்)",
       "locEn": "A paired, bilobed mass dorsal to the pharynx around segment III.",
       "locTa": "சுமார் III-ஆம் கண்டத்தில் தொண்டைக்கு மேலாக அமைந்த இணை இருமடல் நரம்புத் திரள்.",
       "fnEn": "Integrates anterior sensory input and coordinates behavioural responses.",
@@ -568,7 +589,7 @@
     "subpharyngeal-ganglion": {
       "system": "nervous",
       "en": "Subpharyngeal ganglion",
-      "ta": "கீழ்த்தொண்டை நரம்புத் திரள்",
+      "ta": "தொண்டைக்கீழ் நரம்புத் திரள்",
       "locEn": "Ventral to the pharynx, around segment IV.",
       "locTa": "சுமார் IV-ஆம் கண்டத்தில் தொண்டைக்குக் கீழே.",
       "fnEn": "Links the nerve ring with the longitudinal ventral nerve cord.",
