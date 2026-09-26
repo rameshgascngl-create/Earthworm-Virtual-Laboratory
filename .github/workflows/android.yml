@@ -79,7 +79,15 @@ jobs:
           assert 'தொண்டைமேல் நரம்புத் திரள்கள்' in structures['cerebral-ganglia']['ta']
           assert structures['subpharyngeal-ganglion']['ta']=='தொண்டைக்கீழ் நரம்புத் திரள்'
           print('SCIENTIFIC REGRESSION GATE: PASS')
+          # Guided-action scientific/tooling regression checks.
+          respiratory={a['target']:a['tool'] for a in d['guidedModules']['respiratory']}
+          assert respiratory['mucus-film']=='inspect'
+          assert respiratory['cutaneous-exchange']=='inspect'
+          cross={a['target']:a['tool'] for a in d['guidedModules']['crosssection']}
+          assert all(tool in {'magnifier','inspect'} for tool in cross.values())
+          assert 'probe' not in cross.values()
           print('TAMIL TERMINOLOGY REGRESSION GATE: PASS')
+          print('GUIDED SCIENTIFIC TOOL-MAPPING GATE: PASS')
           PY
       - uses: actions/setup-java@v4
         with:
