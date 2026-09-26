@@ -3,6 +3,7 @@ package in.ramesh.zoology.earthwormlab;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -36,6 +37,20 @@ public final class GuidedActivity extends Activity {
         root.setBackgroundColor(Color.rgb(6,21,21));
         scroll.addView(root,new ScrollView.LayoutParams(-1,-1));
         setContentView(scroll);
+        if(android.os.Build.VERSION.SDK_INT>=30){
+            getWindow().setDecorFitsSystemWindows(false);
+            scroll.setOnApplyWindowInsetsListener((v,insets)->{
+                android.graphics.Insets bars=insets.getInsets(
+                    WindowInsets.Type.systemBars()|WindowInsets.Type.displayCutout());
+                root.setPadding(
+                    dp(22)+bars.left,
+                    dp(28)+bars.top,
+                    dp(22)+bars.right,
+                    dp(28)+bars.bottom);
+                return insets;
+            });
+            scroll.requestApplyInsets();
+        }
 
         title=text("",24,Color.WHITE,true);
         root.addView(title);
