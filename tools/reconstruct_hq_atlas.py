@@ -161,7 +161,7 @@ def main():
     html=html.replace(marker,'firstRender=false;renderEnhancements();renderHQAtlas();if(selectedId',1)
     init='initSegments();bind();bindEnhancements();if(!storageAvailable())'
     if html.count(init)!=1: raise SystemExit("initialization anchor not unique")
-    html=html.replace(init,'initSegments();installHQAtlasStyles();bind();bindEnhancements();bindHQAtlas();if(!storageAvailable())',1)
+    html=html.replace(init,'initSegments();bind();installHQAtlasStyles();bindEnhancements();bindHQAtlas();if(!storageAvailable())',1)
     for x in invariants:
         if x not in html: raise SystemExit("Hardened invariant changed: "+x[:80])
     if html.count("const HQ_ATLAS=")!=1 or html.count('id="hqAtlasPanel"')!=1 or html.count('id="hqAtlasDialog"')!=1: raise SystemExit("Atlas multiplicity error")
