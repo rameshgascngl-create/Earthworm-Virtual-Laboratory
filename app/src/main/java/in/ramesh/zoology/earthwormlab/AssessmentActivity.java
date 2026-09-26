@@ -44,7 +44,7 @@ public final class AssessmentActivity extends Activity {
         meta=text("",14,Color.rgb(56,214,188),true);root.addView(meta);question=text("",21,Color.WHITE,true);question.setPadding(0,dp(10),0,dp(12));root.addView(question);
         answers=new LinearLayout(this);answers.setOrientation(LinearLayout.VERTICAL);root.addView(answers);
         feedback=text("",14,Color.rgb(244,198,91),false);feedback.setPadding(0,dp(12),0,dp(12));root.addView(feedback);
-        lang=new Button(this);lang.setText("தமிழ் / English");lang.setAllCaps(false);lang.setOnClickListener(v->{tamil=!tamil;show();});lang.setMinHeight(dp(48));root.addView(lang,new LinearLayout.LayoutParams(-1,-2));show();
+        lang=new Button(this);lang.setText("தமிழ் / English");lang.setAllCaps(false);lang.setOnClickListener(v->{tamil=!tamil;show();});lang.setMinHeight(dp(56));root.addView(lang,new LinearLayout.LayoutParams(-1,-2));show();
     }
     private void show(){
         answers.removeAllViews();feedback.setText("");
@@ -53,7 +53,7 @@ public final class AssessmentActivity extends Activity {
         meta.setText((index+1)+" / "+questions.size()+" · "+repo.systemName(q.system,tamil));
         question.setText(tamil&&!q.ta.trim().isEmpty()?q.ta:q.en);
         List<String> opts=tamil&&!q.oTa.isEmpty()?q.oTa:q.oEn;
-        for(int i=0;i<opts.size();i++){final int pick=i;Button b=new Button(this);b.setAllCaps(false);b.setText(opts.get(i));b.setOnClickListener(v->answer(pick));b.setMinHeight(dp(48));b.setPadding(dp(10),dp(8),dp(10),dp(8));answers.addView(b,new LinearLayout.LayoutParams(-1,-2));}
+        for(int i=0;i<opts.size();i++){final int pick=i;Button b=new Button(this);b.setAllCaps(false);b.setText(opts.get(i));b.setOnClickListener(v->answer(pick));b.setMinHeight(dp(56));b.setPadding(dp(10),dp(8),dp(10),dp(8));answers.addView(b,new LinearLayout.LayoutParams(-1,-2));}
     }
     private void answer(int pick){ContentRepository.Question q=questions.get(index);boolean ok=pick==q.answer;if(ok)score++;feedback.setText(ok?(tamil?"சரி":"Correct"):(tamil?"தவறு":"Incorrect"));index++;question.postDelayed(this::show,500);}
     @Override protected void onSaveInstanceState(Bundle out){
