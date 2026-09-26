@@ -14,7 +14,7 @@
         android:supportsRtl="true">
 
         <activity android:name=".PrivacyActivity" android:exported="false" />
-        <activity android:name=".AssessmentActivity" android:exported="false" />
+        <activity android:name=".AssessmentActivity" android:exported="false" />\n        <activity android:name=".GuidedActivity" android:exported="false" />\n        <activity android:name=".MicroscopyActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="false" android:enableOnBackInvokedCallback="true" />
         <activity android:name=".NativeHomeActivity" android:exported="true" android:enableOnBackInvokedCallback="true">
             <intent-filter>
