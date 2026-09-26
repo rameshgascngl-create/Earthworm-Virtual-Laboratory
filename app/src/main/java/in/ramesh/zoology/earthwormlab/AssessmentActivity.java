@@ -3,39 +3,31 @@ package in.ramesh.zoology.earthwormlab;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import java.util.List;
 
 public final class AssessmentActivity extends Activity {
-    private final String[][] questions = {
-        {"Which structure increases intestinal absorptive surface area?","Typhlosole","Gizzard","Clitellum","Typhlosole"},
-        {"The female genital pore is classically described on which segment?","14","18","10","14"},
-        {"Which organs receive sperm from the mating partner?","Spermathecae","Seminal vesicles","Ovaries","Spermathecae"},
-        {"Which vessel is the principal dorsal longitudinal vessel?","Dorsal blood vessel","Ventral nerve cord","Vas deferens","Dorsal blood vessel"}
-    };
-    private int index=0,score=0;
-    private TextView q,feedback;
-
+    private List<ContentRepository.Question> questions; private int index=0,score=0; private boolean tamil=false;
+    private TextView question,meta,feedback; private LinearLayout answers; private Button lang;
     @Override public void onCreate(Bundle b){
-        super.onCreate(b);
-        LinearLayout root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setPadding(dp(22),dp(28),dp(22),dp(28));root.setBackgroundColor(Color.rgb(6,21,21));
-        q=text("",22,Color.WHITE,true);root.addView(q);
-        feedback=text("",15,Color.rgb(244,198,91),false);feedback.setPadding(0,dp(12),0,dp(12));root.addView(feedback);
-        for(int i=1;i<=3;i++){ final int answerIndex=i; Button btn=new Button(this); btn.setAllCaps(false); btn.setOnClickListener(v->answer(answerIndex)); root.addView(btn,new LinearLayout.LayoutParams(-1,dp(56))); btn.setTag("answer"+i); }
-        setContentView(root);showQuestion();
+        super.onCreate(b);questions=new ContentRepository(this).questions();
+        ScrollView scroll=new ScrollView(this);LinearLayout root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setPadding(dp(22),dp(28),dp(22),dp(28));root.setBackgroundColor(Color.rgb(6,21,21));scroll.addView(root,new ScrollView.LayoutParams(-1,-1));setContentView(scroll);
+        meta=text("",14,Color.rgb(56,214,188),true);root.addView(meta);question=text("",21,Color.WHITE,true);question.setPadding(0,dp(10),0,dp(12));root.addView(question);
+        answers=new LinearLayout(this);answers.setOrientation(LinearLayout.VERTICAL);root.addView(answers);
+        feedback=text("",14,Color.rgb(244,198,91),false);feedback.setPadding(0,dp(12),0,dp(12));root.addView(feedback);
+        lang=new Button(this);lang.setText("தமிழ் / English");lang.setAllCaps(false);lang.setOnClickListener(v->{tamil=!tamil;show();});root.addView(lang,new LinearLayout.LayoutParams(-1,dp(50)));show();
     }
-    private void showQuestion(){
-        if(index>=questions.length){new ProgressStore(this).saveScore(score);q.setText("Assessment complete: "+score+"/"+questions.length);feedback.setText("This alpha contains only a native smoke-test question set. Full 72-question parity is a release blocker.");return;}
-        String[] row=questions[index];q.setText(row[0]);feedback.setText("");
-        LinearLayout root=(LinearLayout)q.getParent();
-        for(int i=1;i<=3;i++){Button b=(Button)root.findViewWithTag("answer"+i);b.setText(row[i]);b.setEnabled(true);}
+    private void show(){
+        answers.removeAllViews();feedback.setText("");
+        if(index>=questions.size()){new ProgressStore(this).saveScore(score);meta.setText(tamil?"மதிப்பீடு முடிந்தது":"Assessment complete");question.setText(score+" / "+questions.size());return;}
+        ContentRepository.Question q=questions.get(index);meta.setText((index+1)+" / "+questions.size()+" · "+q.system);question.setText(tamil&&!q.ta.isBlank()?q.ta:q.en);
+        List<String> opts=tamil&&!q.oTa.isEmpty()?q.oTa:q.oEn;
+        for(int i=0;i<opts.size();i++){final int pick=i;Button b=new Button(this);b.setAllCaps(false);b.setText(opts.get(i));b.setOnClickListener(v->answer(pick));answers.addView(b,new LinearLayout.LayoutParams(-1,dp(58)));}
     }
-    private void answer(int i){
-        if(index>=questions.length)return;String[] row=questions[index];if(row[i].equals(row[4])){score++;feedback.setText("Correct");}else feedback.setText("Correct answer: "+row[4]);
-        index++; q.postDelayed(this::showQuestion,450);
-    }
+    private void answer(int pick){ContentRepository.Question q=questions.get(index);boolean ok=pick==q.answer;if(ok)score++;feedback.setText(ok?(tamil?"சரி":"Correct"):(tamil?"தவறு":"Incorrect"));index++;question.postDelayed(this::show,500);}
     private TextView text(String v,int sp,int c,boolean bold){TextView t=new TextView(this);t.setText(v);t.setTextSize(sp);t.setTextColor(c);if(bold)t.setTypeface(android.graphics.Typeface.DEFAULT,android.graphics.Typeface.BOLD);return t;}
     private int dp(int v){return Math.round(v*getResources().getDisplayMetrics().density);}
 }
