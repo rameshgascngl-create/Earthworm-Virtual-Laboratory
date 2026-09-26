@@ -45,9 +45,9 @@ public final class PrivacyActivity extends Activity {
         body.addView(section("Privacy summary",
             "This app works offline. It does not require an account and does not request your name, location, camera, microphone or storage. It contains no advertising or analytics SDK."));
         body.addView(section("Data stored on this device",
-            "Language preference, guided progress, assessment results and review dates are stored locally on this device so learning can continue between sessions. Android cloud backup is disabled."));
+            "The last opened anatomy system, visited structure identifiers and the latest assessment score are stored locally on this device. Guided-step position and language mode are not retained after the activity/session ends. Android cloud backup is disabled."));
         body.addView(section("Speech and printing",
-            "Narration uses an installed Android text-to-speech voice that does not require a network connection. Printing uses the Android print service selected by the user."));
+            "Narration is enabled only when an installed text-to-speech voice for the selected language reports that it does not require a network connection. If no such offline voice is installed, narration is not started. Printing uses the Android print service selected by the user."));
         body.addView(section("External references",
             "Scientific reference links open only after a user tap in the device browser. The external website and browser apply their own privacy practices."));
         body.addView(section("Data sharing",
