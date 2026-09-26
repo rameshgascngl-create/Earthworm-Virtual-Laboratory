@@ -21,14 +21,14 @@ public final class ContentRepository {
             sigEn=o.optString("sigEn"); sigTa=o.optString("sigTa"); fixEn=o.optString("fixEn"); fixTa=o.optString("fixTa");
             deep=o.optString("deep");
         }
-        public String title(boolean tamil){ return tamil && !ta.isBlank()?ta:en; }
+        public String title(boolean tamil){ return tamil && !ta.trim().isEmpty()?ta:en; }
         public String detail(boolean tamil){
-            String loc=tamil&&!locTa.isBlank()?locTa:locEn, fn=tamil&&!fnTa.isBlank()?fnTa:fnEn, sig=tamil&&!sigTa.isBlank()?sigTa:sigEn, fix=tamil&&!fixTa.isBlank()?fixTa:fixEn;
+            String loc=tamil&&!locTa.trim().isEmpty()?locTa:locEn, fn=tamil&&!fnTa.trim().isEmpty()?fnTa:fnEn, sig=tamil&&!sigTa.trim().isEmpty()?sigTa:sigEn, fix=tamil&&!fixTa.trim().isEmpty()?fixTa:fixEn;
             StringBuilder b=new StringBuilder();
-            if(!loc.isBlank()) b.append(tamil?"அமைவிடம்: ":"Location: ").append(loc);
-            if(!fn.isBlank()) b.append("\n\n").append(tamil?"செயல்: ":"Function: ").append(fn);
-            if(!sig.isBlank()) b.append("\n\n").append(tamil?"கற்பித்தல் குறிப்பு: ":"Teaching point: ").append(sig);
-            if(!fix.isBlank()) b.append("\n\n").append(tamil?"திருத்தம்: ":"Common correction: ").append(fix);
+            if(!loc.trim().isEmpty()) b.append(tamil?"அமைவிடம்: ":"Location: ").append(loc);
+            if(!fn.trim().isEmpty()) b.append("\n\n").append(tamil?"செயல்: ":"Function: ").append(fn);
+            if(!sig.trim().isEmpty()) b.append("\n\n").append(tamil?"கற்பித்தல் குறிப்பு: ":"Teaching point: ").append(sig);
+            if(!fix.trim().isEmpty()) b.append("\n\n").append(tamil?"திருத்தம்: ":"Common correction: ").append(fix);
             return b.toString();
         }
     }
@@ -36,7 +36,7 @@ public final class ContentRepository {
     public static final class GuidedAction {
         public final String system,tool,target,en,ta;
         GuidedAction(String system,JSONObject o){this.system=system;tool=o.optString("tool");target=o.optString("target");en=o.optString("en");ta=o.optString("ta");}
-        public String instruction(boolean tamil){String x=tamil?ta:en;return x.isBlank()?target:x;}
+        public String instruction(boolean tamil){String x=tamil?ta:en;return x.trim().isEmpty()?target:x;}
     }
 
     public static final class Question {
@@ -57,7 +57,7 @@ public final class ContentRepository {
         try(InputStream in=context.getResources().openRawResource(R.raw.earthworm_content_v138);
             ByteArrayOutputStream out=new ByteArrayOutputStream()){
             byte[] buf=new byte[8192]; int n; while((n=in.read(buf))>0)out.write(buf,0,n);
-            root=new JSONObject(out.toString(StandardCharsets.UTF_8));
+            root=new JSONObject(new String(out.toByteArray(), StandardCharsets.UTF_8));
         }catch(Exception e){throw new IllegalStateException("Native academic dataset could not be loaded",e);}
     }
 
@@ -66,7 +66,7 @@ public final class ContentRepository {
     }
     public String systemName(String id,boolean tamil){
         JSONObject s=root.optJSONObject("systems");JSONObject o=s==null?null:s.optJSONObject(id);if(o==null)return id;
-        String x=o.optString(tamil?"ta":"en");return x.isBlank()?id:x;
+        String x=o.optString(tamil?"ta":"en");return x.trim().isEmpty()?id:x;
     }
     public List<Structure> structures(String system){
         List<Structure> out=new ArrayList<>();JSONObject all=root.optJSONObject("structures");if(all==null)return out;
