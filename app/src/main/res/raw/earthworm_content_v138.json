@@ -24,18 +24,19 @@
         "spermathecal pores 5/6–8/9",
         "male pores XVIII",
         "female pore XIV",
-        "gizzard IX–X",
         "intestine begins XV",
-        "intestinal caeca originate XXVII and extend forward to XXV",
         "last hearts XIII",
         "testis sacs X and XI",
         "seminal vesicles XI and XII",
         "ovaries XIII",
-        "prostate glands XVII–XX"
+        "prostate glands XVII–XX",
+        "gizzard is a thick muscular foregut region; published segment placement varies between VIII and IX–X",
+        "intestinal caeca originate in XXVII; published anterior extent varies approximately XXIV–XXV"
       ],
       "cautions": [
         "Full VII/IX/XII/XIII heart map retained as a traditional practical convention; modern redescription directly verifies only the last-heart position XIII.",
-        "Nephridial segment/discharge details remain under separate audit because the cited 2011 redescription does not enumerate them."
+        "Nephridial segment/discharge details remain under separate audit because the cited 2011 redescription does not enumerate them.",
+        "Published M. posthuma descriptions show intraspecific/geographic variation in gizzard placement and male-pore surface morphology; the native app must avoid universalising one specimen account."
       ]
     }
   },
@@ -156,14 +157,14 @@
       "system": "external",
       "en": "Male genital pores",
       "ta": "ஆண் இனத்துளைகள்",
-      "locEn": "One pair on segment XVIII, ventrolateral; the cited redescription describes each pore as minute and situated in a small disc.",
-      "locTa": "XVIII-ஆம் கண்டத்தில் கீழ்ப்பக்கவாட்டில் ஓர் இணை; மேற்கோள் மறுவிளக்க ஆய்வில் ஒவ்வொரு துளையும் சிறிய வட்டப் பகுதியில் அமைந்த நுண்துளையாக விவரிக்கப்படுகிறது.",
+      "locEn": "One pair on segment XVIII, ventrolaterally. Reports agree on segment XVIII but differ in surface morphology, describing minute pores in small discs or pores associated with shallow copulatory pouches/slit-like openings.",
+      "locTa": "XVIII-ஆம் கண்டத்தில் கீழ்ப்பக்கவாட்டில் ஓர் இணை. XVIII என்ற கண்ட அமைவிடம் ஆய்வுகளில் ஒத்துப்போகிறது; ஆனால் வெளிப்புற தோற்றம் சிறிய வட்டப் பகுதியிலுள்ள நுண்துளைகள், அல்லது ஆழமற்ற இணைசேர்க்கைப் பைகள்/பிளவு போன்ற திறப்புகள் என மாதிரிகளுக்கு இடையே மாறுபட்டு விவரிக்கப்படுகிறது.",
       "fnEn": "Discharge sperm and prostatic secretion during copulation.",
       "fnTa": "இணைசேர்க்கையின் போது விந்தணுக்களையும் புரோஸ்டேட் சுரப்பையும் வெளியிடுகின்றன.",
-      "sigEn": "Paired genital markings occur on XVII and XIX in the cited redescription and should be distinguished from the male pores themselves.",
-      "sigTa": "மேற்கோள் மறுவிளக்க ஆய்வில் XVII மற்றும் XIX கண்டங்களில் இணை இனப்பெருக்கக் குறியிடங்கள் காணப்படுகின்றன; அவற்றை ஆண் இனத்துளைகளுடன் ஒன்றாகக் கருதக்கூடாது.",
-      "fixEn": "Male pores are on XVIII; the paired genital markings are separate structures on XVII and XIX.",
-      "fixTa": "ஆண் இனத்துளைகள் XVIII-ஆம் கண்டத்தில் உள்ளன; இணை இனப்பெருக்கக் குறியிடங்கள் XVII மற்றும் XIX கண்டங்களில் தனித்த அமைப்புகளாக உள்ளன."
+      "sigEn": "Segment XVIII is the robust teaching landmark; pore-surface morphology should be treated as specimen-dependent.",
+      "sigTa": "XVIII-ஆம் கண்டமே நிலையான பாட அடையாளம்; துளையின் வெளிப்புற வடிவத்தை மாதிரி சார்ந்த பண்பாகக் கருத வேண்டும்.",
+      "fixEn": "Do not use disc-versus-pouch appearance as a universal diagnostic feature for every specimen.",
+      "fixTa": "வட்டப் பகுதி அல்லது இணைசேர்க்கைப் பை போன்ற தோற்றங்களில் ஒன்றை எல்லா மாதிரிகளுக்கும் கட்டாயமான இனக்குறியீடாகக் கொள்ள வேண்டாம்."
     },
     "anus": {
       "system": "external",
@@ -208,28 +209,28 @@
       "system": "digestive",
       "en": "Gizzard",
       "ta": "அரவைப்பை",
-      "locEn": "Species-specific redescription of Metaphire posthuma places the large gizzard in segments IX–X.",
-      "locTa": "Metaphire posthuma இனத்தின் மறுவிளக்க ஆய்வின்படி பெரிய அரவைப்பை IX–X கண்டங்களில் அமைந்துள்ளது.",
+      "locEn": "Published Metaphire posthuma specimen accounts differ in segment placement: the 2011 Thai redescription reports the gizzard in IX–X, while Indian material and classic practical accounts report VIII.",
+      "locTa": "Metaphire posthuma மாதிரி ஆய்வுகளில் அரவைப்பையின் கண்ட அமைவிடம் மாறுபடுகிறது: 2011 தாய்லாந்து மறுவிளக்க ஆய்வில் IX–X என்றும், இந்திய மாதிரிகளிலும் பாரம்பரிய செய்முறை நூல்களிலும் VIII என்றும் பதிவுகள் உள்ளன.",
       "fnEn": "Mechanically grinds soil-borne organic particles with ingested grit.",
       "fnTa": "உள்ளிழுக்கப்பட்ட மண்துகள்களின் உதவியுடன் கரிம உணவுத் துகள்களை இயந்திரமாக அரைக்கிறது.",
-      "sigEn": "Use IX–X for this species model; segment VIII is retained only as an older practical-manual convention, not as the preferred species-specific placement.",
-      "sigTa": "இவ்வின மாதிரியில் IX–X என்பதையே பயன்படுத்துக; VIII என்பது சில பழைய செய்முறை நூல்களின் மரபுக் குறிப்பு மட்டுமே, இவ்வினத்திற்கான முன்னுரிமை அமைவிடம் அல்ல.",
-      "fixEn": "Do not label the gizzard as confined to VIII in the native Metaphire posthuma plate.",
-      "fixTa": "Metaphire posthuma-வின் சொந்த Android படத்தில் அரவைப்பையை VIII-ஆம் கண்டத்தில் மட்டும் அமைந்ததாகக் குறிக்க வேண்டாம்.",
+      "sigEn": "Treat gizzard position as specimen- and source-aware in this species; its identity as the thick muscular grinding region is more robust than a single universal segment number.",
+      "sigTa": "இவ்வினத்தில் அரவைப்பையின் கண்ட அமைவிடத்தை மாதிரி மற்றும் ஆதாரத்தைப் பொருத்தே கற்பிக்க வேண்டும்; ஒரே கண்ட எண்ணைவிட தடித்த தசைச் சுவருடைய அரைக்கும் பகுதி என்ற அடையாளமே நிலையானது.",
+      "fixEn": "Do not state that every Metaphire posthuma specimen has the gizzard only in VIII or only in IX–X.",
+      "fixTa": "அனைத்து Metaphire posthuma மாதிரிகளிலும் அரவைப்பை VIII-இல் மட்டும் அல்லது IX–X-இல் மட்டும் உள்ளது என்று பொதுமைப்படுத்த வேண்டாம்.",
       "deep": "gizzard"
     },
     "stomach": {
       "system": "digestive",
       "en": "Glandular stomach",
       "ta": "சுரப்புமிகு இரைப்பை",
-      "locEn": "Segments IX–XIV, posterior to the gizzard.",
-      "locTa": "அரவைப்பைக்குப் பின்னால் IX–XIV கண்டங்களில்.",
+      "locEn": "Traditional practical manuals call the post-gizzard, pre-intestinal foregut the stomach. Because published M. posthuma gizzard position varies and the intestine begins at XV, this region should be shown posterior to the gizzard and anterior to XV rather than assigned an overlapping fixed range.",
+      "locTa": "பாரம்பரிய செய்முறை நூல்கள் அரவைப்பைக்குப் பிந்தைய, குடலுக்கு முந்தைய முன்குடல் பகுதியை ‘இரைப்பை’ எனக் குறிப்பிடுகின்றன. M. posthuma-வில் அரவைப்பையின் கண்ட அமைவிடம் ஆய்வுகளுக்கு இடையே மாறுவதாலும் குடல் XV-இல் தொடங்குவதாலும், இப்பகுதியை அரவைப்பைக்குப் பின்பும் XV-க்கு முன்பும் காட்ட வேண்டும்; மாறாக ஒட்டிக்கொள்ளும் நிரந்தர கண்டவரம்பைச் சொல்ல வேண்டாம்.",
       "fnEn": "Chemical conditioning and digestion continue through glandular secretion.",
       "fnTa": "சுரப்புகளின் மூலம் உணவின் வேதியியல் மாற்றமும் செரிமானமும் தொடர்கிறது.",
-      "sigEn": "Calciferous activity described in earthworm foregut physiology helps regulate ingested calcium and acid–base conditions.",
-      "sigTa": "முன்குடல் சார்ந்த கால்சியம் ஒழுங்குபடுத்தல் மற்றும் அமில–கார சமநிலை, மண் உணவின் வேதியியலைச் சீராக்க உதவுகின்றன.",
-      "fixEn": "Avoid treating every enlarged foregut region as a crop; this species account emphasizes a glandular stomach.",
-      "fixTa": "முன்குடலின் ஒவ்வொரு விரிவையும் ‘உணவுச் சேமிப்புப்பை’ எனக் கூற வேண்டாம்; இவ்வினத்தில் சுரப்புமிகு இரைப்பையே வலியுறுத்தப்படுகிறது."
+      "sigEn": "This is a teaching-region term rather than a consistently delimited character in modern taxonomic redescriptions.",
+      "sigTa": "இது நவீன வகைப்பாட்டு மறுவிளக்கங்களில் ஒரே விதமாக எல்லை நிர்ணயிக்கப்படும் பண்பாக இல்லாமல், முதன்மையாக பாடச் செய்முறைப் பகுப்புப் பெயராகும்.",
+      "fixEn": "Do not combine 'gizzard IX–X' with the old fixed 'stomach IX–XIV' range; that creates an anatomical overlap.",
+      "fixTa": "‘அரவைப்பை IX–X’ என்ற அமைவிடத்துடன் பழைய ‘இரைப்பை IX–XIV’ வரம்பை சேர்த்து காட்ட வேண்டாம்; அது உடற்கூறு ஒட்டுமொத்தப் பிழையை உருவாக்கும்."
     },
     "intestine": {
       "system": "digestive",
@@ -248,14 +249,14 @@
       "system": "digestive",
       "en": "Intestinal caeca",
       "ta": "குடல் நீட்சிகள்",
-      "locEn": "A paired, simple set of intestinal caeca originates in segment XXVII and extends anteriorly to about XXV in the cited redescription.",
-      "locTa": "மேற்கோள் மறுவிளக்க ஆய்வின்படி இணையான எளிய குடல் நீட்சிகள் XXVII-ஆம் கண்டத்தில் தொடங்கி முன்புறமாக சுமார் XXV வரை நீள்கின்றன.",
+      "locEn": "Paired simple intestinal caeca originate in XXVII. Their anterior extent varies among published M. posthuma specimens, reaching about XXV in the 2011 Thai redescription and XXIV in Indian reports.",
+      "locTa": "இணையான எளிய குடல் நீட்சிகள் XXVII-ஆம் கண்டத்தில் தொடங்குகின்றன. வெளியிடப்பட்ட M. posthuma மாதிரிகளில் அவை முன்புறம் நீளும் எல்லை மாறுபடுகிறது: 2011 தாய்லாந்து மறுவிளக்க ஆய்வில் சுமார் XXV வரை, இந்திய அறிக்கைகளில் XXIV வரை பதிவுள்ளது.",
       "fnEn": "Increase secretory and digestive capacity of the intestinal region.",
       "fnTa": "குடலின் சுரப்புக்கும் செரிமானத்திற்கும் உதவுகின்றன.",
-      "sigEn": "Their XXVII origin is a species-level landmark in this Metaphire posthuma model.",
-      "sigTa": "XXVII-இல் தொடங்குவது இம்மாதிரி Metaphire posthuma-வின் இனநிலை அடையாளக் குறியீடாகக் கொள்ளப்படுகிறது.",
-      "fixEn": "Do not place the caecal origin in XXVI in this species-specific native plate.",
-      "fixTa": "இவ்வினத்திற்கான சொந்த Android படத்தில் குடல் நீட்சிகள் XXVI-இல் தொடங்குவதாகக் காட்ட வேண்டாம்."
+      "sigEn": "The XXVII origin is the more stable species-level landmark; anterior reach should not be taught as invariant.",
+      "sigTa": "XXVII-இல் தொடங்குவது நிலையான இனநிலை அடையாளமாகும்; முன்புற நீளத்தை மாறாத ஒன்றாகக் கற்பிக்கக் கூடாது.",
+      "fixEn": "Do not move the caecal origin to XXVI, and do not present XXIV or XXV as a universal anterior endpoint.",
+      "fixTa": "குடல் நீட்சிகளின் தொடக்கத்தை XXVI-க்கு மாற்ற வேண்டாம்; XXIV அல்லது XXV என்பதை எல்லா மாதிரிகளுக்கும் ஒரே முன்புற முடிவாகக் கூற வேண்டாம்."
     },
     "typhlosole": {
       "system": "digestive",
