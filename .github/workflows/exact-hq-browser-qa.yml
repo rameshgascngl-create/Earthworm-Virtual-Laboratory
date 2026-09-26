@@ -43,12 +43,16 @@ jobs:
           test "$(sha256sum app/src/main/assets/index.html | awk '{print $1}')" = "5dbc6fe5754891a0c6dd6b5d307be232e35a1d244fcca72788749991cbc8affd"
       - name: Run existing browser rendering suite only
         run: npm run test:browser
+      - name: Run tablet rendering audit
+        run: npx playwright test --config=playwright.tablet.config.cjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: exact-hq-browser-qa
           path: |
             playwright-report/
+            playwright-tablet-report/
             test-results/browser/
+            test-results/tablet/
           if-no-files-found: warn
           retention-days: 14
