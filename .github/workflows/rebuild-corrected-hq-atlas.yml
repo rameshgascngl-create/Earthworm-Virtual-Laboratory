@@ -1,0 +1,77 @@
+name: Rebuild corrected release-authoritative HQ atlas
+on:
+  push:
+    branches:
+      - reconstruction/v1.3.9-hq-atlas-20260926
+permissions:
+  contents: write
+concurrency:
+  group: earthworm-hq-reconstruction-corrected
+  cancel-in-progress: false
+jobs:
+  reconstruct:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Restore authoritative hardened baseline inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show ac47a83762ae2ecbaded7b077f25702daf2d1fa8:app/src/main/assets/index.html > app/src/main/assets/index.html
+          git show ac47a83762ae2ecbaded7b077f25702daf2d1fa8:SOURCE-MANIFEST.json > SOURCE-MANIFEST.json
+          git show ac47a83762ae2ecbaded7b077f25702daf2d1fa8:tests/release-baseline.json > tests/release-baseline.json
+          test "$(sha256sum app/src/main/assets/index.html | awk '{print $1}')" = "d9b8cca85459764f4169edf4a74aa2e159ea5281968fd49586b15c69176795ed"
+      - name: Fetch frozen historical HQ candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git fetch origin archive/hq-candidate-5dbc6fe-20260926
+          git show 92f3acd2497b95e1930b3acdbe4859403178b426:app/src/main/assets/index.html > /tmp/historical-hq.html
+          test "$(sha256sum /tmp/historical-hq.html | awk '{print $1}')" = "5dbc6fe5754891a0c6dd6b5d307be232e35a1d244fcca72788749991cbc8affd"
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Install pinned image dependency
+        run: python -m pip install --disable-pip-version-check pillow==12.0.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Reconstruct candidate
+        run: |
+          python tools/reconstruct_hq_atlas.py \
+            --historical /tmp/historical-hq.html \
+            --target app/src/main/assets/index.html \
+            --manifest review/HQ_ATLAS_RELEASE_CANDIDATE_MANIFEST.json \
+            --source-manifest SOURCE-MANIFEST.json
+      - name: Refresh only the authorised scientific review hashes
+        run: node tools/refresh_hq_release_baseline.cjs app/src/main/assets/index.html tests/release-baseline.json
+      - name: Run complete source/content/lifecycle regression
+        run: npm test
+      - name: Verify reconstruction invariants
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -F 'function pauseLaboratory(){demo.playing=false;clearProcedureTimer();stopSpeech();saveState();renderProcedure()}' app/src/main/assets/index.html
+          grep -F 'window.addEventListener("pagehide",pauseLaboratory)' app/src/main/assets/index.html
+          grep -F 'pause:pauseLaboratory' app/src/main/assets/index.html
+          ! grep -F '>Gizzard VIII†</text>' app/src/main/assets/index.html
+          ! grep -F '>Intestinal caeca XXVI†</text>' app/src/main/assets/index.html
+          grep -F '>Gizzard</text>' app/src/main/assets/index.html
+          grep -F '>Intestinal caeca XXVII</text>' app/src/main/assets/index.html
+          sha256sum app/src/main/assets/index.html
+      - name: Commit corrected candidate
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/assets/index.html SOURCE-MANIFEST.json tests/release-baseline.json review/HQ_ATLAS_RELEASE_CANDIDATE_MANIFEST.json
+          git commit -m "Rebuild HQ atlas with specimen-aware digestive annotations"
+          git push origin "HEAD:$GITHUB_REF_NAME"
