@@ -46,7 +46,7 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         if(android.os.Build.VERSION.SDK_INT>=30){getWindow().setDecorFitsSystemWindows(false);scroll.setOnApplyWindowInsetsListener((v,insets)->{android.graphics.Insets bars=insets.getInsets(WindowInsets.Type.systemBars()|WindowInsets.Type.displayCutout());body.setPadding(dp(18)+bars.left,dp(18)+bars.top,dp(18)+bars.right,dp(26)+bars.bottom);return insets;});}
 
         heading=text("",24,Color.WHITE,true);body.addView(heading);
-        Button lang=new Button(this);lang.setText("தமிழ் / English");lang.setAllCaps(false);lang.setOnClickListener(v->{tamil=!tamil;refreshLanguage();});body.addView(lang,new LinearLayout.LayoutParams(-1,dp(48)));
+        Button lang=new Button(this);lang.setText("தமிழ் / English");lang.setAllCaps(false);lang.setOnClickListener(v->{tamil=!tamil;refreshLanguage();});lang.setMinHeight(dp(48));body.addView(lang,new LinearLayout.LayoutParams(-1,-2));
 
         tabs=new LinearLayout(this);
         tabs.setOrientation(LinearLayout.VERTICAL);
@@ -58,7 +58,7 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         speakButton=new Button(this);
         speakButton.setAllCaps(false);
         speakButton.setOnClickListener(v->speakSelection());
-        body.addView(speakButton,new LinearLayout.LayoutParams(-1,dp(50)));
+        speakButton.setMinHeight(dp(48));speakButton.setPadding(dp(10),dp(8),dp(10),dp(8));body.addView(speakButton,new LinearLayout.LayoutParams(-1,-2));
 
         indexTitle=text("",18,Color.rgb(56,214,188),true);
         indexTitle.setPadding(0,dp(14),0,dp(8));
@@ -78,7 +78,7 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
             b.setAllCaps(false);
             b.setText(content.systemName(id,tamil));
             b.setOnClickListener(v->showSystem(id));
-            tabs.addView(b,new LinearLayout.LayoutParams(-1,dp(46)));
+            b.setMinHeight(dp(48));b.setPadding(dp(10),dp(8),dp(10),dp(8));tabs.addView(b,new LinearLayout.LayoutParams(-1,-2));
         }
         speakButton.setText(tamil?"தேர்ந்த அமைப்பின் விளக்கத்தை ஒலிக்க":"Speak selected structure");
         indexTitle.setText(tamil?"அமைப்புகளின் பட்டியல்":"Native structure index");
@@ -96,7 +96,7 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         structureList.removeAllViews();
         List<ContentRepository.Structure> records=content.structures(id);
         if(records.isEmpty()){TextView none=text(tamil?"இந்தப் பிரிவு செய்முறை/குறுக்குவெட்டு வழிகாட்டுதலால் கற்பிக்கப்படுகிறது.":"This section is taught through the guided procedure/cross-section workflow.",14,Color.rgb(185,211,203),false);structureList.addView(none);}
-        for(ContentRepository.Structure s:records){Button b=new Button(this);b.setAllCaps(false);b.setText(s.title(tamil));b.setOnClickListener(v->selectContent(s));structureList.addView(b,new LinearLayout.LayoutParams(-1,dp(52)));}
+        for(ContentRepository.Structure s:records){Button b=new Button(this);b.setAllCaps(false);b.setText(s.title(tamil));b.setOnClickListener(v->selectContent(s));b.setMinHeight(dp(48));b.setPadding(dp(10),dp(8),dp(10),dp(8));structureList.addView(b,new LinearLayout.LayoutParams(-1,-2));}
         progress.setLastSystem(id);
     }
 
