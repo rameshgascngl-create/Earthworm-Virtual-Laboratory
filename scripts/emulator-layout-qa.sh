@@ -116,4 +116,63 @@ test "$actual" -eq "$expected"
 xml_count="$(find "$OUT" -name '*.xml' -type f -size +0c | wc -l | tr -d ' ')"
 test "$xml_count" -eq "$expected"
 
+python3 - "$OUT" <<'PY'
+import glob, os, re, sys, xml.etree.ElementTree as ET
+out=sys.argv[1]
+profiles={
+    'phone360_normal':320,
+    'phone390_large':320,
+    'phone360_xlarge':320,
+    'tablet800_portrait':240,
+    'tablet1280_landscape':240,
+}
+bound_re=re.compile(r'\[(\d+),(\d+)\]\[(\d+),(\d+)\]')
+errors=[]
+tamil_re=re.compile(r'[\u0B80-\u0BFF]')
+
+for xml_path in glob.glob(os.path.join(out,'*.xml')):
+    base=os.path.basename(xml_path)
+    profile=next((p for p in profiles if base.startswith(p+'_')),None)
+    if not profile:
+        continue
+    density=profiles[profile]
+    min_px=48*density/160.0
+
+    try:
+        root=ET.parse(xml_path).getroot()
+    except Exception as e:
+        errors.append(f'{base}: XML parse failed: {e}')
+        continue
+
+    texts=[]
+    for node in root.iter('node'):
+        text=(node.attrib.get('text','')+' '+node.attrib.get('content-desc','')).strip()
+        if text:
+            texts.append(text)
+        if node.attrib.get('clickable')=='true':
+            m=bound_re.fullmatch(node.attrib.get('bounds',''))
+            if not m:
+                errors.append(f'{base}: clickable node lacks parseable bounds: {text!r}')
+                continue
+            x1,y1,x2,y2=map(int,m.groups())
+            width,height=x2-x1,y2-y1
+            # Only enforce on visible non-zero controls represented in the hierarchy.
+            if width>0 and height>0 and (width+0.5<min_px or height+0.5<min_px):
+                errors.append(
+                    f'{base}: clickable target below 48dp: {text!r} '
+                    f'{width}x{height}px, required >= {min_px:.0f}px')
+
+    joined=' '.join(texts)
+    if '_ta.xml' in base and not tamil_re.search(joined):
+        errors.append(f'{base}: Tamil profile contains no Tamil UI text')
+
+if errors:
+    print('LAYOUT SEMANTIC QA: FAIL')
+    for e in errors:
+        print(e)
+    raise SystemExit(1)
+
+print('LAYOUT SEMANTIC QA: PASS — Tamil text present and visible clickable targets >=48dp')
+PY
+
 echo "LAYOUT MATRIX CAPTURE: PASS ($actual screenshots, English + Tamil including privacy)"
