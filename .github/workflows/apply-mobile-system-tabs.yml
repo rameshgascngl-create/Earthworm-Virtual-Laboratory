@@ -32,7 +32,8 @@ jobs:
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Mobile navigation browser gate
-        run: npx playwright test --grep "mobile: system navigator is a scrollable bilingual tab strip"
+        run: |
+          npx playwright test --grep "mobile: system navigator is a scrollable bilingual tab strip"
       - name: Commit regenerated candidate identity
         shell: bash
         run: |
