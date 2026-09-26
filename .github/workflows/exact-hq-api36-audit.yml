@@ -1,0 +1,145 @@
+name: Exact HQ API36 Android audit
+on:
+  push:
+    branches:
+      - qa/exact-hq-android-audit-5dbc6fe-20260926
+permissions:
+  contents: read
+jobs:
+  emulator:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify immutable HQ source
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED="5dbc6fe5754891a0c6dd6b5d307be232e35a1d244fcca72788749991cbc8affd"
+          test "$(sha256sum app/src/main/assets/index.html | awk '{print $1}')" = "$EXPECTED"
+          test "$(stat -c%s app/src/main/assets/index.html)" = "8038498"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+      - name: Install SDK packages
+        run: sdkmanager 'emulator' 'platforms;android-36' 'build-tools;35.0.0' 'system-images;android-36;google_apis;x86_64'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Build debug without altering payload
+        run: gradle --no-daemon :app:lintDebug :app:assembleDebug
+      - name: Verify packaged payload and manifest identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1)"
+          test -n "$APK"
+          unzip -p "$APK" assets/index.html > /tmp/packaged-index.html
+          test "$(sha256sum /tmp/packaged-index.html | awk '{print $1}')" = "5dbc6fe5754891a0c6dd6b5d307be232e35a1d244fcca72788749991cbc8affd"
+          test "$(stat -c%s /tmp/packaged-index.html)" = "8038498"
+          AAPT="$ANDROID_HOME/build-tools/35.0.0/aapt2"
+          "$AAPT" dump badging "$APK" | tee badging.txt
+          "$AAPT" dump permissions "$APK" | tee permissions.txt
+          ! grep -F 'android.permission.INTERNET' permissions.txt
+          sha256sum "$APK" | tee apk-sha256.txt
+          stat -c 'APK bytes: %s' "$APK" | tee apk-size.txt
+      - name: Create shared API36 AVD
+        shell: bash
+        run: |
+          set -euo pipefail
+          export ANDROID_AVD_HOME="$RUNNER_TEMP/android-avd"
+          mkdir -p "$ANDROID_AVD_HOME"
+          echo "ANDROID_AVD_HOME=$ANDROID_AVD_HOME" >> "$GITHUB_ENV"
+          echo no | avdmanager create avd --force --name exact_hq_api36 --package 'system-images;android-36;google_apis;x86_64'
+          "$ANDROID_HOME/emulator/emulator" -list-avds | grep -Fx exact_hq_api36
+      - name: Boot emulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          nohup "$ANDROID_HOME/emulator/emulator" -avd exact_hq_api36 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -camera-back none -camera-front none > emulator.log 2>&1 &
+          adb wait-for-device
+          timeout 360 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = "1" ]; do sleep 5; done'
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+          adb shell settings put system accelerometer_rotation 0
+      - name: Offline launch and initial metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa
+          APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1)"
+          adb install -r "$APK"
+          adb shell svc wifi disable || true
+          adb shell svc data disable || true
+          adb logcat -c
+          adb shell am force-stop in.ramesh.zoology.earthwormlab
+          adb shell am start -W -n in.ramesh.zoology.earthwormlab/.NativeHomeActivity | tee qa/cold-start.txt
+          sleep 2
+          # enter the local laboratory through the dashboard's primary button
+          adb shell input tap 540 640 || true
+          sleep 12
+          test -n "$(adb shell pidof in.ramesh.zoology.earthwormlab | tr -d '\r')"
+          adb shell dumpsys meminfo in.ramesh.zoology.earthwormlab > qa/mem-initial.txt
+          adb exec-out screencap -p > qa/portrait.png
+          adb shell dumpsys activity activities > qa/activity-initial.txt
+      - name: Rotation, background-resume and process restart metrics
+        shell: bash
+        run: |
+          set -euo pipefail
+          adb shell settings put system user_rotation 1
+          sleep 8
+          test -n "$(adb shell pidof in.ramesh.zoology.earthwormlab | tr -d '\r')"
+          adb shell dumpsys meminfo in.ramesh.zoology.earthwormlab > qa/mem-landscape.txt
+          adb exec-out screencap -p > qa/landscape.png
+          adb shell input keyevent KEYCODE_HOME
+          sleep 4
+          adb shell am start -W -n in.ramesh.zoology.earthwormlab/.NativeHomeActivity | tee qa/warm-resume.txt
+          sleep 4
+          adb shell dumpsys meminfo in.ramesh.zoology.earthwormlab > qa/mem-resume.txt
+          adb shell am force-stop in.ramesh.zoology.earthwormlab
+          sleep 2
+          adb shell am start -W -n in.ramesh.zoology.earthwormlab/.NativeHomeActivity | tee qa/restart.txt
+          sleep 5
+          adb shell dumpsys meminfo in.ramesh.zoology.earthwormlab > qa/mem-restart.txt
+          adb shell settings put system user_rotation 0
+      - name: Crash, ANR and summary
+        shell: bash
+        run: |
+          set -euo pipefail
+          adb logcat -d > qa/logcat.txt
+          if grep -E 'FATAL EXCEPTION|ANR in in\.ramesh\.zoology\.earthwormlab' qa/logcat.txt; then
+            echo 'Crash/ANR detected' >&2
+            exit 1
+          fi
+          {
+            echo 'HTML_SHA256=5dbc6fe5754891a0c6dd6b5d307be232e35a1d244fcca72788749991cbc8affd'
+            echo 'HTML_BYTES=8038498'
+            echo "API=$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
+            echo "ANDROID=$(adb shell getprop ro.build.version.release | tr -d '\r')"
+            echo 'INTERNET_PERMISSION=ABSENT'
+            echo 'CRASH_ANR=NONE_DETECTED'
+            echo 'NOTE=This QA does not override the known payload lifecycle/version-identity blockers.'
+          } > qa/summary.txt
+          cat qa/summary.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: exact-hq-api36-audit
+          path: |
+            qa/
+            emulator.log
+            badging.txt
+            permissions.txt
+            apk-sha256.txt
+            apk-size.txt
+            app/build/reports/lint-results*
+          if-no-files-found: warn
+          retention-days: 14
