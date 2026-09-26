@@ -86,9 +86,30 @@ public final class AnatomyCanvas extends View {
             c.drawLine(x,worm.top+3,x,worm.bottom-3,paint);
         }
 
+        // Clitellar band. This schematic is not segment-proportional.
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.rgb(206,143,112));
-        c.drawRoundRect(new RectF(w*.405f,h*.34f,w*.49f,h*.66f),10,10,paint);
+        RectF clitellum=new RectF(w*.405f,h*.34f,w*.49f,h*.66f);
+        c.drawRoundRect(clitellum,10,10,paint);
+
+        // Modern M. posthuma redescription records ventral clitellar setae.
+        paint.setColor(Color.rgb(86,55,49));
+        for(int i=0;i<6;i++){
+            float x=clitellum.left+(i+1)*clitellum.width()/7f;
+            c.drawCircle(x,h*.62f,Math.max(1.8f,w*.003f),paint);
+        }
+
+        // Separate paired genital markings flanking the male-pore region
+        // (XVII and XIX in the species redescription). No scale claim is implied.
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(Math.max(2f,w*.004f));
+        paint.setColor(Color.rgb(236,176,126));
+        float[] gx={w*.53f,w*.60f};
+        for(float x:gx){
+            c.drawCircle(x,h*.43f,w*.010f,paint);
+            c.drawCircle(x,h*.57f,w*.010f,paint);
+        }
+        paint.setStyle(Paint.Style.FILL);
     }
 
     private void drawOpenedBody(Canvas c,float w,float h){
@@ -231,34 +252,57 @@ public final class AnatomyCanvas extends View {
     }
 
     private void drawReproductive(Canvas c,float w,float h){
+        // Horizontal anterior-to-posterior schematic; paired organs are mirrored
+        // above and below the midline and are not drawn to segment scale.
         paint.setStyle(Paint.Style.FILL);
-        paint.setColor(Color.rgb(207,141,244));
 
+        // Four pairs of spermathecae (VI–IX).
+        paint.setColor(Color.rgb(207,141,244));
         for(int i=0;i<4;i++){
-            float x=w*(.19f+i*.035f);
-            c.drawOval(new RectF(x-w*.012f,h*.55f,x+w*.012f,h*.62f),paint);
+            float x=w*(.20f+i*.045f);
+            c.drawOval(new RectF(x-w*.012f,h*.36f,x+w*.012f,h*.43f),paint);
+            c.drawOval(new RectF(x-w*.012f,h*.57f,x+w*.012f,h*.64f),paint);
         }
 
+        // Two pairs of testes (X and XI).
         paint.setColor(Color.rgb(238,189,139));
-        c.drawOval(new RectF(w*.27f,h*.38f,w*.31f,h*.45f),paint);
-        c.drawOval(new RectF(w*.32f,h*.38f,w*.36f,h*.45f),paint);
+        for(int i=0;i<2;i++){
+            float x=w*(.40f+i*.038f);
+            c.drawCircle(x,h*.45f,w*.010f,paint);
+            c.drawCircle(x,h*.55f,w*.010f,paint);
+        }
 
+        // Two pairs of seminal vesicles (XI and XII), larger than testes.
         paint.setColor(Color.rgb(195,109,91));
-        c.drawOval(new RectF(w*.34f,h*.33f,w*.43f,h*.46f),paint);
-        c.drawOval(new RectF(w*.43f,h*.33f,w*.50f,h*.45f),paint);
+        for(int i=0;i<2;i++){
+            float x=w*(.46f+i*.055f);
+            c.drawOval(new RectF(x-w*.024f,h*.34f,x+w*.024f,h*.45f),paint);
+            c.drawOval(new RectF(x-w*.024f,h*.55f,x+w*.024f,h*.66f),paint);
+        }
 
+        // One pair of ovaries in XIII.
         paint.setColor(Color.rgb(244,198,91));
-        c.drawCircle(w*.47f,h*.58f,w*.013f,paint);
+        c.drawCircle(w*.57f,h*.45f,w*.010f,paint);
+        c.drawCircle(w*.57f,h*.55f,w*.010f,paint);
 
+        // Oviducts converge toward the single female-pore pathway.
         paint.setStyle(Paint.Style.STROKE);
-        paint.setStrokeWidth(w*.009f);
-        paint.setColor(Color.rgb(238,189,139));
-        c.drawLine(w*.48f,h*.58f,w*.55f,h*.63f,paint);
-        c.drawLine(w*.31f,h*.45f,w*.74f,h*.52f,paint);
+        paint.setStrokeWidth(w*.007f);
+        paint.setColor(Color.rgb(244,198,91));
+        c.drawLine(w*.57f,h*.45f,w*.62f,h*.50f,paint);
+        c.drawLine(w*.57f,h*.55f,w*.62f,h*.50f,paint);
 
-        paint.setStrokeWidth(w*.035f);
+        // Paired vasa deferentia run posteriorly.
+        paint.setColor(Color.rgb(238,189,139));
+        c.drawLine(w*.42f,h*.45f,w*.77f,h*.45f,paint);
+        c.drawLine(w*.42f,h*.55f,w*.77f,h*.55f,paint);
+
+        // Paired racemose prostate fields around the male region.
+        paint.setStrokeWidth(w*.030f);
         paint.setColor(Color.rgb(172,95,121));
-        c.drawLine(w*.58f,h*.43f,w*.69f,h*.43f,paint);
+        c.drawLine(w*.66f,h*.40f,w*.74f,h*.40f,paint);
+        c.drawLine(w*.66f,h*.60f,w*.74f,h*.60f,paint);
+
         paint.setStyle(Paint.Style.FILL);
     }
 
@@ -288,41 +332,58 @@ public final class AnatomyCanvas extends View {
         float cx=w*.50f,cy=h*.50f;
         float r=Math.min(w,h)*.36f;
 
+        // Body wall from outside inward.
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.rgb(109,68,58));
         c.drawCircle(cx,cy,r,paint);
-
         paint.setColor(Color.rgb(206,150,119));
         c.drawCircle(cx,cy,r*.91f,paint);
-
         paint.setColor(Color.rgb(155,91,73));
         c.drawCircle(cx,cy,r*.82f,paint);
-
         paint.setColor(Color.rgb(89,52,46));
         c.drawCircle(cx,cy,r*.68f,paint);
 
+        // Coelomic cavity and intestine.
         paint.setColor(Color.rgb(35,28,28));
         c.drawCircle(cx,cy,r*.56f,paint);
-
         paint.setColor(Color.rgb(149,91,63));
         c.drawCircle(cx,cy,r*.34f,paint);
-
         paint.setColor(Color.rgb(30,20,20));
         c.drawCircle(cx,cy,r*.20f,paint);
 
+        // Dorsal typhlosole: an inward fold of the intestinal wall, not a separate tube.
+        paint.setColor(Color.rgb(205,132,81));
+        Path typh=new Path();
+        typh.moveTo(cx-r*.14f,cy-r*.18f);
+        typh.quadTo(cx,cy+r*.04f,cx+r*.14f,cy-r*.18f);
+        typh.quadTo(cx+r*.06f,cy-r*.10f,cx,cy-r*.02f);
+        typh.quadTo(cx-r*.06f,cy-r*.10f,cx-r*.14f,cy-r*.18f);
+        c.drawPath(typh,paint);
+
+        // Dorsal vessel on the gut.
         paint.setColor(Color.rgb(220,66,72));
         c.drawCircle(cx,cy-r*.46f,r*.055f,paint);
 
+        // Below the gut the vertical order is:
+        // ventral vessel -> ventral nerve cord -> subneural vessel.
         paint.setColor(Color.rgb(173,42,55));
         c.drawCircle(cx,cy+r*.46f,r*.052f,paint);
 
         paint.setColor(Color.rgb(247,200,75));
-        c.drawOval(new RectF(cx-r*.08f,cy+r*.57f,cx+r*.08f,cy+r*.68f),paint);
+        c.drawOval(new RectF(
+            cx-r*.08f,cy+r*.57f,
+            cx+r*.08f,cy+r*.68f),paint);
 
+        paint.setColor(Color.rgb(197,55,76));
+        c.drawCircle(cx,cy+r*.76f,r*.042f,paint);
+
+        // Paired setae in section, shown laterally.
         paint.setColor(Color.rgb(205,189,155));
         for(int side=-1;side<=1;side+=2){
             float x=cx+side*r*.72f;
-            c.drawOval(new RectF(x-r*.025f,cy+r*.15f,x+r*.025f,cy+r*.55f),paint);
+            c.drawOval(new RectF(
+                x-r*.025f,cy+r*.15f,
+                x+r*.025f,cy+r*.55f),paint);
         }
     }
 
