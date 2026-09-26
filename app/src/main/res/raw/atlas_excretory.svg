@@ -1,4 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid meet">
+<style>.hit{display:none}.target-ring,.selection-ring{display:none}</style>
 <defs>
             <linearGradient id="trayGrad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#173e3b"/><stop offset="1" stop-color="#071b1a"/></linearGradient>
             <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#b87f69"/><stop offset=".42" stop-color="#8b5b4b"/><stop offset="1" stop-color="#593c35"/></linearGradient>
