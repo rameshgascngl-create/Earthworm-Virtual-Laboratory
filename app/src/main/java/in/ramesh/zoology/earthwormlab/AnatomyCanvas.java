@@ -18,6 +18,7 @@ public final class AnatomyCanvas extends View {
     private NativeData.SystemRecord system;
     private NativeData.StructureRecord selected;
     private String selectedDisplayLabel;
+    private boolean tamil=false;
     private OnStructureSelected listener;
 
     public AnatomyCanvas(Context context){
@@ -35,6 +36,10 @@ public final class AnatomyCanvas extends View {
 
     public void setListener(OnStructureSelected l){listener=l;}
     public NativeData.StructureRecord getSelected(){return selected;}
+    public void setTamil(boolean value){
+        tamil=value;
+        invalidate();
+    }
     public void setSelectedDisplayLabel(String label){
         selectedDisplayLabel=label;
         invalidate();
@@ -72,10 +77,10 @@ public final class AnatomyCanvas extends View {
         c.drawRoundRect(worm,h*.095f,h*.095f,paint);
         paint.setColor(Color.rgb(56,214,188));
         paint.setTextSize(Math.max(24f,w/25f));
-        c.drawText("Preparation / guided dissection",w*.12f,h*.25f,paint);
+        c.drawText(tamil?"தயாரிப்பு / வழிகாட்டும் பிரித்தாய்வு":"Preparation / guided dissection",w*.12f,h*.25f,paint);
         paint.setColor(Color.rgb(185,211,203));
         paint.setTextSize(Math.max(20f,w/31f));
-        c.drawText("Use the 56-action native guided module for the procedural sequence.",w*.08f,h*.76f,paint);
+        c.drawText(tamil?"செய்முறை வரிசைக்கு 56-செயல் வழிகாட்டியைப் பயன்படுத்துக.":"Use the 56-action native guided module for the procedural sequence.",w*.08f,h*.76f,paint);
     }
 
     private void drawExternal(Canvas c,float w,float h){
