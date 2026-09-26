@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
+import android.speech.tts.Voice;
 import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 
 public final class MainActivity extends Activity implements AnatomyCanvas.OnStructureSelected {
     public static final String EXTRA_SYSTEM = "earthworm.native.system";
@@ -62,7 +64,9 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         body.addView(indexTitle);
         structureList=new LinearLayout(this);structureList.setOrientation(LinearLayout.VERTICAL);body.addView(structureList);
 
-        tts=new TextToSpeech(this,status->{if(status==TextToSpeech.SUCCESS)tts.setLanguage(Locale.forLanguageTag(tamil?"ta-IN":"en-IN"));});
+        tts=new TextToSpeech(this,status->{
+            if(status==TextToSpeech.SUCCESS) configureOfflineVoice();
+        });
         refreshLanguage();
     }
 
@@ -111,9 +115,43 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
             progress.markVisited(s.id);
         }
     }
+    private boolean configureOfflineVoice(){
+        if(tts==null)return false;
+        Locale desired=Locale.forLanguageTag(tamil?"ta-IN":"en-IN");
+        Set<Voice> voices=tts.getVoices();
+        Voice fallback=null;
+        if(voices!=null){
+            for(Voice voice:voices){
+                if(voice==null || voice.isNetworkConnectionRequired())continue;
+                Locale locale=voice.getLocale();
+                if(locale==null)continue;
+                if(locale.getLanguage().equals(desired.getLanguage())){
+                    if(locale.toLanguageTag().equalsIgnoreCase(desired.toLanguageTag())){
+                        tts.setVoice(voice);
+                        return true;
+                    }
+                    if(fallback==null)fallback=voice;
+                }
+            }
+        }
+        if(fallback!=null){
+            tts.setVoice(fallback);
+            return true;
+        }
+        return false;
+    }
+
     private void speakSelection(){
         if(tts==null)return;
-        tts.setLanguage(Locale.forLanguageTag(tamil?"ta-IN":"en-IN"));
+        if(!configureOfflineVoice()){
+            android.widget.Toast.makeText(
+                this,
+                tamil
+                    ?"இந்த மொழிக்கான இணையமில்லா உரை-ஒலி குரல் சாதனத்தில் இல்லை."
+                    :"No offline text-to-speech voice is installed for this language.",
+                android.widget.Toast.LENGTH_LONG).show();
+            return;
+        }
         String speech;
         if(selectedContent!=null)speech=selectedContent.title(tamil)+". "+selectedContent.detail(tamil);
         else {
