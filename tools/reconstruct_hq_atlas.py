@@ -96,8 +96,6 @@ def main():
       ('"Intestinal caeca XXVI":"குடல் நீட்சிகள் XXVI"','"Intestinal caeca XXVII":"குடல் சீக்காக்கள் XXVII"'),
       ('"Gizzard VIII": {"lines": ["அரவைப்பை VIII"], "size": 16}','"Gizzard": {"lines": ["அரவைப்பை"], "size": 16}'),
       ('"Intestinal caeca XXVI": {"lines": ["குடல் நீட்சிகள் XXVI"], "size": 16}','"Intestinal caeca XXVII": {"lines": ["குடல் சீக்காக்கள் XXVII"], "size": 16}'),
-      ('"Gizzard VIII†": {"lines": ["அரவைப்பை VIII†"], "size": 16}','"Gizzard": {"lines": ["அரவைப்பை"], "size": 16}'),
-      ('"Intestinal caeca XXVI†": {"lines": ["குடல் நீட்சிகள் XXVI†"], "size": 16, "y": 169}','"Intestinal caeca XXVII": {"lines": ["குடல் சீக்காக்கள் XXVII"], "size": 16, "y": 169}'),
       ('A thick, muscular chamber in segment VIII.','A thick, muscular chamber occupying segments IX–X in identified Metaphire posthuma specimens.'),
       ('VIII-ஆம் கண்டத்தில் அமைந்த தடித்த தசைமிகு அறை.','அடையாளம் உறுதிசெய்யப்பட்ட Metaphire posthuma மாதிரிகளில் IX–X கண்டங்களை ஆக்கிரமிக்கும் தடித்த தசைமிகு அறை.'),
       ('A paired, forwardly directed outgrowth arising near segment XXVI.','Paired, simple, smooth, forwardly directed intestinal outgrowths arising at segment XXVII and extending anteriorly to about XXV in identified Metaphire posthuma specimens.'),
