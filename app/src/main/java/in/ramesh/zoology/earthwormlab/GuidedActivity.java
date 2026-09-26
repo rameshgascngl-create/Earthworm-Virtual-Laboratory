@@ -52,7 +52,7 @@ public final class GuidedActivity extends Activity {
         lang.setAllCaps(false);
         lang.setText("தமிழ் / English");
         lang.setOnClickListener(v->{tamil=!tamil;show();});
-        root.addView(lang,new LinearLayout.LayoutParams(-1,dp(50)));
+        lang.setMinHeight(dp(48));root.addView(lang,new LinearLayout.LayoutParams(-1,-2));
 
         LinearLayout nav=new LinearLayout(this);
         prev=new Button(this);
@@ -61,8 +61,8 @@ public final class GuidedActivity extends Activity {
         next.setAllCaps(false);
         prev.setOnClickListener(v->{if(index>0){index--;show();}});
         next.setOnClickListener(v->{if(index<actions.size()-1){index++;show();}});
-        nav.addView(prev,new LinearLayout.LayoutParams(0,dp(54),1));
-        nav.addView(next,new LinearLayout.LayoutParams(0,dp(54),1));
+        prev.setMinHeight(dp(48));prev.setPadding(dp(8),dp(8),dp(8),dp(8));nav.addView(prev,new LinearLayout.LayoutParams(0,-2,1));
+        next.setMinHeight(dp(48));next.setPadding(dp(8),dp(8),dp(8),dp(8));nav.addView(next,new LinearLayout.LayoutParams(0,-2,1));
         root.addView(nav);
 
         show();
