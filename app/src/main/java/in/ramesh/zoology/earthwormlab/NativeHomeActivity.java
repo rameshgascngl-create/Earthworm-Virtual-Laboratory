@@ -176,7 +176,7 @@ public final class NativeHomeActivity extends Activity {
         card.setBackground(bg);
         card.setClickable(true);
         card.setFocusable(true);
-        card.setMinHeight(dp(64));
+        card.setMinimumHeight(dp(64));
         card.setContentDescription(title+". "+detail);
         card.setMinimumHeight(dp(56));
 
