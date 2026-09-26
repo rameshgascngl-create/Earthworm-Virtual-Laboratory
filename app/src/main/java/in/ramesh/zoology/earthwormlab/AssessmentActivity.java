@@ -17,6 +17,9 @@ public final class AssessmentActivity extends Activity {
         super.onCreate(b);
         repo=new ContentRepository(this);
         questions=repo.questions();
+        if(b==null){
+            tamil=getIntent()!=null && getIntent().getBooleanExtra(NativeHomeActivity.EXTRA_TAMIL,false);
+        }
         if(b!=null){
             index=Math.max(0,Math.min(b.getInt("index",0),questions.size()));
             score=Math.max(0,b.getInt("score",0));
