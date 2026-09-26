@@ -1,0 +1,40 @@
+name: Mobile navigation deep validation
+on:
+  push:
+    branches:
+      - qa/v1.3.9-mobile-nav-validation-20260926
+permissions:
+  contents: read
+jobs:
+  mobile-nav:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify frozen mobile candidate payload
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED="4921509f78c91f3f9c0a52bfccef6c22a52652e66c26a930b534d597679829ec"
+          test "$(sha256sum app/src/main/assets/index.html | awk '{print $1}')" = "$EXPECTED"
+          test "$(stat -c%s app/src/main/assets/index.html)" = "7424244"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Install pinned Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Run deep mobile navigation validation
+        run: npx playwright test tests/browser/mobile-nav-validation.spec.cjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: mobile-navigation-deep-validation
+          path: |
+            playwright-report
+            test-results
+          if-no-files-found: warn
+          retention-days: 14
