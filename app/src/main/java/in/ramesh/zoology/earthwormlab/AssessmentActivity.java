@@ -23,7 +23,7 @@ public final class AssessmentActivity extends Activity {
     private void show(){
         answers.removeAllViews();feedback.setText("");
         if(index>=questions.size()){new ProgressStore(this).saveScore(score);meta.setText(tamil?"மதிப்பீடு முடிந்தது":"Assessment complete");question.setText(score+" / "+questions.size());return;}
-        ContentRepository.Question q=questions.get(index);meta.setText((index+1)+" / "+questions.size()+" · "+q.system);question.setText(tamil&&!q.ta.isBlank()?q.ta:q.en);
+        ContentRepository.Question q=questions.get(index);meta.setText((index+1)+" / "+questions.size()+" · "+q.system);question.setText(tamil&&!q.ta.trim().isEmpty()?q.ta:q.en);
         List<String> opts=tamil&&!q.oTa.isEmpty()?q.oTa:q.oEn;
         for(int i=0;i<opts.size();i++){final int pick=i;Button b=new Button(this);b.setAllCaps(false);b.setText(opts.get(i));b.setOnClickListener(v->answer(pick));answers.addView(b,new LinearLayout.LayoutParams(-1,dp(58)));}
     }
