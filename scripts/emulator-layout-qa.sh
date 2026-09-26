@@ -2,12 +2,10 @@
 set -euo pipefail
 
 PKG="in.ramesh.zoology.earthwormlab"
+LANG_EXTRA="earthworm.language.tamil"
 OUT="${1:-layout-qa}"
 mkdir -p "$OUT"
 
-# connectedDebugAndroidTest may briefly leave the emulator in "offline" state.
-# Recover ADB deterministically before layout capture; do not treat a transient
-# transport state as an app failure.
 adb reconnect >/dev/null 2>&1 || true
 ready=0
 for i in $(seq 1 45); do
@@ -57,6 +55,23 @@ capture_screen() {
     cat "$OUT/${profile}_${label}_focus.txt"
     return 1
   fi
+  test -s "$OUT/${profile}_${label}.png"
+  test -s "$OUT/${profile}_${label}.xml"
+}
+
+capture_language_set() {
+  local profile="$1" lang="$2"
+  local suffix="" extra=()
+  if [ "$lang" = "ta" ]; then
+    suffix="_ta"
+    extra=(--ez "$LANG_EXTRA" true)
+  fi
+
+  capture_screen "$profile" ".NativeHomeActivity" "home${suffix}" "${extra[@]}"
+  capture_screen "$profile" ".MainActivity" "digestive${suffix}" --es earthworm.native.system digestive "${extra[@]}"
+  capture_screen "$profile" ".GuidedActivity" "guided${suffix}" "${extra[@]}"
+  capture_screen "$profile" ".AssessmentActivity" "assessment${suffix}" "${extra[@]}"
+  capture_screen "$profile" ".MicroscopyActivity" "microscopy${suffix}" "${extra[@]}"
 }
 
 apply_profile() {
@@ -66,6 +81,7 @@ apply_profile() {
   adb shell settings put system font_scale "$font"
   adb shell settings put system user_rotation "$rotation"
   sleep 1
+
   {
     echo "name=$name"
     adb shell wm size
@@ -74,11 +90,8 @@ apply_profile() {
     echo "rotation=$(adb shell settings get system user_rotation | tr -d '\r')"
   } > "$OUT/${name}_profile.txt"
 
-  capture_screen "$name" ".NativeHomeActivity" "home"
-  capture_screen "$name" ".MainActivity" "digestive" --es earthworm.native.system digestive
-  capture_screen "$name" ".GuidedActivity" "guided"
-  capture_screen "$name" ".AssessmentActivity" "assessment"
-  capture_screen "$name" ".MicroscopyActivity" "microscopy"
+  capture_language_set "$name" "en"
+  capture_language_set "$name" "ta"
   capture_screen "$name" ".PrivacyActivity" "privacy"
 }
 
@@ -90,21 +103,16 @@ apply_profile "tablet1280_landscape" "1280x800" "240" "1.3" "1"
 
 adb logcat -d > "$OUT/layout-logcat.txt"
 
-if grep -E 'FATAL EXCEPTION|ANR in ${PKG}|Process: ${PKG}.*has died' "$OUT/layout-logcat.txt"; then
+if grep -E "FATAL EXCEPTION|ANR in $PKG|Process: $PKG.*has died" "$OUT/layout-logcat.txt"; then
   echo "Crash/ANR signature detected during layout matrix."
   exit 1
 fi
 
-expected=0
-for profile in phone360_normal phone390_large phone360_xlarge tablet800_portrait tablet1280_landscape; do
-  for label in home digestive guided assessment microscopy privacy; do
-    expected=$((expected+1))
-    test -s "$OUT/${profile}_${label}.png"
-    test -s "$OUT/${profile}_${label}.xml"
-  done
-done
-
+expected=55
 actual="$(find "$OUT" -name '*.png' -type f -size +0c | wc -l | tr -d ' ')"
 test "$actual" -eq "$expected"
 
-echo "LAYOUT MATRIX CAPTURE: PASS ($actual screens)"
+xml_count="$(find "$OUT" -name '*.xml' -type f -size +0c | wc -l | tr -d ' ')"
+test "$xml_count" -eq "$expected"
+
+echo "LAYOUT MATRIX CAPTURE: PASS ($actual screenshots, English + Tamil)"
