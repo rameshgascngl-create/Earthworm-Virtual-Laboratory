@@ -10,7 +10,8 @@ module.exports=defineConfig({
     {name:'renderer-capabilities',testMatch:'**/renderer.spec.cjs',use:{viewport:{width:820,height:260}}},
     {name:'desktop',testMatch:'**/app.spec.cjs',dependencies:['renderer-capabilities'],use:{viewport:{width:1366,height:900}}},
     {name:'phone',testMatch:'**/app.spec.cjs',dependencies:['renderer-capabilities'],use:{viewport:{width:390,height:844},isMobile:true,hasTouch:true}},
-    {name:'small-phone',testMatch:'**/app.spec.cjs',dependencies:['renderer-capabilities'],use:{viewport:{width:360,height:800},isMobile:true,hasTouch:true}}
+    {name:'small-phone',testMatch:'**/app.spec.cjs',dependencies:['renderer-capabilities'],use:{viewport:{width:360,height:800},isMobile:true,hasTouch:true}},
+    {name:'mobile-nav-deep',testMatch:'**/mobile-nav-validation.spec.cjs',use:{viewport:{width:360,height:800},isMobile:true,hasTouch:true}}
   ],
   webServer:{command:'node tests/browser/server.cjs',url:'http://127.0.0.1:4173/health',reuseExistingServer:false,timeout:15000}
 });
