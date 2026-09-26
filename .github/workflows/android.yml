@@ -5,8 +5,10 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: earthworm-native-v2-${{ github.ref }}
-  cancel-in-progress: true
+  # Commit-scoped during final alpha QA so a stale cancelled emulator job
+  # cannot block evidence collection for the current candidate.
+  group: earthworm-native-v2-${{ github.sha }}
+  cancel-in-progress: false
 
 jobs:
   native-gates:
