@@ -231,6 +231,13 @@ jobs:
           adb shell pm list permissions -g >/dev/null
           adb logcat -d > emulator-logcat.txt
 
+      - name: Capture phone/tablet layout matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x scripts/emulator-layout-qa.sh
+          scripts/emulator-layout-qa.sh layout-qa
+
       - name: Capture emulator diagnostics
         if: always()
         shell: bash
@@ -250,6 +257,7 @@ jobs:
             emulator-package.txt
             emulator-display.txt
             emulator-final.png
+            layout-qa/**
             app/build/reports/androidTests/**
             app/build/outputs/androidTest-results/**
           if-no-files-found: warn
