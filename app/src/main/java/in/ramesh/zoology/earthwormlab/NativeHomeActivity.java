@@ -176,7 +176,7 @@ public final class NativeHomeActivity extends Activity {
         card.setBackground(bg);
         card.setClickable(true);
         card.setFocusable(true);
-        card.setMinHeight(dp(56));
+        card.setMinimumHeight(dp(56));
 
         card.addView(text(title,18,Color.WHITE,true));
         TextView d=text(detail,14,Color.rgb(185,211,203),false);
