@@ -51,11 +51,16 @@ jobs:
             echo "/dev/kvm unavailable" >&2
             exit 1
           fi
+          mkdir -p "$HOME/.android/avd"
+          echo "ANDROID_AVD_HOME=$HOME/.android/avd" >> "$GITHUB_ENV"
       - name: Create API 36 AVD
         shell: bash
         run: |
           set -euo pipefail
-          echo no | avdmanager create avd --force --name hq_api36 --package 'system-images;android-36;google_apis;x86_64'
+          echo "ANDROID_AVD_HOME=$ANDROID_AVD_HOME"
+          echo no | avdmanager create avd --force --name hq_api36 --package 'system-images;android-36;google_apis;x86_64' --path "$ANDROID_AVD_HOME/hq_api36.avd"
+          "$ANDROID_HOME/emulator/emulator" -list-avds | tee avd-list.txt
+          grep -Fx 'hq_api36' avd-list.txt
       - name: Boot headless emulator
         shell: bash
         run: |
