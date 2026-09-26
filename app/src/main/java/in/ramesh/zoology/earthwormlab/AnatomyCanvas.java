@@ -17,6 +17,7 @@ public final class AnatomyCanvas extends View {
     private final Paint paint=new Paint(Paint.ANTI_ALIAS_FLAG);
     private NativeData.SystemRecord system;
     private NativeData.StructureRecord selected;
+    private String selectedDisplayLabel;
     private OnStructureSelected listener;
 
     public AnatomyCanvas(Context context){
@@ -28,11 +29,16 @@ public final class AnatomyCanvas extends View {
     public void setSystem(NativeData.SystemRecord s){
         system=s;
         selected=null;
+        selectedDisplayLabel=null;
         invalidate();
     }
 
     public void setListener(OnStructureSelected l){listener=l;}
     public NativeData.StructureRecord getSelected(){return selected;}
+    public void setSelectedDisplayLabel(String label){
+        selectedDisplayLabel=label;
+        invalidate();
+    }
 
     @Override protected void onDraw(Canvas c){
         super.onDraw(c);
@@ -459,7 +465,7 @@ public final class AnatomyCanvas extends View {
             paint.setTextSize(Math.max(22f,w/28f));
             float tx=Math.min(w*.58f,w*selected.x+18);
             float ty=Math.max(h*.11f,h*selected.y-16);
-            c.drawText(selected.name,tx,ty,paint);
+            c.drawText(selectedDisplayLabel!=null?selectedDisplayLabel:selected.name,tx,ty,paint);
         }
     }
 
