@@ -144,8 +144,17 @@ for xml_path in glob.glob(os.path.join(out,'*.xml')):
         errors.append(f'{base}: XML parse failed: {e}')
         continue
 
+    nodes=list(root.iter('node'))
+    parsed_bounds=[]
+    for node in nodes:
+        m=bound_re.fullmatch(node.attrib.get('bounds',''))
+        if m:
+            parsed_bounds.append(tuple(map(int,m.groups())))
+    viewport_w=max((b[2] for b in parsed_bounds),default=0)
+    viewport_h=max((b[3] for b in parsed_bounds),default=0)
+
     texts=[]
-    for node in root.iter('node'):
+    for node in nodes:
         text=(node.attrib.get('text','')+' '+node.attrib.get('content-desc','')).strip()
         if text:
             texts.append(text)
@@ -156,10 +165,18 @@ for xml_path in glob.glob(os.path.join(out,'*.xml')):
                 continue
             x1,y1,x2,y2=map(int,m.groups())
             width,height=x2-x1,y2-y1
-            # Only enforce on visible non-zero controls represented in the hierarchy.
-            if width>0 and height>0 and (width+0.5<min_px or height+0.5<min_px):
+
+            # UIAutomator clips bounds to the visible viewport. A scrollable control
+            # partly visible at the top/bottom can therefore appear only a few pixels
+            # high even though its actual touch target is >=48dp. Enforce the touch
+            # target rule only when the full vertical extent is visible.
+            vertically_complete=(y1>0 and y2<viewport_h)
+            horizontally_complete=(x1>0 and x2<viewport_w)
+
+            if vertically_complete and horizontally_complete and width>0 and height>0 \
+                    and (width+0.5<min_px or height+0.5<min_px):
                 errors.append(
-                    f'{base}: clickable target below 48dp: {text!r} '
+                    f'{base}: fully visible clickable target below 48dp: {text!r} '
                     f'{width}x{height}px, required >= {min_px:.0f}px')
 
     joined=' '.join(texts)
