@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Offline app: no INTERNET, storage, microphone, camera or location permission. -->
     <queries>
         <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>
         <intent><action android:name="android.intent.action.VIEW" /><data android:scheme="https" /></intent>
     </queries>
-    <application android:label="@string/app_name" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"
-        android:allowBackup="false" android:usesCleartextTraffic="false"
-        android:theme="@style/AppTheme" android:supportsRtl="true">
+    <application
+        android:label="@string/app_name"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:allowBackup="false"
+        android:usesCleartextTraffic="false"
+        android:theme="@style/AppTheme"
+        android:supportsRtl="true">
 
         <activity android:name=".PrivacyActivity" android:exported="false" />
-
-        <activity android:name=".MainActivity" android:exported="false"
-            android:enableOnBackInvokedCallback="true" />
-
-        <activity android:name=".NativeHomeActivity" android:exported="true"
-            android:enableOnBackInvokedCallback="true">
+        <activity android:name=".AssessmentActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="false" android:enableOnBackInvokedCallback="true" />
+        <activity android:name=".NativeHomeActivity" android:exported="true" android:enableOnBackInvokedCallback="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
