@@ -60,12 +60,12 @@ public final class PrivacyActivity extends Activity {
         publicPolicy.setText("View public Privacy Policy");
         publicPolicy.setAllCaps(false);publicPolicy.setTextSize(16);
         publicPolicy.setOnClickListener(v->openPolicy());
-        LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(-1,dp(54));lp.setMargins(0,dp(18),0,dp(10));
+        publicPolicy.setMinHeight(dp(48));publicPolicy.setPadding(dp(10),dp(8),dp(10),dp(8));LinearLayout.LayoutParams lp=new LinearLayout.LayoutParams(-1,-2);lp.setMargins(0,dp(18),0,dp(10));
         body.addView(publicPolicy,lp);
 
         Button close=new Button(this);
         close.setText("Back to app");close.setAllCaps(false);close.setOnClickListener(v->finish());
-        body.addView(close,new LinearLayout.LayoutParams(-1,dp(50)));
+        close.setMinHeight(dp(48));close.setPadding(dp(10),dp(8),dp(10),dp(8));body.addView(close,new LinearLayout.LayoutParams(-1,-2));
 
         TextView owner=text("Developer / Institution\nDepartment of Zoology, Government Arts and Science College, Nagercoil, Tamil Nadu\nContact: rameshgascngl@gmail.com",13,Color.rgb(159,190,181),false);
         owner.setGravity(Gravity.CENTER_HORIZONTAL);owner.setPadding(0,dp(22),0,0);body.addView(owner);
