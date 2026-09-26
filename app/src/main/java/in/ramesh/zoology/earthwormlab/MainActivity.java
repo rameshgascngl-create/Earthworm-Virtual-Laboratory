@@ -67,14 +67,27 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
 
     private void selectContent(ContentRepository.Structure s){selectedContent=s;detail.setText(s.title(tamil)+"\n\n"+s.detail(tamil));progress.markVisited(s.id);}
     @Override public void onStructureSelected(NativeData.StructureRecord s){
-        selectedContent=null;detail.setText(s.name+"\n\nLocation: "+s.location+"\nFunction: "+s.function+"\nTeaching point: "+s.significance);progress.markVisited(s.id);
+        ContentRepository.Structure authoritative=content.structure(s.id);
+        if(authoritative!=null){
+            selectContent(authoritative);
+        }else{
+            selectedContent=null;
+            detail.setText(s.name);
+            progress.markVisited(s.id);
+        }
     }
     private void speakSelection(){
         if(tts==null)return;
         tts.setLanguage(Locale.forLanguageTag(tamil?"ta-IN":"en-IN"));
         String speech;
         if(selectedContent!=null)speech=selectedContent.title(tamil)+". "+selectedContent.detail(tamil);
-        else {NativeData.StructureRecord s=anatomy.getSelected();if(s==null)return;speech=s.name+". "+s.location+". "+s.function;}
+        else {
+            NativeData.StructureRecord s=anatomy.getSelected();
+            if(s==null)return;
+            ContentRepository.Structure authoritative=content.structure(s.id);
+            if(authoritative==null)return;
+            speech=authoritative.title(tamil)+". "+authoritative.detail(tamil);
+        }
         tts.speak(speech,TextToSpeech.QUEUE_FLUSH,null,"native-structure");
     }
     private TextView text(String v,int sp,int c,boolean bold){TextView t=new TextView(this);t.setText(v);t.setTextSize(sp);t.setTextColor(c);if(bold)t.setTypeface(android.graphics.Typeface.DEFAULT,android.graphics.Typeface.BOLD);return t;}
