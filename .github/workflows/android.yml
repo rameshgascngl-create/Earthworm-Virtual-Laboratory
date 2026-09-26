@@ -102,6 +102,19 @@ jobs:
           assert 'putInt("score",score)' in source['assessment']
           assert 'setContentDescription' in source['microscopy']
           print('NATIVE LIFECYCLE/ACCESSIBILITY SOURCE GATE: PASS')
+          # Privacy/TTS truthfulness gates.
+          main=source['main']
+          privacy=open('app/src/main/java/in/ramesh/zoology/earthwormlab/PrivacyActivity.java',encoding='utf-8').read()
+          policy=open('PRIVACY.md',encoding='utf-8').read()
+          assert 'isNetworkConnectionRequired()' in main
+          assert 'No offline text-to-speech voice is installed' in main
+          assert 'language preference' not in policy.lower()
+          assert 'guided-learning progress' not in policy.lower()
+          assert 'review dates' not in policy.lower()
+          assert 'Printing uses' not in privacy
+          assert '## Printing' not in policy
+          assert 'no INTERNET permission' in policy
+          print('PRIVACY/OFFLINE-TTS TRUTHFULNESS GATE: PASS')
           PY
       - uses: actions/setup-java@v4
         with:
