@@ -1,0 +1,44 @@
+name: Exact HQ payload browser QA
+on:
+  push:
+    branches:
+      - qa/exact-hq-render-5dbc6fe-20260926
+permissions:
+  contents: read
+jobs:
+  browser-only:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Verify exact HQ payload identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED="5dbc6fe5754891a0c6dd6b5d307be232e35a1d244fcca72788749991cbc8affd"
+          ACTUAL="$(sha256sum app/src/main/assets/index.html | awk '{print $1}')"
+          BYTES="$(stat -c%s app/src/main/assets/index.html)"
+          echo "index.html SHA-256: $ACTUAL"
+          echo "index.html bytes: $BYTES"
+          test "$ACTUAL" = "$EXPECTED"
+          test "$BYTES" = "8038498"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Install Chromium
+        run: npx --no-install playwright install --with-deps chromium
+      - name: Run existing browser rendering suite only
+        run: npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: exact-hq-browser-qa
+          path: |
+            playwright-report/
+            test-results/browser/
+          if-no-files-found: warn
+          retention-days: 14
