@@ -34,8 +34,8 @@ jobs:
             echo "AndroidX WebKit dependency detected."
             exit 1
           fi
-          grep -Fq "versionName '2.0.0-alpha1'" app/build.gradle
-          grep -Fq "versionCode 200001" app/build.gradle
+          grep -Fq "versionName '2.0.0-alpha2'" app/build.gradle
+          grep -Fq "versionCode 200002" app/build.gradle
           grep -Fq 'class AnatomyCanvas' app/src/main/java/in/ramesh/zoology/earthwormlab/AnatomyCanvas.java
           grep -Fq 'class ProgressStore' app/src/main/java/in/ramesh/zoology/earthwormlab/ProgressStore.java
           grep -Fq 'class AssessmentActivity' app/src/main/java/in/ramesh/zoology/earthwormlab/AssessmentActivity.java
@@ -138,6 +138,27 @@ jobs:
               assert 'requestApplyInsets()' in src, p
           print('PRIVACY/OFFLINE-TTS TRUTHFULNESS GATE: PASS')
           print('ANDROID 16 EDGE-TO-EDGE SOURCE GATE: PASS')
+          # Native high-resolution anatomy-atlas integrity gate.
+          import glob, os
+          atlas=sorted(glob.glob('app/src/main/res/raw/atlas_*.svg'))
+          expected={
+              'atlas_external.svg','atlas_digestive.svg','atlas_circulatory.svg',
+              'atlas_respiratory.svg','atlas_excretory.svg','atlas_reproductive.svg',
+              'atlas_nervous.svg','atlas_crosssection.svg'
+          }
+          assert len(atlas)==8, atlas
+          assert {os.path.basename(x) for x in atlas}==expected
+          for atlas_path in atlas:
+              svg=open(atlas_path,encoding='utf-8').read()
+              assert '<svg' in svg and 'viewBox="0 0 1200 560"' in svg, atlas_path
+              # All wording remains native/bilingual; no English label is baked into the artwork.
+              assert '<text' not in svg, atlas_path
+          main=open('app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java',encoding='utf-8').read()
+          for filename in expected:
+              assert 'R.raw.'+filename[:-4] in main, filename
+          gradle=open('app/build.gradle',encoding='utf-8').read()
+          assert "implementation 'com.caverock:androidsvg-aar:1.4'" in gradle
+          print('HIGH-RES NATIVE ATLAS SOURCE GATE: PASS')
           PY
       - uses: actions/setup-java@v4
         with:
@@ -169,10 +190,17 @@ jobs:
             echo "WebView symbols found in native APK."
             exit 1
           fi
+          for plate in external digestive circulatory respiratory excretory reproductive nervous crosssection; do
+            grep -Fq "res/raw/atlas_$plate.svg" apk-files.txt || {
+              echo "Missing packaged high-resolution atlas plate: $plate"
+              exit 1
+            }
+          done
+          echo "PACKAGED HIGH-RES ATLAS: PASS"
           sha256sum "$APK" | tee native-debug-sha256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-2.0.0-alpha1-native-debug-DO-NOT-SUBMIT
+          name: Earthworm-2.0.0-alpha2-native-debug-DO-NOT-SUBMIT
           path: |
             app/build/outputs/apk/debug/*.apk
             app/build/outputs/bundle/release/*.aab
@@ -273,7 +301,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Earthworm-2.0.0-alpha1-emulator-QA
+          name: Earthworm-2.0.0-alpha2-emulator-QA
           path: |
             emulator-boot.log
             emulator-logcat.txt

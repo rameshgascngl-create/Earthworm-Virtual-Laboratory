@@ -37,8 +37,8 @@ android {
         applicationId 'in.ramesh.zoology.earthwormlab'
         minSdk 24
         targetSdk 36
-        versionCode 200001
-        versionName '2.0.0-alpha1'
+        versionCode 200002
+        versionName '2.0.0-alpha2'
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
@@ -76,6 +76,7 @@ android {
 }
 
 dependencies {
+    implementation 'com.caverock:androidsvg-aar:1.4'
     androidTestImplementation 'androidx.test:runner:1.6.2'
     androidTestImplementation 'androidx.test:core:1.6.1'
     androidTestImplementation 'androidx.test.ext:junit:1.2.1'
