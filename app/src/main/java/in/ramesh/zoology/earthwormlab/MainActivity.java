@@ -82,6 +82,7 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         }
         speakButton.setText(tamil?"தேர்ந்த அமைப்பின் விளக்கத்தை ஒலிக்க":"Speak selected structure");
         indexTitle.setText(tamil?"அமைப்புகளின் பட்டியல்":"Native structure index");
+        anatomy.setTamil(tamil);
         anatomy.setContentDescription(
             tamil
                 ?"மண்புழு உடற்கூறு காட்சி வரைபடம். திரைவாசிப்பான் பயனர்கள் கீழுள்ள அணுகல்திறன் கொண்ட அமைப்புப் பட்டியலைப் பயன்படுத்துக."
