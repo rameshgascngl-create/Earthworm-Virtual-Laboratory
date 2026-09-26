@@ -88,3 +88,28 @@ for(const lang of ['en','ta']){
     done();
   });
 }
+
+test('mobile: system navigator is a scrollable bilingual tab strip',async({page},info)=>{
+  await page.setViewportSize({width:360,height:800});
+  const done=await load(page,'en','setup');
+  await expect(page.locator('#systemSelect')).toBeHidden();
+  await expect(page.locator('#systemSelectLabel')).toBeHidden();
+  await expect(page.locator('#systemTabs')).toBeVisible();
+  await expect(page.locator('#systemTabs [data-system]')).toHaveCount(9);
+  const geometry=await page.locator('#systemTabs').evaluate(el=>{
+    const s=getComputedStyle(el);
+    return {display:s.display,overflowX:s.overflowX,scrollWidth:el.scrollWidth,clientWidth:el.clientWidth};
+  });
+  expect(geometry.display).toBe('flex');
+  expect(['auto','scroll']).toContain(geometry.overflowX);
+  expect(geometry.scrollWidth).toBeGreaterThan(geometry.clientWidth);
+  await page.locator('#systemTabs [data-system="digestive"]').click();
+  await expect(page.locator('#systemTabs [data-system="digestive"]')).toHaveAttribute('aria-pressed','true');
+  await expect(page.locator('#systemSelect')).toHaveValue('digestive');
+  await page.locator('#langBtn').click();
+  await expect(page.locator('#systemTabs [data-system="digestive"]')).toContainText('செரிமான மண்டலம்');
+  await expect(page.locator('#systemTabs [data-system="digestive"]')).toHaveAttribute('aria-pressed','true');
+  await info.attach('mobile-system-tabs',{body:await page.screenshot({fullPage:true}),contentType:'image/png'});
+  done();
+});
+

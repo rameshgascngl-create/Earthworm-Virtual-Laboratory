@@ -1,0 +1,116 @@
+{
+  "status": "RELEASE-AUTHORITATIVE CANDIDATE — QA REQUIRED",
+  "baseline": {
+    "commit": "ac47a83762ae2ecbaded7b077f25702daf2d1fa8",
+    "html_sha256": "d9b8cca85459764f4169edf4a74aa2e159ea5281968fd49586b15c69176795ed",
+    "version": "1.3.8"
+  },
+  "historical_candidate": {
+    "commit": "92f3acd2497b95e1930b3acdbe4859403178b426",
+    "html_sha256": "5dbc6fe5754891a0c6dd6b5d307be232e35a1d244fcca72788749991cbc8affd",
+    "status": "FROZEN — DO NOT RELEASE"
+  },
+  "candidate": {
+    "html_sha256": "4921509f78c91f3f9c0a52bfccef6c22a52652e66c26a930b534d597679829ec",
+    "bytes": 7424244,
+    "app_version_during_reconstruction": "1.3.8",
+    "planned_production_version_after_all_gates": "1.3.9 / 10309",
+    "ui_revision": "mobile horizontal system tabs; native system dropdown hidden on <=640px"
+  },
+  "plates": {
+    "external": {
+      "width": 2048,
+      "height": 1536,
+      "bytes": 705080,
+      "sha256": "d439c1953e1e69acab0e26d2f4ca508a9260904b9fc7e9850fe3172847ed5026",
+      "provenance": "preserved-byte-for-byte-from-historical-HQ-candidate",
+      "scientific_status": "reviewed-for-reuse; final device sign-off pending"
+    },
+    "digestive": {
+      "width": 2048,
+      "height": 1536,
+      "bytes": 103856,
+      "sha256": "84fcb592892aeef0756cb411f8ebd6de7d567a0671e3fcc0f852cc2314727ad3",
+      "provenance": "reconstructed-label-free",
+      "scientific_status": "requires final plate/device sign-off"
+    },
+    "circulatory": {
+      "width": 2048,
+      "height": 1536,
+      "bytes": 791804,
+      "sha256": "76277234651906cf9f2aa5d3e0c7af86a450f845f968b02297c93a61d0004bb0",
+      "provenance": "preserved-byte-for-byte-from-historical-HQ-candidate",
+      "scientific_status": "reviewed-for-reuse; final device sign-off pending"
+    },
+    "respiratory": {
+      "width": 2048,
+      "height": 1536,
+      "bytes": 737444,
+      "sha256": "88e2ad2b73b3210ec4d3d877a55c04673a7de22e49643b843175e2f659da62fb",
+      "provenance": "preserved-byte-for-byte-from-historical-HQ-candidate",
+      "scientific_status": "reviewed-for-reuse; final device sign-off pending"
+    },
+    "excretory": {
+      "width": 2048,
+      "height": 1536,
+      "bytes": 814344,
+      "sha256": "8c56a27dd2262750a2fb5fc4923c4c4ba1a25825bb3ec5e308f37ae5ccec984e",
+      "provenance": "preserved-byte-for-byte-from-historical-HQ-candidate",
+      "scientific_status": "reviewed-for-reuse; final device sign-off pending"
+    },
+    "reproductive": {
+      "width": 2048,
+      "height": 1536,
+      "bytes": 850040,
+      "sha256": "23ef28d2e073a46afe01b026051b5da5d7e8d5ddaa08e6e344151f207a2ef212",
+      "provenance": "preserved-byte-for-byte-from-historical-HQ-candidate",
+      "scientific_status": "reviewed-for-reuse; final device sign-off pending"
+    },
+    "nervous": {
+      "width": 2048,
+      "height": 1536,
+      "bytes": 416620,
+      "sha256": "74bc0bb1272b6a0b444c08d475e633f66b4d49471402e80ed8944f9232d8c242",
+      "provenance": "preserved-byte-for-byte-from-historical-HQ-candidate",
+      "scientific_status": "reviewed-for-reuse; final device sign-off pending"
+    },
+    "crosssection": {
+      "width": 2048,
+      "height": 1536,
+      "bytes": 723848,
+      "sha256": "590cdb9f9d1b227ec8f4b990aa87ec6ea037f33bd5c0d7051a1cface293826ac",
+      "provenance": "preserved-byte-for-byte-from-historical-HQ-candidate",
+      "scientific_status": "reviewed-for-reuse; final device sign-off pending"
+    }
+  },
+  "digestive_reconstruction": {
+    "historical_rejected_sha256": "52ec7092e82b82ec14db508e6c8573ea5b0feb8989db060d4537e66691365506",
+    "rules": [
+      "label-free raster",
+      "paired simple smooth caeca",
+      "no baked disputed segment numbers",
+      "species-aware segment evidence remains in application-rendered text"
+    ],
+    "generator": "tools/reconstruct_hq_atlas.py",
+    "pillow_version": "12.0.0"
+  },
+  "preserved_contracts": [
+    "EarthwormApp.pause -> pauseLaboratory",
+    "pagehide -> pauseLaboratory",
+    "procedure timer cancellation",
+    "speech cancellation",
+    "storage key earthwormDissection.v1",
+    "Back contract",
+    "interactive SVG/hotspots",
+    "guided learning",
+    "assessments",
+    "bilingual content",
+    "offline CSP"
+  ],
+  "mobile_system_navigation": {
+    "input_sha256": "2f599d1f5709fec5adf74caa65fec0a1e5aa8e61b527171fb2d23c06da207c5f",
+    "output_sha256": "4921509f78c91f3f9c0a52bfccef6c22a52652e66c26a930b534d597679829ec",
+    "scope": "CSS-only mobile presentation change; existing systemTabs/selectSystem/state logic reused",
+    "physical_device_qa_required": true
+  }
+}
