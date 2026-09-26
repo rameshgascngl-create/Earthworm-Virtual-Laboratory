@@ -3,6 +3,7 @@ package in.ramesh.zoology.earthwormlab;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -26,6 +27,20 @@ public final class AssessmentActivity extends Activity {
             tamil=b.getBoolean("tamil",false);
         }
         ScrollView scroll=new ScrollView(this);LinearLayout root=new LinearLayout(this);root.setOrientation(LinearLayout.VERTICAL);root.setPadding(dp(22),dp(28),dp(22),dp(28));root.setBackgroundColor(Color.rgb(6,21,21));scroll.addView(root,new ScrollView.LayoutParams(-1,-1));setContentView(scroll);
+        if(android.os.Build.VERSION.SDK_INT>=30){
+            getWindow().setDecorFitsSystemWindows(false);
+            scroll.setOnApplyWindowInsetsListener((v,insets)->{
+                android.graphics.Insets bars=insets.getInsets(
+                    WindowInsets.Type.systemBars()|WindowInsets.Type.displayCutout());
+                root.setPadding(
+                    dp(22)+bars.left,
+                    dp(28)+bars.top,
+                    dp(22)+bars.right,
+                    dp(28)+bars.bottom);
+                return insets;
+            });
+            scroll.requestApplyInsets();
+        }
         meta=text("",14,Color.rgb(56,214,188),true);root.addView(meta);question=text("",21,Color.WHITE,true);question.setPadding(0,dp(10),0,dp(12));root.addView(question);
         answers=new LinearLayout(this);answers.setOrientation(LinearLayout.VERTICAL);root.addView(answers);
         feedback=text("",14,Color.rgb(244,198,91),false);feedback.setPadding(0,dp(12),0,dp(12));root.addView(feedback);
