@@ -95,11 +95,11 @@ apply_profile() {
   capture_screen "$name" ".PrivacyActivity" "privacy"
 }
 
-apply_profile "phone360_normal" "360x800" "320" "1.0" "0"
-apply_profile "phone390_large" "390x844" "320" "1.3" "0"
-apply_profile "phone360_xlarge" "360x800" "320" "1.5" "0"
-apply_profile "tablet800_portrait" "800x1280" "240" "1.3" "0"
-apply_profile "tablet1280_landscape" "1280x800" "240" "1.3" "1"
+apply_profile "phone360_normal" "720x1600" "320" "1.0" "0"
+apply_profile "phone390_large" "780x1688" "320" "1.3" "0"
+apply_profile "phone360_xlarge" "720x1600" "320" "1.5" "0"
+apply_profile "tablet800_portrait" "1200x1920" "240" "1.3" "0"
+apply_profile "tablet1280_landscape" "1920x1200" "240" "1.3" "1"
 
 adb logcat -d > "$OUT/layout-logcat.txt"
 
