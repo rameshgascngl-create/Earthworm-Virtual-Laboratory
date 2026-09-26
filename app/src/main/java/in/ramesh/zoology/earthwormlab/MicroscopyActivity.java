@@ -16,6 +16,7 @@ public final class MicroscopyActivity extends Activity {
         super.onCreate(b);
         repo=new ContentRepository(this);
         if(b!=null)tamil=b.getBoolean("tamil",false);
+        else if(getIntent()!=null)tamil=getIntent().getBooleanExtra(NativeHomeActivity.EXTRA_TAMIL,false);
         render();
     }
 
@@ -47,6 +48,7 @@ public final class MicroscopyActivity extends Activity {
 
             MicroscopyCanvas plate=new MicroscopyCanvas(this);
             plate.setLessonId(m.id);
+            plate.setTamil(tamil);
             plate.setContentDescription(
                 (tamil&&!m.ta.trim().isEmpty()?m.ta:m.en)
                 +(tamil?" — சொந்த Android நுண்ணமைப்பு விளக்கப்படம்":" — native Android microscopy diagram"));
