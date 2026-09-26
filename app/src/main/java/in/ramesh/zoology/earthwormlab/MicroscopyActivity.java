@@ -3,6 +3,7 @@ package in.ramesh.zoology.earthwormlab;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.WindowInsets;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -11,23 +12,44 @@ import android.widget.TextView;
 public final class MicroscopyActivity extends Activity {
     private boolean tamil=false;
     private ContentRepository repo;
+    private ScrollView scroll;
+    private LinearLayout body;
 
     @Override public void onCreate(Bundle b){
         super.onCreate(b);
         repo=new ContentRepository(this);
         if(b!=null)tamil=b.getBoolean("tamil",false);
         else if(getIntent()!=null)tamil=getIntent().getBooleanExtra(NativeHomeActivity.EXTRA_TAMIL,false);
+
+        scroll=new ScrollView(this);
+        scroll.setBackgroundColor(Color.rgb(6,21,21));
+        setContentView(scroll);
+
+        if(android.os.Build.VERSION.SDK_INT>=30){
+            getWindow().setDecorFitsSystemWindows(false);
+            scroll.setOnApplyWindowInsetsListener((v,insets)->{
+                android.graphics.Insets bars=insets.getInsets(
+                    WindowInsets.Type.systemBars()|WindowInsets.Type.displayCutout());
+                if(body!=null){
+                    body.setPadding(
+                        dp(22)+bars.left,
+                        dp(28)+bars.top,
+                        dp(22)+bars.right,
+                        dp(28)+bars.bottom);
+                }
+                return insets;
+            });
+        }
         render();
     }
 
     private void render(){
-        ScrollView scroll=new ScrollView(this);
-        LinearLayout body=new LinearLayout(this);
+        body=new LinearLayout(this);
         body.setOrientation(LinearLayout.VERTICAL);
         body.setPadding(dp(22),dp(28),dp(22),dp(28));
         body.setBackgroundColor(Color.rgb(6,21,21));
+        scroll.removeAllViews();
         scroll.addView(body,new ScrollView.LayoutParams(-1,-1));
-        setContentView(scroll);
 
         body.addView(text(
             tamil?"நுண்ணோக்கி ஆழ்பார்வை":"Microscopic deep dives",
@@ -72,6 +94,7 @@ public final class MicroscopyActivity extends Activity {
             12,Color.rgb(244,198,91),false);
         gate.setPadding(0,dp(18),0,0);
         body.addView(gate);
+        scroll.requestApplyInsets();
     }
 
     @Override protected void onSaveInstanceState(Bundle out){
