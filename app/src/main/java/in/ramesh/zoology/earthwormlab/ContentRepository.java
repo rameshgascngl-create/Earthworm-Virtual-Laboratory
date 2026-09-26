@@ -8,9 +8,12 @@ import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Arrays;
 import java.util.List;
 
 public final class ContentRepository {
+    private static final List<String> SYSTEM_ORDER = Arrays.asList(
+        "setup","external","digestive","circulatory","respiratory","excretory","reproductive","nervous","crosssection");
     private final JSONObject root;
 
     public static final class Structure {
@@ -62,7 +65,10 @@ public final class ContentRepository {
     }
 
     public List<String> systemIds(){
-        List<String> out=new ArrayList<>();JSONObject o=root.optJSONObject("systems");if(o!=null){Iterator<String> it=o.keys();while(it.hasNext())out.add(it.next());}return out;
+        List<String> out=new ArrayList<>();
+        JSONObject o=root.optJSONObject("systems");
+        if(o!=null) for(String id:SYSTEM_ORDER) if(o.has(id)) out.add(id);
+        return out;
     }
     public String systemName(String id,boolean tamil){
         JSONObject s=root.optJSONObject("systems");JSONObject o=s==null?null:s.optJSONObject(id);if(o==null)return id;
