@@ -1327,19 +1327,19 @@
         "a": 1
       },
       {
-        "en": "Which feature is absent from clitellar segments?",
-        "ta": "கிளைட்டெல்லக் கண்டங்களில் இல்லாத அமைப்பு:",
+        "en": "Which statement about clitellar setae in Metaphire posthuma is supported by the cited modern redescription?",
+        "ta": "மேற்கோள் நவீன மறுவிளக்க ஆய்வின்படி Metaphire posthuma-வின் கிளைட்டெல்லச் சீட்டாக்கள் குறித்த சரியான கூற்று எது?",
         "oEn": [
-          "Setae",
-          "Epidermis",
-          "Circular muscle",
-          "Coelom"
+          "Ventral clitellar setae may be retained",
+          "All clitellar segments are completely devoid of setae",
+          "Only dorsal clitellar setae are retained",
+          "Setae occur only on segment XIV"
         ],
         "oTa": [
-          "சீட்டாக்கள்",
-          "புறத்தோல்",
-          "வட்டத் தசை",
-          "உடற்குழி"
+          "கிளைட்டெல்லத்தின் வயிற்றுப்புறத்தில் சீட்டாக்கள் தொடரலாம்",
+          "கிளைட்டெல்லக் கண்டங்களில் சீட்டாக்கள் முற்றிலும் இல்லை",
+          "கிளைட்டெல்லத்தின் முதுகுப்புறத்தில் மட்டும் சீட்டாக்கள் தொடர்கின்றன",
+          "XIV-ஆம் கண்டத்தில் மட்டும் சீட்டாக்கள் உள்ளன"
         ],
         "a": 0
       },
@@ -1470,19 +1470,19 @@
         "a": 1
       },
       {
-        "en": "Intestinal caeca arise near segment:",
-        "ta": "குடல் நீட்சிகள் தோன்றும் கண்டம்:",
+        "en": "In the cited Metaphire posthuma redescription, the paired intestinal caeca originate in segment:",
+        "ta": "மேற்கோள் Metaphire posthuma மறுவிளக்க ஆய்வின்படி இணையான குடல் நீட்சிகள் தொடங்கும் கண்டம்:",
         "oEn": [
           "VIII",
-          "XIV",
-          "XVIII",
-          "XXVI"
+          "XV",
+          "XXVI",
+          "XXVII"
         ],
         "oTa": [
           "VIII",
-          "XIV",
-          "XVIII",
-          "XXVI"
+          "XV",
+          "XXVI",
+          "XXVII"
         ],
         "a": 3
       },
@@ -1630,21 +1630,21 @@
         "a": 0
       },
       {
-        "en": "Four pairs of hearts occur in:",
-        "ta": "நான்கு இணை இதய வளைவுகள் அமைந்த கண்டங்கள்:",
+        "en": "The cited species redescription directly confirms that the last hearts of Metaphire posthuma occur in segment:",
+        "ta": "மேற்கோள் இன மறுவிளக்க ஆய்வு Metaphire posthuma-வின் கடைசி இதயங்கள் எந்தக் கண்டத்தில் இருப்பதை நேரடியாக உறுதிப்படுத்துகிறது?",
         "oEn": [
-          "VII, IX, XII, XIII",
-          "V, VI, VII, VIII",
-          "XIV–XVII",
-          "XX–XXIII"
+          "IX",
+          "XI",
+          "XIII",
+          "XV"
         ],
         "oTa": [
-          "VII, IX, XII, XIII",
-          "V, VI, VII, VIII",
-          "XIV–XVII",
-          "XX–XXIII"
+          "IX",
+          "XI",
+          "XIII",
+          "XV"
         ],
-        "a": 0
+        "a": 2
       },
       {
         "en": "The vessel immediately below the ventral nerve cord is the:",
@@ -2589,8 +2589,8 @@
     "heart": {
       "en": "Contractile heart-vessel wall",
       "ta": "சுருங்கும் இதய நாளச் சுவர்",
-      "textEn": "The so-called hearts are contractile vascular arches, not chambered vertebrate hearts. Myoendothelial elements and valves support directed pressure flow between longitudinal vessels; the four pairs occupy VII, IX, XII and XIII in this teaching species.",
-      "textTa": "‘இதயங்கள்’ எனப்படும் இவை அறைகளைக் கொண்ட முதுகெலும்பி இதயங்கள் அல்ல; சுருங்கும் நாள வளைவுகள். தசைத் தன்மையுள்ள நாள உள்ளணியும் வால்வுகளும் நீள்நாளங்களுக்கு இடையே ஒருதிசை அழுத்த ஓட்டத்தை நிலைநிறுத்துகின்றன. இப்பாட இனத்தில் நான்கு இணைகள் VII, IX, XII, XIII கண்டங்களில் உள்ளன."
+      "textEn": "The so-called hearts are contractile vascular arches, not chambered vertebrate hearts. Traditional Indian practical accounts map four pairs to VII, IX, XII and XIII; the cited modern redescription of Metaphire posthuma directly confirms the last hearts in XIII but does not enumerate the complete four-pair map.",
+      "textTa": "‘இதயங்கள்’ எனப்படும் இவை அறைகளைக் கொண்ட முதுகெலும்பி இதயங்கள் அல்ல; சுருங்கும் நாள வளைவுகள். இந்திய பாரம்பரிய செய்முறை விளக்கங்களில் நான்கு இணைகள் VII, IX, XII, XIII எனக் கூறப்படுகின்றன; மேற்கோள் Metaphire posthuma நவீன மறுவிளக்க ஆய்வு கடைசி இதயங்கள் XIII-இல் இருப்பதை நேரடியாக உறுதிப்படுத்துகிறது, ஆனால் நான்கு இணைகளின் முழு வரிசையையும் பட்டியலிடவில்லை."
     },
     "ganglion": {
       "en": "Ganglion and double nerve cord",
