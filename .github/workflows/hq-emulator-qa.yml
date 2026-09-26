@@ -40,6 +40,17 @@ jobs:
           APK="$(find app/build/outputs/apk/debug -type f -name '*.apk' | head -n1)"
           unzip -p "$APK" assets/index.html >/tmp/index.html
           test "$(sha256sum /tmp/index.html | awk '{print $1}')" = "$EXPECTED"
+      - name: Enable KVM for emulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -e /dev/kvm ]; then
+            sudo chmod 666 /dev/kvm
+            ls -l /dev/kvm
+          else
+            echo "/dev/kvm unavailable" >&2
+            exit 1
+          fi
       - name: Create API 36 AVD
         shell: bash
         run: |
@@ -52,11 +63,22 @@ jobs:
           nohup "$ANDROID_HOME/emulator/emulator" \
             -avd hq_api36 \
             -no-window -no-audio -no-boot-anim -no-snapshot \
-            -gpu swiftshader_indirect \
+            -gpu swiftshader_indirect -accel on \
             -camera-back none -camera-front none \
             > emulator.log 2>&1 &
-          adb wait-for-device
-          timeout 360 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = "1" ]; do sleep 5; done'
+          EMU_PID=$!
+          echo "emulator_pid=$EMU_PID"
+          if ! timeout 180 adb wait-for-device; then
+            echo "Emulator did not expose ADB within 180 seconds" >&2
+            cat emulator.log >&2 || true
+            exit 1
+          fi
+          if ! timeout 300 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = "1" ]; do sleep 5; done'; then
+            echo "Android did not complete boot within 300 seconds" >&2
+            cat emulator.log >&2 || true
+            adb shell getprop >&2 || true
+            exit 1
+          fi
           adb shell input keyevent 82 || true
           adb shell settings put global window_animation_scale 0
           adb shell settings put global transition_animation_scale 0
