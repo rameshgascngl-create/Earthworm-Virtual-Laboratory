@@ -8,11 +8,10 @@ mkdir -p "$OUT"
 # connectedDebugAndroidTest may briefly leave the emulator in "offline" state.
 # Recover ADB deterministically before layout capture; do not treat a transient
 # transport state as an app failure.
+adb reconnect >/dev/null 2>&1 || true
 ready=0
 for i in $(seq 1 45); do
-  adb reconnect >/dev/null 2>&1 || true
-  if [ "$(adb get-state 2>/dev/null || true)" = "device" ] && \
-     [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ]; then
+  if [ "$(adb get-state 2>/dev/null || true)" = "device" ]; then
     ready=1
     break
   fi
@@ -23,6 +22,7 @@ if [ "$ready" != "1" ]; then
   adb devices -l || true
   exit 1
 fi
+adb wait-for-device
 
 APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1)"
 if [ -z "$APK" ]; then
