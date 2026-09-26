@@ -17,8 +17,9 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
     private ProgressStore progress;
     private ContentRepository content;
     private TextToSpeech tts;
-    private TextView heading,detail;
-    private LinearLayout structureList;
+    private TextView heading,detail,indexTitle;
+    private LinearLayout structureList,tabs;
+    private Button speakButton;
     private AnatomyCanvas anatomy;
     private String currentSystem = "external";
     private boolean tamil=false;
@@ -36,21 +37,41 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         if(android.os.Build.VERSION.SDK_INT>=30){getWindow().setDecorFitsSystemWindows(false);scroll.setOnApplyWindowInsetsListener((v,insets)->{android.graphics.Insets bars=insets.getInsets(WindowInsets.Type.systemBars()|WindowInsets.Type.displayCutout());body.setPadding(dp(18)+bars.left,dp(18)+bars.top,dp(18)+bars.right,dp(26)+bars.bottom);return insets;});}
 
         heading=text("",24,Color.WHITE,true);body.addView(heading);
-        Button lang=new Button(this);lang.setText("தமிழ் / English");lang.setAllCaps(false);lang.setOnClickListener(v->{tamil=!tamil;showSystem(currentSystem);});body.addView(lang,new LinearLayout.LayoutParams(-1,dp(48)));
+        Button lang=new Button(this);lang.setText("தமிழ் / English");lang.setAllCaps(false);lang.setOnClickListener(v->{tamil=!tamil;refreshLanguage();});body.addView(lang,new LinearLayout.LayoutParams(-1,dp(48)));
 
-        LinearLayout tabs=new LinearLayout(this);tabs.setOrientation(LinearLayout.VERTICAL);
-        for(String id:content.systemIds()){Button b=new Button(this);b.setAllCaps(false);b.setText(content.systemName(id,false));b.setOnClickListener(v->showSystem(id));tabs.addView(b,new LinearLayout.LayoutParams(-1,dp(46)));}
+        tabs=new LinearLayout(this);
+        tabs.setOrientation(LinearLayout.VERTICAL);
         body.addView(tabs);
 
         anatomy=new AnatomyCanvas(this);anatomy.setListener(this);LinearLayout.LayoutParams cp=new LinearLayout.LayoutParams(-1,dp(340));cp.setMargins(0,dp(12),0,dp(12));body.addView(anatomy,cp);
 
         detail=text("",15,Color.rgb(226,242,237),false);detail.setLineSpacing(0,1.16f);body.addView(detail);
-        Button speak=new Button(this);speak.setText("Speak selected structure");speak.setAllCaps(false);speak.setOnClickListener(v->speakSelection());body.addView(speak,new LinearLayout.LayoutParams(-1,dp(50)));
+        speakButton=new Button(this);
+        speakButton.setAllCaps(false);
+        speakButton.setOnClickListener(v->speakSelection());
+        body.addView(speakButton,new LinearLayout.LayoutParams(-1,dp(50)));
 
-        TextView indexTitle=text("Native structure index",18,Color.rgb(56,214,188),true);indexTitle.setPadding(0,dp(14),0,dp(8));body.addView(indexTitle);
+        indexTitle=text("",18,Color.rgb(56,214,188),true);
+        indexTitle.setPadding(0,dp(14),0,dp(8));
+        body.addView(indexTitle);
         structureList=new LinearLayout(this);structureList.setOrientation(LinearLayout.VERTICAL);body.addView(structureList);
 
         tts=new TextToSpeech(this,status->{if(status==TextToSpeech.SUCCESS)tts.setLanguage(Locale.forLanguageTag(tamil?"ta-IN":"en-IN"));});
+        refreshLanguage();
+    }
+
+    private void refreshLanguage(){
+        tabs.removeAllViews();
+        for(String id:content.systemIds()){
+            Button b=new Button(this);
+            b.setAllCaps(false);
+            b.setText(content.systemName(id,tamil));
+            b.setOnClickListener(v->showSystem(id));
+            tabs.addView(b,new LinearLayout.LayoutParams(-1,dp(46)));
+        }
+        speakButton.setText(tamil?"தேர்ந்த அமைப்பின் விளக்கத்தை ஒலிக்க":"Speak selected structure");
+        indexTitle.setText(tamil?"அமைப்புகளின் பட்டியல்":"Native structure index");
+        anatomy.setContentDescription(tamil?"தொடுதிறன் கொண்ட மண்புழு உடற்கூறு வரைபடம்":"Interactive native earthworm anatomy diagram");
         showSystem(currentSystem);
     }
 
@@ -65,7 +86,12 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         progress.setLastSystem(id);
     }
 
-    private void selectContent(ContentRepository.Structure s){selectedContent=s;detail.setText(s.title(tamil)+"\n\n"+s.detail(tamil));progress.markVisited(s.id);}
+    private void selectContent(ContentRepository.Structure s){
+        selectedContent=s;
+        detail.setText(s.title(tamil)+"\n\n"+s.detail(tamil));
+        anatomy.setSelectedDisplayLabel(s.title(tamil));
+        progress.markVisited(s.id);
+    }
     @Override public void onStructureSelected(NativeData.StructureRecord s){
         ContentRepository.Structure authoritative=content.structure(s.id);
         if(authoritative!=null){
