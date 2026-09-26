@@ -21,6 +21,9 @@ public final class GuidedActivity extends Activity {
         super.onCreate(b);
         repo=new ContentRepository(this);
         actions=repo.guidedActions();
+        if(b==null){
+            tamil=getIntent()!=null && getIntent().getBooleanExtra(NativeHomeActivity.EXTRA_TAMIL,false);
+        }
         if(b!=null){
             index=Math.max(0,Math.min(b.getInt("index",0),Math.max(0,actions.size()-1)));
             tamil=b.getBoolean("tamil",false);
