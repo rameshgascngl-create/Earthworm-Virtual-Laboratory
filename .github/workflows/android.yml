@@ -122,7 +122,22 @@ jobs:
           assert 'Printing uses' not in privacy
           assert '## Printing' not in policy
           assert 'no INTERNET permission' in policy
+          # Android 16 edge-to-edge source gate.
+          inset_files=[
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/NativeHomeActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/GuidedActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/AssessmentActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/MicroscopyActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/PrivacyActivity.java',
+          ]
+          for p in inset_files:
+              src=open(p,encoding='utf-8').read()
+              assert 'setDecorFitsSystemWindows(false)' in src, p
+              assert 'WindowInsets.Type.systemBars()' in src, p
+              assert 'requestApplyInsets()' in src, p
           print('PRIVACY/OFFLINE-TTS TRUTHFULNESS GATE: PASS')
+          print('ANDROID 16 EDGE-TO-EDGE SOURCE GATE: PASS')
           PY
       - uses: actions/setup-java@v4
         with:
