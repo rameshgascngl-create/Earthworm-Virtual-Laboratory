@@ -37,6 +37,12 @@ jobs:
           grep -Fq 'class AnatomyCanvas' app/src/main/java/in/ramesh/zoology/earthwormlab/AnatomyCanvas.java
           grep -Fq 'class ProgressStore' app/src/main/java/in/ramesh/zoology/earthwormlab/ProgressStore.java
           grep -Fq 'class AssessmentActivity' app/src/main/java/in/ramesh/zoology/earthwormlab/AssessmentActivity.java
+          # Internal activities must remain non-exported in the production manifest.
+          grep -Fq '<activity android:name=".AssessmentActivity" android:exported="false" />' app/src/main/AndroidManifest.xml
+          grep -Fq '<activity android:name=".GuidedActivity" android:exported="false" />' app/src/main/AndroidManifest.xml
+          grep -Fq '<activity android:name=".MicroscopyActivity" android:exported="false" />' app/src/main/AndroidManifest.xml
+          grep -Fq '<activity android:name=".PrivacyActivity" android:exported="false" />' app/src/main/AndroidManifest.xml
+          grep -A3 'android:name=".MainActivity"' app/src/main/AndroidManifest.xml | grep -Fq 'android:exported="false"'
           python3 - <<'PY'
           import json
           p='app/src/main/res/raw/earthworm_content_v138.json'
@@ -228,8 +234,8 @@ jobs:
         run: |
           set -euo pipefail
           gradle --no-daemon :app:connectedDebugAndroidTest
-          adb shell pm list permissions -g >/dev/null
-          adb logcat -d > emulator-logcat.txt
+          adb shell pm list permissions -g >/dev/null 2>&1 || true
+          adb logcat -d > emulator-logcat.txt 2>/dev/null || true
 
       - name: Capture phone/tablet layout matrix
         shell: bash
