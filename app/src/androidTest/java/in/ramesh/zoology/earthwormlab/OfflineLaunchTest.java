@@ -7,10 +7,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Picture;
 
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+
+import com.caverock.androidsvg.SVG;
 
 import org.json.JSONObject;
 import org.junit.Test;
@@ -93,6 +96,27 @@ public class OfflineLaunchTest {
 
         assertEquals(55,hotspotCount);
         assertEquals(academic,visual);
+    }
+
+    @Test public void highResolutionAtlasPlatesParseAndRender() throws Exception {
+        int[] plates={
+            R.raw.atlas_external,
+            R.raw.atlas_digestive,
+            R.raw.atlas_circulatory,
+            R.raw.atlas_respiratory,
+            R.raw.atlas_excretory,
+            R.raw.atlas_reproductive,
+            R.raw.atlas_nervous,
+            R.raw.atlas_crosssection
+        };
+        for(int resId:plates){
+            SVG svg=SVG.getFromResource(context().getResources(),resId);
+            assertNotNull(svg);
+            Picture picture=svg.renderToPicture(1200,560);
+            assertNotNull(picture);
+            assertEquals(1200,picture.getWidth());
+            assertEquals(560,picture.getHeight());
+        }
     }
 
     @Test public void progressStorePersistsNativeProgress(){
