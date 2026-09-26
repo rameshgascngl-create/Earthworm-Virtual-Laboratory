@@ -1,0 +1,44 @@
+name: Apply mobile system-tab UI candidate
+on:
+  push:
+    branches:
+      - ui/v1.3.9-mobile-system-tabs-20260926
+permissions:
+  contents: write
+concurrency:
+  group: earthworm-mobile-system-tabs
+  cancel-in-progress: false
+jobs:
+  patch:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - name: Apply guarded CSS-only mobile navigation patch
+        run: python tools/apply_mobile_system_tabs.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Source content and lifecycle regression
+        run: npm test
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Mobile navigation browser gate
+        run: npx playwright test --grep "mobile: system navigator is a scrollable bilingual tab strip"
+      - name: Commit regenerated candidate identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add app/src/main/assets/index.html SOURCE-MANIFEST.json review/HQ_ATLAS_RELEASE_CANDIDATE_MANIFEST.json tests/release-baseline.json
+          git commit -m "Expose scrollable system tabs on mobile"
+          git push origin "HEAD:$GITHUB_REF_NAME"
