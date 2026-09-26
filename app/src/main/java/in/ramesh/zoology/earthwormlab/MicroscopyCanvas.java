@@ -15,6 +15,7 @@ import android.view.View;
 public final class MicroscopyCanvas extends View {
     private final Paint p=new Paint(Paint.ANTI_ALIAS_FLAG);
     private String lessonId="gizzard";
+    private boolean tamil=false;
 
     public MicroscopyCanvas(Context context){
         super(context);
@@ -23,8 +24,16 @@ public final class MicroscopyCanvas extends View {
 
     public void setLessonId(String id){
         lessonId=id==null?"gizzard":id;
-        setContentDescription("Native microscopy diagram: "+lessonId);
         invalidate();
+    }
+
+    public void setTamil(boolean value){
+        tamil=value;
+        invalidate();
+    }
+
+    private String tr(String en,String ta){
+        return tamil?ta:en;
     }
 
     @Override protected void onDraw(Canvas c){
@@ -51,8 +60,8 @@ public final class MicroscopyCanvas extends View {
         fill(c,Color.rgb(186,99,76),cx,cy,r*.74f);
         fill(c,Color.rgb(42,27,29),cx,cy,r*.30f);
         strokeCircle(c,Color.rgb(255,218,174),cx,cy,r*.45f,w*.018f);
-        label(c,"muscular wall",w*.08f,h*.15f);
-        label(c,"lumen",w*.43f,h*.55f);
+        label(c,tr("muscular wall","தசைச் சுவர்"),w*.08f,h*.15f);
+        label(c,tr("lumen","உள்வெளி"),w*.43f,h*.55f);
     }
 
     private void drawTyphlosole(Canvas c,float w,float h){
@@ -66,8 +75,8 @@ public final class MicroscopyCanvas extends View {
         fold.quadTo(cx+r*.23f,cy-r*.24f,cx,cy+r*.22f);
         fold.quadTo(cx-r*.23f,cy-r*.24f,cx-r*.58f,cy-r*.43f);
         c.drawPath(fold,p);
-        label(c,"dorsal typhlosolar fold",w*.08f,h*.15f);
-        label(c,"intestinal lumen",w*.36f,h*.84f);
+        label(c,tr("dorsal typhlosolar fold","முதுகுப்புற டைஃப்ளோசோல் மடிப்பு"),w*.08f,h*.15f);
+        label(c,tr("intestinal lumen","குடல் உள்வெளி"),w*.36f,h*.84f);
     }
 
     private void drawNephridium(Canvas c,float w,float h){
@@ -86,8 +95,8 @@ public final class MicroscopyCanvas extends View {
             float y=(float)(h*.51+Math.sin(a)*h*.09);
             c.drawLine(w*.16f,h*.51f,x,y,p);
         }
-        label(c,"nephrostome",w*.06f,h*.22f);
-        label(c,"coiled tubule",w*.55f,h*.18f);
+        label(c,tr("nephrostome","நெஃப்ரோஸ்டோம்"),w*.06f,h*.22f);
+        label(c,tr("coiled tubule","சுருண்ட நுண்குழல்"),w*.55f,h*.18f);
     }
 
     private void drawSpermatheca(Canvas c,float w,float h){
@@ -98,8 +107,8 @@ public final class MicroscopyCanvas extends View {
         c.drawOval(new RectF(w*.39f,h*.31f,w*.61f,h*.58f),p);
         p.setColor(Color.rgb(218,173,237));
         c.drawRoundRect(new RectF(w*.47f,h*.64f,w*.54f,h*.88f),18,18,p);
-        label(c,"ampulla",w*.09f,h*.21f);
-        label(c,"duct",w*.58f,h*.83f);
+        label(c,tr("ampulla","ஆம்புல்லா"),w*.09f,h*.21f);
+        label(c,tr("duct","நாளம்"),w*.58f,h*.83f);
     }
 
     private void drawSkin(Canvas c,float w,float h){
@@ -112,8 +121,8 @@ public final class MicroscopyCanvas extends View {
         for(int i=0;i<6;i++){float x=w*(.17f+i*.115f);cap.quadTo(x+w*.05f,h*.42f,x+w*.10f,h*.52f);}c.drawPath(cap,p);
         p.setStrokeWidth(w*.007f);p.setColor(Color.rgb(128,205,240));
         for(int i=0;i<5;i++){float x=w*(.24f+i*.13f);c.drawLine(x,h*.08f,x,h*.29f,p);}
-        label(c,"mucus film",w*.08f,h*.12f);
-        label(c,"subepidermal capillaries",w*.38f,h*.72f);
+        label(c,tr("mucus film","சளிப் படலம்"),w*.08f,h*.12f);
+        label(c,tr("subepidermal capillaries","புறத்தோல் கீழ் இரத்த நுண்நாளங்கள்"),w*.38f,h*.72f);
     }
 
     private void drawHeart(Canvas c,float w,float h){
@@ -128,7 +137,7 @@ public final class MicroscopyCanvas extends View {
         p.setStrokeWidth(w*.012f);p.setColor(Color.rgb(255,222,224));
         c.drawLine(w*.43f,h*.42f,w*.49f,h*.48f,p);
         c.drawLine(w*.43f,h*.54f,w*.49f,h*.48f,p);
-        label(c,"contractile vascular arch",w*.08f,h*.12f);
+        label(c,tr("contractile vascular arch","சுருங்கும் நாள வளைவு"),w*.08f,h*.12f);
     }
 
     private void drawGanglion(Canvas c,float w,float h){
@@ -141,8 +150,8 @@ public final class MicroscopyCanvas extends View {
         c.drawLine(w*.54f,h*.50f,w*.57f,h*.86f,p);
         p.setStyle(Paint.Style.FILL);p.setColor(Color.rgb(255,231,135));
         for(int i=0;i<7;i++)c.drawCircle(w*(.36f+i*.045f),h*.27f,w*.009f,p);
-        label(c,"ganglion",w*.08f,h*.18f);
-        label(c,"paired longitudinal cords",w*.48f,h*.91f);
+        label(c,tr("ganglion","நரம்புத் திரள்"),w*.08f,h*.18f);
+        label(c,tr("paired longitudinal cords","இணை நீளவாட்டு நரம்புக் கயிறுகள்"),w*.48f,h*.91f);
     }
 
     private void drawGonads(Canvas c,float w,float h){
@@ -159,8 +168,8 @@ public final class MicroscopyCanvas extends View {
         p.setColor(Color.rgb(244,198,91));
         c.drawLine(w*.63f,h*.43f,w*.68f,h*.72f,p);
         c.drawLine(w*.74f,h*.43f,w*.68f,h*.72f,p);
-        label(c,"testicular region",w*.07f,h*.22f);
-        label(c,"ovarian region",w*.59f,h*.22f);
+        label(c,tr("testicular region","விந்தகப் பகுதி"),w*.07f,h*.22f);
+        label(c,tr("ovarian region","அண்டகப் பகுதி"),w*.59f,h*.22f);
     }
 
     private void drawBodyWall(Canvas c,float w,float h){
@@ -181,18 +190,18 @@ public final class MicroscopyCanvas extends View {
         }
         p.setColor(Color.rgb(28,25,25));
         c.drawRect(left,y,right,h*.86f,p);
-        label(c,"cuticle",w*.04f,h*.17f);
-        label(c,"epidermis",w*.04f,h*.27f);
-        label(c,"circular muscle",w*.04f,h*.39f);
-        label(c,"longitudinal muscle",w*.04f,h*.55f);
-        label(c,"peritoneum",w*.04f,h*.67f);
-        label(c,"coelom",w*.58f,h*.82f);
+        label(c,tr("cuticle","கியூட்டிக்கிள்"),w*.04f,h*.17f);
+        label(c,tr("epidermis","புறத்தோல்"),w*.04f,h*.27f);
+        label(c,tr("circular muscle","வட்டத் தசை"),w*.04f,h*.39f);
+        label(c,tr("longitudinal muscle","நீளவாட்டு தசை"),w*.04f,h*.55f);
+        label(c,tr("peritoneum","பெரிட்டோனியம்"),w*.04f,h*.67f);
+        label(c,tr("coelom","சீலோம்"),w*.58f,h*.82f);
     }
 
     private void drawPlaceholder(Canvas c,float w,float h){
         p.setStyle(Paint.Style.STROKE);p.setStrokeWidth(w*.01f);p.setColor(Color.rgb(56,214,188));
         c.drawRect(w*.20f,h*.20f,w*.80f,h*.80f,p);
-        label(c,"Native diagram",w*.33f,h*.52f);
+        label(c,tr("Native diagram","சொந்த Android வரைபடம்"),w*.33f,h*.52f);
     }
 
     private void fill(Canvas c,int color,float x,float y,float r){
