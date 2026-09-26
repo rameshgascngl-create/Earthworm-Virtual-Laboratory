@@ -1,56 +1,144 @@
-name: Validate Earthworm Android source and release candidate
+name: Validate Earthworm native Android v2
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
   pull_request:
 permissions:
   contents: read
 concurrency:
-  group: earthworm-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Commit-scoped during final alpha QA so a stale cancelled emulator job
+  # cannot block evidence collection for the current candidate.
+  group: earthworm-native-v2-${{ github.sha }}
+  cancel-in-progress: false
+
 jobs:
-  validate:
+  native-gates:
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '22'
-          cache: npm
-      - run: npm ci --ignore-scripts
-      - uses: actions/setup-java@v4
-        with:
-          distribution: temurin
-          java-version: '17'
-      - name: Source, content and narration regression tests
-        run: npm test
-      - name: Install the pinned browser engine
-        run: npx --no-install playwright install --with-deps chromium
-      - name: Full-page rendering and isolated renderer checks
-        run: npm run test:browser
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: browser-and-source-validation
-          path: |
-            tests/*-results.json
-            review/svg-context-inventory.json
-            playwright-report/
-            test-results/browser/
-          retention-days: 14
-          if-no-files-found: error
-  build:
-    needs: validate
-    runs-on: ubuntu-24.04
-    timeout-minutes: 30
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+      - name: Fail if browser runtime returns
+        shell: bash
+        run: |
+          set -euo pipefail
+          if grep -R --line-number --include='*.java' --include='*.kt' -E 'android\.webkit\.WebView|androidx\.webkit|WebViewAssetLoader|evaluateJavascript|addJavascriptInterface' app/src/main; then
+            echo "Browser runtime detected in native source."
+            exit 1
+          fi
+          if find app/src/main -type f -path '*/assets/index.html' -print -quit | grep -q .; then
+            echo "Packaged HTML runtime detected."
+            exit 1
+          fi
+          if grep -Fq 'androidx.webkit' app/build.gradle; then
+            echo "AndroidX WebKit dependency detected."
+            exit 1
+          fi
+          grep -Fq "versionName '2.0.0-alpha1'" app/build.gradle
+          grep -Fq "versionCode 200001" app/build.gradle
+          grep -Fq 'class AnatomyCanvas' app/src/main/java/in/ramesh/zoology/earthwormlab/AnatomyCanvas.java
+          grep -Fq 'class ProgressStore' app/src/main/java/in/ramesh/zoology/earthwormlab/ProgressStore.java
+          grep -Fq 'class AssessmentActivity' app/src/main/java/in/ramesh/zoology/earthwormlab/AssessmentActivity.java
+          # Internal activities must remain non-exported in the production manifest.
+          grep -Fq '<activity android:name=".AssessmentActivity" android:exported="false" />' app/src/main/AndroidManifest.xml
+          grep -Fq '<activity android:name=".GuidedActivity" android:exported="false" />' app/src/main/AndroidManifest.xml
+          grep -Fq '<activity android:name=".MicroscopyActivity" android:exported="false" />' app/src/main/AndroidManifest.xml
+          grep -Fq '<activity android:name=".PrivacyActivity" android:exported="false" />' app/src/main/AndroidManifest.xml
+          grep -A3 'android:name=".MainActivity"' app/src/main/AndroidManifest.xml | grep -Fq 'android:exported="false"'
+          python3 - <<'PY'
+          import json
+          p='app/src/main/res/raw/earthworm_content_v138.json'
+          d=json.load(open(p,encoding='utf-8'))
+          c=d['provenance']['counts']
+          expected={'structures':55,'guidedActions':56,'questions':72,'microscopicLessons':9,'systems':9,'procedureSteps':7}
+          assert c==expected, (c, expected)
+          assert len(d['structures'])==55
+          assert sum(len(v) for v in d['guidedModules'].values())==56
+          assert sum(len(v) for v in d['questions'].values())==72
+          assert len(d['microscopicLessons'])==9
+          assert all('svg' not in v for v in d['microscopicLessons'].values())
+          # Scientific regression checks for Phase-1 corrected characters.
+          structures=d['structures']
+          questions=[q for group in d['questions'].values() for q in group]
+          assert 'VIII' in structures['gizzard']['locEn'] and 'IX–X' in structures['gizzard']['locEn'] and 'differ' in structures['gizzard']['locEn']
+          assert 'XXVII' in structures['intestinal-caeca']['locEn']
+          assert 'retained ventrally on the clitellum' in structures['setae']['locEn']
+          assert 'last hearts are in XIII' in structures['lateral-hearts']['locEn']
+          qtext='\n'.join(q.get('en','')+' '+str(q.get('oEn',[])) for q in questions)
+          assert 'Which feature is absent from clitellar segments?' not in qtext
+          assert 'Intestinal caeca arise near segment:' not in qtext
+          assert 'Four pairs of hearts occur in:' not in qtext
+          assert 'XXVII' in qtext
+          # Visual/academic identity gate: every authoritative structure must have
+          # exactly one native hotspot and there must be no orphan hotspot IDs.
+          import re
+          native=open('app/src/main/java/in/ramesh/zoology/earthwormlab/NativeData.java',encoding='utf-8').read()
+          hotspot_ids=re.findall(r'\bs\("([^"]+)"',native)
+          assert len(hotspot_ids)==55, len(hotspot_ids)
+          assert len(set(hotspot_ids))==55, 'duplicate native hotspot id'
+          assert set(hotspot_ids)==set(structures.keys()), (
+              sorted(set(structures)-set(hotspot_ids)),
+              sorted(set(hotspot_ids)-set(structures))
+          )
+          print('ACADEMIC DATASET RECONCILIATION: PASS', c)
+          # Tamil terminology and stale-prose regression checks.
+          assert 'segment VIII' not in structures['pharynx']['fixEn']
+          assert 'இரத்த நுண்நாளங்கள்' in structures['cutaneous-capillaries']['ta']
+          assert 'தொண்டைமேல் நரம்புத் திரள்கள்' in structures['cerebral-ganglia']['ta']
+          assert structures['subpharyngeal-ganglion']['ta']=='தொண்டைக்கீழ் நரம்புத் திரள்'
+          print('SCIENTIFIC REGRESSION GATE: PASS')
+          # Guided-action scientific/tooling regression checks.
+          respiratory={a['target']:a['tool'] for a in d['guidedModules']['respiratory']}
+          assert respiratory['mucus-film']=='inspect'
+          assert respiratory['cutaneous-exchange']=='inspect'
+          cross={a['target']:a['tool'] for a in d['guidedModules']['crosssection']}
+          assert all(tool in {'magnifier','inspect'} for tool in cross.values())
+          assert 'probe' not in cross.values()
+          print('TAMIL TERMINOLOGY REGRESSION GATE: PASS')
+          print('GUIDED SCIENTIFIC TOOL-MAPPING GATE: PASS')
+          # Native lifecycle/state-resilience source gates.
+          files={
+              'main':'app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java',
+              'guided':'app/src/main/java/in/ramesh/zoology/earthwormlab/GuidedActivity.java',
+              'assessment':'app/src/main/java/in/ramesh/zoology/earthwormlab/AssessmentActivity.java',
+              'microscopy':'app/src/main/java/in/ramesh/zoology/earthwormlab/MicroscopyActivity.java',
+          }
+          source={k:open(v,encoding='utf-8').read() for k,v in files.items()}
+          assert all('onSaveInstanceState' in x for x in source.values())
+          assert 'putString("system",currentSystem)' in source['main']
+          assert 'putInt("index",index)' in source['guided']
+          assert 'putInt("score",score)' in source['assessment']
+          assert 'setContentDescription' in source['microscopy']
+          print('NATIVE LIFECYCLE/ACCESSIBILITY SOURCE GATE: PASS')
+          # Privacy/TTS truthfulness gates.
+          main=source['main']
+          privacy=open('app/src/main/java/in/ramesh/zoology/earthwormlab/PrivacyActivity.java',encoding='utf-8').read()
+          policy=open('PRIVACY.md',encoding='utf-8').read()
+          assert 'isNetworkConnectionRequired()' in main
+          assert 'No offline text-to-speech voice is installed' in main
+          assert 'language preference' not in policy.lower()
+          assert 'guided-learning progress' not in policy.lower()
+          assert 'review dates' not in policy.lower()
+          assert 'Printing uses' not in privacy
+          assert '## Printing' not in policy
+          assert 'no INTERNET permission' in policy
+          # Android 16 edge-to-edge source gate.
+          inset_files=[
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/NativeHomeActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/GuidedActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/AssessmentActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/MicroscopyActivity.java',
+              'app/src/main/java/in/ramesh/zoology/earthwormlab/PrivacyActivity.java',
+          ]
+          for p in inset_files:
+              src=open(p,encoding='utf-8').read()
+              assert 'setDecorFitsSystemWindows(false)' in src, p
+              assert 'WindowInsets.Type.systemBars()' in src, p
+              assert 'requestApplyInsets()' in src, p
+          print('PRIVACY/OFFLINE-TTS TRUTHFULNESS GATE: PASS')
+          print('ANDROID 16 EDGE-TO-EDGE SOURCE GATE: PASS')
+          PY
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -59,29 +147,140 @@ jobs:
         uses: android-actions/setup-android@v4
         with:
           packages: 'platform-tools'
-      - name: Install required Android SDK packages
-        run: |
-          sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+      - name: Install Android API 36
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.13'
-      - name: Android lint and actual compilation
+      - name: Lint and compile native application
         run: gradle --no-daemon :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
+      - name: Static APK native-runtime audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1)"
+          test -n "$APK"
+          unzip -l "$APK" > apk-files.txt
+          if grep -Fq 'assets/index.html' apk-files.txt; then
+            echo "HTML runtime was packaged unexpectedly."
+            exit 1
+          fi
+          if unzip -p "$APK" classes.dex | strings | grep -E 'android/webkit/WebView|androidx/webkit|WebViewAssetLoader' ; then
+            echo "WebView symbols found in native APK."
+            exit 1
+          fi
+          sha256sum "$APK" | tee native-debug-sha256.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-validation-debug-DO-NOT-SUBMIT
-          path: app/build/outputs/apk/debug/*.apk
-          if-no-files-found: error
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Earthworm-1.3.8-unsigned-release-candidates
+          name: Earthworm-2.0.0-alpha1-native-debug-DO-NOT-SUBMIT
           path: |
-            app/build/outputs/apk/release/*unsigned.apk
+            app/build/outputs/apk/debug/*.apk
             app/build/outputs/bundle/release/*.aab
+            apk-files.txt
+            native-debug-sha256.txt
           if-no-files-found: error
+
+
+  emulator-qa:
+    needs: native-gates
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+
+      - name: Install API 36 emulator image
+        shell: bash
+        run: |
+          set -euo pipefail
+          sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'emulator' 'system-images;android-36;google_apis;x86_64'
+          echo no | avdmanager create avd --force --name earthworm_api36 --package 'system-images;android-36;google_apis;x86_64'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Boot Android 16 emulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo chmod 666 /dev/kvm || true
+          nohup "$ANDROID_HOME/emulator/emulator" \
+            -avd earthworm_api36 \
+            -no-window \
+            -noaudio \
+            -no-boot-anim \
+            -no-snapshot \
+            -wipe-data \
+            -gpu swiftshader_indirect \
+            > emulator-boot.log 2>&1 &
+          adb wait-for-device
+          booted=0
+          for i in $(seq 1 120); do
+            if [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ]; then
+              booted=1
+              break
+            fi
+            sleep 2
+          done
+          if [ "$booted" != "1" ]; then
+            echo "Emulator did not complete boot."
+            cat emulator-boot.log
+            exit 1
+          fi
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+          adb shell wm size
+          adb shell getprop ro.build.version.release
+          adb shell getprop ro.build.version.sdk
+
+      - name: Run native instrumentation QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle --no-daemon :app:connectedDebugAndroidTest
+          adb shell pm list permissions -g >/dev/null 2>&1 || true
+          adb logcat -d > emulator-logcat.txt 2>/dev/null || true
+
+      - name: Capture phone/tablet layout matrix
+        shell: bash
+        run: |
+          set -euo pipefail
+          chmod +x scripts/emulator-layout-qa.sh
+          scripts/emulator-layout-qa.sh layout-qa
+
+      - name: Capture emulator diagnostics
+        if: always()
+        shell: bash
+        run: |
+          adb logcat -d > emulator-logcat.txt 2>/dev/null || true
+          adb shell dumpsys package in.ramesh.zoology.earthwormlab > emulator-package.txt 2>/dev/null || true
+          adb shell wm size > emulator-display.txt 2>/dev/null || true
+          adb exec-out screencap -p > emulator-final.png 2>/dev/null || true
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: android-lint-reports
-          path: app/build/reports/lint-results*
+          name: Earthworm-2.0.0-alpha1-emulator-QA
+          path: |
+            emulator-boot.log
+            emulator-logcat.txt
+            emulator-package.txt
+            emulator-display.txt
+            emulator-final.png
+            layout-qa/**
+            app/build/reports/androidTests/**
+            app/build/outputs/androidTest-results/**
           if-no-files-found: warn
