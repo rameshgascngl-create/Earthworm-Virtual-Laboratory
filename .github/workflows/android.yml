@@ -88,6 +88,20 @@ jobs:
           assert 'probe' not in cross.values()
           print('TAMIL TERMINOLOGY REGRESSION GATE: PASS')
           print('GUIDED SCIENTIFIC TOOL-MAPPING GATE: PASS')
+          # Native lifecycle/state-resilience source gates.
+          files={
+              'main':'app/src/main/java/in/ramesh/zoology/earthwormlab/MainActivity.java',
+              'guided':'app/src/main/java/in/ramesh/zoology/earthwormlab/GuidedActivity.java',
+              'assessment':'app/src/main/java/in/ramesh/zoology/earthwormlab/AssessmentActivity.java',
+              'microscopy':'app/src/main/java/in/ramesh/zoology/earthwormlab/MicroscopyActivity.java',
+          }
+          source={k:open(v,encoding='utf-8').read() for k,v in files.items()}
+          assert all('onSaveInstanceState' in x for x in source.values())
+          assert 'putString("system",currentSystem)' in source['main']
+          assert 'putInt("index",index)' in source['guided']
+          assert 'putInt("score",score)' in source['assessment']
+          assert 'setContentDescription' in source['microscopy']
+          print('NATIVE LIFECYCLE/ACCESSIBILITY SOURCE GATE: PASS')
           PY
       - uses: actions/setup-java@v4
         with:
