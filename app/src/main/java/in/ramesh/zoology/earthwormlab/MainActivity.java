@@ -29,8 +29,14 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         super.onCreate(state);
         progress=new ProgressStore(this);
         content=new ContentRepository(this);
-        String requested=getIntent()!=null?getIntent().getStringExtra(EXTRA_SYSTEM):null;
-        if(requested!=null && content.systemIds().contains(requested)) currentSystem=requested;
+        if(state!=null){
+            tamil=state.getBoolean("tamil",false);
+            String restored=state.getString("system","external");
+            if(content.systemIds().contains(restored)) currentSystem=restored;
+        }else{
+            String requested=getIntent()!=null?getIntent().getStringExtra(EXTRA_SYSTEM):null;
+            if(requested!=null && content.systemIds().contains(requested)) currentSystem=requested;
+        }
 
         ScrollView scroll=new ScrollView(this);scroll.setFillViewport(true);scroll.setBackgroundColor(Color.rgb(6,21,21));
         LinearLayout body=new LinearLayout(this);body.setOrientation(LinearLayout.VERTICAL);body.setPadding(dp(18),dp(18),dp(18),dp(26));scroll.addView(body,new ScrollView.LayoutParams(-1,-1));setContentView(scroll);
@@ -71,7 +77,10 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         }
         speakButton.setText(tamil?"தேர்ந்த அமைப்பின் விளக்கத்தை ஒலிக்க":"Speak selected structure");
         indexTitle.setText(tamil?"அமைப்புகளின் பட்டியல்":"Native structure index");
-        anatomy.setContentDescription(tamil?"தொடுதிறன் கொண்ட மண்புழு உடற்கூறு வரைபடம்":"Interactive native earthworm anatomy diagram");
+        anatomy.setContentDescription(
+            tamil
+                ?"மண்புழு உடற்கூறு காட்சி வரைபடம். திரைவாசிப்பான் பயனர்கள் கீழுள்ள அணுகல்திறன் கொண்ட அமைப்புப் பட்டியலைப் பயன்படுத்துக."
+                :"Visual earthworm anatomy diagram. Screen-reader users can select the same structures from the accessible list below.");
         showSystem(currentSystem);
     }
 
@@ -117,6 +126,12 @@ public final class MainActivity extends Activity implements AnatomyCanvas.OnStru
         tts.speak(speech,TextToSpeech.QUEUE_FLUSH,null,"native-structure");
     }
     private TextView text(String v,int sp,int c,boolean bold){TextView t=new TextView(this);t.setText(v);t.setTextSize(sp);t.setTextColor(c);if(bold)t.setTypeface(android.graphics.Typeface.DEFAULT,android.graphics.Typeface.BOLD);return t;}
+    @Override protected void onSaveInstanceState(Bundle out){
+        out.putBoolean("tamil",tamil);
+        out.putString("system",currentSystem);
+        super.onSaveInstanceState(out);
+    }
+
     private int dp(int v){return Math.round(v*getResources().getDisplayMetrics().density);}
     @Override protected void onDestroy(){if(tts!=null){tts.stop();tts.shutdown();}super.onDestroy();}
 }
