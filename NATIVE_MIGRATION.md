@@ -25,20 +25,33 @@ The application package remains `in.ramesh.zoology.earthwormlab`. The native gen
 - API 36 / minSdk 24 / Java 17 baseline retained.
 - WebKit dependency removed.
 
-## Academic parity gate — NOT YET PASSED
+## Academic parity gate — PARTIALLY RECONCILED
 
-v1.3.8 contains 55 structure records, 56 guided actions, 72 questions and nine microscopic lessons. Alpha1 deliberately does **not** claim parity. The initial native dataset covers representative external, digestive, circulatory, nervous, excretory and reproductive structures and only a smoke-test assessment set.
+The authoritative v1.3.8 data objects have now been extracted into `res/raw/earthworm_content_v138.json` with source provenance pinned to commit `ac47a83762ae2ecbaded7b077f25702daf2d1fa8` and HTML SHA-256 `d9b8cca85459764f4169edf4a74aa2e159ea5281968fd49586b15c69176795ed`.
+
+CI enforces these exact migrated counts:
+
+- 55 structure records
+- 56 guided actions
+- 72 assessment questions
+- 9 microscopic lessons
+- 9 systems
+- 7 top-level preparation procedure steps
+
+All 55 structures are exposed through the native structure index, all 56 actions through the native guided flow, all 72 questions through the native assessment activity, and all nine microscopy lessons through the native microscopy screen.
+
+**Visual parity is not yet passed.** Browser SVG strings were intentionally omitted from the native dataset. Native anatomical plates must be reconstructed and audited separately.
 
 Before native production release:
-1. migrate and hash-reconcile all 55 structure records;
-2. migrate all 56 guided actions into a native procedure state machine;
-3. migrate all 72 questions with identical answer keys and explanations;
-4. migrate all nine microscopic lessons;
-5. add English/Tamil string-resource parity, including scientific terminology review;
-6. reconstruct high-fidelity anatomy diagrams as native vector/drawable or Canvas layers;
-7. add accessibility semantics/content descriptions and large-font testing;
-8. add instrumentation tests for persistence, rotation, process death, predictive Back and offline launch;
-9. perform physical-device QA;
-10. only then remove the WebView lineage from release documentation and consider merging.
+1. **DONE:** migrate and count-reconcile all 55 structure records.
+2. **DONE:** migrate all 56 guided actions into native data and a native guided flow.
+3. **DONE:** migrate all 72 questions with preserved answer indices and bilingual options.
+4. **DONE:** migrate all nine microscopic lesson texts.
+5. **OPEN:** complete English/Tamil UI-resource parity and scientific terminology review.
+6. **OPEN:** reconstruct high-fidelity anatomy diagrams as native vector/drawable or Canvas layers.
+7. **OPEN:** add accessibility semantics/content descriptions and large-font testing.
+8. **OPEN:** add instrumentation tests for persistence, rotation, process death, predictive Back and offline launch.
+9. **OPEN:** perform physical-device QA.
+10. **BLOCKED:** production merge/release until all open gates pass.
 
 The v1.3.8 HTML remains recoverable from Git history at commit `ac47a83762ae2ecbaded7b077f25702daf2d1fa8`; it is not required as a native runtime component.
