@@ -37,6 +37,20 @@ jobs:
           grep -Fq 'class AnatomyCanvas' app/src/main/java/in/ramesh/zoology/earthwormlab/AnatomyCanvas.java
           grep -Fq 'class ProgressStore' app/src/main/java/in/ramesh/zoology/earthwormlab/ProgressStore.java
           grep -Fq 'class AssessmentActivity' app/src/main/java/in/ramesh/zoology/earthwormlab/AssessmentActivity.java
+          python3 - <<'PY'
+          import json
+          p='app/src/main/res/raw/earthworm_content_v138.json'
+          d=json.load(open(p,encoding='utf-8'))
+          c=d['provenance']['counts']
+          expected={'structures':55,'guidedActions':56,'questions':72,'microscopicLessons':9,'systems':9,'procedureSteps':7}
+          assert c==expected, (c, expected)
+          assert len(d['structures'])==55
+          assert sum(len(v) for v in d['guidedModules'].values())==56
+          assert sum(len(v) for v in d['questions'].values())==72
+          assert len(d['microscopicLessons'])==9
+          assert all('svg' not in v for v in d['microscopicLessons'].values())
+          print('ACADEMIC DATASET RECONCILIATION: PASS', c)
+          PY
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
