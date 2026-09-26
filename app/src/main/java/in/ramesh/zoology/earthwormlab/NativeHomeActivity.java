@@ -27,6 +27,8 @@ public final class NativeHomeActivity extends Activity {
 
         if(savedInstanceState!=null){
             tamil=savedInstanceState.getBoolean("tamil",false);
+        }else if(getIntent()!=null){
+            tamil=getIntent().getBooleanExtra(EXTRA_TAMIL,false);
         }
 
         scroll=new ScrollView(this);
@@ -78,7 +80,7 @@ public final class NativeHomeActivity extends Activity {
 
         Button lang=button("தமிழ் / English");
         lang.setOnClickListener(v->{tamil=!tamil;render();});
-        body.addView(lang,new LinearLayout.LayoutParams(-1,dp(48)));
+        body.addView(lang,new LinearLayout.LayoutParams(-1,-2));
 
         addCard(
             tamil?"ஆய்வகத்தைத் தொடர்க":"Continue native laboratory",
@@ -94,23 +96,23 @@ public final class NativeHomeActivity extends Activity {
 
         Button guided=button(tamil?"வழிகாட்டும் செய்முறை · 56 செயல்கள்":"Guided practical · 56 actions");
         guided.setOnClickListener(v->startActivity(withLanguage(new Intent(this,GuidedActivity.class))));
-        body.addView(guided,new LinearLayout.LayoutParams(-1,dp(52)));
+        body.addView(guided,new LinearLayout.LayoutParams(-1,-2));
 
         Button microscopy=button(tamil?"நுண்ணோக்கி ஆழ்பார்வை · 9 பாடங்கள்":"Microscopy · 9 lessons");
         microscopy.setOnClickListener(v->startActivity(withLanguage(new Intent(this,MicroscopyActivity.class))));
-        LinearLayout.LayoutParams mp=new LinearLayout.LayoutParams(-1,dp(52));
+        LinearLayout.LayoutParams mp=new LinearLayout.LayoutParams(-1,-2);
         mp.setMargins(0,dp(10),0,0);
         body.addView(microscopy,mp);
 
         Button assessment=button(tamil?"மதிப்பீடு · 72 வினாக்கள்":"Native assessment · 72 questions");
         assessment.setOnClickListener(v->startActivity(withLanguage(new Intent(this,AssessmentActivity.class))));
-        LinearLayout.LayoutParams ap=new LinearLayout.LayoutParams(-1,dp(52));
+        LinearLayout.LayoutParams ap=new LinearLayout.LayoutParams(-1,-2);
         ap.setMargins(0,dp(10),0,0);
         body.addView(assessment,ap);
 
         Button privacy=button(tamil?"பயன்பாடு & தனியுரிமை":"About & Privacy");
         privacy.setOnClickListener(v->startActivity(new Intent(this,PrivacyActivity.class)));
-        LinearLayout.LayoutParams pp=new LinearLayout.LayoutParams(-1,dp(52));
+        LinearLayout.LayoutParams pp=new LinearLayout.LayoutParams(-1,-2);
         pp.setMargins(0,dp(10),0,0);
         body.addView(privacy,pp);
 
@@ -197,6 +199,8 @@ public final class NativeHomeActivity extends Activity {
         b.setText(label);
         b.setTextSize(16);
         b.setAllCaps(false);
+        b.setMinHeight(dp(48));
+        b.setPadding(dp(12),dp(10),dp(12),dp(10));
         return b;
     }
 
