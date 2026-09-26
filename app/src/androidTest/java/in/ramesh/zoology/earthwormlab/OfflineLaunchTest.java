@@ -29,7 +29,7 @@ public class OfflineLaunchTest {
     @Test public void nativeRuntimeHasExpectedIdentityAndNoInternetPermission() throws Exception {
         Context context=context();
 
-        assertEquals("2.0.0-alpha1",BuildConfig.VERSION_NAME);
+        assertEquals("2.0.0-alpha2",BuildConfig.VERSION_NAME);
         assertEquals("in.ramesh.zoology.earthwormlab",context.getPackageName());
 
         PackageInfo info=context.getPackageManager().getPackageInfo(
