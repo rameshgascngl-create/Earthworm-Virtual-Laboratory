@@ -3,7 +3,7 @@ import hashlib, json, re
 from pathlib import Path
 
 EXPECTED_INPUT_SHA="2f599d1f5709fec5adf74caa65fec0a1e5aa8e61b527171fb2d23c06da207c5f"
-MARKER="/* mobile-system-tabs-v1 */"
+MARKER="/* mobile-system-tabs-v1:"
 CSS=r'''
     /* mobile-system-tabs-v1: expose the existing system button navigator on phones. */
     @media(max-width:640px){
