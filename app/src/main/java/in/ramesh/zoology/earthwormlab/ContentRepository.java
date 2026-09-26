@@ -74,6 +74,12 @@ public final class ContentRepository {
         JSONObject s=root.optJSONObject("systems");JSONObject o=s==null?null:s.optJSONObject(id);if(o==null)return id;
         String x=o.optString(tamil?"ta":"en");return x.trim().isEmpty()?id:x;
     }
+    public Structure structure(String id){
+        JSONObject all=root.optJSONObject("structures");
+        JSONObject o=all==null?null:all.optJSONObject(id);
+        return o==null?null:new Structure(id,o);
+    }
+
     public List<Structure> structures(String system){
         List<Structure> out=new ArrayList<>();JSONObject all=root.optJSONObject("structures");if(all==null)return out;
         Iterator<String> it=all.keys();while(it.hasNext()){String id=it.next();JSONObject o=all.optJSONObject(id);if(o!=null&&system.equals(o.optString("system")))out.add(new Structure(id,o));}return out;
