@@ -143,3 +143,100 @@ jobs:
             apk-files.txt
             native-debug-sha256.txt
           if-no-files-found: error
+
+
+  emulator-qa:
+    needs: native-gates
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+
+      - name: Install API 36 emulator image
+        shell: bash
+        run: |
+          set -euo pipefail
+          sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'emulator' 'system-images;android-36;google_apis;x86_64'
+          echo no | avdmanager create avd --force --name earthworm_api36 --package 'system-images;android-36;google_apis;x86_64'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Boot Android 16 emulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo chmod 666 /dev/kvm || true
+          nohup "$ANDROID_HOME/emulator/emulator" \
+            -avd earthworm_api36 \
+            -no-window \
+            -noaudio \
+            -no-boot-anim \
+            -no-snapshot \
+            -wipe-data \
+            -gpu swiftshader_indirect \
+            > emulator-boot.log 2>&1 &
+          adb wait-for-device
+          booted=0
+          for i in $(seq 1 120); do
+            if [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ]; then
+              booted=1
+              break
+            fi
+            sleep 2
+          done
+          if [ "$booted" != "1" ]; then
+            echo "Emulator did not complete boot."
+            cat emulator-boot.log
+            exit 1
+          fi
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+          adb shell wm size
+          adb shell getprop ro.build.version.release
+          adb shell getprop ro.build.version.sdk
+
+      - name: Run native instrumentation QA
+        shell: bash
+        run: |
+          set -euo pipefail
+          gradle --no-daemon :app:connectedDebugAndroidTest
+          adb shell pm list permissions -g >/dev/null
+          adb logcat -d > emulator-logcat.txt
+
+      - name: Capture emulator diagnostics
+        if: always()
+        shell: bash
+        run: |
+          adb logcat -d > emulator-logcat.txt 2>/dev/null || true
+          adb shell dumpsys package in.ramesh.zoology.earthwormlab > emulator-package.txt 2>/dev/null || true
+          adb shell wm size > emulator-display.txt 2>/dev/null || true
+          adb exec-out screencap -p > emulator-final.png 2>/dev/null || true
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Earthworm-2.0.0-alpha1-emulator-QA
+          path: |
+            emulator-boot.log
+            emulator-logcat.txt
+            emulator-package.txt
+            emulator-display.txt
+            emulator-final.png
+            app/build/reports/androidTests/**
+            app/build/outputs/androidTest-results/**
+          if-no-files-found: warn
