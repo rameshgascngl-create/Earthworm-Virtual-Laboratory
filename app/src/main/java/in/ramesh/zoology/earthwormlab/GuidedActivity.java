@@ -21,6 +21,10 @@ public final class GuidedActivity extends Activity {
         super.onCreate(b);
         repo=new ContentRepository(this);
         actions=repo.guidedActions();
+        if(b!=null){
+            index=Math.max(0,Math.min(b.getInt("index",0),Math.max(0,actions.size()-1)));
+            tamil=b.getBoolean("tamil",false);
+        }
 
         ScrollView scroll=new ScrollView(this);
         LinearLayout root=new LinearLayout(this);
@@ -133,6 +137,12 @@ public final class GuidedActivity extends Activity {
             case "inspect":
             default: return ta?"உற்றுநோக்குதல்":"Inspection";
         }
+    }
+
+    @Override protected void onSaveInstanceState(Bundle out){
+        out.putInt("index",index);
+        out.putBoolean("tamil",tamil);
+        super.onSaveInstanceState(out);
     }
 
     private TextView text(String v,int sp,int c,boolean bold){
