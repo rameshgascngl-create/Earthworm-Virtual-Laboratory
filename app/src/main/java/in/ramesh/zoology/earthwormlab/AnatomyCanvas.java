@@ -136,26 +136,43 @@ public final class AnatomyCanvas extends View {
         paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStyle(Paint.Style.STROKE);
 
+        // Alimentary canal from pharyngeal region posteriorly.
         paint.setStrokeWidth(w*.055f);
         paint.setColor(Color.rgb(192,125,83));
         c.drawLine(w*.12f,h*.50f,w*.86f,h*.50f,paint);
 
+        // Muscular gizzard: shown as a thickened foregut region without
+        // assigning a universal segment number.
         paint.setStrokeWidth(w*.085f);
         paint.setColor(Color.rgb(164,95,67));
         c.drawLine(w*.29f,h*.50f,w*.38f,h*.50f,paint);
 
+        // Post-gizzard, pre-intestinal glandular teaching region.
         paint.setStrokeWidth(w*.075f);
         paint.setColor(Color.rgb(208,145,83));
         c.drawLine(w*.39f,h*.50f,w*.49f,h*.50f,paint);
 
+        // Intestine begins posteriorly.
         paint.setStrokeWidth(w*.09f);
         paint.setColor(Color.rgb(137,85,59));
         c.drawLine(w*.51f,h*.50f,w*.87f,h*.50f,paint);
 
+        // Paired anteriorly directed intestinal caeca arising from the
+        // XXVII region in the species account; diagram is not segment-scale.
         paint.setStrokeWidth(w*.025f);
         paint.setColor(Color.rgb(225,177,108));
         c.drawLine(w*.56f,h*.43f,w*.62f,h*.36f,paint);
         c.drawLine(w*.56f,h*.57f,w*.62f,h*.64f,paint);
+
+        // Typhlosole: dorsal longitudinal infolding of posterior intestine,
+        // drawn inside the intestinal profile rather than as a separate tube.
+        paint.setStrokeWidth(w*.012f);
+        paint.setColor(Color.rgb(231,162,96));
+        Path typh=new Path();
+        typh.moveTo(w*.64f,h*.47f);
+        typh.cubicTo(w*.70f,h*.44f,w*.76f,h*.44f,w*.82f,h*.47f);
+        c.drawPath(typh,paint);
+
         paint.setStyle(Paint.Style.FILL);
     }
 
@@ -163,14 +180,30 @@ public final class AnatomyCanvas extends View {
         paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeCap(Paint.Cap.ROUND);
 
+        // Dorsal vessel.
         paint.setColor(Color.rgb(220,66,72));
         paint.setStrokeWidth(w*.014f);
         c.drawLine(w*.13f,h*.39f,w*.88f,h*.39f,paint);
 
+        // Ventral vessel.
         paint.setColor(Color.rgb(173,42,55));
         c.drawLine(w*.13f,h*.61f,w*.88f,h*.61f,paint);
 
+        // Supra-oesophageal vessel: restricted to the anterior oesophageal region.
+        paint.setColor(Color.rgb(244,112,116));
+        paint.setStrokeWidth(w*.009f);
+        c.drawLine(w*.16f,h*.32f,w*.36f,h*.32f,paint);
+
+        // Paired lateral-oesophageal collecting vessels represented as
+        // parallel anterior ventrolateral channels.
+        paint.setColor(Color.rgb(189,76,87));
+        c.drawLine(w*.16f,h*.67f,w*.36f,h*.67f,paint);
+        c.drawLine(w*.16f,h*.70f,w*.36f,h*.70f,paint);
+
+        // Traditional four-pair heart map retained as a teaching convention.
+        // The plate itself is explicitly non-segment-proportional.
         paint.setStrokeWidth(w*.018f);
+        paint.setColor(Color.rgb(196,49,62));
         for(int i=0;i<4;i++){
             float x=w*(.27f+i*.045f);
             Path p=new Path();
@@ -179,6 +212,7 @@ public final class AnatomyCanvas extends View {
             c.drawPath(p,paint);
         }
 
+        // Segmental capillary networks.
         paint.setStrokeWidth(w*.006f);
         paint.setColor(Color.rgb(236,100,104));
         for(int i=0;i<12;i++){
@@ -186,6 +220,12 @@ public final class AnatomyCanvas extends View {
             c.drawLine(x,h*.39f,x-w*.01f,h*.31f,paint);
             c.drawLine(x,h*.61f,x+w*.01f,h*.69f,paint);
         }
+
+        // Subneural vessel: below the ventral nerve-cord level.
+        paint.setColor(Color.rgb(139,44,72));
+        paint.setStrokeWidth(w*.008f);
+        c.drawLine(w*.45f,h*.72f,w*.86f,h*.72f,paint);
+
         paint.setStyle(Paint.Style.FILL);
     }
 
@@ -227,6 +267,8 @@ public final class AnatomyCanvas extends View {
         paint.setStrokeWidth(w*.011f);
         paint.setColor(Color.rgb(100,211,204));
 
+        // Pharyngeal nephridial tufts: three paired groups represented
+        // in the anterior IV–VI region.
         for(int i=0;i<3;i++){
             float baseX=w*(.20f+i*.055f);
             Path p=new Path();
@@ -235,6 +277,7 @@ public final class AnatomyCanvas extends View {
             c.drawPath(p,paint);
         }
 
+        // Septal nephridia: repeated posterior groups associated with septa.
         for(int i=0;i<7;i++){
             float x=w*(.48f+i*.05f);
             Path p=new Path();
@@ -243,12 +286,26 @@ public final class AnatomyCanvas extends View {
             c.drawPath(p,paint);
         }
 
+        // Integumentary nephridia: numerous minute body-wall units.
         paint.setStyle(Paint.Style.FILL);
         paint.setColor(Color.rgb(137,244,230));
         for(int i=0;i<8;i++){
             float x=w*(.55f+i*.04f);
             c.drawCircle(x,h*.66f,4,paint);
         }
+
+        // Enlarged septal nephridium inset: nephrostomal funnel + coiled tubule.
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(w*.008f);
+        paint.setColor(Color.rgb(180,255,245));
+        c.drawCircle(w*.83f,h*.43f,w*.018f,paint);
+        Path coil=new Path();
+        coil.moveTo(w*.83f,h*.45f);
+        coil.cubicTo(w*.80f,h*.48f,w*.88f,h*.50f,w*.84f,h*.54f);
+        coil.cubicTo(w*.80f,h*.57f,w*.89f,h*.59f,w*.85f,h*.62f);
+        c.drawPath(coil,paint);
+
+        paint.setStyle(Paint.Style.FILL);
     }
 
     private void drawReproductive(Canvas c,float w,float h){
