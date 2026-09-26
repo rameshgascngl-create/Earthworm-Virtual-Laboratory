@@ -64,8 +64,8 @@ jobs:
         run: |
           set -euo pipefail
           nohup "$ANDROID_HOME/emulator/emulator" -avd exact_hq_api36 -no-window -no-audio -no-boot-anim -no-snapshot -gpu swiftshader_indirect -camera-back none -camera-front none > emulator.log 2>&1 &
-          adb wait-for-device
-          timeout 360 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = "1" ]; do sleep 5; done'
+          timeout 180 adb wait-for-device || { echo "ADB device did not appear"; tail -200 emulator.log || true; exit 1; }
+          timeout 360 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = "1" ]; do sleep 5; done' || { echo "Emulator did not complete boot"; tail -200 emulator.log || true; exit 1; }
           adb shell settings put global window_animation_scale 0
           adb shell settings put global transition_animation_scale 0
           adb shell settings put global animator_duration_scale 0
