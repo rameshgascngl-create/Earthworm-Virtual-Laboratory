@@ -1,0 +1,145 @@
+name: HQ atlas Android emulator QA
+on:
+  push:
+    branches:
+      - qa/v1.3.9-hq-emulator-20260926
+permissions:
+  contents: read
+jobs:
+  emulator-qa:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+        with:
+          packages: 'platform-tools'
+      - name: Install emulator and API 36 image
+        shell: bash
+        run: |
+          set -euo pipefail
+          sdkmanager 'emulator' 'platforms;android-36' 'build-tools;35.0.0' 'system-images;android-36;google_apis;x86_64'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+      - name: Build debug candidate
+        run: gradle --no-daemon :app:assembleDebug
+      - name: Verify source and APK payload identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          EXPECTED="2f599d1f5709fec5adf74caa65fec0a1e5aa8e61b527171fb2d23c06da207c5f"
+          test "$(sha256sum app/src/main/assets/index.html | awk '{print $1}')" = "$EXPECTED"
+          APK="$(find app/build/outputs/apk/debug -type f -name '*.apk' | head -n1)"
+          unzip -p "$APK" assets/index.html >/tmp/index.html
+          test "$(sha256sum /tmp/index.html | awk '{print $1}')" = "$EXPECTED"
+      - name: Create API 36 AVD
+        shell: bash
+        run: |
+          set -euo pipefail
+          echo no | avdmanager create avd --force --name hq_api36 --package 'system-images;android-36;google_apis;x86_64'
+      - name: Boot headless emulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          nohup "$ANDROID_HOME/emulator/emulator" \
+            -avd hq_api36 \
+            -no-window -no-audio -no-boot-anim -no-snapshot \
+            -gpu swiftshader_indirect \
+            -camera-back none -camera-front none \
+            > emulator.log 2>&1 &
+          adb wait-for-device
+          timeout 360 bash -c 'until [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d "\r")" = "1" ]; do sleep 5; done'
+          adb shell input keyevent 82 || true
+          adb shell settings put global window_animation_scale 0
+          adb shell settings put global transition_animation_scale 0
+          adb shell settings put global animator_duration_scale 0
+          adb shell settings put system accelerometer_rotation 0
+      - name: Install and launch fully offline
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p qa-artifacts
+          APK="$(find app/build/outputs/apk/debug -type f -name '*.apk' | head -n1)"
+          adb install -r "$APK"
+          adb shell svc wifi disable || true
+          adb shell svc data disable || true
+          adb shell am force-stop in.ramesh.zoology.earthwormlab
+          adb logcat -c
+          adb shell am start -W -n in.ramesh.zoology.earthwormlab/.MainActivity | tee qa-artifacts/start.txt
+          sleep 12
+          test -n "$(adb shell pidof in.ramesh.zoology.earthwormlab | tr -d '\r')"
+          adb exec-out screencap -p > qa-artifacts/portrait-offline.png
+          adb shell uiautomator dump /sdcard/window.xml >/dev/null 2>&1 || true
+          adb pull /sdcard/window.xml qa-artifacts/portrait-window.xml >/dev/null 2>&1 || true
+          adb shell dumpsys activity activities > qa-artifacts/activity-portrait.txt
+          if ! grep -q 'in.ramesh.zoology.earthwormlab' qa-artifacts/activity-portrait.txt; then
+            echo "App is not present in activity state" >&2
+            exit 1
+          fi
+          test "$(stat -c%s qa-artifacts/portrait-offline.png)" -gt 20000
+      - name: Exercise rotation and lifecycle
+        shell: bash
+        run: |
+          set -euo pipefail
+          adb shell settings put system user_rotation 1
+          sleep 6
+          test -n "$(adb shell pidof in.ramesh.zoology.earthwormlab | tr -d '\r')"
+          adb exec-out screencap -p > qa-artifacts/landscape.png
+          adb shell dumpsys activity activities > qa-artifacts/activity-landscape.txt
+          adb shell input keyevent KEYCODE_HOME
+          sleep 3
+          test -n "$(adb shell pidof in.ramesh.zoology.earthwormlab | tr -d '\r')"
+          adb shell am start -W -n in.ramesh.zoology.earthwormlab/.MainActivity > qa-artifacts/resume.txt
+          sleep 6
+          adb shell settings put system user_rotation 0
+          sleep 6
+          test -n "$(adb shell pidof in.ramesh.zoology.earthwormlab | tr -d '\r')"
+          adb exec-out screencap -p > qa-artifacts/portrait-resumed.png
+          adb shell uiautomator dump /sdcard/window2.xml >/dev/null 2>&1 || true
+          adb pull /sdcard/window2.xml qa-artifacts/resumed-window.xml >/dev/null 2>&1 || true
+          test "$(stat -c%s qa-artifacts/landscape.png)" -gt 20000
+          test "$(stat -c%s qa-artifacts/portrait-resumed.png)" -gt 20000
+      - name: Check crash and network-error signals
+        shell: bash
+        run: |
+          set -euo pipefail
+          adb logcat -d > qa-artifacts/logcat.txt
+          if grep -E 'FATAL EXCEPTION|Process: in\.ramesh\.zoology\.earthwormlab.*has died|ANR in in\.ramesh\.zoology\.earthwormlab' qa-artifacts/logcat.txt; then
+            echo "Crash/ANR signal detected" >&2
+            exit 1
+          fi
+          adb shell dumpsys package in.ramesh.zoology.earthwormlab > qa-artifacts/package.txt
+          if grep -F 'android.permission.INTERNET' qa-artifacts/package.txt; then
+            echo "Unexpected INTERNET permission detected" >&2
+            exit 1
+          fi
+          {
+            echo "candidate_sha256=2f599d1f5709fec5adf74caa65fec0a1e5aa8e61b527171fb2d23c06da207c5f"
+            echo "emulator_api=$(adb shell getprop ro.build.version.sdk | tr -d '\r')"
+            echo "android_release=$(adb shell getprop ro.build.version.release | tr -d '\r')"
+            echo "pid=$(adb shell pidof in.ramesh.zoology.earthwormlab | tr -d '\r')"
+            echo "offline_launch=PASS"
+            echo "portrait_screenshot=PASS"
+            echo "landscape_rotation=PASS"
+            echo "home_resume=PASS"
+            echo "crash_anr_scan=PASS"
+            echo "internet_permission_absent=PASS"
+          } > qa-artifacts/summary.txt
+          cat qa-artifacts/summary.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: Earthworm-HQ-emulator-QA
+          path: |
+            qa-artifacts
+            emulator.log
+          if-no-files-found: error
+          retention-days: 14
