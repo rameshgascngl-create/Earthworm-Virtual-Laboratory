@@ -111,7 +111,7 @@ public final class NativeHomeActivity extends Activity {
         body.addView(assessment,ap);
 
         Button privacy=button(tamil?"பயன்பாடு & தனியுரிமை":"About & Privacy");
-        privacy.setOnClickListener(v->startActivity(new Intent(this,PrivacyActivity.class)));
+        privacy.setOnClickListener(v->startActivity(withLanguage(new Intent(this,PrivacyActivity.class))));
         LinearLayout.LayoutParams pp=new LinearLayout.LayoutParams(-1,-2);
         pp.setMargins(0,dp(10),0,0);
         body.addView(privacy,pp);
