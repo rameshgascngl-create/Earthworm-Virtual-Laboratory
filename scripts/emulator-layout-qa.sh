@@ -5,6 +5,25 @@ PKG="in.ramesh.zoology.earthwormlab"
 OUT="${1:-layout-qa}"
 mkdir -p "$OUT"
 
+# connectedDebugAndroidTest may briefly leave the emulator in "offline" state.
+# Recover ADB deterministically before layout capture; do not treat a transient
+# transport state as an app failure.
+ready=0
+for i in $(seq 1 45); do
+  adb reconnect >/dev/null 2>&1 || true
+  if [ "$(adb get-state 2>/dev/null || true)" = "device" ] && \
+     [ "$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')" = "1" ]; then
+    ready=1
+    break
+  fi
+  sleep 2
+done
+if [ "$ready" != "1" ]; then
+  echo "Emulator did not return to a healthy ADB device state."
+  adb devices -l || true
+  exit 1
+fi
+
 APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1)"
 if [ -z "$APK" ]; then
   gradle --no-daemon :app:assembleDebug
