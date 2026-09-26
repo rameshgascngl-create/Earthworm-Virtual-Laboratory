@@ -100,15 +100,36 @@ jobs:
           adb shell svc data disable || true
           adb shell am force-stop in.ramesh.zoology.earthwormlab
           adb logcat -c
-          adb shell am start -W -n in.ramesh.zoology.earthwormlab/.MainActivity | tee qa-artifacts/start.txt
+          adb shell monkey -p in.ramesh.zoology.earthwormlab -c android.intent.category.LAUNCHER 1 | tee qa-artifacts/launcher.txt
+          sleep 4
+          adb shell uiautomator dump /sdcard/home.xml >/dev/null
+          adb pull /sdcard/home.xml qa-artifacts/home-window.xml >/dev/null
+          python - <<'PY' > qa-artifacts/continue-coords.txt
+import re, xml.etree.ElementTree as ET
+root=ET.parse("qa-artifacts/home-window.xml").getroot()
+target=None
+for node in root.iter("node"):
+    if node.attrib.get("text")=="Continue Laboratory":
+        target=node
+        break
+if target is None:
+    raise SystemExit("Continue Laboratory control not present in launcher accessibility tree")
+m=re.fullmatch(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]",target.attrib.get("bounds",""))
+if not m:
+    raise SystemExit("Continue Laboratory bounds unavailable")
+x1,y1,x2,y2=map(int,m.groups())
+print((x1+x2)//2,(y1+y2)//2)
+PY
+          read X Y < qa-artifacts/continue-coords.txt
+          adb shell input tap "$X" "$Y"
           sleep 12
           test -n "$(adb shell pidof in.ramesh.zoology.earthwormlab | tr -d '\r')"
           adb exec-out screencap -p > qa-artifacts/portrait-offline.png
           adb shell uiautomator dump /sdcard/window.xml >/dev/null 2>&1 || true
           adb pull /sdcard/window.xml qa-artifacts/portrait-window.xml >/dev/null 2>&1 || true
           adb shell dumpsys activity activities > qa-artifacts/activity-portrait.txt
-          if ! grep -q 'in.ramesh.zoology.earthwormlab' qa-artifacts/activity-portrait.txt; then
-            echo "App is not present in activity state" >&2
+          if ! grep -q 'in.ramesh.zoology.earthwormlab/.MainActivity' qa-artifacts/activity-portrait.txt; then
+            echo "Laboratory MainActivity is not present after launcher navigation" >&2
             exit 1
           fi
           test "$(stat -c%s qa-artifacts/portrait-offline.png)" -gt 20000
@@ -124,7 +145,7 @@ jobs:
           adb shell input keyevent KEYCODE_HOME
           sleep 3
           test -n "$(adb shell pidof in.ramesh.zoology.earthwormlab | tr -d '\r')"
-          adb shell am start -W -n in.ramesh.zoology.earthwormlab/.MainActivity > qa-artifacts/resume.txt
+          adb shell monkey -p in.ramesh.zoology.earthwormlab -c android.intent.category.LAUNCHER 1 > qa-artifacts/resume.txt
           sleep 6
           adb shell settings put system user_rotation 0
           sleep 6
