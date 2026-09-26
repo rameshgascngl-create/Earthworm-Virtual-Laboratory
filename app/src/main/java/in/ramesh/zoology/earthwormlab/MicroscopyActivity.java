@@ -36,7 +36,7 @@ public final class MicroscopyActivity extends Activity {
         lang.setText("தமிழ் / English");
         lang.setAllCaps(false);
         lang.setOnClickListener(v->{tamil=!tamil;render();});
-        body.addView(lang,new LinearLayout.LayoutParams(-1,dp(50)));
+        lang.setMinHeight(dp(48));body.addView(lang,new LinearLayout.LayoutParams(-1,-2));
 
         for(ContentRepository.Microscopy m:repo.microscopy()){
             TextView title=text(
