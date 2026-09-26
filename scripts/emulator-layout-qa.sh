@@ -91,8 +91,9 @@ apply_profile() {
   } > "$OUT/${name}_profile.txt"
 
   capture_language_set "$name" "en"
-  capture_language_set "$name" "ta"
   capture_screen "$name" ".PrivacyActivity" "privacy"
+  capture_language_set "$name" "ta"
+  capture_screen "$name" ".PrivacyActivity" "privacy_ta" --ez "$LANG_EXTRA" true
 }
 
 apply_profile "phone360_normal" "720x1600" "320" "1.0" "0"
@@ -108,11 +109,11 @@ if grep -E "FATAL EXCEPTION|ANR in $PKG|Process: $PKG.*has died" "$OUT/layout-lo
   exit 1
 fi
 
-expected=55
+expected=60
 actual="$(find "$OUT" -name '*.png' -type f -size +0c | wc -l | tr -d ' ')"
 test "$actual" -eq "$expected"
 
 xml_count="$(find "$OUT" -name '*.xml' -type f -size +0c | wc -l | tr -d ' ')"
 test "$xml_count" -eq "$expected"
 
-echo "LAYOUT MATRIX CAPTURE: PASS ($actual screenshots, English + Tamil)"
+echo "LAYOUT MATRIX CAPTURE: PASS ($actual screenshots, English + Tamil including privacy)"
