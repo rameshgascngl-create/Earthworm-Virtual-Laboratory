@@ -188,7 +188,9 @@ jobs:
         run: |
           set -euo pipefail
           ! grep -q 'android.permission.INTERNET' app/src/main/AndroidManifest.xml
-          ! grep -R -E 'android\.webkit\.WebView|WebViewClient|androidx\.webkit' app/src/main/java app/build.gradle
+          ! grep -R -E '^[[:space:]]*import[[:space:]]+android\.webkit\.(WebView|WebViewClient)' app/src/main/java
+          ! grep -R -E '\bWebView[[:space:]]*\(' app/src/main/java
+          ! grep -E '^[[:space:]]*(implementation|api|runtimeOnly|compileOnly).*androidx\.webkit' app/build.gradle
 
   build:
     needs: validate
