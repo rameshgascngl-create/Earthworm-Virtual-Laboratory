@@ -101,6 +101,7 @@ fun AtlasScreen(
     val processCue = stringResource(R.string.atlas_audio_process)
 
     val processDefinition = remember(system) { ProcessGuidance.forSystem(system) }
+    val processTitleText = processDefinition?.let { processTitle(it.process) }.orEmpty()
     var processMode by rememberSaveable(system.dataKey, "atlas-process-mode") { mutableStateOf(false) }
     var processPlaying by rememberSaveable(system.dataKey, "atlas-process-playing") { mutableStateOf(false) }
     var processIndex by rememberSaveable(system.dataKey, "atlas-process-index") { mutableStateOf(0) }
@@ -151,7 +152,7 @@ fun AtlasScreen(
                             content.processNarration(
                                 language = language,
                                 processCue = processCue,
-                                processTitle = processTitle(definition.process),
+                                processTitle = processTitleText,
                                 functionCue = audioFunctionCue,
                             ),
                             language,
@@ -266,7 +267,7 @@ fun AtlasScreen(
             ) {
                 Column(modifier = Modifier.padding(14.dp)) {
                     Text(
-                        text = processTitle(processDefinition.process),
+                        text = processTitleText,
                         style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.primary,
                     )
