@@ -55,6 +55,13 @@ fun EarthwormApp(viewModel: EarthwormViewModel) {
             topBar = {
                 TopAppBar(
                     title = { Text(stringResource(R.string.app_name)) },
+                    navigationIcon = {
+                        if (uiState.selectedSystem != EarthwormSystem.PREPARATION) {
+                            TextButton(onClick = viewModel::navigateHome) {
+                                Text(stringResource(R.string.nav_home))
+                            }
+                        }
+                    },
                     actions = {
                         TextButton(onClick = {
                             val next = if (uiState.language == AppLanguage.ENGLISH) AppLanguage.TAMIL else AppLanguage.ENGLISH
