@@ -72,4 +72,13 @@
     <string name="atlas_physiology_title">Cutaneous respiration — animated focus</string>
     <string name="atlas_physiology_stage">Current focus: %1$s</string>
     <string name="atlas_physiology_notice">This is a teaching animation that sequentially highlights verified structures; it does not claim to map the literal spatial path of diffusing molecules.</string>
+    <string name="atlas_process_mode">Biological process</string>
+    <string name="atlas_process_cutaneous_respiration">Cutaneous respiration process</string>
+    <string name="atlas_process_blood_circulation">Blood circulation — overview</string>
+    <string name="atlas_process_play">Play process</string>
+    <string name="atlas_process_pause">Pause</string>
+    <string name="atlas_process_previous">Previous part</string>
+    <string name="atlas_process_next">Next part</string>
+    <string name="atlas_process_restart">Restart</string>
+    <string name="atlas_process_notice">This teaching sequence links the verified functions of existing structures. It does not claim to trace every microscopic path taken by diffusing gases or circulating blood.</string>
 </resources>
