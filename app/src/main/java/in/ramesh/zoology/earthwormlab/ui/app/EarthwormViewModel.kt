@@ -116,6 +116,11 @@ class EarthwormViewModel(
         )
     }
 
+    fun navigateHome() {
+        savedStateHandle[KEY_NAVIGATION_HISTORY] = arrayListOf<String>()
+        setSelectedSystem(EarthwormSystem.PREPARATION)
+    }
+
     private fun setSelectedSystem(system: EarthwormSystem) {
         savedStateHandle[KEY_SELECTED_SYSTEM] = system.dataKey
         viewModelScope.launch { progressRepository.setLastSystem(system) }
