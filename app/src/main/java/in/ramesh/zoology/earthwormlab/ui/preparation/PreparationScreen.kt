@@ -1,5 +1,7 @@
 package `in`.ramesh.zoology.earthwormlab.ui.preparation
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,9 +12,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
@@ -163,6 +167,9 @@ private fun HomeHeroCard() {
 
 @Composable
 private fun DesignerCreditCard() {
+    val context = LocalContext.current
+    val privacyUrl = stringResource(R.string.privacy_policy_url)
+
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
@@ -189,6 +196,21 @@ private fun DesignerCreditCard() {
                 text = stringResource(R.string.home_designer_note),
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(top = 10.dp),
+            )
+
+            OutlinedButton(
+                onClick = {
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl))
+                    runCatching { context.startActivity(intent) }
+                },
+                modifier = Modifier.padding(top = 14.dp),
+            ) {
+                Text(stringResource(R.string.privacy_policy_action))
+            }
+            Text(
+                text = stringResource(R.string.privacy_policy_store_note),
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier.padding(top = 6.dp),
             )
         }
     }
