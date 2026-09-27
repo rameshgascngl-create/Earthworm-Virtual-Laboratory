@@ -1,0 +1,157 @@
+name: Native Phase 3A.1 visual fidelity correction
+on:
+  push:
+    branches:
+      - native/v2-phase3a1-device-qa-visual-correction-ci
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Install Android SDK packages
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'platform-tools'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Verify Phase 3A.1 source invariants
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import hashlib, json, pathlib
+
+          content_path = pathlib.Path("app/src/main/res/raw/earthworm_content_v138.json")
+          raw = content_path.read_bytes()
+          expected = "f13e823bd1fdb97eb45dc154ed06cd52a9a52a8282ba0adbdad0458661cf1aea"
+          actual = hashlib.sha256(raw).hexdigest()
+          assert actual == expected, (actual, expected)
+
+          data = json.loads(raw.decode("utf-8"))
+          assert len(data["systems"]) == 9
+          assert len(data["structures"]) == 55
+
+          atlas = pathlib.Path("app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt").read_text()
+          required = [
+              "detectTransformGestures",
+              "rememberSaveable",
+              "atlas_labels",
+              "atlas_reset_view",
+              "graphicsLayer",
+              "touchSize = 48.dp",
+              "size(if (selected) 18.dp else 10.dp)",
+          ]
+          for token in required:
+              assert token in atlas, token
+
+          forbidden = [
+              'opacity="$opacity"',
+              "structureGroup.replace(withLabelMode)",
+              "selectedId: String?,\n    labelsVisible: Boolean",
+          ]
+          for token in forbidden:
+              assert token not in atlas, token
+
+          print("CONTENT_IDENTITY=PASS")
+          print("PHASE3A1_VISUAL_FIDELITY_INVARIANTS=PASS")
+          PY
+
+          test "$(find app/src/main/res/raw -maxdepth 1 -name 'atlas_*_en.svg' | wc -l)" -eq 8
+          test "$(find app/src/main/res/raw -maxdepth 1 -name 'atlas_*_ta.svg' | wc -l)" -eq 8
+
+          if grep -RInE --include='*.kt' 'android\.webkit|androidx\.webkit|WebViewAssetLoader|\bWebView\b' app/src/main/java; then
+            echo "UNEXPECTED_APP_WEBVIEW_SOURCE=YES"
+            exit 31
+          fi
+          echo "UNEXPECTED_APP_WEBVIEW_SOURCE=NO"
+
+      - name: Clean
+        run: gradle --no-daemon clean
+
+      - name: Lint
+        run: gradle --no-daemon :app:lintDebug :app:lintRelease
+
+      - name: Unit tests
+        run: gradle --no-daemon :app:testDebugUnitTest
+
+      - name: Assemble Debug
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Inspect Debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1)"
+          test -n "$APK"
+          {
+            echo "APK=$APK"
+            sha256sum "$APK"
+            echo
+            echo "== BADGING =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK"
+            echo
+            echo "== PERMISSIONS =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt" dump permissions "$APK"
+            echo
+            echo "== BROWSER PAYLOAD =="
+            if zipinfo -1 "$APK" | grep -Ei '\.(html|css|js)$'; then
+              echo "UNEXPECTED_BROWSER_PAYLOAD=YES"
+              exit 41
+            else
+              echo "UNEXPECTED_BROWSER_PAYLOAD=NO"
+            fi
+            echo
+            echo "== ATLAS SVG PAYLOAD =="
+            SVG_COUNT="$(zipinfo -1 "$APK" | grep -Ec '(^|/)atlas_(external|digestive|circulatory|respiratory|excretory|reproductive|nervous|crosssection)_(en|ta)\.svg$' || true)"
+            echo "ATLAS_SVG_COUNT=$SVG_COUNT"
+            test "$SVG_COUNT" -eq 16
+          } | tee apk-inspection.txt
+
+      - name: Release structural compile
+        run: gradle --no-daemon :app:assembleRelease
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase3a1-visual-fidelity-debug
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      - name: Upload unsigned Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase3a1-visual-fidelity-unsigned-release
+          path: app/build/outputs/apk/release/*unsigned.apk
+          if-no-files-found: warn
+
+      - name: Upload APK inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase3a1-visual-fidelity-apk-inspection
+          path: apk-inspection.txt
+          if-no-files-found: error
+
+      - name: Upload lint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase3a1-visual-fidelity-lint
+          path: app/build/reports/lint-results*
+          if-no-files-found: warn
