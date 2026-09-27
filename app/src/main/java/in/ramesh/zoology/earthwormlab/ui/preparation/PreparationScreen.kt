@@ -107,6 +107,7 @@ private fun HomeHeroCard() {
     val primary = MaterialTheme.colorScheme.primary
     val secondary = MaterialTheme.colorScheme.secondary
     val surface = MaterialTheme.colorScheme.surfaceVariant
+    val highlight = MaterialTheme.colorScheme.onPrimary
     val graphicDescription = stringResource(R.string.home_graphic_description)
 
     Card(modifier = Modifier.fillMaxWidth()) {
@@ -123,7 +124,7 @@ private fun HomeHeroCard() {
                 for (i in 0 until count) {
                     val fraction = i.toFloat() / (count - 1).toFloat()
                     val x = size.width * (0.08f + 0.84f * fraction)
-                    val wave = sin(fraction * 2f * PI.toFloat())
+                    val wave = sin((fraction * 2f * PI.toFloat()).toDouble()).toFloat()
                     val y = size.height * (0.52f + 0.15f * wave)
                     val taper = 1f - kotlin.math.abs(fraction - 0.5f) * 0.55f
                     val radius = size.height * 0.075f * taper
@@ -134,7 +135,7 @@ private fun HomeHeroCard() {
                         center = androidx.compose.ui.geometry.Offset(x, y),
                     )
                     drawCircle(
-                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.30f),
+                        color = highlight.copy(alpha = 0.30f),
                         radius = radius * 0.38f,
                         center = androidx.compose.ui.geometry.Offset(
                             x - radius * 0.22f,
