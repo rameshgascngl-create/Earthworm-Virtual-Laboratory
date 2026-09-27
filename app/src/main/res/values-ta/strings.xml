@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Taken verbatim from earthworm_content_v138.json → systems.*.ta, the
-         same reviewed Tamil terminology already used by the hybrid
-         reference and the Java-native branches. Not retranslated here. -->
     <string name="system_preparation">ஆயத்தம்</string>
     <string name="system_external">புற அமைப்பியல்</string>
     <string name="system_digestive">செரிமான மண்டலம்</string>
@@ -13,7 +10,6 @@
     <string name="system_nervous">நரம்பு மண்டலம்</string>
     <string name="system_transverse_section">குறுக்குவெட்டுத் தோற்றம்</string>
 
-    <!-- Phase-1 UI copy reviewed for Tamil parity; system/anatomical terminology above is unchanged. -->
     <string name="preparation_title">தொடங்குவதற்கு முன்</string>
     <string name="preparation_intro">உடற்கூறு பிரித்தாய்வைத் தொடங்குவதற்கு முன் பின்வருவனவற்றைச் சரிபார்க்கவும்.</string>
     <string name="preparation_item_specimen">பதப்படுத்தப்பட்ட மண்புழு மாதிரி (Metaphire posthuma)</string>
@@ -23,7 +19,6 @@
     <string name="placeholder_title">%1$s — உடற்கூறு அட்லஸ் மாற்றம் நிலுவையில்</string>
     <string name="placeholder_body">இந்த மண்டலத்தின் இடைச்செயல் உடற்கூறு அட்லஸ் இன்னும் Android செயலிக்கு மாற்றப்படவில்லை (கட்டம் 2). அதற்குப் பதிலாக வேறு உள்ளடக்கம் சேர்க்கப்படவில்லை.</string>
 
-    <!-- கட்டம் 2: அட்லஸ் UI சொற்கள் மட்டும். அறிவியல் உரை earthworm_content_v138.json-இலிருந்து நேரடியாக வருகிறது. -->
     <string name="atlas_hint">உடற்கூறு அமைப்பை அறிய குறியீட்டையோ அமைப்பின் பெயரையோ தொடவும்.</string>
     <string name="atlas_structures">அமைப்புகள்</string>
     <string name="atlas_location">அமைவிடம்</string>
@@ -31,4 +26,22 @@
     <string name="atlas_significance">கற்பித்தல் குறிப்பு</string>
     <string name="atlas_correction">பொதுவான தவறுக்கான திருத்தம்</string>
     <string name="atlas_selected">தேர்ந்தெடுக்கப்பட்ட அமைப்பு</string>
+
+    <!-- கட்டம் 3A: காட்சி கற்றல் கட்டுப்பாடுகள். -->
+    <string name="atlas_mode_interactive">தொடர்பாடும் அட்லஸ்</string>
+    <string name="atlas_mode_reference">உயர்தர குறிப்புப் படம்</string>
+    <string name="atlas_labels_visible">குறிச்சொற்கள்: காண்பி</string>
+    <string name="atlas_labels_hidden">குறிச்சொற்கள்: மறை</string>
+    <string name="atlas_zoom_hint">பெரிதாக்க இரு விரல்களால் விரிக்கவும் • நகர்த்த இழுக்கவும் • மீட்டமைக்க இருமுறை தொடவும்</string>
+    <string name="atlas_reference_content_description">உயர்தர உடற்கூறு குறிப்புப் படம்</string>
+    <string name="atlas_reference_notice">இந்த ராஸ்டர் படம் காட்சிக் குறிப்புக்காக மட்டுமே. அதன் தொடு இடங்கள் தனியாக அளவுத்திருத்தம் செய்து சரிபார்க்கப்படும் வரை அமைப்புத் தேர்வு தொடர்பாடும் SVG அட்லஸிலேயே செயல்படும்.</string>
+
+    <string name="atlas_reference_caption_external">காட்சி அடையாளத்திற்காக இக்குறிப்புப் படத்தைப் பயன்படுத்தவும். கண்ட இடைவெளிகள் திட்டப்படமாகும்; துளைகள், சீட்டாக்கள் மற்றும் மாதிரி வேறுபாடுகளுக்கான ஆதாரவிழிப்புணர்வுடைய விளக்கம் தொடர்பாடும் அமைப்பு உரையிலேயே உள்ளது.</string>
+    <string name="atlas_reference_caption_digestive">காட்சிக் குறிப்புப் படம். இதில் அச்சிடப்பட்ட கண்ட எண்கள் மூலக் கோப்பின் பாட மரபைத் தொடர்கின்றன. தொடர்பாடும் உரை அரவைப்பை IX–X மற்றும் குடல் நீட்சிகள் XXVII-இல் தொடங்கும் மாதிரி ஆய்வுச் சான்றை பதிவு செய்கிறது; ஆகவே ராஸ்டர் குறிச்சொற்களை எல்லா மாதிரிகளுக்கும் மாறாத இனப்பண்பாகக் கருத வேண்டாம்.</string>
+    <string name="atlas_reference_caption_circulatory">நாளத் தொடர்புகளை மையப்படுத்திய குறிப்புப் படம். VII/IX/XII/XIII நான்கு இணை இதய வரைபாடு மூல செயலியின் செய்முறைப் பாட மரபாகத் தக்கவைக்கப்பட்டுள்ளது; ஆதாரமும் மாதிரி சார்ந்த எச்சரிக்கைகளும் அமைப்பு உரையில் தரப்பட்டுள்ளன.</string>
+    <string name="atlas_reference_caption_respiratory">கற்பித்தலுக்காக பெரிதாக்கப்பட்டுள்ளது: திசு தடிமனும் இரத்த நாள இடைவெளியும் திட்டமிட்டு மிகைப்படுத்தப்பட்டுள்ளன. வாயுப் பரிமாற்றத்தின் உடலியக்கத் திசையே முக்கியக் கருத்தாகும்.</string>
+    <string name="atlas_reference_caption_excretory">அடையாளம் காண வசதியாக நெஃப்ரிடிய அலகுகளின் அளவும் இடைவெளியும் திட்டப்படமாக பெரிதாக்கப்பட்டுள்ளன. வகை, வடிகால் முறை மற்றும் கண்டச் சான்றுகளுக்கு தொடர்பாடும் உரையைப் பயன்படுத்தவும்.</string>
+    <string name="atlas_reference_caption_reproductive">இணை உறுப்புகள் தெளிவாகத் தெரிய அளவும் இடைவெளியும் பெரிதாக்கப்பட்டுள்ளன; ஒப்பீட்டு அளவும் இடைவெளியும் அளவுத்திட்டப்படி அல்ல. சரியான பாட அமைவிடங்களுக்கு தொடர்பாடும் குறிச்சொற்களைப் பயன்படுத்தவும்.</string>
+    <string name="atlas_reference_caption_nervous">நரம்பு வளையமும் வயிற்றுப்புற நரம்புவடமும் தொடர்ச்சியாக அமைந்துள்ள தொடர்பையே படம் மையப்படுத்துகிறது. கற்பித்தலுக்காக ஒப்பீட்டு அளவுகள் பெரிதாக்கப்பட்டுள்ளன.</string>
+    <string name="atlas_reference_caption_crosssection">உயர்தர குறுக்குவெட்டுப் படத்தை காட்சி அடையாளத்திற்குப் பயன்படுத்தவும்; திசு உறவுகளையும் பெயரிடப்பட்ட அமைப்புகளையும் தொடர்பாடும் அட்லஸ் மற்றும் மதிப்பாய்வு செய்யப்பட்ட அமைப்பு உரையுடன் உறுதிப்படுத்தவும்.</string>
 </resources>

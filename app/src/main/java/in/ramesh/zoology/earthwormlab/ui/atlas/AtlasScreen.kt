@@ -4,10 +4,16 @@ import android.content.Context
 import android.graphics.drawable.PictureDrawable
 import android.view.View
 import android.widget.ImageView
+import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
+import androidx.annotation.StringRes
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -29,13 +35,20 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -50,17 +63,23 @@ import `in`.ramesh.zoology.earthwormlab.model.Hotspot
 import `in`.ramesh.zoology.earthwormlab.preferences.AppLanguage
 
 private const val ATLAS_ASPECT_RATIO = 1200f / 560f
+private const val HQ_REFERENCE_ASPECT_RATIO = 4f / 3f
+private const val MAX_ZOOM = 4f
 
 /**
- * Phase-2 native anatomical atlas.
+ * Phase-3A anatomical learning surface.
  *
- * The plate itself is rendered through AndroidSVG into an Android ImageView;
- * there is no browser runtime, HTML, JavaScript or network dependency. Interaction is
- * provided by Compose using the normalized hotspot coordinates already
- * validated against the frozen reference dataset.
+ * Two visual sources intentionally coexist:
+ * 1. INTERACTIVE — the authoritative SVG atlas, with the reviewed 55-structure
+ *    dataset and its normalized touch anchors.
+ * 2. HQ_REFERENCE — the eight 2048x1536 WebP plates recovered byte-for-byte
+ *    from the previous offline wrapped simulator.
  *
- * Scientific prose is not duplicated here. The detail card reads directly
- * from [ScientificContentRepository], which loads earthworm_content_v138.json.
+ * Hotspots are NOT projected onto the HQ raster plates yet. Their composition
+ * differs from the SVG atlas, so reusing the SVG coordinate map would create
+ * anatomically false touch targets. Raster calibration remains an explicit
+ * later gate. Structure chips and the scientific detail card remain available
+ * in reference mode without pretending that the raster has verified hotspots.
  */
 @Composable
 fun AtlasScreen(
@@ -78,6 +97,9 @@ fun AtlasScreen(
     val selectedStructure = structures.firstOrNull { it.id == selectedId }
     val selectedContent = selectedStructure?.let { repository.contentFor(it.id) }
 
+    var showReference by rememberSaveable(system.dataKey) { mutableStateOf(false) }
+    var showLabels by rememberSaveable(system.dataKey) { mutableStateOf(true) }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -90,17 +112,79 @@ fun AtlasScreen(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
         )
 
-        AtlasPlate(
-            system = system,
-            language = language,
-            structures = structures,
-            repository = repository,
-            selectedId = selectedId,
-            onStructureSelected = { selectedId = it },
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 8.dp),
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            FilterChip(
+                selected = !showReference,
+                onClick = { showReference = false },
+                label = { Text(stringResource(R.string.atlas_mode_interactive)) },
+            )
+            FilterChip(
+                selected = showReference,
+                onClick = { showReference = true },
+                label = { Text(stringResource(R.string.atlas_mode_reference)) },
+            )
+            if (!showReference) {
+                FilterChip(
+                    selected = showLabels,
+                    onClick = { showLabels = !showLabels },
+                    label = {
+                        Text(
+                            stringResource(
+                                if (showLabels) R.string.atlas_labels_visible
+                                else R.string.atlas_labels_hidden,
+                            )
+                        )
+                    },
+                )
+            }
+        }
+
+        Text(
+            text = stringResource(R.string.atlas_zoom_hint),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
         )
+
+        if (showReference) {
+            ReferenceAtlasPlate(
+                system = system,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+            )
+            Text(
+                text = stringResource(referenceCaptionResource(system)),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
+            )
+            Text(
+                text = stringResource(R.string.atlas_reference_notice),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
+            )
+        } else {
+            InteractiveAtlasPlate(
+                system = system,
+                language = language,
+                structures = structures,
+                repository = repository,
+                selectedId = selectedId,
+                showLabels = showLabels,
+                onStructureSelected = { selectedId = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 8.dp),
+            )
+        }
 
         Text(
             text = stringResource(R.string.atlas_structures),
@@ -139,77 +223,175 @@ fun AtlasScreen(
 }
 
 @Composable
-private fun AtlasPlate(
+private fun InteractiveAtlasPlate(
     system: EarthwormSystem,
     language: AppLanguage,
     structures: List<AnatomicalStructure>,
     repository: ScientificContentRepository,
     selectedId: String?,
+    showLabels: Boolean,
     onStructureSelected: (String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val rawResId = atlasResource(system, language)
     val context = LocalContext.current
-    val svg = remember(rawResId, context) { loadAtlasSvg(context, rawResId) }
+    val svg = remember(rawResId, context, showLabels) {
+        loadAtlasSvg(context, rawResId, showLabels)
+    }
+
+    var scale by remember(system, language) { mutableFloatStateOf(1f) }
+    var pan by remember(system, language) { mutableStateOf(Offset.Zero) }
+    val transformState = rememberTransformableState { zoomChange, panChange, _ ->
+        val nextScale = (scale * zoomChange).coerceIn(1f, MAX_ZOOM)
+        scale = nextScale
+        pan = if (nextScale <= 1f) Offset.Zero else pan + panChange
+    }
 
     Card(modifier = modifier) {
         BoxWithConstraints(
             modifier = Modifier
                 .fillMaxWidth()
                 .aspectRatio(ATLAS_ASPECT_RATIO)
-                .background(Color(0xFF071B1A)),
+                .background(Color(0xFF071B1A))
+                .pointerInput(system, language) {
+                    detectTapGestures(
+                        onDoubleTap = {
+                            scale = 1f
+                            pan = Offset.Zero
+                        },
+                    )
+                },
         ) {
-            AndroidView(
-                modifier = Modifier.fillMaxSize(),
-                factory = { viewContext ->
-                    ImageView(viewContext).apply {
-                        scaleType = ImageView.ScaleType.FIT_CENTER
-                        adjustViewBounds = true
-                        setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                    }
-                },
-                update = { imageView ->
-                    imageView.setImageDrawable(PictureDrawable(svg.renderToPicture()))
-                },
-            )
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer(
+                        scaleX = scale,
+                        scaleY = scale,
+                        translationX = pan.x,
+                        translationY = pan.y,
+                    )
+                    .transformable(transformState),
+            ) {
+                AndroidView(
+                    modifier = Modifier.fillMaxSize(),
+                    factory = { viewContext ->
+                        ImageView(viewContext).apply {
+                            scaleType = ImageView.ScaleType.FIT_CENTER
+                            adjustViewBounds = true
+                            setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+                        }
+                    },
+                    update = { imageView ->
+                        imageView.setImageDrawable(PictureDrawable(svg.renderToPicture()))
+                    },
+                )
 
-            structures.forEach { structure ->
-                val (x, y) = structure.hotspot.anchor()
-                val label = repository.contentFor(structure.id)?.label(language).orEmpty()
-                    .ifBlank { structure.id }
-                val selected = structure.id == selectedId
-                val touchSize = 36.dp
-                val xOffset = (maxWidth * x - touchSize / 2)
-                    .coerceIn(0.dp, (maxWidth - touchSize).coerceAtLeast(0.dp))
-                val yOffset = (maxHeight * y - touchSize / 2)
-                    .coerceIn(0.dp, (maxHeight - touchSize).coerceAtLeast(0.dp))
-                Box(
-                    modifier = Modifier
-                        .size(touchSize)
-                        .align(Alignment.TopStart)
-                        .offset(x = xOffset, y = yOffset)
-                        .semantics { contentDescription = label }
-                        .clickable { onStructureSelected(structure.id) },
-                    contentAlignment = Alignment.Center,
-                ) {
+                structures.forEach { structure ->
+                    val (x, y) = structure.hotspot.anchor()
+                    val label = repository.contentFor(structure.id)?.label(language).orEmpty()
+                        .ifBlank { structure.id }
+                    val selected = structure.id == selectedId
+                    val touchSize = 44.dp
+                    val xOffset = (maxWidth * x - touchSize / 2)
+                        .coerceIn(0.dp, (maxWidth - touchSize).coerceAtLeast(0.dp))
+                    val yOffset = (maxHeight * y - touchSize / 2)
+                        .coerceIn(0.dp, (maxHeight - touchSize).coerceAtLeast(0.dp))
+
                     Box(
                         modifier = Modifier
-                            .size(if (selected) 18.dp else 13.dp)
-                            .background(
-                                color = if (selected) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.tertiary
-                                },
-                                shape = CircleShape,
+                            .size(touchSize)
+                            .align(Alignment.TopStart)
+                            .offset(x = xOffset, y = yOffset)
+                            .semantics { contentDescription = label }
+                            .clickable { onStructureSelected(structure.id) },
+                        contentAlignment = Alignment.Center,
+                    ) {
+                        if (selected) {
+                            Box(
+                                modifier = Modifier
+                                    .size(32.dp)
+                                    .background(
+                                        color = MaterialTheme.colorScheme.primary.copy(alpha = 0.24f),
+                                        shape = CircleShape,
+                                    )
+                                    .border(
+                                        width = 2.dp,
+                                        color = MaterialTheme.colorScheme.primary,
+                                        shape = CircleShape,
+                                    ),
                             )
-                            .border(
-                                width = 2.dp,
-                                color = Color.White,
-                                shape = CircleShape,
-                            ),
-                    )
+                        }
+                        Box(
+                            modifier = Modifier
+                                .size(if (selected) 18.dp else 13.dp)
+                                .background(
+                                    color = if (selected) {
+                                        MaterialTheme.colorScheme.primary
+                                    } else {
+                                        MaterialTheme.colorScheme.tertiary
+                                    },
+                                    shape = CircleShape,
+                                )
+                                .border(
+                                    width = 2.dp,
+                                    color = Color.White,
+                                    shape = CircleShape,
+                                ),
+                        )
+                    }
                 }
+            }
+        }
+    }
+}
+
+@Composable
+private fun ReferenceAtlasPlate(
+    system: EarthwormSystem,
+    modifier: Modifier = Modifier,
+) {
+    var scale by remember(system) { mutableFloatStateOf(1f) }
+    var pan by remember(system) { mutableStateOf(Offset.Zero) }
+    val transformState = rememberTransformableState { zoomChange, panChange, _ ->
+        val nextScale = (scale * zoomChange).coerceIn(1f, MAX_ZOOM)
+        scale = nextScale
+        pan = if (nextScale <= 1f) Offset.Zero else pan + panChange
+    }
+
+    Card(modifier = modifier) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(HQ_REFERENCE_ASPECT_RATIO)
+                .background(Color(0xFF071B1A))
+                .pointerInput(system) {
+                    detectTapGestures(
+                        onDoubleTap = {
+                            scale = 1f
+                            pan = Offset.Zero
+                        },
+                    )
+                },
+            contentAlignment = Alignment.Center,
+        ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .graphicsLayer(
+                        scaleX = scale,
+                        scaleY = scale,
+                        translationX = pan.x,
+                        translationY = pan.y,
+                    )
+                    .transformable(transformState),
+            ) {
+                Image(
+                    painter = painterResource(hqAtlasResource(system)),
+                    contentDescription = stringResource(R.string.atlas_reference_content_description),
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.fillMaxSize(),
+                )
             }
         }
     }
@@ -300,24 +482,20 @@ private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
     }
 }
 
-/**
- * The historical standalone SVG exports intentionally preserve the original
- * anatomical geometry, but their repository audit records that browser CSS
- * was not embedded in those extracted files. AndroidSVG therefore saw the
- * default black SVG text on the dark atlas background during device QA.
- *
- * Inject only the rendering rules that came from the authoritative HQ atlas
- * stylesheet. This does not alter anatomy, labels, hotspot geometry or
- * scientific data; it restores the missing presentation context before the
- * SVG is parsed by the native renderer.
- */
 private fun loadAtlasSvg(
     context: Context,
     @RawRes rawResId: Int,
+    showLabels: Boolean,
 ): SVG {
     val source = context.resources.openRawResource(rawResId)
         .bufferedReader(Charsets.UTF_8)
         .use { it.readText() }
+
+    val labelVisibilityRule = if (showLabels) {
+        ""
+    } else {
+        ".organ-label,.micro-label,.orientation-note{display:none!important}"
+    }
 
     val styled = source.replaceFirst(
         "<defs>",
@@ -335,6 +513,7 @@ private fun loadAtlasSvg(
 .orientation-note{font-size:13px;font-weight:bold;fill:#fff3c5;stroke:#061515;stroke-width:3}
 .flap{fill:#835d4f;stroke:#c18b74;stroke-width:2;opacity:.44}
 .surface-detail{pointer-events:none}
+$labelVisibilityRule
 ]]></style>"""
     )
     return SVG.getFromString(styled)
@@ -362,4 +541,30 @@ private fun atlasResource(
     EarthwormSystem.TRANSVERSE_SECTION ->
         if (language == AppLanguage.TAMIL) R.raw.atlas_crosssection_ta else R.raw.atlas_crosssection_en
     EarthwormSystem.PREPARATION -> error("Preparation has no anatomical atlas resource.")
+}
+
+@DrawableRes
+private fun hqAtlasResource(system: EarthwormSystem): Int = when (system) {
+    EarthwormSystem.EXTERNAL -> R.drawable.hq_external
+    EarthwormSystem.DIGESTIVE -> R.drawable.hq_digestive
+    EarthwormSystem.CIRCULATORY -> R.drawable.hq_circulatory
+    EarthwormSystem.RESPIRATORY -> R.drawable.hq_respiratory
+    EarthwormSystem.EXCRETORY -> R.drawable.hq_excretory
+    EarthwormSystem.REPRODUCTIVE -> R.drawable.hq_reproductive
+    EarthwormSystem.NERVOUS -> R.drawable.hq_nervous
+    EarthwormSystem.TRANSVERSE_SECTION -> R.drawable.hq_crosssection
+    EarthwormSystem.PREPARATION -> error("Preparation has no HQ anatomical reference plate.")
+}
+
+@StringRes
+private fun referenceCaptionResource(system: EarthwormSystem): Int = when (system) {
+    EarthwormSystem.EXTERNAL -> R.string.atlas_reference_caption_external
+    EarthwormSystem.DIGESTIVE -> R.string.atlas_reference_caption_digestive
+    EarthwormSystem.CIRCULATORY -> R.string.atlas_reference_caption_circulatory
+    EarthwormSystem.RESPIRATORY -> R.string.atlas_reference_caption_respiratory
+    EarthwormSystem.EXCRETORY -> R.string.atlas_reference_caption_excretory
+    EarthwormSystem.REPRODUCTIVE -> R.string.atlas_reference_caption_reproductive
+    EarthwormSystem.NERVOUS -> R.string.atlas_reference_caption_nervous
+    EarthwormSystem.TRANSVERSE_SECTION -> R.string.atlas_reference_caption_crosssection
+    EarthwormSystem.PREPARATION -> error("Preparation has no HQ anatomical reference caption.")
 }

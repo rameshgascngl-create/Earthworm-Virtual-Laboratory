@@ -1,0 +1,82 @@
+{
+  "phase": "3A",
+  "purpose": "Recovered HQ raster reference plates for native visual-mode coexistence",
+  "source": {
+    "branch": "integration/v1.3.8-hq-atlas-20260926",
+    "path": "app/src/main/assets/index.html",
+    "git_blob_sha": "ff79a4fc360175cc64112b9727c69fcb5a8774f5",
+    "format": "embedded data:image/webp;base64"
+  },
+  "policy": {
+    "recompressed": false,
+    "regenerated": false,
+    "interactive_hotspots_on_raster": false,
+    "reason": "Raster composition differs from SVG atlas; coordinates require independent calibration before activation."
+  },
+  "images": [
+    {
+      "system": "external",
+      "file": "hq_external.webp",
+      "git_blob_sha": "3ae4139831f4ebce1556d33641d219c7c79abf6a",
+      "width": 2048,
+      "height": 1536,
+      "format": "WebP"
+    },
+    {
+      "system": "digestive",
+      "file": "hq_digestive.webp",
+      "git_blob_sha": "684a8c96f78ea2065513c0932614217d8bcd2dd0",
+      "width": 2048,
+      "height": 1536,
+      "format": "WebP"
+    },
+    {
+      "system": "circulatory",
+      "file": "hq_circulatory.webp",
+      "git_blob_sha": "557aad4c9879d0c5bb341f0c3ec7e3920c31f3fc",
+      "width": 2048,
+      "height": 1536,
+      "format": "WebP"
+    },
+    {
+      "system": "respiratory",
+      "file": "hq_respiratory.webp",
+      "git_blob_sha": "60e94eb22a1e8760fdf5eb6f1a5a436ff8fce4ba",
+      "width": 2048,
+      "height": 1536,
+      "format": "WebP"
+    },
+    {
+      "system": "excretory",
+      "file": "hq_excretory.webp",
+      "git_blob_sha": "0bf2a899ea6c330f6524991652b0b718408abe6a",
+      "width": 2048,
+      "height": 1536,
+      "format": "WebP"
+    },
+    {
+      "system": "reproductive",
+      "file": "hq_reproductive.webp",
+      "git_blob_sha": "a12c46281259ede13f7e0b0c51fa4fe7b33a1007",
+      "width": 2048,
+      "height": 1536,
+      "format": "WebP"
+    },
+    {
+      "system": "nervous",
+      "file": "hq_nervous.webp",
+      "git_blob_sha": "33826b087a4635341b64f194606dd42bcd5e5194",
+      "width": 2048,
+      "height": 1536,
+      "format": "WebP"
+    },
+    {
+      "system": "crosssection",
+      "file": "hq_crosssection.webp",
+      "git_blob_sha": "9ff3089e0d998cbcf5975d3c6ae7715b2234b2de",
+      "width": 2048,
+      "height": 1536,
+      "format": "WebP"
+    }
+  ]
+}
