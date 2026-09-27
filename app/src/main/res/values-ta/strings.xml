@@ -72,6 +72,7 @@
     <string name="atlas_process_blood_circulation">இரத்த ஓட்ட செயல்முறை</string>
     <string name="atlas_process_digestive_journey">செரிமானப் பயணம்</string>
     <string name="atlas_process_nephridial_excretion">நெஃப்ரிடியக் கழிவுநீக்க செயல்முறை</string>
+    <string name="atlas_process_nervous_conduction">நரம்புத் தூண்டல் கடத்தல்</string>
     <string name="atlas_process_play">செயல்முறையை இயக்கு</string>
     <string name="atlas_process_pause">இடைநிறுத்து</string>
     <string name="atlas_process_previous">முந்தைய பகுதி</string>
@@ -88,6 +89,10 @@
     <string name="atlas_process_phase_intestinal_processing">குடல் செரிமானம் மற்றும் உறிஞ்சல்</string>
     <string name="atlas_process_phase_nephridial_processing">வடிகட்டல், மீளுறிஞ்சல் மற்றும் சுரப்பு</string>
     <string name="atlas_process_phase_excretory_routes">வெளியேற்றப் பாதை ஒப்பீடு</string>
+    <string name="atlas_process_phase_sensory_integration">உணர்வுத் தகவல் ஒருங்கிணைப்பு</string>
+    <string name="atlas_process_phase_nerve_ring_relay">நரம்பு வளையக் கடத்தல்</string>
+    <string name="atlas_process_phase_longitudinal_conduction">நீளவழி நரம்புத் தூண்டல் கடத்தல்</string>
+    <string name="atlas_process_phase_segmental_response">கண்டவாரியான ஒருங்கிணைப்பு மற்றும் மறுமொழி</string>
     <string name="atlas_nephridial_compare_show">நெஃப்ரிடியா ஒப்பீடு</string>
     <string name="atlas_nephridial_compare_hide">ஒப்பீட்டை மறை</string>
     <string name="atlas_nephridial_compare_title">நெஃப்ரிடியா — ஒப்பீட்டு காட்சி</string>

@@ -77,6 +77,7 @@
     <string name="atlas_process_blood_circulation">Blood circulation</string>
     <string name="atlas_process_digestive_journey">Digestive journey</string>
     <string name="atlas_process_nephridial_excretion">Nephridial excretion</string>
+    <string name="atlas_process_nervous_conduction">Nervous conduction</string>
     <string name="atlas_process_play">Play process</string>
     <string name="atlas_process_pause">Pause</string>
     <string name="atlas_process_previous">Previous part</string>
@@ -93,6 +94,10 @@
     <string name="atlas_process_phase_intestinal_processing">Intestinal digestion and absorption</string>
     <string name="atlas_process_phase_nephridial_processing">Filtration, reabsorption and secretion</string>
     <string name="atlas_process_phase_excretory_routes">Discharge-route comparison</string>
+    <string name="atlas_process_phase_sensory_integration">Sensory integration</string>
+    <string name="atlas_process_phase_nerve_ring_relay">Nerve-ring relay</string>
+    <string name="atlas_process_phase_longitudinal_conduction">Longitudinal impulse conduction</string>
+    <string name="atlas_process_phase_segmental_response">Segmental integration and response</string>
     <string name="atlas_nephridial_compare_show">Compare nephridia</string>
     <string name="atlas_nephridial_compare_hide">Hide comparison</string>
     <string name="atlas_nephridial_compare_title">Nephridia — comparison view</string>
