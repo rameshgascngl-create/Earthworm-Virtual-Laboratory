@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Taken verbatim from earthworm_content_v138.json → systems.*.ta, the
+         same reviewed Tamil terminology already used by the hybrid
+         reference and the Java-native branches. Not retranslated here. -->
+    <string name="system_preparation">ஆயத்தம்</string>
+    <string name="system_external">புற அமைப்பியல்</string>
+    <string name="system_digestive">செரிமான மண்டலம்</string>
+    <string name="system_circulatory">இரத்த ஓட்ட மண்டலம்</string>
+    <string name="system_respiratory">தோல் வழிச் சுவாசம்</string>
+    <string name="system_excretory">கழிவு நீக்க மண்டலம்</string>
+    <string name="system_reproductive">இனப்பெருக்க மண்டலம்</string>
+    <string name="system_nervous">நரம்பு மண்டலம்</string>
+    <string name="system_transverse_section">குறுக்குவெட்டுத் தோற்றம்</string>
+
+    <!--
+        DELIBERATELY NOT TRANSLATED YET:
+          preparation_title, preparation_intro, preparation_item_*,
+          placeholder_title, placeholder_body
+
+        These four groups are new Phase-1 UI copy with no equivalent in
+        earthworm_content_v138.json or any reviewed hybrid source — unlike
+        the system names above, there is no existing reviewed Tamil to
+        preserve. Per the migration brief ("do not retranslate scientific
+        vocabulary from memory... leave it explicitly marked for review
+        rather than inventing a replacement"), machine-drafting confident
+        Tamil for lab-safety and instructional copy and presenting it as
+        equivalent to the reviewed dataset strings above would be worse
+        than the current, visible fallback: Android resource resolution
+        falls back to res/values/strings.xml (English) for any key missing
+        here, so the Tamil-language build currently shows these four
+        groups in English rather than in unreviewed Tamil. This is a real
+        Phase-1 gap, not a hidden one — resolve by having R. Ramesh (or another
+        fluent reviewer) supply/approve the Tamil text, then add the keys here.
+    -->
+</resources>

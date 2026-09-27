@@ -1,0 +1,1444 @@
+{
+  "questions": {
+    "setup": [
+      {
+        "en": "Why is a dorsolateral incision safer than a deep mid-dorsal cut?",
+        "ta": "ஆழமான நடுமுதுகு வெட்டைவிட மேல்பக்கவாட்டு வெட்டு ஏன் பாதுகாப்பானது?",
+        "oEn": [
+          "It avoids the dorsal vessel",
+          "It removes the nerve cord",
+          "It opens the intestine",
+          "It exposes setae"
+        ],
+        "oTa": [
+          "முதுகுப்புற இரத்த நாளத்தைத் தவிர்க்கிறது",
+          "நரம்புவடத்தை அகற்றுகிறது",
+          "குடலைத் திறக்கிறது",
+          "சீட்டாக்களை வெளிப்படுத்துகிறது"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Which material is appropriate for an institutional wet practical?",
+        "ta": "நிறுவனச் செய்முறைக்கு ஏற்ற மாதிரி எது?",
+        "oEn": [
+          "A living worm without anaesthesia",
+          "Ethically sourced preserved material",
+          "Any wild animal collected secretly",
+          "A dried specimen"
+        ],
+        "oTa": [
+          "மயக்கமின்றி உயிருள்ள மண்புழு",
+          "ஒழுக்கவிதிப்படி பெறப்பட்ட பதப்படுத்திய மாதிரி",
+          "மறைவாகப் பிடித்த எந்த வனவிலங்கும்",
+          "உலர்ந்த மாதிரி"
+        ],
+        "a": 1
+      },
+      {
+        "en": "The dissected specimen is normally positioned with which side uppermost?",
+        "ta": "உடற்கூறாய்வில் மாதிரியின் எந்தப் பக்கம் மேலாக வைக்கப்படுகிறது?",
+        "oEn": [
+          "Dorsal",
+          "Ventral",
+          "Left lateral",
+          "Posterior"
+        ],
+        "oTa": [
+          "முதுகுப்புறம்",
+          "வயிற்றுப்புறம்",
+          "இடப்பக்கவாட்டு",
+          "பின்முனை"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Before cutting, the mid-dorsal landmark that must be protected is the:",
+        "ta": "வெட்டுவதற்கு முன் பாதுகாக்க வேண்டிய நடுமுதுகுக் குறியிடம்:",
+        "oEn": [
+          "Dorsal blood vessel",
+          "Ventral nerve cord",
+          "Female pore",
+          "Subneural vessel"
+        ],
+        "oTa": [
+          "முதுகுப்புற இரத்த நாளம்",
+          "வயிற்றுப்புற நரம்புவடம்",
+          "பெண் இனத்துளை",
+          "நரம்புவடக் கீழ்நாளம்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Septa should be released closest to the:",
+        "ta": "இடைத்திரைகள் எந்தப் பகுதிக்கு அருகே பிரிக்கப்பட வேண்டும்?",
+        "oEn": [
+          "Inner body wall",
+          "Gut midline",
+          "Heart lumen",
+          "Nerve ring"
+        ],
+        "oTa": [
+          "உடற்சுவரின் உட்பரப்பு",
+          "குடல் நடுக்கோடு",
+          "இதய உட்புழை",
+          "நரம்பு வளையம்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "The best immediate protection against drying during observation is:",
+        "ta": "உற்றுநோக்கும் போது உலர்வைத் தடுக்கும் உடனடி முறை:",
+        "oEn": [
+          "Controlled moistening with appropriate fluid",
+          "Deepening the incision",
+          "Removing the cuticle",
+          "Overstretching the specimen"
+        ],
+        "oTa": [
+          "பொருத்தமான திரவத்தால் கட்டுப்படுத்திய ஈரப்படுத்தல்",
+          "வெட்டை ஆழமாக்கல்",
+          "கியூட்டிக்கிளை அகற்றல்",
+          "மாதிரியை அதிகமாக நீட்டல்"
+        ],
+        "a": 0
+      },
+      {
+        "type": "ar",
+        "en": "Assertion: A shallow dorsolateral incision reduces damage to the dorsal vessel. Reason: The dorsal vessel lies superficially near the dorsal midline.",
+        "ta": "கூற்று: ஆழமற்ற மேல்பக்கவாட்டு வெட்டு முதுகுப்புற நாள சேதத்தைக் குறைக்கிறது. காரணம்: முதுகுப்புற நாளம் முதுகு நடுக்கோட்டிற்கு அருகே மேலோட்டமாக அமைந்துள்ளது.",
+        "oEn": [
+          "Both Assertion and Reason are true, and Reason correctly explains Assertion",
+          "Both are true, but Reason does not correctly explain Assertion",
+          "Assertion is true, but Reason is false",
+          "Assertion is false, but Reason is true"
+        ],
+        "oTa": [
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்குகிறது",
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்கவில்லை",
+          "கூற்று சரி; காரணம் தவறு",
+          "கூற்று தவறு; காரணம் சரி"
+        ],
+        "a": 0
+      },
+      {
+        "type": "match",
+        "en": "Match the instrument with its safest use.",
+        "ta": "கருவியை அதன் பாதுகாப்பான பயன்பாட்டுடன் பொருத்துக.",
+        "pairsEn": [
+          "A. Fine scissors",
+          "1. Separate septa",
+          "B. Blunt probe",
+          "2. Shallow incision",
+          "C. Pin",
+          "3. Lift body wall",
+          "D. Forceps",
+          "4. Anchor flap"
+        ],
+        "pairsTa": [
+          "A. நுண் கத்தரிக்கோல்",
+          "1. இடைத்திரை பிரித்தல்",
+          "B. மழுங்கிய ஆய்வூசி",
+          "2. ஆழமற்ற வெட்டு",
+          "C. ஊசி",
+          "3. உடற்சுவர் உயர்த்தல்",
+          "D. இடுக்கி",
+          "4. மடல் நிலைநிறுத்தல்"
+        ],
+        "oEn": [
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1",
+          "A–1, B–4, C–2, D–3"
+        ],
+        "oTa": [
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1",
+          "A–1, B–4, C–2, D–3"
+        ],
+        "a": 0
+      }
+    ],
+    "external": [
+      {
+        "en": "The clitellum of the teaching specimen occupies:",
+        "ta": "பாட மாதிரியின் கிளைட்டெல்லம் அமைந்த கண்டங்கள்:",
+        "oEn": [
+          "X–XII",
+          "XIV–XVI",
+          "XVII–XIX",
+          "V–VIII"
+        ],
+        "oTa": [
+          "X–XII",
+          "XIV–XVI",
+          "XVII–XIX",
+          "V–VIII"
+        ],
+        "a": 1
+      },
+      {
+        "en": "The single female genital pore is on segment:",
+        "ta": "ஒற்றைப் பெண் இனத்துளை உள்ள கண்டம்:",
+        "oEn": [
+          "XIV",
+          "XVIII",
+          "X",
+          "XXVI"
+        ],
+        "oTa": [
+          "XIV",
+          "XVIII",
+          "X",
+          "XXVI"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Perichaetine setae are chiefly used for:",
+        "ta": "சுற்றமைந்த சீட்டாக்களின் முதன்மைப் பணி:",
+        "oEn": [
+          "Photosynthesis",
+          "Anchorage during locomotion",
+          "Blood filtration",
+          "Cocoon secretion"
+        ],
+        "oTa": [
+          "ஒளிச்சேர்க்கை",
+          "இயக்கத்தில் பற்றுதல்",
+          "இரத்த வடிகட்டல்",
+          "முட்டைக்கூடு சுரப்பு"
+        ],
+        "a": 1
+      },
+      {
+        "en": "Which statement about clitellar setae in Metaphire posthuma is supported by the cited modern redescription?",
+        "ta": "மேற்கோள் நவீன மறுவிளக்க ஆய்வின்படி Metaphire posthuma-வின் கிளைட்டெல்லச் சீட்டாக்கள் குறித்த சரியான கூற்று எது?",
+        "oEn": [
+          "Ventral clitellar setae may be retained",
+          "All clitellar segments are completely devoid of setae",
+          "Only dorsal clitellar setae are retained",
+          "Setae occur only on segment XIV"
+        ],
+        "oTa": [
+          "கிளைட்டெல்லத்தின் வயிற்றுப்புறத்தில் சீட்டாக்கள் தொடரலாம்",
+          "கிளைட்டெல்லக் கண்டங்களில் சீட்டாக்கள் முற்றிலும் இல்லை",
+          "கிளைட்டெல்லத்தின் முதுகுப்புறத்தில் மட்டும் சீட்டாக்கள் தொடர்கின்றன",
+          "XIV-ஆம் கண்டத்தில் மட்டும் சீட்டாக்கள் உள்ளன"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Four pairs of spermathecal pores occur at:",
+        "ta": "நான்கு இணை விந்தேற்புத் துளைகள் அமைந்த வரம்புகள்:",
+        "oEn": [
+          "5/6–8/9",
+          "9/10–12/13",
+          "14/15–17/18",
+          "18/19–21/22"
+        ],
+        "oTa": [
+          "5/6–8/9",
+          "9/10–12/13",
+          "14/15–17/18",
+          "18/19–21/22"
+        ],
+        "a": 0
+      },
+      {
+        "en": "The prostomium is best described as a:",
+        "ta": "முன்வாய்மடலின் சரியான விளக்கம்:",
+        "oEn": [
+          "Preoral sensory and burrowing lobe",
+          "True first segment",
+          "Genital papilla",
+          "Respiratory gill"
+        ],
+        "oTa": [
+          "வாய்முன் உணர்வு மற்றும் மண் துளைப்பு மடல்",
+          "உண்மையான முதல் கண்டம்",
+          "இனப்பெருக்கப் பாப்பிலா",
+          "சுவாசச் செவுள்"
+        ],
+        "a": 0
+      },
+      {
+        "type": "ar",
+        "en": "Assertion: The clitellum indicates sexual maturity. Reason: Setae anchor the body during locomotion.",
+        "ta": "கூற்று: கிளைட்டெல்லம் பாலியல் முதிர்ச்சியைக் குறிக்கிறது. காரணம்: இயக்கத்தின் போது சீட்டாக்கள் உடலைப் பற்றவைக்கின்றன.",
+        "oEn": [
+          "Both Assertion and Reason are true, and Reason correctly explains Assertion",
+          "Both are true, but Reason does not correctly explain Assertion",
+          "Assertion is true, but Reason is false",
+          "Assertion is false, but Reason is true"
+        ],
+        "oTa": [
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்குகிறது",
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்கவில்லை",
+          "கூற்று சரி; காரணம் தவறு",
+          "கூற்று தவறு; காரணம் சரி"
+        ],
+        "a": 1
+      },
+      {
+        "type": "match",
+        "en": "Match the external landmark with its position.",
+        "ta": "புறக் குறியிடத்தை அதன் அமைவிடத்துடன் பொருத்துக.",
+        "pairsEn": [
+          "A. Clitellum",
+          "1. XVIII",
+          "B. Female pore",
+          "2. 5/6–8/9",
+          "C. Male pores",
+          "3. XIV–XVI",
+          "D. Spermathecal pores",
+          "4. XIV"
+        ],
+        "pairsTa": [
+          "A. கிளைட்டெல்லம்",
+          "1. XVIII",
+          "B. பெண் இனத்துளை",
+          "2. 5/6–8/9",
+          "C. ஆண் இனத்துளைகள்",
+          "3. XIV–XVI",
+          "D. விந்தேற்புத் துளைகள்",
+          "4. XIV"
+        ],
+        "oEn": [
+          "A–3, B–4, C–1, D–2",
+          "A–2, B–1, C–4, D–3",
+          "A–4, B–3, C–2, D–1",
+          "A–1, B–4, C–2, D–3"
+        ],
+        "oTa": [
+          "A–3, B–4, C–1, D–2",
+          "A–2, B–1, C–4, D–3",
+          "A–4, B–3, C–2, D–1",
+          "A–1, B–4, C–2, D–3"
+        ],
+        "a": 0
+      }
+    ],
+    "digestive": [
+      {
+        "en": "Mechanical grinding occurs chiefly in the:",
+        "ta": "இயந்திர அரைப்பு முதன்மையாக நடைபெறும் பகுதி:",
+        "oEn": [
+          "Pharynx",
+          "Gizzard",
+          "Typhlosole",
+          "Oesophagus"
+        ],
+        "oTa": [
+          "தொண்டை",
+          "அரவைப்பை",
+          "டைஃப்ளோசோல்",
+          "உணவுக்குழாய்"
+        ],
+        "a": 1
+      },
+      {
+        "en": "The typhlosole increases:",
+        "ta": "டைஃப்ளோசோல் அதிகரிப்பது:",
+        "oEn": [
+          "External surface",
+          "Absorptive surface",
+          "Heart pressure",
+          "Setal number"
+        ],
+        "oTa": [
+          "வெளிப்பரப்பு",
+          "உறிஞ்சும் பரப்பு",
+          "இதய அழுத்தம்",
+          "சீட்டா எண்ணிக்கை"
+        ],
+        "a": 1
+      },
+      {
+        "en": "In the cited Metaphire posthuma redescription, the paired intestinal caeca originate in segment:",
+        "ta": "மேற்கோள் Metaphire posthuma மறுவிளக்க ஆய்வின்படி இணையான குடல் நீட்சிகள் தொடங்கும் கண்டம்:",
+        "oEn": [
+          "VIII",
+          "XV",
+          "XXVI",
+          "XXVII"
+        ],
+        "oTa": [
+          "VIII",
+          "XV",
+          "XXVI",
+          "XXVII"
+        ],
+        "a": 3
+      },
+      {
+        "en": "The intestine begins at approximately segment:",
+        "ta": "குடல் தொடங்கும் கண்டம் சுமார்:",
+        "oEn": [
+          "XV",
+          "VIII",
+          "IV",
+          "XXVI"
+        ],
+        "oTa": [
+          "XV",
+          "VIII",
+          "IV",
+          "XXVI"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Chloragogen cells are chiefly associated with:",
+        "ta": "குளோராகோகன் செல்கள் முதன்மையாகத் தொடர்புடைய பகுதி:",
+        "oEn": [
+          "Intestinal metabolism and storage",
+          "Setal movement",
+          "Sperm reception",
+          "Nerve conduction"
+        ],
+        "oTa": [
+          "குடல் மாற்றுச்செயல் மற்றும் சேமிப்பு",
+          "சீட்டா இயக்கம்",
+          "விந்தணு பெறுதல்",
+          "நரம்புத் தூண்டல் கடத்தல்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Which is a paired anteriorly directed digestive diverticulum?",
+        "ta": "இணையாக முன்நோக்கி நீளும் செரிமான நீட்சி:",
+        "oEn": [
+          "Intestinal caeca",
+          "Typhlosole",
+          "Gizzard",
+          "Pharynx"
+        ],
+        "oTa": [
+          "குடல் நீட்சிகள்",
+          "டைஃப்ளோசோல்",
+          "அரவைப்பை",
+          "தொண்டை"
+        ],
+        "a": 0
+      },
+      {
+        "type": "ar",
+        "en": "Assertion: The typhlosole increases absorption. Reason: It bears cuticular teeth that grind food.",
+        "ta": "கூற்று: டைஃப்ளோசோல் உறிஞ்சுதலை அதிகரிக்கிறது. காரணம்: அதில் உணவை அரைக்கும் கியூட்டிக்கிள் பற்கள் உள்ளன.",
+        "oEn": [
+          "Both Assertion and Reason are true, and Reason correctly explains Assertion",
+          "Both are true, but Reason does not correctly explain Assertion",
+          "Assertion is true, but Reason is false",
+          "Assertion is false, but Reason is true"
+        ],
+        "oTa": [
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்குகிறது",
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்கவில்லை",
+          "கூற்று சரி; காரணம் தவறு",
+          "கூற்று தவறு; காரணம் சரி"
+        ],
+        "a": 2
+      },
+      {
+        "type": "match",
+        "en": "Match the digestive region with its main role.",
+        "ta": "செரிமானப் பகுதியை அதன் முதன்மைப் பணியுடன் பொருத்துக.",
+        "pairsEn": [
+          "A. Pharynx",
+          "1. Surface increase",
+          "B. Gizzard",
+          "2. Absorption",
+          "C. Intestine",
+          "3. Grinding",
+          "D. Typhlosole",
+          "4. Ingestion pump"
+        ],
+        "pairsTa": [
+          "A. தொண்டை",
+          "1. பரப்பளவு அதிகரித்தல்",
+          "B. அரவைப்பை",
+          "2. உறிஞ்சுதல்",
+          "C. குடல்",
+          "3. அரைத்தல்",
+          "D. டைஃப்ளோசோல்",
+          "4. உணவு உள்ளிழுத்தல்"
+        ],
+        "oEn": [
+          "A–4, B–3, C–2, D–1",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–1, B–4, C–2, D–3"
+        ],
+        "oTa": [
+          "A–4, B–3, C–2, D–1",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–1, B–4, C–2, D–3"
+        ],
+        "a": 0
+      }
+    ],
+    "circulatory": [
+      {
+        "en": "Earthworm circulation is:",
+        "ta": "மண்புழுவின் இரத்த ஓட்ட முறை:",
+        "oEn": [
+          "Open",
+          "Closed",
+          "Absent",
+          "Water-vascular"
+        ],
+        "oTa": [
+          "திறந்தது",
+          "மூடியது",
+          "இல்லை",
+          "நீர்க்குழல் முறை"
+        ],
+        "a": 1
+      },
+      {
+        "en": "Blood in the dorsal vessel is propelled mainly:",
+        "ta": "முதுகுப்புற நாளத்தில் இரத்தம் முதன்மையாகச் செல்லும் திசை:",
+        "oEn": [
+          "Anteriorly",
+          "Posteriorly",
+          "Only laterally",
+          "Outside the body"
+        ],
+        "oTa": [
+          "முன்நோக்கி",
+          "பின்நோக்கி",
+          "பக்கவாட்டில் மட்டும்",
+          "உடலுக்கு வெளியே"
+        ],
+        "a": 0
+      },
+      {
+        "en": "The cited species redescription directly confirms that the last hearts of Metaphire posthuma occur in segment:",
+        "ta": "மேற்கோள் இன மறுவிளக்க ஆய்வு Metaphire posthuma-வின் கடைசி இதயங்கள் எந்தக் கண்டத்தில் இருப்பதை நேரடியாக உறுதிப்படுத்துகிறது?",
+        "oEn": [
+          "IX",
+          "XI",
+          "XIII",
+          "XV"
+        ],
+        "oTa": [
+          "IX",
+          "XI",
+          "XIII",
+          "XV"
+        ],
+        "a": 2
+      },
+      {
+        "en": "The vessel immediately below the ventral nerve cord is the:",
+        "ta": "வயிற்றுப்புற நரம்புவடத்திற்குச் சற்றுக் கீழுள்ள நாளம்:",
+        "oEn": [
+          "Subneural vessel",
+          "Dorsal vessel",
+          "Supra-oesophageal vessel",
+          "Ventral vessel"
+        ],
+        "oTa": [
+          "நரம்புவடக் கீழ்நாளம்",
+          "முதுகுப்புற நாளம்",
+          "உணவுக்குழாய் மேல்நாளம்",
+          "வயிற்றுப்புற நாளம்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Lateral-oesophageal vessels chiefly function as:",
+        "ta": "உணவுக்குழாய் பக்கவாட்டு நாளங்களின் முதன்மைப் பணி:",
+        "oEn": [
+          "Paired anterior collecting vessels",
+          "Respiratory sacs",
+          "Excretory ducts",
+          "Motor nerves"
+        ],
+        "oTa": [
+          "இணை முன்புறச் சேகரிப்பு நாளங்கள்",
+          "சுவாசப் பைகள்",
+          "கழிவு நாளங்கள்",
+          "இயக்க நரம்புகள்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "The ventral vessel lies:",
+        "ta": "வயிற்றுப்புற இரத்த நாளம் அமைந்துள்ள இடம்:",
+        "oEn": [
+          "Below gut and above nerve cord",
+          "Above dorsal vessel",
+          "Below subneural vessel",
+          "Inside the intestine"
+        ],
+        "oTa": [
+          "குடலுக்குக் கீழும் நரம்புவடத்திற்கு மேலும்",
+          "முதுகுப்புற நாளத்திற்கு மேலே",
+          "நரம்புவடக் கீழ்நாளத்திற்குக் கீழே",
+          "குடலுக்குள்"
+        ],
+        "a": 0
+      },
+      {
+        "type": "ar",
+        "en": "Assertion: The circulatory system of Metaphire is open. Reason: Blood remains within defined vessels and capillary networks.",
+        "ta": "கூற்று: Metaphire-இன் இரத்த ஓட்ட மண்டலம் திறந்தது. காரணம்: இரத்தம் வரையறுக்கப்பட்ட நாளங்களிலும் தந்துகி வலைகளிலும் தங்கியுள்ளது.",
+        "oEn": [
+          "Both Assertion and Reason are true, and Reason correctly explains Assertion",
+          "Both are true, but Reason does not correctly explain Assertion",
+          "Assertion is true, but Reason is false",
+          "Assertion is false, but Reason is true"
+        ],
+        "oTa": [
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்குகிறது",
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்கவில்லை",
+          "கூற்று சரி; காரணம் தவறு",
+          "கூற்று தவறு; காரணம் சரி"
+        ],
+        "a": 3
+      },
+      {
+        "type": "match",
+        "en": "Match the vessel with its principal relationship.",
+        "ta": "நாளத்தை அதன் முதன்மை உறவுடன் பொருத்துக.",
+        "pairsEn": [
+          "A. Dorsal",
+          "1. Above gut",
+          "B. Ventral",
+          "2. Below nerve cord",
+          "C. Subneural",
+          "3. Paired anterior collectors",
+          "D. Lateral-oesophageal",
+          "4. Below gut"
+        ],
+        "pairsTa": [
+          "A. முதுகுப்புற நாளம்",
+          "1. குடலுக்கு மேல்",
+          "B. வயிற்றுப்புற நாளம்",
+          "2. நரம்புவடத்திற்குக் கீழ்",
+          "C. நரம்புவடக் கீழ்நாளம்",
+          "3. இணை முன்புறச் சேகரிப்புகள்",
+          "D. உணவுக்குழாய் பக்கநாளங்கள்",
+          "4. குடலுக்குக் கீழ்"
+        ],
+        "oEn": [
+          "A–1, B–4, C–2, D–3",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "oTa": [
+          "A–1, B–4, C–2, D–3",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "a": 0
+      }
+    ],
+    "respiratory": [
+      {
+        "en": "The principal respiratory surface is the:",
+        "ta": "முதன்மைச் சுவாசப் பரப்பு:",
+        "oEn": [
+          "Gill",
+          "Lung",
+          "Moist skin",
+          "Intestinal caecum"
+        ],
+        "oTa": [
+          "செவுள்",
+          "நுரையீரல்",
+          "ஈரமான தோல்",
+          "குடல் நீட்சி"
+        ],
+        "a": 2
+      },
+      {
+        "en": "Why must the skin remain moist?",
+        "ta": "தோல் ஏன் ஈரமாக இருக்க வேண்டும்?",
+        "oEn": [
+          "Gases dissolve before diffusion",
+          "It forms blood",
+          "It digests soil",
+          "It produces setae"
+        ],
+        "oTa": [
+          "பரவலுக்கு முன் வாயுக்கள் கரைய வேண்டும்",
+          "இரத்தம் உருவாகிறது",
+          "மண்ணைச் செரிக்கிறது",
+          "சீட்டாக்களை உருவாக்குகிறது"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Oxygen reaching the skin is transported internally by:",
+        "ta": "தோலை அடைந்த ஆக்சிஜன் உடலுக்குள் கடத்தப்படுவது:",
+        "oEn": [
+          "Tracheae",
+          "Capillary blood",
+          "Air sacs",
+          "Nephridia"
+        ],
+        "oTa": [
+          "டிராக்கியாக்கள்",
+          "தந்துகி இரத்தம்",
+          "காற்றுப் பைகள்",
+          "நெஃப்ரிடியாக்கள்"
+        ],
+        "a": 1
+      },
+      {
+        "en": "The immediate diffusion sequence for oxygen is:",
+        "ta": "ஆக்சிஜன் பரவலின் உடனடி வரிசை:",
+        "oEn": [
+          "Moisture → cuticle/epidermis → capillary",
+          "Capillary → mucus → air sac",
+          "Nephridium → coelom → gut",
+          "Seta → muscle → vessel"
+        ],
+        "oTa": [
+          "ஈரம் → கியூட்டிக்கிள்/புறத்தோல் → தந்துகி",
+          "தந்துகி → சளிப்பொருள் → காற்றுப்பை",
+          "நெஃப்ரிடியம் → உடற்குழி → குடல்",
+          "சீட்டா → தசை → நாளம்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Drying is dangerous chiefly because it:",
+        "ta": "உலர்வு ஆபத்தானதற்கான முதன்மைக் காரணம்:",
+        "oEn": [
+          "Interrupts gas dissolution and diffusion",
+          "Removes all setae",
+          "Opens the blood vessels",
+          "Converts the coelom into air"
+        ],
+        "oTa": [
+          "வாயுக் கரைதல் மற்றும் பரவலைத் தடுக்கிறது",
+          "அனைத்து சீட்டாக்களையும் அகற்றுகிறது",
+          "இரத்த நாளங்களைத் திறக்கிறது",
+          "உடற்குழியை காற்றாக மாற்றுகிறது"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Cutaneous respiration is supported internally by:",
+        "ta": "தோல் சுவாசத்திற்கு உட்புறமாக உதவும் அமைப்பு:",
+        "oEn": [
+          "Dense subepidermal capillaries",
+          "Tracheal tubes",
+          "Book lungs",
+          "Gills"
+        ],
+        "oTa": [
+          "அடர்த்தியான புறத்தோலடித் தந்துகிகள்",
+          "டிராக்கியக் குழல்கள்",
+          "புத்தக நுரையீரல்கள்",
+          "செவுள்கள்"
+        ],
+        "a": 0
+      },
+      {
+        "type": "ar",
+        "en": "Assertion: Earthworm skin must remain moist for respiration. Reason: Respiratory gases diffuse efficiently after dissolving in a surface film.",
+        "ta": "கூற்று: மண்புழுவின் தோல் சுவாசத்திற்காக ஈரமாக இருக்க வேண்டும். காரணம்: சுவாச வாயுக்கள் மேற்பரப்பு ஈரப்படலத்தில் கரைந்த பின் திறம்படப் பரவுகின்றன.",
+        "oEn": [
+          "Both Assertion and Reason are true, and Reason correctly explains Assertion",
+          "Both are true, but Reason does not correctly explain Assertion",
+          "Assertion is true, but Reason is false",
+          "Assertion is false, but Reason is true"
+        ],
+        "oTa": [
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்குகிறது",
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்கவில்லை",
+          "கூற்று சரி; காரணம் தவறு",
+          "கூற்று தவறு; காரணம் சரி"
+        ],
+        "a": 0
+      },
+      {
+        "type": "match",
+        "en": "Match the respiratory component with its role.",
+        "ta": "சுவாசக் கூறை அதன் பணியுடன் பொருத்துக.",
+        "pairsEn": [
+          "A. Mucus",
+          "1. Diffusion barrier",
+          "B. Epidermis",
+          "2. Maintains gradient",
+          "C. Capillary",
+          "3. Moist film",
+          "D. Circulation",
+          "4. Blood transport"
+        ],
+        "pairsTa": [
+          "A. சளிப்பொருள்",
+          "1. பரவல் தடுப்பு",
+          "B. புறத்தோல்",
+          "2. செறிவுச் சரிவு நிலைநிறுத்தல்",
+          "C. தந்துகி",
+          "3. ஈரப்படலம்",
+          "D. இரத்த ஓட்டம்",
+          "4. இரத்தக் கடத்தல்"
+        ],
+        "oEn": [
+          "A–3, B–1, C–4, D–2",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "oTa": [
+          "A–3, B–1, C–4, D–2",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "a": 0
+      }
+    ],
+    "excretory": [
+      {
+        "en": "Which nephridia discharge directly outside?",
+        "ta": "நேரடியாக உடலுக்கு வெளியே திறக்கும் நெஃப்ரிடியாக்கள்:",
+        "oEn": [
+          "Integumentary",
+          "Pharyngeal",
+          "Septal only",
+          "All through the mouth"
+        ],
+        "oTa": [
+          "உடற்சுவர் நெஃப்ரிடியாக்கள்",
+          "தொண்டை நெஃப்ரிடியாக்கள்",
+          "இடைத்திரை மட்டும்",
+          "அனைத்தும் வாய் வழியாக"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Pharyngeal nephridia occur in segments:",
+        "ta": "தொண்டை நெஃப்ரிடியாக்கள் உள்ள கண்டங்கள்:",
+        "oEn": [
+          "I–III",
+          "IV–VI",
+          "X–XII",
+          "XV–XVII"
+        ],
+        "oTa": [
+          "I–III",
+          "IV–VI",
+          "X–XII",
+          "XV–XVII"
+        ],
+        "a": 1
+      },
+      {
+        "en": "Nephridia contribute to both excretion and:",
+        "ta": "நெஃப்ரிடியாக்கள் கழிவு நீக்கத்துடன் செய்யும் மற்றொரு பணி:",
+        "oEn": [
+          "Osmoregulation",
+          "Vision",
+          "Photosynthesis",
+          "Cocoon hardening"
+        ],
+        "oTa": [
+          "நீர்–உப்புச் சமநிலையைப் பேணுதல்",
+          "பார்வை",
+          "ஒளிச்சேர்க்கை",
+          "முட்டைக்கூடு கடினமாக்கல்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Which statement correctly describes nephridial organization in this teaching species?",
+        "ta": "இப்பாட இனத்தின் நெஃப்ரிடிய அமைப்பைச் சரியாக விளக்கும் கூற்று எது?",
+        "oEn": [
+          "Septal, pharyngeal and integumentary forms are numerous micronephridia",
+          "Each segment contains one pair of Lumbricus-type meganephridia",
+          "Only integumentary nephridia occur",
+          "Nephridia are respiratory organs"
+        ],
+        "oTa": [
+          "இடைத்திரை, தொண்டை, உடற்சுவர் வகைகள் அனைத்தும் அதிக எண்ணிக்கையிலான மைக்ரோநெஃப்ரிடியாக்கள்",
+          "ஒவ்வொரு கண்டத்திலும் Lumbricus வகை ஓரிணை மேகாநெஃப்ரிடியாக்கள் உள்ளன",
+          "உடற்சுவர் நெஃப்ரிடியாக்கள் மட்டும் உள்ளன",
+          "நெஃப்ரிடியாக்கள் சுவாச உறுப்புகள்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Which discharge pattern is correct?",
+        "ta": "சரியான கழிவு வெளியேற்றப் பாதை எது?",
+        "oEn": [
+          "Septal and pharyngeal systems are enteronephric; integumentary nephridia are exonephric",
+          "All nephridia open only to the exterior",
+          "All nephridia empty only into blood vessels",
+          "Integumentary nephridia are enteronephric"
+        ],
+        "oTa": [
+          "இடைத்திரை மற்றும் தொண்டை மண்டலங்கள் என்டெரோநெஃப்ரிக்; உடற்சுவர் நெஃப்ரிடியாக்கள் எக்சோநெஃப்ரிக்",
+          "அனைத்து நெஃப்ரிடியாக்களும் வெளிப்புறத்திற்கே திறக்கின்றன",
+          "அனைத்து நெஃப்ரிடியாக்களும் இரத்த நாளங்களுக்குள் மட்டுமே திறக்கின்றன",
+          "உடற்சுவர் நெஃப்ரிடியாக்கள் என்டெரோநெஃப்ரிக்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Exonephric means that discharge passes:",
+        "ta": "எக்சோநெஃப்ரிக் என்பதன் பொருள் கழிவு வெளியேறுவது:",
+        "oEn": [
+          "Directly to the exterior",
+          "Into the gut",
+          "Into the dorsal vessel",
+          "Into the nerve cord"
+        ],
+        "oTa": [
+          "நேரடியாக வெளிப்புறத்திற்கு",
+          "குடலுக்குள்",
+          "முதுகுப்புற நாளத்திற்குள்",
+          "நரம்புவடத்திற்குள்"
+        ],
+        "a": 0
+      },
+      {
+        "type": "ar",
+        "en": "Assertion: Integumentary nephridia are exonephric. Reason: Septal nephridia discharge enteronephrically.",
+        "ta": "கூற்று: உடற்சுவர் நெஃப்ரிடியாக்கள் எக்சோநெஃப்ரிக் வகை. காரணம்: இடைத்திரை நெஃப்ரிடியாக்கள் என்டெரோநெஃப்ரிக் வழியில் வெளியேற்றுகின்றன.",
+        "oEn": [
+          "Both Assertion and Reason are true, and Reason correctly explains Assertion",
+          "Both are true, but Reason does not correctly explain Assertion",
+          "Assertion is true, but Reason is false",
+          "Assertion is false, but Reason is true"
+        ],
+        "oTa": [
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்குகிறது",
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்கவில்லை",
+          "கூற்று சரி; காரணம் தவறு",
+          "கூற்று தவறு; காரணம் சரி"
+        ],
+        "a": 1
+      },
+      {
+        "type": "match",
+        "en": "Match nephridia with their categories.",
+        "ta": "நெஃப்ரிடியாக்களை அவற்றின் வகைகளுடன் பொருத்துக.",
+        "pairsEn": [
+          "A. Septal",
+          "1. Micronephridial and enteronephric",
+          "B. Integumentary",
+          "2. Micronephridial and enteronephric",
+          "C. Pharyngeal",
+          "3. Exterior opening",
+          "D. Nephridiopore",
+          "4. Micronephridial and exonephric"
+        ],
+        "pairsTa": [
+          "A. இடைத்திரை",
+          "1. மைக்ரோநெஃப்ரிடிய; என்டெரோநெஃப்ரிக்",
+          "B. உடற்சுவர்",
+          "2. மைக்ரோநெஃப்ரிடிய; என்டெரோநெஃப்ரிக்",
+          "C. தொண்டை",
+          "3. வெளித்திறப்பு",
+          "D. நெஃப்ரிடியத் துளை",
+          "4. மைக்ரோநெஃப்ரிடிய; எக்சோநெஃப்ரிக்"
+        ],
+        "oEn": [
+          "A–2, B–4, C–1, D–3",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "oTa": [
+          "A–2, B–4, C–1, D–3",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "a": 0
+      }
+    ],
+    "reproductive": [
+      {
+        "en": "Spermathecae chiefly store:",
+        "ta": "விந்தேற்புப் பைகள் முதன்மையாகச் சேமிப்பது:",
+        "oEn": [
+          "The worm's own ova",
+          "Partner-derived sperm",
+          "Digestive enzymes",
+          "Excretory fluid"
+        ],
+        "oTa": [
+          "தன் அண்டங்கள்",
+          "இணை மண்புழுவிடமிருந்து பெற்ற விந்தணுக்கள்",
+          "செரிமான நொதிகள்",
+          "கழிவுத் திரவம்"
+        ],
+        "a": 1
+      },
+      {
+        "en": "Earthworms are hermaphrodites, but usually show:",
+        "ta": "மண்புழுக்கள் இருபாலுறுப்பிகள்; எனினும் வழக்கமாக நடைபெறுவது:",
+        "oEn": [
+          "Cross-fertilisation",
+          "Budding",
+          "Binary fission",
+          "External asexual spores"
+        ],
+        "oTa": [
+          "அயற்கருவுறுதல்",
+          "மொட்டுவிடுதல்",
+          "இருபிளவு",
+          "பாலிலா வெளிவித்துகள்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Male genital pores occur on segment:",
+        "ta": "ஆண் இனத்துளைகள் உள்ள கண்டம்:",
+        "oEn": [
+          "XIV",
+          "XVIII",
+          "XXVI",
+          "VIII"
+        ],
+        "oTa": [
+          "XIV",
+          "XVIII",
+          "XXVI",
+          "VIII"
+        ],
+        "a": 1
+      },
+      {
+        "en": "Cocoon material is secreted chiefly by the:",
+        "ta": "முட்டைக்கூட்டுப் பொருளை முதன்மையாகச் சுரப்பது:",
+        "oEn": [
+          "Clitellum",
+          "Gizzard",
+          "Nephridia",
+          "Dorsal vessel"
+        ],
+        "oTa": [
+          "கிளைட்டெல்லம்",
+          "அரவைப்பை",
+          "நெஃப்ரிடியாக்கள்",
+          "முதுகுப்புற நாளம்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "During cocoon formation, stored partner sperm comes from the:",
+        "ta": "முட்டைக்கூடு உருவாக்கத்தின் போது பிற மண்புழுவின் சேமித்த விந்தணுக்கள் கிடைப்பது:",
+        "oEn": [
+          "Spermathecae",
+          "Seminal vesicles",
+          "Ovaries",
+          "Prostate glands"
+        ],
+        "oTa": [
+          "விந்தேற்புப் பைகள்",
+          "விந்துப் பைகள்",
+          "அண்டகங்கள்",
+          "புரோஸ்டேட் சுரப்பிகள்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Which statement about asexual reproduction is accurate for Metaphire posthuma?",
+        "ta": "Metaphire posthuma-வின் பாலிலா இனப்பெருக்கம் குறித்த சரியான கூற்று எது?",
+        "oEn": [
+          "Budding and fission are not its normal reproductive modes",
+          "All fragments form new worms",
+          "Regeneration is identical to reproduction",
+          "It normally reproduces by budding"
+        ],
+        "oTa": [
+          "மொட்டுவிடுதலும் இருபிளவும் இதன் இயல்பான இனப்பெருக்க முறைகள் அல்ல",
+          "அனைத்துத் துண்டுகளும் புதிய மண்புழுவாகும்",
+          "மீளுருவாக்கமே இனப்பெருக்கம்",
+          "இது வழக்கமாக மொட்டுவிடுதல் மூலம் இனப்பெருக்கம் செய்கிறது"
+        ],
+        "a": 0
+      },
+      {
+        "type": "ar",
+        "en": "Assertion: Metaphire is hermaphroditic but usually cross-fertilises. Reason: Self-fertilisation is compulsory in every mature individual.",
+        "ta": "கூற்று: Metaphire இருபாலுறுப்பியாயினும் வழக்கமாக அயற்கருவுறுதல் செய்கிறது. காரணம்: ஒவ்வொரு முதிர்ந்த உயிரிக்கும் தற்கருவுறுதல் கட்டாயமாக நடைபெறுகிறது.",
+        "oEn": [
+          "Both Assertion and Reason are true, and Reason correctly explains Assertion",
+          "Both are true, but Reason does not correctly explain Assertion",
+          "Assertion is true, but Reason is false",
+          "Assertion is false, but Reason is true"
+        ],
+        "oTa": [
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்குகிறது",
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்கவில்லை",
+          "கூற்று சரி; காரணம் தவறு",
+          "கூற்று தவறு; காரணம் சரி"
+        ],
+        "a": 2
+      },
+      {
+        "type": "match",
+        "en": "Match the reproductive structure with its role.",
+        "ta": "இனப்பெருக்க அமைப்பை அதன் பணியுடன் பொருத்துக.",
+        "pairsEn": [
+          "A. Testis",
+          "1. Cocoon secretion",
+          "B. Spermatheca",
+          "2. Partner-sperm storage",
+          "C. Ovary",
+          "3. Sperm production",
+          "D. Clitellum",
+          "4. Oocyte production"
+        ],
+        "pairsTa": [
+          "A. விந்தகம்",
+          "1. முட்டைக்கூடு சுரப்பு",
+          "B. விந்தேற்புப் பை",
+          "2. பிறவிந்தணு சேமிப்பு",
+          "C. அண்டகம்",
+          "3. விந்தணு உற்பத்தி",
+          "D. கிளைட்டெல்லம்",
+          "4. அண்டச் செல் உற்பத்தி"
+        ],
+        "oEn": [
+          "A–3, B–2, C–4, D–1",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "oTa": [
+          "A–3, B–2, C–4, D–1",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "a": 0
+      }
+    ],
+    "nervous": [
+      {
+        "en": "The longitudinal nerve cord is located:",
+        "ta": "நீளும் நரம்புவடம் அமைந்த பகுதி:",
+        "oEn": [
+          "Dorsally",
+          "Ventrally",
+          "Inside the intestine",
+          "Outside the body wall"
+        ],
+        "oTa": [
+          "முதுகுப்புறம்",
+          "வயிற்றுப்புறம்",
+          "குடலுக்குள்",
+          "உடற்சுவருக்கு வெளியே"
+        ],
+        "a": 1
+      },
+      {
+        "en": "The nerve ring encircles the:",
+        "ta": "நரம்பு வளையம் சூழ்வது:",
+        "oEn": [
+          "Pharynx",
+          "Gizzard",
+          "Clitellum",
+          "Anus"
+        ],
+        "oTa": [
+          "தொண்டை",
+          "அரவைப்பை",
+          "கிளைட்டெல்லம்",
+          "மலத்துளை"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Segmental ganglia chiefly provide:",
+        "ta": "கண்ட நரம்புத் திரள்களின் முதன்மை பங்கு:",
+        "oEn": [
+          "Distributed local control",
+          "Blood production",
+          "Food grinding",
+          "Cocoon secretion"
+        ],
+        "oTa": [
+          "பகிர்ந்த உள்ளூர் கட்டுப்பாடு",
+          "இரத்த உற்பத்தி",
+          "உணவு அரைப்பு",
+          "முட்டைக்கூடு சுரப்பு"
+        ],
+        "a": 0
+      },
+      {
+        "en": "The cerebral ganglia lie chiefly:",
+        "ta": "மூளை நரம்புத் திரள்கள் முதன்மையாக அமைந்துள்ள இடம்:",
+        "oEn": [
+          "Dorsal to pharynx",
+          "Inside gizzard",
+          "Below subneural vessel",
+          "Within clitellum"
+        ],
+        "oTa": [
+          "தொண்டைக்கு மேல்",
+          "அரவைப்பைக்குள்",
+          "நரம்புவடக் கீழ்நாளத்திற்குக் கீழ்",
+          "கிளைட்டெல்லத்துக்குள்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "The ventral nerve cord is structurally:",
+        "ta": "வயிற்றுப்புற நரம்புவடத்தின் அமைப்பு:",
+        "oEn": [
+          "Double, closely fused and ganglionated",
+          "Single hollow dorsal tube",
+          "Open vascular sinus",
+          "Unsegmented muscle"
+        ],
+        "oTa": [
+          "இரட்டை, நெருக்கமாக இணைந்த, நரம்புத் திரள்கள் கொண்டது",
+          "ஒற்றை உள்ளீடற்ற முதுகுக் குழாய்",
+          "திறந்த இரத்தக் குழி",
+          "கண்டமற்ற தசை"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Local segmental coordination is centred in the:",
+        "ta": "உள்ளூர் கண்டவாரி ஒருங்கிணைப்பின் மையம்:",
+        "oEn": [
+          "Segmental ganglia",
+          "Typhlosole",
+          "Prostate glands",
+          "Nephridiopores"
+        ],
+        "oTa": [
+          "கண்ட நரம்புத் திரள்கள்",
+          "டைஃப்ளோசோல்",
+          "புரோஸ்டேட் சுரப்பிகள்",
+          "நெஃப்ரிடியத் துளைகள்"
+        ],
+        "a": 0
+      },
+      {
+        "type": "ar",
+        "en": "Assertion: The nerve cord is dorsal in earthworms. Reason: Earthworms are protostome annelids and do not possess a chordate dorsal hollow nerve tube.",
+        "ta": "கூற்று: மண்புழுவின் நரம்புவடம் முதுகுப்புறத்தில் உள்ளது. காரணம்: மண்புழுக்கள் புரோட்டோஸ்டோம் வளையப்புழுக்கள்; முதுகுநாணிகளின் உள்ளீடற்ற முதுகுப்புற நரம்புக் குழாய் அவற்றுக்கு இல்லை.",
+        "oEn": [
+          "Both Assertion and Reason are true, and Reason correctly explains Assertion",
+          "Both are true, but Reason does not correctly explain Assertion",
+          "Assertion is true, but Reason is false",
+          "Assertion is false, but Reason is true"
+        ],
+        "oTa": [
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்குகிறது",
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்கவில்லை",
+          "கூற்று சரி; காரணம் தவறு",
+          "கூற்று தவறு; காரணம் சரி"
+        ],
+        "a": 3
+      },
+      {
+        "type": "match",
+        "en": "Match the nervous centre with its relationship.",
+        "ta": "நரம்பு மையத்தை அதன் உறவுடன் பொருத்துக.",
+        "pairsEn": [
+          "A. Cerebral ganglia",
+          "1. Dorsal to pharynx",
+          "B. Connectives",
+          "2. Local control",
+          "C. Subpharyngeal ganglion",
+          "3. Encircle pharynx",
+          "D. Segmental ganglia",
+          "4. Ventral anterior centre"
+        ],
+        "pairsTa": [
+          "A. மூளை நரம்புத் திரள்கள்",
+          "1. தொண்டைக்கு மேல்",
+          "B. இணைப்புகள்",
+          "2. உள்ளூர் கட்டுப்பாடு",
+          "C. கீழ்த்தொண்டைத் திரள்",
+          "3. தொண்டையைச் சூழும்",
+          "D. கண்டத் திரள்கள்",
+          "4. வயிற்றுப்புற முன்மையம்"
+        ],
+        "oEn": [
+          "A–1, B–3, C–4, D–2",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "oTa": [
+          "A–1, B–3, C–4, D–2",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "a": 0
+      }
+    ],
+    "crosssection": [
+      {
+        "en": "The true dorsoventral order below the gut is:",
+        "ta": "குடலுக்குக் கீழுள்ள சரியான மேல்–கீழ் வரிசை:",
+        "oEn": [
+          "Ventral vessel → nerve cord → subneural vessel",
+          "Nerve cord → dorsal vessel → gut",
+          "Subneural vessel → gut → ventral vessel",
+          "Nerve cord → ventral vessel → dorsal vessel"
+        ],
+        "oTa": [
+          "வயிற்றுப்புற நாளம் → நரம்புவடம் → நரம்புவடக் கீழ்நாளம்",
+          "நரம்புவடம் → முதுகுப்புற நாளம் → குடல்",
+          "நரம்புவடக் கீழ்நாளம் → குடல் → வயிற்றுப்புற நாளம்",
+          "நரம்புவடம் → வயிற்றுப்புற நாளம் → முதுகுப்புற நாளம்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Circular-muscle contraction causes a segment to:",
+        "ta": "வட்டத் தசைச் சுருக்கம் ஒரு கண்டத்தை:",
+        "oEn": [
+          "Elongate and narrow",
+          "Shorten and thicken",
+          "Become non-segmented",
+          "Lose coelomic fluid"
+        ],
+        "oTa": [
+          "நீண்டு மெலியச் செய்கிறது",
+          "குறுகித் தடிக்கச் செய்கிறது",
+          "கண்டமற்றதாக்குகிறது",
+          "உடற்குழித் திரவத்தை இழக்கச் செய்கிறது"
+        ],
+        "a": 0
+      },
+      {
+        "en": "The coelom functions mechanically as a:",
+        "ta": "உடற்குழி இயந்திர ரீதியில் செயல்படுவது:",
+        "oEn": [
+          "Hydrostatic skeleton",
+          "Rigid exoskeleton",
+          "Haemocoel",
+          "Air sac"
+        ],
+        "oTa": [
+          "நீரழுத்த எலும்புக்கூடு",
+          "கடினப் புறஎலும்புக்கூடு",
+          "ஹீமோகோயல்",
+          "காற்றுப்பை"
+        ],
+        "a": 0
+      },
+      {
+        "en": "The body-wall sequence from outside inward is:",
+        "ta": "உடற்சுவரின் வெளி–உள் சரியான வரிசை:",
+        "oEn": [
+          "Cuticle → epidermis → circular muscle → longitudinal muscle → peritoneum",
+          "Epidermis → cuticle → longitudinal → circular → coelom",
+          "Cuticle → longitudinal → epidermis → peritoneum",
+          "Peritoneum → cuticle → circular → epidermis"
+        ],
+        "oTa": [
+          "கியூட்டிக்கிள் → புறத்தோல் → வட்டத் தசை → நீளவாட்டுத் தசை → பெரிட்டோனியம்",
+          "புறத்தோல் → கியூட்டிக்கிள் → நீளவாட்டுத் தசை → வட்டத் தசை → உடற்குழி",
+          "கியூட்டிக்கிள் → நீளவாட்டுத் தசை → புறத்தோல் → பெரிட்டோனியம்",
+          "பெரிட்டோனியம் → கியூட்டிக்கிள் → வட்டத் தசை → புறத்தோல்"
+        ],
+        "a": 0
+      },
+      {
+        "en": "Longitudinal-muscle contraction causes the segment to:",
+        "ta": "நீளவாட்டுத் தசைச் சுருக்கம் கண்டத்தை:",
+        "oEn": [
+          "Shorten and thicken",
+          "Elongate and narrow",
+          "Lose segmentation",
+          "Open the gut"
+        ],
+        "oTa": [
+          "குறுகித் தடிக்கச் செய்கிறது",
+          "நீண்டு மெலியச் செய்கிறது",
+          "கண்ட அமைப்பை இழக்கச் செய்கிறது",
+          "குடலைத் திறக்கிறது"
+        ],
+        "a": 0
+      },
+      {
+        "en": "The coelom is lined by:",
+        "ta": "உடற்குழியைப் போர்த்துவது:",
+        "oEn": [
+          "Mesoderm-derived peritoneum",
+          "Cuticle only",
+          "Blood endothelium",
+          "Chitin plates"
+        ],
+        "oTa": [
+          "மீசோடெர்மில் தோன்றிய பெரிட்டோனியம்",
+          "கியூட்டிக்கிள் மட்டும்",
+          "இரத்த நாள உள்ளணி",
+          "கைட்டின் தகடுகள்"
+        ],
+        "a": 0
+      },
+      {
+        "type": "ar",
+        "en": "Assertion: The coelom contributes to locomotion. Reason: Compartmentalised coelomic fluid transmits forces generated by antagonistic muscles.",
+        "ta": "கூற்று: உடற்குழி இயக்கத்திற்கு உதவுகிறது. காரணம்: கண்டவாரியாகப் பிரிக்கப்பட்ட உடற்குழித் திரவம் எதிர்தசைகள் உருவாக்கும் விசையைப் பரப்புகிறது.",
+        "oEn": [
+          "Both Assertion and Reason are true, and Reason correctly explains Assertion",
+          "Both are true, but Reason does not correctly explain Assertion",
+          "Assertion is true, but Reason is false",
+          "Assertion is false, but Reason is true"
+        ],
+        "oTa": [
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்குகிறது",
+          "கூற்றும் காரணமும் சரி; காரணம் கூற்றைச் சரியாக விளக்கவில்லை",
+          "கூற்று சரி; காரணம் தவறு",
+          "கூற்று தவறு; காரணம் சரி"
+        ],
+        "a": 0
+      },
+      {
+        "type": "match",
+        "en": "Match the section layer with its property.",
+        "ta": "குறுக்குவெட்டுப் படலத்தை அதன் பண்புடன் பொருத்துக.",
+        "pairsEn": [
+          "A. Cuticle",
+          "1. Elongation",
+          "B. Epidermis",
+          "2. Mucus secretion",
+          "C. Circular muscle",
+          "3. Shortening",
+          "D. Longitudinal muscle",
+          "4. Non-cellular cover"
+        ],
+        "pairsTa": [
+          "A. கியூட்டிக்கிள்",
+          "1. நீளச்செய்தல்",
+          "B. புறத்தோல்",
+          "2. சளிப்பொருள் சுரப்பு",
+          "C. வட்டத் தசை",
+          "3. குறுகச்செய்தல்",
+          "D. நீளவாட்டுத் தசை",
+          "4. செல்களற்ற உறை"
+        ],
+        "oEn": [
+          "A–4, B–2, C–1, D–3",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "oTa": [
+          "A–4, B–2, C–1, D–3",
+          "A–2, B–1, C–4, D–3",
+          "A–3, B–4, C–1, D–2",
+          "A–4, B–3, C–2, D–1"
+        ],
+        "a": 0
+      }
+    ]
+  }
+}

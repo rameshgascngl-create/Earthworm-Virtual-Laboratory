@@ -1,1 +1,30 @@
-<resources><string name="app_name">Earthworm Virtual Laboratory</string></resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Earthworm Virtual Laboratory</string>
+
+    <!-- System tab labels: taken verbatim from earthworm_content_v138.json → systems.*.en,
+         the authoritative reviewed dataset — not retranslated. -->
+    <string name="system_preparation">Preparation</string>
+    <string name="system_external">External morphology</string>
+    <string name="system_digestive">Digestive</string>
+    <string name="system_circulatory">Circulatory</string>
+    <string name="system_respiratory">Cutaneous respiration</string>
+    <string name="system_excretory">Excretory</string>
+    <string name="system_reproductive">Reproductive</string>
+    <string name="system_nervous">Nervous</string>
+    <string name="system_transverse_section">Transverse section</string>
+
+    <!-- Preparation screen. This is Phase-1 UI copy, not scientific content
+         from earthworm_content_v138.json (the "setup" system has zero
+         structure entries there) — see PreparationScreen.kt doc comment. -->
+    <string name="preparation_title">Before you begin</string>
+    <string name="preparation_intro">Check the following before starting the dissection procedure.</string>
+    <string name="preparation_item_specimen">Preserved earthworm specimen (Metaphire posthuma)</string>
+    <string name="preparation_item_dissection_tray">Dissection tray with wax base</string>
+    <string name="preparation_item_instruments">Dissecting instruments: scalpel, forceps, scissors, pins</string>
+    <string name="preparation_item_safety">Gloves and safe disposal container</string>
+
+    <!-- Honest placeholder copy — Phase 1 only, see SystemPlaceholderScreen.kt -->
+    <string name="placeholder_title">%1$s — atlas migration pending</string>
+    <string name="placeholder_body">This system\'s interactive atlas has not been migrated to the native app yet (Phase 2). Nothing has been substituted in its place.</string>
+</resources>
