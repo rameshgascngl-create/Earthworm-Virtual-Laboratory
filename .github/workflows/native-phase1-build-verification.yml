@@ -1,0 +1,108 @@
+name: Native Phase 1 verified build
+on:
+  push:
+    branches:
+      - native/v2-phase1-build-correction-ci
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+      - name: Install Android SDK packages
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'platform-tools'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Clean
+        run: gradle --no-daemon clean
+
+      - name: Lint
+        run: gradle --no-daemon :app:lintDebug :app:lintRelease
+
+      - name: Unit tests
+        run: gradle --no-daemon :app:testDebugUnitTest
+
+      - name: Assemble Debug
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Inspect Debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1)"
+          test -n "$APK"
+          {
+            echo "APK=$APK"
+            sha256sum "$APK"
+            echo
+            echo "== BADGING =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK"
+            echo
+            echo "== PERMISSIONS =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt" dump permissions "$APK"
+            echo
+            echo "== HTML/CSS/JS ENTRIES =="
+            if zipinfo -1 "$APK" | grep -Ei '\.(html|css|js)$'; then
+              echo "UNEXPECTED_BROWSER_PAYLOAD=YES"
+              exit 21
+            else
+              echo "UNEXPECTED_BROWSER_PAYLOAD=NO"
+            fi
+            echo
+            echo "== WEBKIT CLASS REFERENCES =="
+            TMP="$(mktemp -d)"
+            unzip -qq "$APK" 'classes*.dex' -d "$TMP"
+            if find "$TMP" -name 'classes*.dex' -print0 | xargs -0 strings | grep -E 'android/webkit|androidx/webkit|WebViewAssetLoader'; then
+              echo "UNEXPECTED_WEBKIT_REFERENCE=YES"
+              exit 22
+            else
+              echo "UNEXPECTED_WEBKIT_REFERENCE=NO"
+            fi
+            echo
+            echo "== LOCALE RESOURCE SIGNALS =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump resources "$APK" | grep -E 'config.*ta|locale.*ta|values-ta' || true
+          } | tee apk-inspection.txt
+
+      - name: Release structural compile
+        run: gradle --no-daemon :app:assembleRelease
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase1-debug
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      - name: Upload unsigned Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase1-unsigned-release
+          path: app/build/outputs/apk/release/*unsigned.apk
+          if-no-files-found: warn
+
+      - name: Upload APK inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase1-apk-inspection
+          path: apk-inspection.txt
+          if-no-files-found: error
+
+      - name: Upload lint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase1-lint
+          path: app/build/reports/lint-results*
+          if-no-files-found: warn
