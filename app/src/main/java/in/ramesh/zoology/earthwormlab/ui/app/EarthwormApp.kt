@@ -1,5 +1,6 @@
 package `in`.ramesh.zoology.earthwormlab.ui.app
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,6 +42,12 @@ fun EarthwormApp(viewModel: EarthwormViewModel) {
     val appContext = LocalContext.current.applicationContext
     val scientificContentRepository = remember(appContext) {
         ScientificContentRepository(appContext)
+    }
+
+    BackHandler(
+        enabled = uiState.selectedSystem != EarthwormSystem.PREPARATION,
+    ) {
+        viewModel.onSystemSelected(EarthwormSystem.PREPARATION)
     }
 
     EarthwormTheme {
