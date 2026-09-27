@@ -385,7 +385,7 @@
     "mucus-film": {
       "system": "respiratory",
       "en": "Mucus film",
-      "ta": "கோழை ஈரப்படலம்",
+      "ta": "கோழைப் படலம்",
       "locEn": "A thin film coating the external body surface.",
       "locTa": "உடலின் வெளிப்பரப்பை மூடிய மெல்லிய ஈரப்படலம்.",
       "fnEn": "Keeps the respiratory surface moist and reduces damaging friction in soil.",
@@ -398,7 +398,7 @@
     "cutaneous-capillaries": {
       "system": "respiratory",
       "en": "Subepidermal capillaries",
-      "ta": "புறத்தோலுக்குக் கீழுள்ள இரத்த நுண்நாளங்கள் (தந்துகிகள்)",
+      "ta": "எபிடெர்மிஸுக்குக் கீழுள்ள இரத்த நுண்நாளங்கள்",
       "locEn": "Dense blood capillaries immediately beneath the epidermis.",
       "locTa": "புறத்தோலுக்குச் சற்றுக் கீழே அடர்த்தியாகப் பரவியுள்ள இரத்த நுண்நாளங்கள்.",
       "fnEn": "Carry O₂ away from and deliver CO₂ toward the diffusion surface.",
@@ -413,7 +413,7 @@
       "en": "Cutaneous gas exchange",
       "ta": "தோல் வழி வாயுப் பரிமாற்றம்",
       "locEn": "Across the moist cuticle–epidermis–capillary barrier.",
-      "locTa": "ஈரமான கியுட்டிகிள்–புறத்தோல்–தந்துகி தடுப்பின் குறுக்காக நடைபெறுகிறது.",
+      "locTa": "ஈரமான கியுட்டிகிள்–எபிடெர்மிஸ்–இரத்த நுண்நாளம் தடுப்பின் குறுக்காக நடைபெறுகிறது.",
       "fnEn": "O₂ diffuses inward and CO₂ diffuses outward down partial-pressure gradients.",
       "fnTa": "வாயுக்களின் பகுதி அழுத்த வேறுபாட்டால் ஆக்சிஜன் உடலுக்குள்ளும், கார்பன் டைஆக்சைடு வெளியேயும் பரவுகின்றன.",
       "sigEn": "Earthworms lack specialized respiratory organs.",
@@ -588,7 +588,7 @@
       "en": "Circumpharyngeal connectives",
       "ta": "தொண்டைசூழ் இணைப்பு நரம்புகள்",
       "locEn": "Paired connectives encircling the pharynx from cerebral to subpharyngeal ganglia.",
-      "locTa": "மூளை நரம்புத் திரளிலிருந்து கீழ்த்தொண்டை நரம்புத் திரள்வரை தொண்டையைச் சுற்றும் இணை நரம்புகள்.",
+      "locTa": "தொண்டைமேல் நரம்பு செல் திரள்களிலிருந்து தொண்டைக்கீழ் நரம்பு செல் திரள்வரை தொண்டையைச் சுற்றும் இணை நரம்புகள்.",
       "fnEn": "Complete the nerve ring and relay impulses between dorsal and ventral centres.",
       "fnTa": "நரம்பு வளையத்தை நிறைவு செய்து மேல்–கீழ் நரம்பு மையங்களுக்கு இடையே தூண்டல்களைக் கடத்துகின்றன.",
       "sigEn": "The pharynx passes through the nerve ring.",
@@ -625,7 +625,7 @@
     "segmental-ganglia": {
       "system": "nervous",
       "en": "Segmental ganglia",
-      "ta": "கண்ட நரம்புத் திரள்கள்",
+      "ta": "கண்ட நரம்பு செல் திரள்கள்",
       "locEn": "Paired fused enlargements along the ventral cord, typically one per segment.",
       "locTa": "வயிற்றுப்புற நரம்புவடத்தில் பொதுவாக ஒவ்வொரு கண்டத்திற்கும் ஓர் இணை இணைந்த வீக்கங்களாக.",
       "fnEn": "Control local muscles and integrate segmental sensory information.",
@@ -770,9 +770,9 @@
     "cs-gut": {
       "system": "crosssection",
       "en": "Intestinal wall and typhlosole",
-      "ta": "குடல் சுவரும் டைஃப்ளோசோலும்",
+      "ta": "குடல் சுவரும் டிப்லோசோலும்",
       "locEn": "Centrally suspended within the coelom; the dorsal wall may project inward as the typhlosole.",
-      "locTa": "உடற்குழியின் மையத்தில் நிலைநிறுத்தப்பட்டுள்ளது; முதுகுப்புறச் சுவர் டைஃப்ளோசோலாக உட்புறம் நீளலாம்.",
+      "locTa": "உடற்குழியின் மையத்தில் நிலைநிறுத்தப்பட்டுள்ளது; முதுகுப்புறச் சுவர் டிப்லோசோலாக உட்புறம் நீளலாம்.",
       "fnEn": "Digests food and absorbs nutrients across the epithelial surface.",
       "fnTa": "உணவைச் செரித்து மேலணிப் பரப்பின் வழியாக ஊட்டப் பொருள்களை உறிஞ்சுகிறது.",
       "sigEn": "Its central position explains why a deep incision can damage it.",
@@ -815,7 +815,7 @@
       "fnEn": "Conducts impulses and integrates segmental motor and sensory activity.",
       "fnTa": "தூண்டல்களைக் கடத்தி கண்டவாரியான இயக்க மற்றும் உணர்வுச் செயல்களை ஒருங்கிணைக்கிறது.",
       "sigEn": "The paired cords are closely fused and ganglionated.",
-      "sigTa": "இணை நரம்புவடங்கள் நெருக்கமாக இணைந்து நரம்புத் திரள்களைக் கொண்டுள்ளன.",
+      "sigTa": "இணை நரம்புவடங்கள் நெருக்கமாக இணைந்து நரம்பு செல் திரள்களைக் கொண்டுள்ளன.",
       "fixEn": "It is ventral, not dorsal as in chordates.",
       "fixTa": "இது முதுகுநாணிகளைப் போல முதுகுப்புறத்தில் அல்ல; வயிற்றுப்புறத்தில் உள்ளது.",
       "deep": "ganglion"
@@ -1732,7 +1732,7 @@
       {
         "type": "ar",
         "en": "Assertion: The circulatory system of Metaphire is open. Reason: Blood remains within defined vessels and capillary networks.",
-        "ta": "கூற்று: Metaphire-இன் இரத்த ஓட்ட மண்டலம் திறந்தது. காரணம்: இரத்தம் வரையறுக்கப்பட்ட நாளங்களிலும் தந்துகி வலைகளிலும் தங்கியுள்ளது.",
+        "ta": "கூற்று: Metaphire-இன் இரத்த ஓட்ட மண்டலம் திறந்தது. காரணம்: இரத்தம் வரையறுக்கப்பட்ட நாளங்களிலும் இரத்த நுண்நாள வலைகளிலும் தங்கியுள்ளது.",
         "oEn": [
           "Both Assertion and Reason are true, and Reason correctly explains Assertion",
           "Both are true, but Reason does not correctly explain Assertion",
@@ -1832,7 +1832,7 @@
         ],
         "oTa": [
           "டிராக்கியாக்கள்",
-          "தந்துகி இரத்தம்",
+          "இரத்த நுண்நாளங்களில் உள்ள இரத்தம்",
           "காற்றுப் பைகள்",
           "நெஃப்ரீடியாக்கள்"
         ],
@@ -1848,8 +1848,8 @@
           "Seta → muscle → vessel"
         ],
         "oTa": [
-          "ஈரம் → கியுட்டிகிள்/புறத்தோல் → தந்துகி",
-          "தந்துகி → கோழை → காற்றுப்பை",
+          "ஈரம் → கியுட்டிகிள்/எபிடெர்மிஸ் → இரத்த நுண்நாளம்",
+          "இரத்த நுண்நாளம் → கோழை → காற்றுப்பை",
           "நெஃப்ரீடியம் → உடற்குழி → குடல்",
           "சீட்டா → தசை → நாளம்"
         ],
@@ -1882,7 +1882,7 @@
           "Gills"
         ],
         "oTa": [
-          "அடர்த்தியான புறத்தோலடித் தந்துகிகள்",
+          "அடர்த்தியான எபிடெர்மிஸுக்குக் கீழுள்ள இரத்த நுண்நாளங்கள்",
           "டிராக்கியக் குழல்கள்",
           "புத்தக நுரையீரல்கள்",
           "செவுள்கள்"
@@ -1924,9 +1924,9 @@
         "pairsTa": [
           "A. கோழை",
           "1. பரவல் தடுப்பு",
-          "B. புறத்தோல்",
+          "B. எபிடெர்மிஸ்",
           "2. செறிவுச் சரிவு நிலைநிறுத்தல்",
-          "C. தந்துகி",
+          "C. இரத்த நுண்நாளம்",
           "3. ஈரப்படலம்",
           "D. இரத்த ஓட்டம்",
           "4. இரத்தக் கடத்தல்"
@@ -2362,7 +2362,7 @@
           "Nephridiopores"
         ],
         "oTa": [
-          "கண்ட நரம்புத் திரள்கள்",
+          "கண்ட நரம்பு செல் திரள்கள்",
           "டிப்லோசோல்",
           "புரோஸ்டேட் சுரப்பிகள்",
           "நெஃப்ரீடியத் துளைகள்"
@@ -2564,7 +2564,7 @@
         "pairsTa": [
           "A. கியுட்டிகிள்",
           "1. நீளச்செய்தல்",
-          "B. புறத்தோல்",
+          "B. எபிடெர்மிஸ்",
           "2. கோழை சுரப்பு",
           "C. வட்டத் தசை",
           "3. குறுகச்செய்தல்",
@@ -2616,7 +2616,7 @@
       "en": "Cutaneous respiratory barrier",
       "ta": "தோல் வழி வாயுப் பரிமாற்றம்",
       "textEn": "Oxygen dissolves in the surface moisture, crosses the thin cuticle and epidermis, and enters subepidermal capillaries. Carbon dioxide follows the reverse gradient. Drying disrupts this pathway.",
-      "textTa": "ஆக்சிஜன் மேற்பரப்பு ஈரத்தில் கரைந்து, மெல்லிய கியுட்டிகிள் மற்றும் புறத்தோலைக் கடந்து புறத்தோலடித் தந்துகிகளை அடைகிறது. கார்பன் டைஆக்சைடு எதிர்திசைச் சரிவில் வெளியேறுகிறது. தோல் உலர்வது இப்பாதையைத் தடை செய்கிறது."
+      "textTa": "ஆக்சிஜன் மேற்பரப்பு ஈரத்தில் கரைந்து, மெல்லிய கியுட்டிகிள் மற்றும் புறத்தோலைக் கடந்து எபிடெர்மிஸுக்குக் கீழுள்ள இரத்த நுண்நாளங்களை அடைகிறது. கார்பன் டைஆக்சைடு எதிர்திசைச் சரிவில் வெளியேறுகிறது. தோல் உலர்வது இப்பாதையைத் தடை செய்கிறது."
     },
     "heart": {
       "en": "Contractile heart-vessel wall",
