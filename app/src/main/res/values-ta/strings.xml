@@ -76,4 +76,5 @@
     <string name="atlas_process_next">அடுத்த பகுதி</string>
     <string name="atlas_process_restart">மீண்டும் தொடங்கு</string>
     <string name="atlas_process_notice">இந்தக் காட்சி உறுதிப்படுத்தப்பட்ட அமைப்புகளின் செயல்பாடுகளை கற்றல் வரிசையில் இணைக்கிறது. இது துகள்கள் அல்லது இரத்தம் செல்லும் ஒவ்வொரு நுண்ணிய பாதையையும் நேரடியாக வரைபடமாகக் காட்டுவதல்ல.</string>
+    <string name="atlas_process_direction">செயலியக்கத் திசை: %1$s</string>
 </resources>
