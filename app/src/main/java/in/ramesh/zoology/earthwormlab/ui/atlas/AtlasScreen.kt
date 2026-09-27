@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.RawRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTransformGestures
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -23,6 +24,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
@@ -31,11 +33,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -74,7 +80,7 @@ fun AtlasScreen(
     }
 
     val structures = remember(system, repository) { repository.structuresFor(system) }
-    var selectedId by remember(system) { mutableStateOf(structures.firstOrNull()?.id) }
+    var selectedId by rememberSaveable(system.dataKey) { mutableStateOf(structures.firstOrNull()?.id) }
     val selectedStructure = structures.firstOrNull { it.id == selectedId }
     val selectedContent = selectedStructure?.let { repository.contentFor(it.id) }
 
@@ -150,65 +156,129 @@ private fun AtlasPlate(
 ) {
     val rawResId = atlasResource(system, language)
     val context = LocalContext.current
-    val svg = remember(rawResId, context) { loadAtlasSvg(context, rawResId) }
+    var scale by rememberSaveable(system.dataKey, "atlas-scale") { mutableStateOf(1f) }
+    var panX by rememberSaveable(system.dataKey, "atlas-pan-x") { mutableStateOf(0f) }
+    var panY by rememberSaveable(system.dataKey, "atlas-pan-y") { mutableStateOf(0f) }
+    var labelsVisible by rememberSaveable(system.dataKey, "atlas-labels") { mutableStateOf(true) }
+
+    val svg = remember(rawResId, context, selectedId, labelsVisible) {
+        loadAtlasSvg(
+            context = context,
+            rawResId = rawResId,
+            selectedId = selectedId,
+            labelsVisible = labelsVisible,
+        )
+    }
 
     Card(modifier = modifier) {
-        BoxWithConstraints(
-            modifier = Modifier
-                .fillMaxWidth()
-                .aspectRatio(ATLAS_ASPECT_RATIO)
-                .background(Color(0xFF071B1A)),
-        ) {
-            AndroidView(
-                modifier = Modifier.fillMaxSize(),
-                factory = { viewContext ->
-                    ImageView(viewContext).apply {
-                        scaleType = ImageView.ScaleType.FIT_CENTER
-                        adjustViewBounds = true
-                        setLayerType(View.LAYER_TYPE_SOFTWARE, null)
-                    }
-                },
-                update = { imageView ->
-                    imageView.setImageDrawable(PictureDrawable(svg.renderToPicture()))
-                },
-            )
+        Column {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 10.dp, vertical = 8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                FilterChip(
+                    selected = labelsVisible,
+                    onClick = { labelsVisible = !labelsVisible },
+                    label = { Text(stringResource(R.string.atlas_labels)) },
+                )
+                AssistChip(
+                    onClick = {
+                        scale = 1f
+                        panX = 0f
+                        panY = 0f
+                    },
+                    label = { Text(stringResource(R.string.atlas_reset_view)) },
+                )
+            }
 
-            structures.forEach { structure ->
-                val (x, y) = structure.hotspot.anchor()
-                val label = repository.contentFor(structure.id)?.label(language).orEmpty()
-                    .ifBlank { structure.id }
-                val selected = structure.id == selectedId
-                val touchSize = 36.dp
-                val xOffset = (maxWidth * x - touchSize / 2)
-                    .coerceIn(0.dp, (maxWidth - touchSize).coerceAtLeast(0.dp))
-                val yOffset = (maxHeight * y - touchSize / 2)
-                    .coerceIn(0.dp, (maxHeight - touchSize).coerceAtLeast(0.dp))
+            BoxWithConstraints(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(ATLAS_ASPECT_RATIO)
+                    .background(Color(0xFF071B1A))
+                    .clipToBounds()
+                    .pointerInput(system) {
+                        detectTransformGestures { _, pan, zoom, _ ->
+                            val nextScale = (scale * zoom).coerceIn(1f, 4f)
+                            if (nextScale <= 1.001f) {
+                                scale = 1f
+                                panX = 0f
+                                panY = 0f
+                            } else {
+                                scale = nextScale
+                                val maxPanX = size.width * (nextScale - 1f) / 2f
+                                val maxPanY = size.height * (nextScale - 1f) / 2f
+                                panX = (panX + pan.x).coerceIn(-maxPanX, maxPanX)
+                                panY = (panY + pan.y).coerceIn(-maxPanY, maxPanY)
+                            }
+                        }
+                    },
+            ) {
                 Box(
                     modifier = Modifier
-                        .size(touchSize)
-                        .align(Alignment.TopStart)
-                        .offset(x = xOffset, y = yOffset)
-                        .semantics { contentDescription = label }
-                        .clickable { onStructureSelected(structure.id) },
-                    contentAlignment = Alignment.Center,
+                        .fillMaxSize()
+                        .graphicsLayer {
+                            scaleX = scale
+                            scaleY = scale
+                            translationX = panX
+                            translationY = panY
+                        },
                 ) {
-                    Box(
-                        modifier = Modifier
-                            .size(if (selected) 18.dp else 13.dp)
-                            .background(
-                                color = if (selected) {
-                                    MaterialTheme.colorScheme.primary
-                                } else {
-                                    MaterialTheme.colorScheme.tertiary
-                                },
-                                shape = CircleShape,
-                            )
-                            .border(
-                                width = 2.dp,
-                                color = Color.White,
-                                shape = CircleShape,
-                            ),
+                    AndroidView(
+                        modifier = Modifier.fillMaxSize(),
+                        factory = { viewContext ->
+                            ImageView(viewContext).apply {
+                                scaleType = ImageView.ScaleType.FIT_CENTER
+                                adjustViewBounds = true
+                                setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+                            }
+                        },
+                        update = { imageView ->
+                            imageView.setImageDrawable(PictureDrawable(svg.renderToPicture()))
+                        },
                     )
+
+                    structures.forEach { structure ->
+                        val (x, y) = structure.hotspot.anchor()
+                        val label = repository.contentFor(structure.id)?.label(language).orEmpty()
+                            .ifBlank { structure.id }
+                        val selected = structure.id == selectedId
+                        val touchSize = 44.dp
+                        val xOffset = (maxWidth * x - touchSize / 2)
+                            .coerceIn(0.dp, (maxWidth - touchSize).coerceAtLeast(0.dp))
+                        val yOffset = (maxHeight * y - touchSize / 2)
+                            .coerceIn(0.dp, (maxHeight - touchSize).coerceAtLeast(0.dp))
+                        Box(
+                            modifier = Modifier
+                                .size(touchSize)
+                                .align(Alignment.TopStart)
+                                .offset(x = xOffset, y = yOffset)
+                                .semantics { contentDescription = label }
+                                .clickable { onStructureSelected(structure.id) },
+                            contentAlignment = Alignment.Center,
+                        ) {
+                            Box(
+                                modifier = Modifier
+                                    .size(if (selected) 26.dp else 14.dp)
+                                    .background(
+                                        color = if (selected) {
+                                            MaterialTheme.colorScheme.primary.copy(alpha = 0.42f)
+                                        } else {
+                                            MaterialTheme.colorScheme.tertiary
+                                        },
+                                        shape = CircleShape,
+                                    )
+                                    .border(
+                                        width = if (selected) 3.dp else 2.dp,
+                                        color = Color.White,
+                                        shape = CircleShape,
+                                    ),
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -314,6 +384,8 @@ private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
 private fun loadAtlasSvg(
     context: Context,
     @RawRes rawResId: Int,
+    selectedId: String?,
+    labelsVisible: Boolean,
 ): SVG {
     val source = context.resources.openRawResource(rawResId)
         .bufferedReader(Charsets.UTF_8)
@@ -337,7 +409,34 @@ private fun loadAtlasSvg(
 .surface-detail{pointer-events:none}
 ]]></style>"""
     )
-    return SVG.getFromString(styled)
+
+    val withLabelMode = if (labelsVisible) {
+        styled
+    } else {
+        styled
+            .replace("class=\"organ-label\"", "class=\"organ-label\" visibility=\"hidden\"")
+            .replace("class=\"micro-label\"", "class=\"micro-label\" visibility=\"hidden\"")
+            .replace("class=\"orientation-note\"", "class=\"orientation-note\" visibility=\"hidden\"")
+    }
+
+    val hasSelectedSvgGroup = !selectedId.isNullOrBlank() &&
+        withLabelMode.contains("data-structure=\"$selectedId\"")
+
+    val withSelection = if (!hasSelectedSvgGroup) {
+        withLabelMode
+    } else {
+        val structureGroup = Regex(
+            """<g class="svg-structure" data-structure="([^"]+)"([^>]*)>"""
+        )
+        structureGroup.replace(withLabelMode) { match ->
+            val structureId = match.groupValues[1]
+            val remainingAttributes = match.groupValues[2]
+            val opacity = if (structureId == selectedId) "1" else "0.34"
+            """<g class="svg-structure" data-structure="$structureId"$remainingAttributes opacity="$opacity">"""
+        }
+    }
+
+    return SVG.getFromString(withSelection)
 }
 
 @RawRes
