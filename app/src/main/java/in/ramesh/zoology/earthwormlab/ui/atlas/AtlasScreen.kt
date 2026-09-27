@@ -162,6 +162,7 @@ fun AtlasScreen(
                                 processCue = processCue,
                                 processTitle = processTitleText,
                                 functionCue = audioFunctionCue,
+                                mechanism = definition.stages[safeIndex].mechanism(language),
                             ),
                             language,
                         )
@@ -223,7 +224,12 @@ fun AtlasScreen(
                     onClick = {
                         processMode = !processMode
                         processPlaying = false
-                        if (processMode) processIndex = 0 else narrator.stop()
+                        if (processMode) {
+                            processIndex = 0
+                            detailedMode = false
+                        } else {
+                            narrator.stop()
+                        }
                     },
                     label = { Text(stringResource(R.string.atlas_process_mode)) },
                 )
@@ -789,10 +795,12 @@ private fun ScientificContentRepository.StructureContent.processNarration(
     processCue: String,
     processTitle: String,
     functionCue: String,
+    mechanism: String,
 ): String =
     listOf(
         processCue + ": " + processTitle,
         label(language),
+        mechanism.takeIf { it.isNotBlank() },
         function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
         significance(language).takeIf { it.isNotBlank() },
     )
@@ -805,7 +813,7 @@ private fun ScientificContentRepository.StructureContent.processNarration(
 private fun processTitle(process: BiologicalProcess): String = when (process) {
     BiologicalProcess.CUTANEOUS_RESPIRATION ->
         stringResource(R.string.atlas_process_cutaneous_respiration)
-    BiologicalProcess.BLOOD_CIRCULATION_OVERVIEW ->
+    BiologicalProcess.BLOOD_CIRCULATION ->
         stringResource(R.string.atlas_process_blood_circulation)
 }
 
