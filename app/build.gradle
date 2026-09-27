@@ -88,8 +88,9 @@ android {
 }
 
 dependencies {
-    // Native Phase 1 intentionally has no browser-runtime dependency or packaged
-    // browser UI surface; the hybrid reference remains outside this application path.
+    // No androidx.webkit dependency on this branch: Phase 1 has zero WebView/
+    // HTML/JS surface, by requirement, not by oversight. Do not re-add it
+    // here — the hybrid payload stays on main/the archive branches only.
 
     def composeBom = platform('androidx.compose:compose-bom:2025.01.00')
     implementation composeBom
