@@ -21,9 +21,12 @@ data class EarthwormUiState(
     val selectedSystem: EarthwormSystem = EarthwormSystem.PREPARATION,
     val language: AppLanguage = AppLanguage.ENGLISH,
     val isLoading: Boolean = true,
+    val canNavigateBack: Boolean = false,
 )
 
 private const val KEY_SELECTED_SYSTEM = "selected_system"
+private const val KEY_NAVIGATION_HISTORY = "navigation_history"
+private const val MAX_NAVIGATION_HISTORY = 32
 
 /**
  * The single authoritative selection state the migration brief's Phase 1
@@ -43,6 +46,10 @@ class EarthwormViewModel(
         EarthwormSystem.PREPARATION.dataKey,
     )
 
+    private val navigationHistory = savedStateHandle.getStateFlow(
+        KEY_NAVIGATION_HISTORY,
+        arrayListOf<String>(),
+    )
     private val isLoading = MutableStateFlow(true)
     private val language = MutableStateFlow(currentAppLanguage())
 
@@ -50,11 +57,13 @@ class EarthwormViewModel(
         selectedSystem,
         language,
         isLoading,
-    ) { systemKey, language, loading ->
+        navigationHistory,
+    ) { systemKey, language, loading, history ->
         EarthwormUiState(
             selectedSystem = EarthwormSystem.fromDataKey(systemKey) ?: EarthwormSystem.PREPARATION,
             language = language,
             isLoading = loading,
+            canNavigateBack = history.isNotEmpty(),
         )
     }.stateIn(
         scope = viewModelScope,
@@ -71,6 +80,14 @@ class EarthwormViewModel(
         viewModelScope.launch {
             if (savedStateHandle.get<String>(KEY_SELECTED_SYSTEM) == null) {
                 val restored = progressRepository.lastSystem.first()
+                if (
+                    restored != EarthwormSystem.PREPARATION &&
+                    navigationHistory.value.isEmpty()
+                ) {
+                    savedStateHandle[KEY_NAVIGATION_HISTORY] = arrayListOf(
+                        EarthwormSystem.PREPARATION.dataKey,
+                    )
+                }
                 savedStateHandle[KEY_SELECTED_SYSTEM] = restored.dataKey
             }
             isLoading.value = false
@@ -78,6 +95,28 @@ class EarthwormViewModel(
     }
 
     fun onSystemSelected(system: EarthwormSystem) {
+        val currentKey = selectedSystem.value
+        if (currentKey == system.dataKey) return
+
+        val updatedHistory = ArrayList(
+            (navigationHistory.value + currentKey).takeLast(MAX_NAVIGATION_HISTORY),
+        )
+        savedStateHandle[KEY_NAVIGATION_HISTORY] = updatedHistory
+        setSelectedSystem(system)
+    }
+
+    fun navigateBack() {
+        val history = navigationHistory.value
+        if (history.isEmpty()) return
+
+        val previousKey = history.last()
+        savedStateHandle[KEY_NAVIGATION_HISTORY] = ArrayList(history.dropLast(1))
+        setSelectedSystem(
+            EarthwormSystem.fromDataKey(previousKey) ?: EarthwormSystem.PREPARATION,
+        )
+    }
+
+    private fun setSelectedSystem(system: EarthwormSystem) {
         savedStateHandle[KEY_SELECTED_SYSTEM] = system.dataKey
         viewModelScope.launch { progressRepository.setLastSystem(system) }
     }
