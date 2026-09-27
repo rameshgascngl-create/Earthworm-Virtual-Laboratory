@@ -60,16 +60,40 @@ jobs:
             else
               echo "UNEXPECTED_BROWSER_PAYLOAD=NO"
             fi
+
             echo
-            echo "== WEBKIT CLASS REFERENCES =="
-            TMP="$(mktemp -d)"
-            unzip -qq "$APK" 'classes*.dex' -d "$TMP"
-            if find "$TMP" -name 'classes*.dex' -print0 | xargs -0 strings | grep -E 'android/webkit|androidx/webkit|WebViewAssetLoader'; then
-              echo "UNEXPECTED_WEBKIT_REFERENCE=YES"
+            echo "== ACTIVE APP SOURCE WEBVIEW USE =="
+            if grep -RInE --include='*.kt' 'android\.webkit|androidx\.webkit|WebViewAssetLoader|\bWebView\b' app/src/main/java; then
+              echo "UNEXPECTED_APP_WEBVIEW_SOURCE=YES"
               exit 22
             else
-              echo "UNEXPECTED_WEBKIT_REFERENCE=NO"
+              echo "UNEXPECTED_APP_WEBVIEW_SOURCE=NO"
             fi
+
+            echo
+            echo "== PACKAGED WEBKIT CLASS DEFINITIONS =="
+            TMP="$(mktemp -d)"
+            unzip -qq "$APK" 'classes*.dex' -d "$TMP"
+            if find "$TMP" -name 'classes*.dex' -print0 | while IFS= read -r -d '' dex; do
+                 "$ANDROID_HOME/build-tools/35.0.0/dexdump" "$dex"
+               done | grep -E "Class descriptor.*L(android|androidx)/webkit/|Class descriptor.*WebViewAssetLoader"; then
+              echo "UNEXPECTED_PACKAGED_WEBKIT_CLASS=YES"
+              exit 23
+            else
+              echo "UNEXPECTED_PACKAGED_WEBKIT_CLASS=NO"
+            fi
+
+            echo
+            echo "== WEBKIT TYPE REFERENCES (INFORMATIONAL) =="
+            REFS="$(find "$TMP" -name 'classes*.dex' -print0 | xargs -0 strings | grep -E 'android/webkit|androidx/webkit|WebViewAssetLoader' | sort -u | head -n 50 || true)"
+            if [ -n "$REFS" ]; then
+              printf '%s\n' "$REFS"
+              echo "WEBKIT_TYPE_REFERENCE_STRINGS_PRESENT=YES"
+              echo "NOTE=Reference strings alone are not treated as WebView implementation; source use and packaged class definitions are the blocking gates."
+            else
+              echo "WEBKIT_TYPE_REFERENCE_STRINGS_PRESENT=NO"
+            fi
+
             echo
             echo "== LOCALE RESOURCE SIGNALS =="
             "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump resources "$APK" | grep -E 'config.*ta|locale.*ta|values-ta' || true
