@@ -81,4 +81,5 @@
     <string name="atlas_process_next">Next part</string>
     <string name="atlas_process_restart">Restart</string>
     <string name="atlas_process_notice">This teaching sequence links the verified functions of existing structures. It does not claim to trace every microscopic path taken by diffusing gases or circulating blood.</string>
+    <string name="atlas_process_direction">Physiological direction: %1$s</string>
 </resources>

@@ -6,6 +6,11 @@ import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.annotation.RawRes
+import androidx.compose.animation.core.RepeatMode
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.animation.core.infiniteRepeatable
+import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTransformGestures
@@ -105,6 +110,9 @@ fun AtlasScreen(
     var processMode by rememberSaveable(system.dataKey, "atlas-process-mode") { mutableStateOf(false) }
     var processPlaying by rememberSaveable(system.dataKey, "atlas-process-playing") { mutableStateOf(false) }
     var processIndex by rememberSaveable(system.dataKey, "atlas-process-index") { mutableStateOf(0) }
+    val currentProcessStage = processDefinition?.stages?.let { stages ->
+        if (stages.isEmpty()) null else stages[processIndex.coerceIn(0, stages.lastIndex)]
+    }
 
     val selectStructure: (String) -> Unit = { structureId ->
         selectedId = structureId
@@ -141,9 +149,9 @@ fun AtlasScreen(
         processDefinition,
     ) {
         val definition = processDefinition
-        if (processMode && definition != null && definition.targets.isNotEmpty()) {
-            val safeIndex = processIndex.coerceIn(0, definition.targets.lastIndex)
-            val target = definition.targets[safeIndex]
+        if (processMode && definition != null && definition.stages.isNotEmpty()) {
+            val safeIndex = processIndex.coerceIn(0, definition.stages.lastIndex)
+            val target = definition.stages[safeIndex].target
             if (structures.any { it.id == target }) {
                 selectedId = target
                 if (audioEnabled) {
@@ -154,6 +162,7 @@ fun AtlasScreen(
                                 processCue = processCue,
                                 processTitle = processTitleText,
                                 functionCue = audioFunctionCue,
+                                mechanism = definition.stages[safeIndex].mechanism(language),
                             ),
                             language,
                         )
@@ -165,10 +174,10 @@ fun AtlasScreen(
 
     LaunchedEffect(processPlaying, processDefinition, audioEnabled, language) {
         val definition = processDefinition ?: return@LaunchedEffect
-        while (processPlaying && processMode && definition.targets.isNotEmpty()) {
-            delay(if (audioEnabled) 8000 else 2200)
+        while (processPlaying && processMode && definition.stages.isNotEmpty()) {
+            delay(if (audioEnabled) 9000 else 2400)
             processIndex =
-                if (processIndex >= definition.targets.lastIndex) 0 else processIndex + 1
+                if (processIndex >= definition.stages.lastIndex) 0 else processIndex + 1
         }
     }
 
@@ -215,7 +224,12 @@ fun AtlasScreen(
                     onClick = {
                         processMode = !processMode
                         processPlaying = false
-                        if (processMode) processIndex = 0 else narrator.stop()
+                        if (processMode) {
+                            processIndex = 0
+                            detailedMode = false
+                        } else {
+                            narrator.stop()
+                        }
                     },
                     label = { Text(stringResource(R.string.atlas_process_mode)) },
                 )
@@ -253,12 +267,13 @@ fun AtlasScreen(
             }
         }
 
-        if (processMode && processDefinition != null && processDefinition.targets.isNotEmpty()) {
-            val safeIndex = processIndex.coerceIn(0, processDefinition.targets.lastIndex)
-            val currentTarget = processDefinition.targets[safeIndex]
+        if (processMode && processDefinition != null && currentProcessStage != null) {
+            val currentTarget = currentProcessStage.target
             val currentContent = repository.contentFor(currentTarget)
             val currentLabel = currentContent?.label(language).orEmpty().ifBlank { currentTarget }
             val currentFunction = currentContent?.function(language).orEmpty()
+            val currentMechanism = currentProcessStage.mechanism(language)
+            val currentCue = currentProcessStage.cue(language)
 
             OutlinedCard(
                 modifier = Modifier
@@ -283,6 +298,21 @@ fun AtlasScreen(
                             modifier = Modifier.padding(top = 4.dp),
                         )
                     }
+                    if (currentMechanism.isNotBlank()) {
+                        Text(
+                            text = currentMechanism,
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(top = 6.dp),
+                        )
+                    }
+                    if (currentCue.isNotBlank()) {
+                        Text(
+                            text = stringResource(R.string.atlas_process_direction, currentCue),
+                            style = MaterialTheme.typography.labelLarge,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(top = 6.dp),
+                        )
+                    }
                     Text(
                         text = stringResource(R.string.atlas_process_notice),
                         style = MaterialTheme.typography.bodySmall,
@@ -296,7 +326,7 @@ fun AtlasScreen(
                         AssistChip(
                             onClick = {
                                 processIndex =
-                                    if (processIndex <= 0) processDefinition.targets.lastIndex
+                                    if (processIndex <= 0) processDefinition.stages.lastIndex
                                     else processIndex - 1
                                 processPlaying = false
                             },
@@ -318,7 +348,7 @@ fun AtlasScreen(
                         AssistChip(
                             onClick = {
                                 processIndex =
-                                    if (processIndex >= processDefinition.targets.lastIndex) 0
+                                    if (processIndex >= processDefinition.stages.lastIndex) 0
                                     else processIndex + 1
                                 processPlaying = false
                             },
@@ -351,6 +381,8 @@ fun AtlasScreen(
                 repository = repository,
                 selectedId = selectedId,
                 onStructureSelected = selectStructure,
+                processStage = if (processMode) currentProcessStage else null,
+                processPlaying = processPlaying,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),
@@ -451,6 +483,8 @@ private fun AtlasPlate(
     repository: ScientificContentRepository,
     selectedId: String?,
     onStructureSelected: (String) -> Unit,
+    processStage: ProcessStage?,
+    processPlaying: Boolean,
     modifier: Modifier = Modifier,
 ) {
     val rawResId = atlasResource(system, language)
@@ -459,6 +493,16 @@ private fun AtlasPlate(
     var panX by rememberSaveable(system.dataKey, "atlas-pan-x") { mutableStateOf(0f) }
     var panY by rememberSaveable(system.dataKey, "atlas-pan-y") { mutableStateOf(0f) }
     var labelsVisible by rememberSaveable(system.dataKey, "atlas-labels") { mutableStateOf(true) }
+    val processTransition = rememberInfiniteTransition(label = "process-pulse")
+    val processPulse by processTransition.animateFloat(
+        initialValue = 0.72f,
+        targetValue = 1f,
+        animationSpec = infiniteRepeatable(
+            animation = tween(durationMillis = 900),
+            repeatMode = RepeatMode.Reverse,
+        ),
+        label = "process-pulse-alpha",
+    )
 
     val svg = remember(rawResId, context, labelsVisible) {
         loadAtlasSvg(
@@ -605,6 +649,40 @@ private fun AtlasPlate(
                             )
                         }
                     }
+
+                    processStage?.let { stage ->
+                        structures.firstOrNull { it.id == stage.target }?.let { active ->
+                            val (x, y) = active.hotspot.anchor()
+                            val markerSize = 64.dp
+                            val xOffset = (plateWidth * x - markerSize / 2)
+                                .coerceIn(0.dp, (plateWidth - markerSize).coerceAtLeast(0.dp))
+                            val yOffset = (plateHeight * y - markerSize / 2)
+                                .coerceIn(0.dp, (plateHeight - markerSize).coerceAtLeast(0.dp))
+                            Box(
+                                modifier = Modifier
+                                    .size(markerSize)
+                                    .align(Alignment.TopStart)
+                                    .offset(x = xOffset, y = yOffset)
+                                    .graphicsLayer {
+                                        alpha = if (processPlaying) processPulse else 0.9f
+                                        scaleX = if (processPlaying) 0.92f + 0.08f * processPulse else 1f
+                                        scaleY = if (processPlaying) 0.92f + 0.08f * processPulse else 1f
+                                    }
+                                    .border(
+                                        width = 3.dp,
+                                        color = MaterialTheme.colorScheme.tertiary,
+                                        shape = CircleShape,
+                                    ),
+                                contentAlignment = Alignment.Center,
+                            ) {
+                                Text(
+                                    text = processDirectionGlyph(stage.direction),
+                                    style = MaterialTheme.typography.titleLarge,
+                                    color = MaterialTheme.colorScheme.tertiary,
+                                )
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -717,10 +795,12 @@ private fun ScientificContentRepository.StructureContent.processNarration(
     processCue: String,
     processTitle: String,
     functionCue: String,
+    mechanism: String,
 ): String =
     listOf(
         processCue + ": " + processTitle,
         label(language),
+        mechanism.takeIf { it.isNotBlank() },
         function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
         significance(language).takeIf { it.isNotBlank() },
     )
@@ -733,8 +813,19 @@ private fun ScientificContentRepository.StructureContent.processNarration(
 private fun processTitle(process: BiologicalProcess): String = when (process) {
     BiologicalProcess.CUTANEOUS_RESPIRATION ->
         stringResource(R.string.atlas_process_cutaneous_respiration)
-    BiologicalProcess.BLOOD_CIRCULATION_OVERVIEW ->
+    BiologicalProcess.BLOOD_CIRCULATION ->
         stringResource(R.string.atlas_process_blood_circulation)
+}
+
+private fun processDirectionGlyph(direction: ProcessDirection): String = when (direction) {
+    ProcessDirection.INWARD -> "⇢"
+    ProcessDirection.OUTWARD -> "⇠"
+    ProcessDirection.BIDIRECTIONAL_EXCHANGE -> "⇄"
+    ProcessDirection.ANTERIOR -> "←"
+    ProcessDirection.DORSOVENTRAL_TRANSFER -> "↓"
+    ProcessDirection.POSTERIOR -> "→"
+    ProcessDirection.DISTRIBUTION -> "↔"
+    ProcessDirection.COLLECTION -> "↺"
 }
 
 private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
