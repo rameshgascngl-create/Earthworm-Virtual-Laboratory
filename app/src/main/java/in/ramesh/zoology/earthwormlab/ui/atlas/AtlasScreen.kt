@@ -13,13 +13,12 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
@@ -179,18 +178,15 @@ private fun AtlasPlate(
                     .ifBlank { structure.id }
                 val selected = structure.id == selectedId
                 val touchSize = 36.dp
+                val xOffset = (maxWidth * x - touchSize / 2)
+                    .coerceIn(0.dp, (maxWidth - touchSize).coerceAtLeast(0.dp))
+                val yOffset = (maxHeight * y - touchSize / 2)
+                    .coerceIn(0.dp, (maxHeight - touchSize).coerceAtLeast(0.dp))
                 Box(
                     modifier = Modifier
                         .size(touchSize)
                         .align(Alignment.TopStart)
-                        .padding(0.dp)
-                        .then(
-                            Modifier
-                                .padding(
-                                    start = (maxWidth * x - touchSize / 2).coerceAtLeast(0.dp),
-                                    top = (maxHeight * y - touchSize / 2).coerceAtLeast(0.dp),
-                                ),
-                        )
+                        .offset(x = xOffset, y = yOffset)
                         .semantics { contentDescription = label }
                         .clickable { onStructureSelected(structure.id) },
                     contentAlignment = Alignment.Center,
