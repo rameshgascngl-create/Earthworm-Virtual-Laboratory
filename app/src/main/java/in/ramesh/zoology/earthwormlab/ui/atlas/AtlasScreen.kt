@@ -54,7 +54,7 @@ private const val ATLAS_ASPECT_RATIO = 1200f / 560f
  * Phase-2 native anatomical atlas.
  *
  * The plate itself is rendered through AndroidSVG into an Android ImageView;
- * there is no WebView, HTML, JavaScript or network dependency. Interaction is
+ * there is no browser runtime, HTML, JavaScript or network dependency. Interaction is
  * provided by Compose using the normalized hotspot coordinates already
  * validated against the frozen reference dataset.
  *
