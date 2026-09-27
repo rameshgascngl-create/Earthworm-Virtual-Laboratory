@@ -18,6 +18,7 @@ internal enum class BiologicalProcess {
     CUTANEOUS_RESPIRATION,
     BLOOD_CIRCULATION,
     DIGESTIVE_JOURNEY,
+    NEPHRIDIAL_EXCRETION,
 }
 
 internal enum class ProcessPhase {
@@ -28,6 +29,8 @@ internal enum class ProcessPhase {
     MECHANICAL_DIGESTION,
     CHEMICAL_DIGESTION,
     INTESTINAL_PROCESSING,
+    NEPHRIDIAL_PROCESSING,
+    EXCRETORY_ROUTE_COMPARISON,
 }
 
 internal enum class ProcessDirection {
@@ -41,6 +44,9 @@ internal enum class ProcessDirection {
     COLLECTION,
     PROCESSING,
     ABSORPTION,
+    FILTRATION,
+    ENTERONEPHRIC,
+    EXONEPHRIC,
 }
 
 internal data class ProcessStage(
@@ -296,6 +302,56 @@ internal object ProcessGuidance {
                     mechanismTa = "டைஃப்ளோசோல் என்பது குடல் சுவரின் முதுகுப்புற நீள்மடிப்பு; உடல் விட்டத்தை பெரிதாக அதிகரிக்காமல் உறிஞ்சும் பரப்பளவை அதிகரிக்கிறது. இது தனிக் குழாய் அல்ல; குடல் உட்புழைக்குள் நீளும் சுவர்மடிப்பாகும்.",
                     cueEn = "Expanded absorptive surface",
                     cueTa = "உறிஞ்சும் பரப்பளவு அதிகரிப்பு",
+                ),
+            ),
+        ),
+        EarthwormSystem.EXCRETORY to ProcessDefinition(
+            process = BiologicalProcess.NEPHRIDIAL_EXCRETION,
+            system = EarthwormSystem.EXCRETORY,
+            stages = listOf(
+                ProcessStage(
+                    target = "nephridium",
+                    phase = ProcessPhase.NEPHRIDIAL_PROCESSING,
+                    direction = ProcessDirection.FILTRATION,
+                    titleEn = "Septal nephridium — filtration and tubular modification",
+                    titleTa = "இடைத்திரை நெஃப்ரிடியம் — வடிகட்டலும் குழல் மாற்றமும்",
+                    mechanismEn = "Coelomic fluid enters the enlarged septal nephridium through the nephrostome. Reabsorption and secretion along the coiled tubule modify the fluid, integrating excretion with water-and-salt regulation.",
+                    mechanismTa = "உடற்குழித் திரவம் நெஃப்ரோஸ்டோம் வழியாக பெரிதாக்கப்பட்ட இடைத்திரை நெஃப்ரிடியத்திற்குள் நுழைகிறது. சுருண்ட குழலில் நடைபெறும் மீளுறிஞ்சலும் சுரப்பும் கழிவுத் திரவத்தை மாற்றி, கழிவுநீக்கத்தையும் நீர்–உப்பு சமநிலையையும் ஒருங்கிணைக்கின்றன.",
+                    cueEn = "Filtration → reabsorption/secretion",
+                    cueTa = "வடிகட்டல் → மீளுறிஞ்சல் / சுரப்பு",
+                ),
+                ProcessStage(
+                    target = "septal-nephridia",
+                    phase = ProcessPhase.EXCRETORY_ROUTE_COMPARISON,
+                    direction = ProcessDirection.ENTERONEPHRIC,
+                    titleEn = "Septal nephridia — enteronephric route",
+                    titleTa = "இடைத்திரை நெஃப்ரிடியாக்கள் — என்டெரோநெஃப்ரிக் பாதை",
+                    mechanismEn = "Numerous septal nephridia filter and modify body fluid. In this species account their ducts ultimately communicate with the gut, so their discharge is enteronephric rather than directly external.",
+                    mechanismTa = "பல இடைத்திரை நெஃப்ரிடியாக்கள் உடல் திரவத்தை வடிகட்டி மாற்றுகின்றன. இவ்வினத்தில் அவற்றின் நாளங்கள் இறுதியில் குடலுடன் தொடர்பு கொள்வதால், வெளியேற்றம் நேரடியாக வெளிப்புறத்திற்கு அல்ல; என்டெரோநெஃப்ரிக் பாதையாகும்.",
+                    cueEn = "Gut-directed discharge",
+                    cueTa = "குடலை நோக்கிய வெளியேற்றம்",
+                ),
+                ProcessStage(
+                    target = "pharyngeal-nephridia",
+                    phase = ProcessPhase.EXCRETORY_ROUTE_COMPARISON,
+                    direction = ProcessDirection.ENTERONEPHRIC,
+                    titleEn = "Pharyngeal nephridia — enteronephric discharge",
+                    titleTa = "தொண்டை நெஃப்ரிடியாக்கள் — என்டெரோநெஃப்ரிக் வெளியேற்றம்",
+                    mechanismEn = "The three paired pharyngeal nephridial tufts in segments IV–VI discharge through ducts into the buccal cavity and pharynx. Their proximity to the pharynx does not make them digestive glands.",
+                    mechanismTa = "IV–VI கண்டங்களில் உள்ள மூன்று இணைத் தொண்டை நெஃப்ரிடியத் தொகுதிகள் தமது குழல்கள் வழியாக வாயறைக்கும் தொண்டைக்கும் கழிவுத் திரவத்தை செலுத்துகின்றன. தொண்டைக்கு அருகில் இருப்பதால் அவை செரிமானச் சுரப்பிகள் ஆகாது.",
+                    cueEn = "Internal discharge into foregut region",
+                    cueTa = "முன்குடல் பகுதிக்குள் உள்ளக வெளியேற்றம்",
+                ),
+                ProcessStage(
+                    target = "integumentary-nephridia",
+                    phase = ProcessPhase.EXCRETORY_ROUTE_COMPARISON,
+                    direction = ProcessDirection.EXONEPHRIC,
+                    titleEn = "Integumentary nephridia — exonephric discharge",
+                    titleTa = "உடற்சுவர் நெஃப்ரிடியாக்கள் — எக்சோநெஃப்ரிக் வெளியேற்றம்",
+                    mechanismEn = "Very numerous integumentary nephridia in the body wall discharge excretory fluid directly to the exterior through nephridiopores. This external route distinguishes them from the gut-opening pharyngeal and septal systems.",
+                    mechanismTa = "உடற்சுவரில் மிக அதிக எண்ணிக்கையில் உள்ள உடற்சுவர் நெஃப்ரிடியாக்கள் நெஃப்ரிடியத் துளைகள் வழியாக கழிவுத் திரவத்தை நேரடியாக வெளியேற்றுகின்றன. இந்த வெளிப்புற வெளியேற்றப் பாதை, குடலுக்குள் திறக்கும் தொண்டை மற்றும் இடைத்திரை நெஃப்ரிடியாக்களிலிருந்து இவற்றை வேறுபடுத்துகிறது.",
+                    cueEn = "Direct external discharge",
+                    cueTa = "நேரடி வெளிப்புற வெளியேற்றம்",
                 ),
             ),
         ),
