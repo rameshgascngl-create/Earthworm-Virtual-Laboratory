@@ -27,4 +27,13 @@
     <!-- Honest placeholder copy — Phase 1 only, see SystemPlaceholderScreen.kt -->
     <string name="placeholder_title">%1$s — atlas migration pending</string>
     <string name="placeholder_body">This system\'s interactive atlas has not been migrated to the native app yet (Phase 2). Nothing has been substituted in its place.</string>
+
+    <!-- Phase-2 native atlas UI chrome. Scientific/anatomical prose stays in earthworm_content_v138.json. -->
+    <string name="atlas_hint">Tap a marker or a structure name to inspect the anatomy.</string>
+    <string name="atlas_structures">Structures</string>
+    <string name="atlas_location">Location</string>
+    <string name="atlas_function">Function</string>
+    <string name="atlas_significance">Teaching point</string>
+    <string name="atlas_correction">Common correction</string>
+    <string name="atlas_selected">Selected structure</string>
 </resources>
