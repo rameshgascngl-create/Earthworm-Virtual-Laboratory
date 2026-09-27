@@ -29,7 +29,7 @@
     <string name="placeholder_body">This system\'s interactive atlas has not been migrated to the native app yet (Phase 2). Nothing has been substituted in its place.</string>
 
     <!-- Phase-2 native atlas UI chrome. Scientific/anatomical prose stays in earthworm_content_v138.json. -->
-    <string name="atlas_hint">Tap a marker or structure name to inspect the anatomy. Use two fingers to zoom and pan.</string>
+    <string name="atlas_hint">Tap a structure. Pinch to zoom; drag to pan.</string>
     <string name="atlas_structures">Structures</string>
     <string name="atlas_location">Location</string>
     <string name="atlas_function">Function</string>
