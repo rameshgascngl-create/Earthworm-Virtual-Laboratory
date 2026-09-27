@@ -9,6 +9,7 @@ import `in`.ramesh.zoology.earthwormlab.model.ReviewStatus
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.JsonArray
 import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonArray
 import kotlinx.serialization.json.jsonObject
 import kotlinx.serialization.json.jsonPrimitive
 
@@ -41,6 +42,9 @@ class ScientificContentRepository(context: Context) {
     private val structuresJson: JsonObject = root["structures"]?.jsonObject
         ?: JsonObject(emptyMap())
 
+    private val guidedModulesJson: JsonObject = root["guidedModules"]?.jsonObject
+        ?: JsonObject(emptyMap())
+
     /** Segment-numbering caveat surfaced verbatim from provenance metadata —
      * see reference/RECONCILIATION-NOTES.md before treating any single
      * digestive-system segment figure as final. */
@@ -56,6 +60,13 @@ class ScientificContentRepository(context: Context) {
      * genuinely needs the label text itself (e.g. TalkBack content
      * description), not as a substitute for proper string resources for
      * UI chrome. */
+    data class GuidedStep(
+        val tool: String,
+        val target: String,
+        val en: String,
+        val ta: String,
+    )
+
     data class StructureContent(
         val id: String,
         val en: String,
@@ -74,6 +85,22 @@ class ScientificContentRepository(context: Context) {
         structuresJson.entries
             .filter { (_, value) -> value.jsonObject["system"]?.jsonPrimitive?.content == system.dataKey }
             .mapNotNull { (id, value) -> toStructure(id, system) }
+
+    fun guidedStepsFor(system: EarthwormSystem): List<GuidedStep> =
+        guidedModulesJson[system.dataKey]
+            ?.jsonArray
+            ?.mapNotNull { element ->
+                val obj = element.jsonObject
+                val target = obj["target"]?.jsonPrimitive?.content.orEmpty()
+                if (target.isBlank()) return@mapNotNull null
+                GuidedStep(
+                    tool = obj["tool"]?.jsonPrimitive?.content.orEmpty(),
+                    target = target,
+                    en = obj["en"]?.jsonPrimitive?.content.orEmpty(),
+                    ta = obj["ta"]?.jsonPrimitive?.content.orEmpty(),
+                )
+            }
+            ?: emptyList()
 
     fun contentFor(id: String): StructureContent? =
         structuresJson[id]?.jsonObject?.let { obj ->
