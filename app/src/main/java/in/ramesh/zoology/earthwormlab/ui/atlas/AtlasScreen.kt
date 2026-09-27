@@ -918,6 +918,8 @@ private fun processTitle(process: BiologicalProcess): String = when (process) {
         stringResource(R.string.atlas_process_cutaneous_respiration)
     BiologicalProcess.BLOOD_CIRCULATION ->
         stringResource(R.string.atlas_process_blood_circulation)
+    BiologicalProcess.DIGESTIVE_JOURNEY ->
+        stringResource(R.string.atlas_process_digestive_journey)
 }
 
 @Composable
@@ -925,6 +927,10 @@ private fun processPhaseTitle(phase: ProcessPhase): String = when (phase) {
     ProcessPhase.GAS_EXCHANGE -> stringResource(R.string.atlas_process_phase_gas_exchange)
     ProcessPhase.DISTRIBUTION -> stringResource(R.string.atlas_process_phase_distribution)
     ProcessPhase.COLLECTION_NETWORK -> stringResource(R.string.atlas_process_phase_collection)
+    ProcessPhase.INGESTION_TRANSPORT -> stringResource(R.string.atlas_process_phase_ingestion_transport)
+    ProcessPhase.MECHANICAL_DIGESTION -> stringResource(R.string.atlas_process_phase_mechanical_digest)
+    ProcessPhase.CHEMICAL_DIGESTION -> stringResource(R.string.atlas_process_phase_chemical_digest)
+    ProcessPhase.INTESTINAL_PROCESSING -> stringResource(R.string.atlas_process_phase_intestinal_processing)
 }
 
 private fun processDirectionGlyph(direction: ProcessDirection): String = when (direction) {
@@ -936,6 +942,8 @@ private fun processDirectionGlyph(direction: ProcessDirection): String = when (d
     ProcessDirection.POSTERIOR -> "→"
     ProcessDirection.DISTRIBUTION -> "↔"
     ProcessDirection.COLLECTION -> "↺"
+    ProcessDirection.PROCESSING -> "↻"
+    ProcessDirection.ABSORPTION -> "⇣"
 }
 
 private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
