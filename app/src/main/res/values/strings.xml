@@ -122,4 +122,7 @@
     <string name="privacy_policy_action">Privacy Policy</string>
     <string name="privacy_policy_store_note">Opens the public privacy policy in your browser.</string>
     <string name="privacy_policy_url" translatable="false">https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md</string>
+    <string name="privacy_policy_fallback_url" translatable="false">https://raw.githubusercontent.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/main/PRIVACY.md</string>
+    <string name="privacy_policy_chooser_title">Open Privacy Policy</string>
+    <string name="privacy_policy_copied_message">No browser could open the Privacy Policy. The public policy URL has been copied to the clipboard.</string>
 </resources>
