@@ -47,4 +47,20 @@
     <string name="atlas_audio_speaking">ஒலி விளக்கம் வழங்கப்படுகிறது…</string>
     <string name="atlas_audio_unavailable">இந்த சாதனத்தில் தேவையான உள்ளூர் தமிழ்/ஆங்கில குரல் தரவு கிடைக்கவில்லை.</string>
     <string name="atlas_audio_error">ஒலி விளக்கத்தை இயக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="atlas_guided_mode">வழிகாட்டிய உடற்கூறு</string>
+    <string name="atlas_guided_step_counter">படி %1$d / %2$d</string>
+    <string name="atlas_guided_previous">முந்தையது</string>
+    <string name="atlas_guided_next">அடுத்தது</string>
+    <string name="atlas_guided_fallback">%1$s அமைப்பை %2$s முறையில் கவனித்து அடையாளம் காணவும்.</string>
+    <string name="atlas_guided_tool_inspect">நேரடியாகக் கவனிக்கும்</string>
+    <string name="atlas_guided_tool_probe">ஆய்வுக்கோல் மூலம் ஆராயும்</string>
+    <string name="atlas_guided_tool_magnifier">பெரிதாக்கிக் கவனிக்கும்</string>
+    <string name="atlas_guided_tool_forceps">இடுக்கி கொண்டு வெளிப்படுத்தும்</string>
+    <string name="atlas_guided_tool_pin">ஊசி கொண்டு நிலைநிறுத்தும்</string>
+    <string name="atlas_guided_tool_scissors">கத்தரிக்கோல் கொண்டு பிரிக்கும்</string>
+    <string name="atlas_physiology_start">சுவாச இயக்கம்</string>
+    <string name="atlas_physiology_stop">இயக்கத்தை நிறுத்து</string>
+    <string name="atlas_physiology_title">தோல் வழிச் சுவாசம் — இயக்கக் காட்சி</string>
+    <string name="atlas_physiology_stage">தற்போதைய கவனம்: %1$s</string>
+    <string name="atlas_physiology_notice">இது உறுதிப்படுத்தப்பட்ட அமைப்புகளைத் தொடர்ச்சியாக ஒளிவலியுறுத்தும் கற்றல் இயக்கம்; துகள்களின் உண்மையான இடப்பாதையை வரைபடமாகக் காட்டுவதல்ல.</string>
 </resources>
