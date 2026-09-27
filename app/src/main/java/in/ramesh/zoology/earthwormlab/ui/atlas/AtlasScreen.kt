@@ -110,6 +110,7 @@ fun AtlasScreen(
     var processMode by rememberSaveable(system.dataKey, "atlas-process-mode") { mutableStateOf(false) }
     var processPlaying by rememberSaveable(system.dataKey, "atlas-process-playing") { mutableStateOf(false) }
     var processIndex by rememberSaveable(system.dataKey, "atlas-process-index") { mutableStateOf(0) }
+    var comparisonVisible by rememberSaveable(system.dataKey, "atlas-nephridial-comparison") { mutableStateOf(false) }
     var processReplayToken by rememberSaveable(system.dataKey, "atlas-process-replay-token") { mutableStateOf(0) }
     var processNarrationStarted by rememberSaveable(system.dataKey, "atlas-process-narration-started") { mutableStateOf(false) }
     var processAwaitingNarration by rememberSaveable(system.dataKey, "atlas-process-awaiting-narration") { mutableStateOf(false) }
@@ -137,6 +138,7 @@ fun AtlasScreen(
         processMode = false
         processPlaying = false
         processIndex = 0
+        comparisonVisible = false
         processReplayToken = 0
         processNarrationStarted = false
         processAwaitingNarration = false
@@ -461,9 +463,40 @@ fun AtlasScreen(
                             },
                             label = { Text(stringResource(R.string.atlas_process_restart)) },
                         )
+                        if (processDefinition.process == BiologicalProcess.NEPHRIDIAL_EXCRETION) {
+                            AssistChip(
+                                onClick = {
+                                    comparisonVisible = !comparisonVisible
+                                    processPlaying = false
+                                    narrator.stop()
+                                },
+                                label = {
+                                    Text(
+                                        stringResource(
+                                            if (comparisonVisible) R.string.atlas_nephridial_compare_hide
+                                            else R.string.atlas_nephridial_compare_show
+                                        )
+                                    )
+                                },
+                            )
+                        }
                     }
                 }
             }
+        }
+
+        if (
+            processMode &&
+            comparisonVisible &&
+            processDefinition?.process == BiologicalProcess.NEPHRIDIAL_EXCRETION
+        ) {
+            NephridialComparisonCard(
+                repository = repository,
+                language = language,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 6.dp),
+            )
         }
 
         if (detailedMode) {
@@ -913,6 +946,60 @@ private fun ScientificContentRepository.StructureContent.processNarration(
         .joinToString(". ", postfix = ".")
 
 @Composable
+private fun NephridialComparisonCard(
+    repository: ScientificContentRepository,
+    language: AppLanguage,
+    modifier: Modifier = Modifier,
+) {
+    val comparisonIds = listOf(
+        "pharyngeal-nephridia",
+        "septal-nephridia",
+        "integumentary-nephridia",
+    )
+
+    OutlinedCard(modifier = modifier) {
+        Column(modifier = Modifier.padding(14.dp)) {
+            Text(
+                text = stringResource(R.string.atlas_nephridial_compare_title),
+                style = MaterialTheme.typography.titleMedium,
+                color = MaterialTheme.colorScheme.primary,
+            )
+            Text(
+                text = stringResource(R.string.atlas_nephridial_compare_intro),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.padding(top = 4.dp, bottom = 6.dp),
+            )
+            comparisonIds.forEachIndexed { index, id ->
+                repository.contentFor(id)?.let { content ->
+                    Text(
+                        text = content.label(language),
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = Modifier.padding(top = if (index == 0) 4.dp else 12.dp),
+                    )
+                    Text(
+                        text = stringResource(R.string.atlas_location) + ": " + content.location(language),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 2.dp),
+                    )
+                    Text(
+                        text = stringResource(R.string.atlas_function) + ": " + content.function(language),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 2.dp),
+                    )
+                    Text(
+                        text = stringResource(R.string.atlas_nephridial_discharge) + ": " +
+                            content.significance(language),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 2.dp),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun processTitle(process: BiologicalProcess): String = when (process) {
     BiologicalProcess.CUTANEOUS_RESPIRATION ->
         stringResource(R.string.atlas_process_cutaneous_respiration)
@@ -920,6 +1007,8 @@ private fun processTitle(process: BiologicalProcess): String = when (process) {
         stringResource(R.string.atlas_process_blood_circulation)
     BiologicalProcess.DIGESTIVE_JOURNEY ->
         stringResource(R.string.atlas_process_digestive_journey)
+    BiologicalProcess.NEPHRIDIAL_EXCRETION ->
+        stringResource(R.string.atlas_process_nephridial_excretion)
 }
 
 @Composable
@@ -931,6 +1020,8 @@ private fun processPhaseTitle(phase: ProcessPhase): String = when (phase) {
     ProcessPhase.MECHANICAL_DIGESTION -> stringResource(R.string.atlas_process_phase_mechanical_digest)
     ProcessPhase.CHEMICAL_DIGESTION -> stringResource(R.string.atlas_process_phase_chemical_digest)
     ProcessPhase.INTESTINAL_PROCESSING -> stringResource(R.string.atlas_process_phase_intestinal_processing)
+    ProcessPhase.NEPHRIDIAL_PROCESSING -> stringResource(R.string.atlas_process_phase_nephridial_processing)
+    ProcessPhase.EXCRETORY_ROUTE_COMPARISON -> stringResource(R.string.atlas_process_phase_excretory_routes)
 }
 
 private fun processDirectionGlyph(direction: ProcessDirection): String = when (direction) {
@@ -944,6 +1035,9 @@ private fun processDirectionGlyph(direction: ProcessDirection): String = when (d
     ProcessDirection.COLLECTION -> "↺"
     ProcessDirection.PROCESSING -> "↻"
     ProcessDirection.ABSORPTION -> "⇣"
+    ProcessDirection.FILTRATION -> "⇥"
+    ProcessDirection.ENTERONEPHRIC -> "↣"
+    ProcessDirection.EXONEPHRIC -> "↗"
 }
 
 private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
