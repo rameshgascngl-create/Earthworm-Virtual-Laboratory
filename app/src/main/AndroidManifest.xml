@@ -9,7 +9,7 @@
         android:allowBackup="false" android:usesCleartextTraffic="false"
         android:theme="@style/AppTheme" android:supportsRtl="true">
 
-        <!-- Replaces PrivacyActivity + legacy MainActivity + NativeHomeActivity
+        <!-- Replaces PrivacyActivity + MainActivity(WebView host) + NativeHomeActivity
              (all three Java-native/hybrid activities) with one Compose entry point.
              See migration brief Phase 1: "single authoritative system-selection state" -
              a single Activity is the simplest way to guarantee that, and there is no
