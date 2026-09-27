@@ -102,4 +102,19 @@
     <string name="atlas_nephridial_compare_title">நெஃப்ரிடியா — ஒப்பீட்டு காட்சி</string>
     <string name="atlas_nephridial_compare_intro">தொண்டை, இடைத்திரை மற்றும் உடற்சுவர் நெஃப்ரிடியாக்களை அவற்றின் அமைவிடம், பணி மற்றும் வெளியேற்றப் பாதையின் அடிப்படையில் ஒப்பிடுக.</string>
     <string name="atlas_nephridial_discharge">வெளியேற்ற வகை / முக்கிய குறிப்பு</string>
+    <!-- முகப்பு / ஆயத்தக் காட்சி: UI உரைகள் மட்டும். அறிவியல் உள்ளடக்கம் மாற்றப்படவில்லை. -->
+    <string name="home_graphic_description">மண்புழு கற்றல் குறியீட்டு படம்</string>
+    <string name="home_species">Metaphire posthuma</string>
+    <string name="home_tagline">உடற்கூறியல், உடற்செயலியல் செயல்முறைகள் மற்றும் செய்முறை கற்றலை இணைக்கும் இணையமில்லா இருமொழி மெய்நிகர் ஆய்வகம்.</string>
+    <string name="home_learning_title">கற்றல் அனுபவம்</string>
+    <string name="home_highlight_anatomy">விரிவான குறிப்புப் படங்களுடன் ஊடாடும் உடற்கூறு அட்லஸ்</string>
+    <string name="home_highlight_physiology">இரத்த ஓட்டம், சுவாசம், செரிமானம், கழிவுநீக்கம் மற்றும் நரம்புக் கடத்தலுக்கான வழிகாட்டிய உடற்செயலியல்</string>
+    <string name="home_highlight_bilingual">இணையமில்லா ஒலி வழிகாட்டலுடன் ஆங்கிலம்–தமிழ் அறிவியல் சொற்கள்</string>
+    <string name="home_designer_title">கல்விசார் வடிவமைப்பு மற்றும் உருவாக்கம்</string>
+    <string name="home_designer_name">R. Ramesh</string>
+    <string name="home_designer_department">விலங்கியல் துறை</string>
+    <string name="home_designer_institution">அரசு கலை மற்றும் அறிவியல் கல்லூரி, நாகர்கோவில்</string>
+    <string name="home_designer_note">விலங்கியல் மாணவர்களுக்கான இணையமில்லா கற்பித்தல் மற்றும் செய்முறை கற்றல் வளமாக உருவாக்கப்பட்டது.</string>
+    <string name="privacy_policy_action">தனியுரிமைக் கொள்கை</string>
+    <string name="privacy_policy_store_note">பொதுவாக அணுகக்கூடிய தனியுரிமைக் கொள்கையை உலாவியில் திறக்கும்.</string>
 </resources>
