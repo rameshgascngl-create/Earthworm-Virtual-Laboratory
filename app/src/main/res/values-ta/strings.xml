@@ -70,6 +70,7 @@
     <string name="atlas_process_mode">உயிரியல் செயல்முறை</string>
     <string name="atlas_process_cutaneous_respiration">தோல் வழிச் சுவாச செயல்முறை</string>
     <string name="atlas_process_blood_circulation">இரத்த ஓட்ட செயல்முறை</string>
+    <string name="atlas_process_digestive_journey">செரிமானப் பயணம்</string>
     <string name="atlas_process_play">செயல்முறையை இயக்கு</string>
     <string name="atlas_process_pause">இடைநிறுத்து</string>
     <string name="atlas_process_previous">முந்தைய பகுதி</string>
@@ -80,4 +81,8 @@
     <string name="atlas_process_phase_gas_exchange">வாயுப் பரிமாற்றம்</string>
     <string name="atlas_process_phase_distribution">இரத்த விநியோகப் பகுதி</string>
     <string name="atlas_process_phase_collection">சேகரிப்பு / முன்புற நாள வலை</string>
+    <string name="atlas_process_phase_ingestion_transport">உணவு உள்ளிழுத்தல் மற்றும் கடத்தல்</string>
+    <string name="atlas_process_phase_mechanical_digest">இயந்திரச் செரிமானம்</string>
+    <string name="atlas_process_phase_chemical_digest">வேதியியல் செரிமானம்</string>
+    <string name="atlas_process_phase_intestinal_processing">குடல் செரிமானம் மற்றும் உறிஞ்சல்</string>
 </resources>
