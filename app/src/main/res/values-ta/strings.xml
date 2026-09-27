@@ -35,5 +35,6 @@
     <string name="atlas_reset_view">காட்சியை மீட்டமை</string>
     <string name="atlas_mode_svg">SVG அட்லஸ்</string>
     <string name="atlas_mode_detailed">விரிவான படம்</string>
-    <string name="atlas_mode_caption">SVG அட்லஸ் இடைச்செயல் கற்பித்தலுக்கானது; விரிவான படம் உயர்தெளிவுடைய உடற்கூறு குறிப்புப் படம்; இதில் தொடு-குறியீடுகள் காட்டப்படாது.</string>
+    <string name="atlas_mode_caption">SVG அட்லஸ் ஊடாடும் கற்றலுக்கானது. விரிவான படம் உயர்தெளிவுடைய உடற்கூறு குறிப்புப் படமாகும்; அதில் தொடு குறியீடுகள் காட்டப்படாது.</string>
+    <string name="atlas_audio">ஒலி விளக்கம்</string>
 </resources>
