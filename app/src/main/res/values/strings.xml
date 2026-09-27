@@ -38,6 +38,11 @@
     <string name="atlas_selected">Selected structure</string>
     <string name="atlas_labels">Labels</string>
     <string name="atlas_reset_view">Reset view</string>
+    <string name="atlas_orientation_mode">Orientation</string>
+    <string name="atlas_focus_mode">Focus mode</string>
+    <string name="atlas_zoom_overview">Zoom: overview</string>
+    <string name="atlas_zoom_detail">Zoom: detail</string>
+    <string name="atlas_zoom_deep">Zoom: deep detail</string>
     <string name="atlas_mode_svg">Atlas SVG</string>
     <string name="atlas_mode_detailed">Detailed Image</string>
     <string name="atlas_mode_caption">Atlas SVG is interactive; Detailed Image is the high-resolution anatomical reference and has no hotspot overlay.</string>
