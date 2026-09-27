@@ -92,12 +92,23 @@ fun AtlasScreen(
     val selectedContent = selectedStructure?.let { repository.contentFor(it.id) }
     val narrator = rememberStructureNarrator()
     var audioEnabled by rememberSaveable("atlas-structure-audio") { mutableStateOf(true) }
+    val audioLocationCue = stringResource(R.string.atlas_audio_location)
+    val audioFunctionCue = stringResource(R.string.atlas_audio_function)
+    val audioTeachingCue = stringResource(R.string.atlas_audio_teaching)
+    val audioCorrectionCue = stringResource(R.string.atlas_audio_correction)
 
     val selectStructure: (String) -> Unit = { structureId ->
         selectedId = structureId
         if (audioEnabled) {
             repository.contentFor(structureId)?.let { content ->
-                narrator.speak(content.narration(language), language)
+                narrator.speak(
+                    content.briefNarration(
+                        language = language,
+                        locationCue = audioLocationCue,
+                        functionCue = audioFunctionCue,
+                    ),
+                    language,
+                )
             }
         }
     }
@@ -150,6 +161,31 @@ fun AtlasScreen(
             style = MaterialTheme.typography.bodySmall,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
         )
+
+        if (audioEnabled && narrator.state != NarrationState.READY) {
+            val statusText = when (narrator.state) {
+                NarrationState.INITIALIZING -> stringResource(R.string.atlas_audio_initializing)
+                NarrationState.SPEAKING -> stringResource(R.string.atlas_audio_speaking)
+                NarrationState.UNAVAILABLE -> stringResource(R.string.atlas_audio_unavailable)
+                NarrationState.ERROR -> stringResource(R.string.atlas_audio_error)
+                NarrationState.READY -> ""
+            }
+            if (statusText.isNotBlank()) {
+                Text(
+                    text = statusText,
+                    style = MaterialTheme.typography.bodySmall,
+                    color = if (
+                        narrator.state == NarrationState.UNAVAILABLE ||
+                        narrator.state == NarrationState.ERROR
+                    ) {
+                        MaterialTheme.colorScheme.error
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    },
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
+                )
+            }
+        }
 
         if (detailedMode) {
             DetailedImagePlate(
@@ -204,6 +240,36 @@ fun AtlasScreen(
                     .fillMaxWidth()
                     .padding(16.dp),
             )
+
+            if (audioEnabled) {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .horizontalScroll(rememberScrollState())
+                        .padding(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                ) {
+                    AssistChip(
+                        onClick = {
+                            narrator.speak(
+                                selectedContent.extendedNarration(
+                                    language = language,
+                                    teachingCue = audioTeachingCue,
+                                    correctionCue = audioCorrectionCue,
+                                ),
+                                language,
+                            )
+                        },
+                        label = { Text(stringResource(R.string.atlas_audio_more)) },
+                    )
+                    if (narrator.state == NarrationState.SPEAKING) {
+                        AssistChip(
+                            onClick = { narrator.stop() },
+                            label = { Text(stringResource(R.string.atlas_audio_stop)) },
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -468,16 +534,34 @@ private fun ScientificContentRepository.StructureContent.significance(language: 
 private fun ScientificContentRepository.StructureContent.correction(language: AppLanguage): String =
     if (language == AppLanguage.TAMIL) fixTa else fixEn
 
-private fun ScientificContentRepository.StructureContent.narration(language: AppLanguage): String =
+private fun ScientificContentRepository.StructureContent.briefNarration(
+    language: AppLanguage,
+    locationCue: String,
+    functionCue: String,
+): String =
     listOf(
         label(language),
-        location(language),
-        function(language),
-        significance(language),
+        location(language).takeIf { it.isNotBlank() }?.let { "$locationCue: $it" },
+        function(language).takeIf { it.isNotBlank() }?.let { "$functionCue: $it" },
     )
-        .map { it.trim() }
+        .filterNotNull()
+        .map { it.trim().trimEnd('.') }
         .filter { it.isNotBlank() }
-        .joinToString(". ")
+        .joinToString(". ", postfix = ".")
+
+private fun ScientificContentRepository.StructureContent.extendedNarration(
+    language: AppLanguage,
+    teachingCue: String,
+    correctionCue: String,
+): String =
+    listOf(
+        significance(language).takeIf { it.isNotBlank() }?.let { "$teachingCue: $it" },
+        correction(language).takeIf { it.isNotBlank() }?.let { "$correctionCue: $it" },
+    )
+        .filterNotNull()
+        .map { it.trim().trimEnd('.') }
+        .filter { it.isNotBlank() }
+        .joinToString(". ", postfix = ".")
 
 private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
     is Hotspot.Point -> xFraction to yFraction

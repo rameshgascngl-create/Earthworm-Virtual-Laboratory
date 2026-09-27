@@ -42,4 +42,14 @@
     <string name="atlas_mode_detailed">Detailed Image</string>
     <string name="atlas_mode_caption">Atlas SVG is interactive; Detailed Image is the high-resolution anatomical reference and has no hotspot overlay.</string>
     <string name="atlas_audio">Audio explanation</string>
+    <string name="atlas_audio_location">Location</string>
+    <string name="atlas_audio_function">Function</string>
+    <string name="atlas_audio_teaching">Teaching point</string>
+    <string name="atlas_audio_correction">Common correction</string>
+    <string name="atlas_audio_more">More explanation</string>
+    <string name="atlas_audio_stop">Stop audio</string>
+    <string name="atlas_audio_initializing">Preparing audio…</string>
+    <string name="atlas_audio_speaking">Speaking…</string>
+    <string name="atlas_audio_unavailable">A suitable offline voice is not installed on this device.</string>
+    <string name="atlas_audio_error">Audio explanation could not be played. Please try again.</string>
 </resources>

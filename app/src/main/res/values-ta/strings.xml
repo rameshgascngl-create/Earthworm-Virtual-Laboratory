@@ -37,4 +37,14 @@
     <string name="atlas_mode_detailed">விரிவான படம்</string>
     <string name="atlas_mode_caption">SVG அட்லஸ் ஊடாடும் கற்றலுக்கானது. விரிவான படம் உயர்தெளிவுடைய உடற்கூறு குறிப்புப் படமாகும்; அதில் தொடு குறியீடுகள் காட்டப்படாது.</string>
     <string name="atlas_audio">ஒலி விளக்கம்</string>
+    <string name="atlas_audio_location">அமைவிடம்</string>
+    <string name="atlas_audio_function">பணி</string>
+    <string name="atlas_audio_teaching">கற்பித்தல் குறிப்பு</string>
+    <string name="atlas_audio_correction">பொதுவான தவறுக்கான திருத்தம்</string>
+    <string name="atlas_audio_more">மேலும் விளக்கம்</string>
+    <string name="atlas_audio_stop">ஒலியை நிறுத்து</string>
+    <string name="atlas_audio_initializing">ஒலி அமைப்பு தயாராகிறது…</string>
+    <string name="atlas_audio_speaking">ஒலி விளக்கம் வழங்கப்படுகிறது…</string>
+    <string name="atlas_audio_unavailable">இந்த சாதனத்தில் தேவையான உள்ளூர் தமிழ்/ஆங்கில குரல் தரவு கிடைக்கவில்லை.</string>
+    <string name="atlas_audio_error">ஒலி விளக்கத்தை இயக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
 </resources>
