@@ -61,7 +61,11 @@ jobs:
                   return {
                       k: strip_tamil(v)
                       for k,v in value.items()
-                      if not (k == "ta" or k.endswith("Ta"))
+                      if not (
+                          k == "ta"
+                          or k.endswith("Ta")
+                          or k == "tamilTerminologyAudit"
+                      )
                   }
               if isinstance(value, list):
                   return [strip_tamil(v) for v in value]
