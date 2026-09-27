@@ -110,6 +110,9 @@ fun AtlasScreen(
     var processMode by rememberSaveable(system.dataKey, "atlas-process-mode") { mutableStateOf(false) }
     var processPlaying by rememberSaveable(system.dataKey, "atlas-process-playing") { mutableStateOf(false) }
     var processIndex by rememberSaveable(system.dataKey, "atlas-process-index") { mutableStateOf(0) }
+    var processReplayToken by rememberSaveable(system.dataKey, "atlas-process-replay-token") { mutableStateOf(0) }
+    var processNarrationStarted by rememberSaveable(system.dataKey, "atlas-process-narration-started") { mutableStateOf(false) }
+    var processAwaitingNarration by rememberSaveable(system.dataKey, "atlas-process-awaiting-narration") { mutableStateOf(false) }
     val currentProcessStage = processDefinition?.stages?.let { stages ->
         if (stages.isEmpty()) null else stages[processIndex.coerceIn(0, stages.lastIndex)]
     }
@@ -134,16 +137,31 @@ fun AtlasScreen(
         processMode = false
         processPlaying = false
         processIndex = 0
+        processReplayToken = 0
+        processNarrationStarted = false
+        processAwaitingNarration = false
         narrator.stop()
     }
 
-    LaunchedEffect(language, detailedMode) {
+    LaunchedEffect(language) {
+        narrator.stop()
+        if (processMode) processReplayToken += 1
+    }
+
+    LaunchedEffect(detailedMode) {
+        if (detailedMode && processMode) {
+            processMode = false
+            processPlaying = false
+            processNarrationStarted = false
+            processAwaitingNarration = false
+        }
         narrator.stop()
     }
 
     LaunchedEffect(
         processMode,
         processIndex,
+        processReplayToken,
         language,
         audioEnabled,
         processDefinition,
@@ -151,18 +169,23 @@ fun AtlasScreen(
         val definition = processDefinition
         if (processMode && definition != null && definition.stages.isNotEmpty()) {
             val safeIndex = processIndex.coerceIn(0, definition.stages.lastIndex)
-            val target = definition.stages[safeIndex].target
+            val stage = definition.stages[safeIndex]
+            val target = stage.target
             if (structures.any { it.id == target }) {
                 selectedId = target
+                processNarrationStarted = false
+                processAwaitingNarration = false
                 if (audioEnabled) {
                     repository.contentFor(target)?.let { content ->
+                        processAwaitingNarration = true
                         narrator.speak(
                             content.processNarration(
                                 language = language,
                                 processCue = processCue,
                                 processTitle = processTitleText,
+                                stageTitle = stage.title(language),
                                 functionCue = audioFunctionCue,
-                                mechanism = definition.stages[safeIndex].mechanism(language),
+                                mechanism = stage.mechanism(language),
                             ),
                             language,
                         )
@@ -172,10 +195,54 @@ fun AtlasScreen(
         }
     }
 
-    LaunchedEffect(processPlaying, processDefinition, audioEnabled, language) {
+    LaunchedEffect(
+        narrator.state,
+        processPlaying,
+        processMode,
+        processAwaitingNarration,
+        processNarrationStarted,
+        audioEnabled,
+        processDefinition,
+        processIndex,
+    ) {
+        if (!processPlaying || !processMode || !audioEnabled) return@LaunchedEffect
         val definition = processDefinition ?: return@LaunchedEffect
-        while (processPlaying && processMode && definition.stages.isNotEmpty()) {
-            delay(if (audioEnabled) 9000 else 2400)
+        if (definition.stages.isEmpty()) return@LaunchedEffect
+
+        when (narrator.state) {
+            NarrationState.SPEAKING -> {
+                if (processAwaitingNarration) processNarrationStarted = true
+            }
+            NarrationState.READY -> {
+                if (processAwaitingNarration && processNarrationStarted) {
+                    processAwaitingNarration = false
+                    processNarrationStarted = false
+                    delay(350)
+                    processIndex =
+                        if (processIndex >= definition.stages.lastIndex) 0 else processIndex + 1
+                }
+            }
+            NarrationState.UNAVAILABLE,
+            NarrationState.ERROR -> {
+                processAwaitingNarration = false
+                processNarrationStarted = false
+                delay(2400)
+                processIndex =
+                    if (processIndex >= definition.stages.lastIndex) 0 else processIndex + 1
+            }
+            NarrationState.INITIALIZING -> Unit
+        }
+    }
+
+    LaunchedEffect(processPlaying, processMode, audioEnabled, processDefinition, processIndex) {
+        val definition = processDefinition ?: return@LaunchedEffect
+        if (
+            processPlaying &&
+            processMode &&
+            !audioEnabled &&
+            definition.stages.isNotEmpty()
+        ) {
+            delay(2400)
             processIndex =
                 if (processIndex >= definition.stages.lastIndex) 0 else processIndex + 1
         }
@@ -207,7 +274,10 @@ fun AtlasScreen(
             )
             FilterChip(
                 selected = detailedMode,
-                onClick = { detailedMode = true },
+                onClick = {
+                    if (!processMode) detailedMode = true
+                },
+                enabled = !processMode,
                 label = { Text(stringResource(R.string.atlas_mode_detailed)) },
             )
             FilterChip(
@@ -222,13 +292,16 @@ fun AtlasScreen(
                 FilterChip(
                     selected = processMode,
                     onClick = {
-                        processMode = !processMode
+                        val enabling = !processMode
+                        processMode = enabling
                         processPlaying = false
-                        if (processMode) {
+                        processNarrationStarted = false
+                        processAwaitingNarration = false
+                        narrator.stop()
+                        if (enabling) {
                             processIndex = 0
+                            processReplayToken += 1
                             detailedMode = false
-                        } else {
-                            narrator.stop()
                         }
                     },
                     label = { Text(stringResource(R.string.atlas_process_mode)) },
@@ -270,10 +343,11 @@ fun AtlasScreen(
         if (processMode && processDefinition != null && currentProcessStage != null) {
             val currentTarget = currentProcessStage.target
             val currentContent = repository.contentFor(currentTarget)
-            val currentLabel = currentContent?.label(language).orEmpty().ifBlank { currentTarget }
+            val currentLabel = currentProcessStage.title(language)
             val currentFunction = currentContent?.function(language).orEmpty()
             val currentMechanism = currentProcessStage.mechanism(language)
             val currentCue = currentProcessStage.cue(language)
+            val currentPhase = processPhaseTitle(currentProcessStage.phase)
 
             OutlinedCard(
                 modifier = Modifier
@@ -287,9 +361,15 @@ fun AtlasScreen(
                         color = MaterialTheme.colorScheme.primary,
                     )
                     Text(
+                        text = currentPhase,
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        modifier = Modifier.padding(top = 6.dp),
+                    )
+                    Text(
                         text = currentLabel,
                         style = MaterialTheme.typography.titleSmall,
-                        modifier = Modifier.padding(top = 6.dp),
+                        modifier = Modifier.padding(top = 4.dp),
                     )
                     if (currentFunction.isNotBlank()) {
                         Text(
@@ -325,16 +405,28 @@ fun AtlasScreen(
                     ) {
                         AssistChip(
                             onClick = {
+                                processPlaying = false
+                                processNarrationStarted = false
+                                processAwaitingNarration = false
+                                narrator.stop()
                                 processIndex =
                                     if (processIndex <= 0) processDefinition.stages.lastIndex
                                     else processIndex - 1
-                                processPlaying = false
+                                processReplayToken += 1
                             },
                             label = { Text(stringResource(R.string.atlas_process_previous)) },
                         )
                         AssistChip(
                             onClick = {
-                                processPlaying = !processPlaying
+                                if (processPlaying) {
+                                    processPlaying = false
+                                    processNarrationStarted = false
+                                    processAwaitingNarration = false
+                                    narrator.stop()
+                                } else {
+                                    processPlaying = true
+                                    processReplayToken += 1
+                                }
                             },
                             label = {
                                 Text(
@@ -347,17 +439,25 @@ fun AtlasScreen(
                         )
                         AssistChip(
                             onClick = {
+                                processPlaying = false
+                                processNarrationStarted = false
+                                processAwaitingNarration = false
+                                narrator.stop()
                                 processIndex =
                                     if (processIndex >= processDefinition.stages.lastIndex) 0
                                     else processIndex + 1
-                                processPlaying = false
+                                processReplayToken += 1
                             },
                             label = { Text(stringResource(R.string.atlas_process_next)) },
                         )
                         AssistChip(
                             onClick = {
-                                processIndex = 0
                                 processPlaying = false
+                                processNarrationStarted = false
+                                processAwaitingNarration = false
+                                narrator.stop()
+                                processIndex = 0
+                                processReplayToken += 1
                             },
                             label = { Text(stringResource(R.string.atlas_process_restart)) },
                         )
@@ -665,8 +765,10 @@ private fun AtlasPlate(
                                     .offset(x = xOffset, y = yOffset)
                                     .graphicsLayer {
                                         alpha = if (processPlaying) processPulse else 0.9f
-                                        scaleX = if (processPlaying) 0.92f + 0.08f * processPulse else 1f
-                                        scaleY = if (processPlaying) 0.92f + 0.08f * processPulse else 1f
+                                        val pulseScale =
+                                            if (processPlaying) 0.92f + 0.08f * processPulse else 1f
+                                        scaleX = pulseScale / scale
+                                        scaleY = pulseScale / scale
                                     }
                                     .border(
                                         width = 3.dp,
@@ -794,12 +896,13 @@ private fun ScientificContentRepository.StructureContent.processNarration(
     language: AppLanguage,
     processCue: String,
     processTitle: String,
+    stageTitle: String,
     functionCue: String,
     mechanism: String,
 ): String =
     listOf(
         processCue + ": " + processTitle,
-        label(language),
+        stageTitle,
         mechanism.takeIf { it.isNotBlank() },
         function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
         significance(language).takeIf { it.isNotBlank() },
@@ -815,6 +918,13 @@ private fun processTitle(process: BiologicalProcess): String = when (process) {
         stringResource(R.string.atlas_process_cutaneous_respiration)
     BiologicalProcess.BLOOD_CIRCULATION ->
         stringResource(R.string.atlas_process_blood_circulation)
+}
+
+@Composable
+private fun processPhaseTitle(phase: ProcessPhase): String = when (phase) {
+    ProcessPhase.GAS_EXCHANGE -> stringResource(R.string.atlas_process_phase_gas_exchange)
+    ProcessPhase.DISTRIBUTION -> stringResource(R.string.atlas_process_phase_distribution)
+    ProcessPhase.COLLECTION_NETWORK -> stringResource(R.string.atlas_process_phase_collection)
 }
 
 private fun processDirectionGlyph(direction: ProcessDirection): String = when (direction) {

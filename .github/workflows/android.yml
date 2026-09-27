@@ -20,59 +20,47 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Phase-3B3 authorised-diff integrity
+      - name: Phase-3B3.1 authorised-diff integrity
         shell: bash
         run: |
           set -euo pipefail
-          BASE=aa8f696f0f185312943605bcf7463580b1eb7815
+          BASE=8918bfc0f79c3c2911657fa77d3799207950cc34
           test "$(git merge-base "$BASE" HEAD)" = "$BASE"
           bad="$(git diff --name-only "$BASE" HEAD | grep -Ev '^(\.github/workflows/android\.yml|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen\.kt|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance\.kt|app/src/main/res/values/strings\.xml|app/src/main/res/values-ta/strings\.xml)$' || true)"
           if [ -n "$bad" ]; then
-            echo "Unauthorised Phase-3B3 changes detected:"
+            echo "Unauthorised Phase-3B3.1 changes detected:"
             echo "$bad"
             exit 1
           fi
-          echo "Phase-3B3 diff is restricted to physiology process orchestration/UI and CI."
       - name: Preserve Phase-2B native/content integrity
         run: node tests/native-phase2b-preflight.cjs
-      - name: Verify validated audio/content layers are frozen
+      - name: Verify frozen scientific, atlas and TTS layers
         shell: bash
         run: |
           set -euo pipefail
-          BASE=aa8f696f0f185312943605bcf7463580b1eb7815
+          BASE=8918bfc0f79c3c2911657fa77d3799207950cc34
           test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/StructureNarrator.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/data/ScientificContentRepository.kt             app/src/main/res/raw/earthworm_content_v138.json             app/src/main/res/raw/atlas_*.svg             app/src/main/res/drawable-nodpi             app/src/main/java/in/ramesh/zoology/earthwormlab/data/StructureGeometry.kt)"
-      - name: Phase-3B3 physiology-engine contract
+      - name: Phase-3B3.1 process-controller contract
         shell: bash
         run: |
           set -euo pipefail
-          node - <<'NODE'
-          const fs=require('fs');
-          const j=JSON.parse(fs.readFileSync('app/src/main/res/raw/earthworm_content_v138.json','utf8'));
-          const expected={
-            respiratory:['mucus-film','moist-epidermis','cutaneous-exchange','cutaneous-capillaries'],
-            circulatory:['dorsal-vessel','lateral-hearts','ventral-vessel','capillary-networks','subneural-vessel','lateral-oesophageal-vessels','supra-oesophageal-vessel']
-          };
-          for (const [system,ids] of Object.entries(expected)) {
-            for (const id of ids) {
-              if (!j.structures[id]) throw new Error('Missing physiology target: '+id);
-              if (j.structures[id].system!==system) throw new Error('Wrong physiology system: '+id);
-            }
-          }
-          console.log('PASS physiology targets:',Object.values(expected).flat().length);
-          NODE
           P=app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance.kt
           A=app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt
-          grep -q 'ProcessDirection.ANTERIOR' "$P"
-          grep -q 'ProcessDirection.POSTERIOR' "$P"
-          grep -q 'ProcessDirection.BIDIRECTIONAL_EXCHANGE' "$P"
-          grep -q 'mechanismEn' "$P"
-          grep -q 'mechanismTa' "$P"
-          grep -q 'processDirectionGlyph' "$A"
-          grep -q 'rememberInfiniteTransition' "$A"
-          grep -q 'currentProcessStage.mechanism' "$A"
-          grep -q 'atlas_process_direction' app/src/main/res/values/strings.xml
-          grep -q 'atlas_process_direction' app/src/main/res/values-ta/strings.xml
-          ! grep -q 'guidedMode' "$A"
+          grep -q 'Lateral hearts — segments VII and IX' "$P"
+          grep -q 'Latero-oesophageal hearts — segments XII and XIII' "$P"
+          grep -q 'ProcessPhase.DISTRIBUTION' "$P"
+          grep -q 'ProcessPhase.COLLECTION_NETWORK' "$P"
+          grep -q 'processNarrationStarted' "$A"
+          grep -q 'processAwaitingNarration' "$A"
+          grep -q 'NarrationState.SPEAKING' "$A"
+          grep -q 'NarrationState.READY' "$A"
+          grep -q 'enabled = !processMode' "$A"
+          grep -q 'processReplayToken' "$A"
+          grep -q 'scaleX = pulseScale / scale' "$A"
+          grep -q 'scaleY = pulseScale / scale' "$A"
+          grep -q 'stageTitle = stage.title(language)' "$A"
+          ! grep -q 'delay(if (audioEnabled) 9000' "$A"
+          ! grep -q 'BLOOD_CIRCULATION_OVERVIEW' "$A"
           ! grep -q 'android.permission.INTERNET' app/src/main/AndroidManifest.xml
   build:
     needs: validate
@@ -101,12 +89,12 @@ jobs:
         run: gradle --no-daemon :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-Phase3B3-device-QA-candidate
+          name: Earthworm-1.3.8-Phase3B3.1-device-QA-candidate
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-Phase3B3-unsigned-release-structural-check
+          name: Earthworm-1.3.8-Phase3B3.1-unsigned-release-structural-check
           path: |
             app/build/outputs/apk/release/*unsigned.apk
             app/build/outputs/bundle/release/*.aab
