@@ -626,6 +626,9 @@ private fun AtlasPlate(
     var panX by rememberSaveable(system.dataKey, "atlas-pan-x") { mutableStateOf(0f) }
     var panY by rememberSaveable(system.dataKey, "atlas-pan-y") { mutableStateOf(0f) }
     var labelsVisible by rememberSaveable(system.dataKey, "atlas-labels") { mutableStateOf(true) }
+    var orientationMode by rememberSaveable(system.dataKey, "atlas-orientation-mode") { mutableStateOf(false) }
+    var focusMode by rememberSaveable(system.dataKey, "atlas-focus-mode") { mutableStateOf(false) }
+    val semanticZoomTier = semanticZoomTier(scale)
     val processTransition = rememberInfiniteTransition(label = "process-pulse")
     val processPulse by processTransition.animateFloat(
         initialValue = 0.72f,
@@ -637,11 +640,19 @@ private fun AtlasPlate(
         label = "process-pulse-alpha",
     )
 
-    val svg = remember(rawResId, context, labelsVisible) {
+    val svg = remember(
+        rawResId,
+        context,
+        labelsVisible,
+        semanticZoomTier,
+        orientationMode,
+    ) {
         loadAtlasSvg(
             context = context,
             rawResId = rawResId,
             labelsVisible = labelsVisible,
+            semanticZoomTier = semanticZoomTier,
+            orientationMode = orientationMode,
         )
     }
 
@@ -658,6 +669,31 @@ private fun AtlasPlate(
                     selected = labelsVisible,
                     onClick = { labelsVisible = !labelsVisible },
                     label = { Text(stringResource(R.string.atlas_labels)) },
+                )
+                FilterChip(
+                    selected = orientationMode,
+                    onClick = { orientationMode = !orientationMode },
+                    label = { Text(stringResource(R.string.atlas_orientation_mode)) },
+                )
+                FilterChip(
+                    selected = focusMode,
+                    onClick = { focusMode = !focusMode },
+                    label = { Text(stringResource(R.string.atlas_focus_mode)) },
+                )
+                AssistChip(
+                    onClick = {},
+                    enabled = false,
+                    label = {
+                        Text(
+                            stringResource(
+                                when (semanticZoomTier) {
+                                    SemanticZoomTier.OVERVIEW -> R.string.atlas_zoom_overview
+                                    SemanticZoomTier.DETAIL -> R.string.atlas_zoom_detail
+                                    SemanticZoomTier.DEEP -> R.string.atlas_zoom_deep
+                                }
+                            )
+                        )
+                    },
                 )
                 AssistChip(
                     onClick = {
@@ -730,6 +766,8 @@ private fun AtlasPlate(
                         val label = repository.contentFor(structure.id)?.label(language).orEmpty()
                             .ifBlank { structure.id }
                         val selected = structure.id == selectedId
+                        val markerAlpha =
+                            if (focusMode && selectedId != null && !selected) 0.28f else 1f
                         val touchSize = 48.dp
                         val xOffset = (plateWidth * x - touchSize / 2)
                             .coerceIn(0.dp, (plateWidth - touchSize).coerceAtLeast(0.dp))
@@ -741,9 +779,21 @@ private fun AtlasPlate(
                                 .align(Alignment.TopStart)
                                 .offset(x = xOffset, y = yOffset)
                                 .semantics { contentDescription = label }
-                                .clickable { onStructureSelected(structure.id) },
+                                .clickable { onStructureSelected(structure.id) }
+                                .graphicsLayer { alpha = markerAlpha },
                             contentAlignment = Alignment.Center,
                         ) {
+                            if (selected && focusMode) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(40.dp)
+                                        .border(
+                                            width = 3.dp,
+                                            color = MaterialTheme.colorScheme.tertiary,
+                                            shape = CircleShape,
+                                        ),
+                                )
+                            }
                             if (selected) {
                                 Box(
                                     modifier = Modifier
@@ -819,6 +869,75 @@ private fun AtlasPlate(
                         }
                     }
                 }
+
+                if (orientationMode) {
+                    SpatialOrientationOverlay(
+                        system = system,
+                        language = language,
+                        modifier = Modifier.fillMaxSize(),
+                    )
+                }
+            }
+        }
+    }
+}
+
+private enum class SemanticZoomTier {
+    OVERVIEW,
+    DETAIL,
+    DEEP,
+}
+
+private fun semanticZoomTier(scale: Float): SemanticZoomTier = when {
+    scale < 1.55f -> SemanticZoomTier.OVERVIEW
+    scale < 2.6f -> SemanticZoomTier.DETAIL
+    else -> SemanticZoomTier.DEEP
+}
+
+@Composable
+private fun SpatialOrientationOverlay(
+    system: EarthwormSystem,
+    language: AppLanguage,
+    modifier: Modifier = Modifier,
+) {
+    Box(modifier = modifier.padding(8.dp)) {
+        if (system == EarthwormSystem.TRANSVERSE_SECTION) {
+            Text(
+                text = if (language == AppLanguage.TAMIL) "முதுகுப்புறம் ↑" else "Dorsal ↑",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.tertiary,
+                modifier = Modifier.align(Alignment.TopCenter),
+            )
+            Text(
+                text = if (language == AppLanguage.TAMIL) "வயிற்றுப்புறம் ↓" else "Ventral ↓",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.tertiary,
+                modifier = Modifier.align(Alignment.BottomCenter),
+            )
+        } else {
+            Text(
+                text = if (language == AppLanguage.TAMIL) "← முன்முனை" else "← Anterior",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.tertiary,
+                modifier = Modifier.align(Alignment.TopStart),
+            )
+            Text(
+                text = if (language == AppLanguage.TAMIL) "பின்முனை →" else "Posterior →",
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.tertiary,
+                modifier = Modifier.align(Alignment.TopEnd),
+            )
+            if (system == EarthwormSystem.EXTERNAL) {
+                Text(
+                    text = if (language == AppLanguage.TAMIL) {
+                        "கண்ட வழிகாட்டி · கிளிட்டெல்லம் XIV–XVI"
+                    } else {
+                        "Segment guide · clitellum XIV–XVI"
+                    },
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.align(Alignment.BottomCenter),
+                )
             }
         }
     }
@@ -1078,6 +1197,8 @@ private fun loadAtlasSvg(
     context: Context,
     @RawRes rawResId: Int,
     labelsVisible: Boolean,
+    semanticZoomTier: SemanticZoomTier,
+    orientationMode: Boolean,
 ): SVG {
     val source = context.resources.openRawResource(rawResId)
         .bufferedReader(Charsets.UTF_8)
@@ -1102,13 +1223,17 @@ private fun loadAtlasSvg(
 ]]></style>"""
     )
 
-    val withLabelMode = if (labelsVisible) {
-        styled
-    } else {
-        styled
+    val withLabelMode = when {
+        !labelsVisible -> styled
             .replace("class=\"organ-label\"", "class=\"organ-label\" visibility=\"hidden\"")
             .replace("class=\"micro-label\"", "class=\"micro-label\" visibility=\"hidden\"")
             .replace("class=\"orientation-note\"", "class=\"orientation-note\" visibility=\"hidden\"")
+        semanticZoomTier == SemanticZoomTier.OVERVIEW && !orientationMode -> styled
+            .replace("class=\"micro-label\"", "class=\"micro-label\" visibility=\"hidden\"")
+            .replace("class=\"orientation-note\"", "class=\"orientation-note\" visibility=\"hidden\"")
+        !orientationMode -> styled
+            .replace("class=\"orientation-note\"", "class=\"orientation-note\" visibility=\"hidden\"")
+        else -> styled
     }
 
     return SVG.getFromString(withLabelMode)
