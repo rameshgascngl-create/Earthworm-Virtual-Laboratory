@@ -1217,7 +1217,9 @@ private fun loadAtlasSvg(
         .bufferedReader(Charsets.UTF_8)
         .use { it.readText() }
 
-    val styled = source.replaceFirst(
+    val normalizedLabelSource = normalizeAtlasLabelPresentation(source)
+
+    val styled = normalizedLabelSource.replaceFirst(
         "<defs>",
         """<defs>
 <style type="text/css"><![CDATA[
@@ -1228,9 +1230,9 @@ private fun loadAtlasSvg(
 .external-view.active{display:inline}
 .segment-line{stroke:#f0c6a8;stroke-width:1;opacity:.28}
 .segment-shadow{stroke:#2a1210;stroke-width:1.4;opacity:.4}
-.organ-label{font-size:15px;font-weight:bold;fill:#f6fff9;stroke:#061515;stroke-width:3;stroke-linejoin:round}
-.micro-label{font-size:11px;fill:#e7f5ef;stroke:#061515;stroke-width:2}
-.orientation-note{font-size:13px;font-weight:bold;fill:#fff3c5;stroke:#061515;stroke-width:3}
+.organ-label{font-size:15px;font-weight:800;fill:#ffffff;stroke:none}
+.micro-label{font-size:11px;font-weight:700;fill:#ffffff;stroke:none}
+.orientation-note{font-size:13px;font-weight:800;fill:#fff7d6;stroke:none}
 .flap{fill:#835d4f;stroke:#c18b74;stroke-width:2;opacity:.44}
 .surface-detail{pointer-events:none}
 ]]></style>"""
@@ -1249,6 +1251,47 @@ private fun loadAtlasSvg(
     }
 
     return SVG.getFromString(withLabelMode)
+}
+
+/**
+ * AndroidSVG does not render the exported label halo consistently at phone
+ * scale. A dark stroke can intrude into the glyph fill and make the text look
+ * muddy. Normalise only label text presentation before parsing: preserve all
+ * wording, coordinates, IDs, font sizes and anatomical geometry while keeping
+ * the visible glyph itself bright and stroke-free.
+ */
+private fun normalizeAtlasLabelPresentation(source: String): String {
+    val labelOpeningTag = Regex(
+        """<text\b[^>]*class="(?:organ-label|micro-label|orientation-note)"[^>]*>"""
+    )
+    return labelOpeningTag.replace(source) { match ->
+        var tag = match.value
+        tag = tag.replace(
+            Regex("""fill:\s*#[0-9A-Fa-f]{6}\s*;?"""),
+            "fill: #ffffff;",
+        )
+        tag = tag.replace(
+            Regex("""stroke:\s*#[0-9A-Fa-f]{6}\s*;?"""),
+            "stroke: none;",
+        )
+        tag = tag.replace(
+            Regex("""stroke-width:\s*[0-9.]+\s*;?"""),
+            "stroke-width: 0;",
+        )
+        tag = tag.replace(
+            Regex("""stroke-linejoin:\s*[^;"]+\s*;?"""),
+            "",
+        )
+        tag = tag.replace(
+            Regex("""font-weight:\s*\d+\s*;?"""),
+            if (tag.contains("class=\"micro-label\"")) {
+                "font-weight: 700;"
+            } else {
+                "font-weight: 800;"
+            },
+        )
+        tag.replace(Regex("""\s+paint-order="[^"]*""""), "")
+    }
 }
 
 @DrawableRes
