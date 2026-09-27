@@ -1,5 +1,6 @@
 package `in`.ramesh.zoology.earthwormlab.ui.atlas
 
+import android.content.Context
 import android.graphics.drawable.PictureDrawable
 import android.view.View
 import android.widget.ImageView
@@ -149,6 +150,7 @@ private fun AtlasPlate(
 ) {
     val rawResId = atlasResource(system, language)
     val context = LocalContext.current
+    val svg = remember(rawResId, context) { loadAtlasSvg(context, rawResId) }
 
     Card(modifier = modifier) {
         BoxWithConstraints(
@@ -167,7 +169,6 @@ private fun AtlasPlate(
                     }
                 },
                 update = { imageView ->
-                    val svg = SVG.getFromResource(context, rawResId)
                     imageView.setImageDrawable(PictureDrawable(svg.renderToPicture()))
                 },
             )
@@ -297,6 +298,46 @@ private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
                 points.map { it.second }.average().toFloat()
         }
     }
+}
+
+/**
+ * The historical standalone SVG exports intentionally preserve the original
+ * anatomical geometry, but their repository audit records that browser CSS
+ * was not embedded in those extracted files. AndroidSVG therefore saw the
+ * default black SVG text on the dark atlas background during device QA.
+ *
+ * Inject only the rendering rules that came from the authoritative HQ atlas
+ * stylesheet. This does not alter anatomy, labels, hotspot geometry or
+ * scientific data; it restores the missing presentation context before the
+ * SVG is parsed by the native renderer.
+ */
+private fun loadAtlasSvg(
+    context: Context,
+    @RawRes rawResId: Int,
+): SVG {
+    val source = context.resources.openRawResource(rawResId)
+        .bufferedReader(Charsets.UTF_8)
+        .use { it.readText() }
+
+    val styled = source.replaceFirst(
+        "<defs>",
+        """<defs>
+<style type="text/css"><![CDATA[
+.hit{fill:transparent;stroke:transparent}
+.layer{display:none}
+.layer.active{display:inline}
+.external-view{display:none}
+.external-view.active{display:inline}
+.segment-line{stroke:#f0c6a8;stroke-width:1;opacity:.28}
+.segment-shadow{stroke:#2a1210;stroke-width:1.4;opacity:.4}
+.organ-label{font-size:15px;font-weight:bold;fill:#f6fff9;stroke:#061515;stroke-width:3;stroke-linejoin:round}
+.micro-label{font-size:11px;fill:#e7f5ef;stroke:#061515;stroke-width:2}
+.orientation-note{font-size:13px;font-weight:bold;fill:#fff3c5;stroke:#061515;stroke-width:3}
+.flap{fill:#835d4f;stroke:#c18b74;stroke-width:2;opacity:.44}
+.surface-detail{pointer-events:none}
+]]></style>"""
+    )
+    return SVG.getFromString(styled)
 }
 
 @RawRes
