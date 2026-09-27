@@ -1,0 +1,241 @@
+name: Native Phase 2.1 visual fidelity build
+on:
+  push:
+    branches:
+      - native/v2-phase2-visual-fidelity-ci
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Install Android SDK packages
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'platform-tools'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Verify Phase 2.1 source invariants
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import hashlib, json, pathlib, xml.etree.ElementTree as ET
+
+          content_path = pathlib.Path("app/src/main/res/raw/earthworm_content_v138.json")
+          raw = content_path.read_bytes()
+          expected = "f13e823bd1fdb97eb45dc154ed06cd52a9a52a8282ba0adbdad0458661cf1aea"
+          actual = hashlib.sha256(raw).hexdigest()
+          assert actual == expected, (actual, expected)
+
+          data = json.loads(raw.decode("utf-8"))
+          assert len(data["systems"]) == 9
+          assert len(data["structures"]) == 55
+          assert sum(len(v) if isinstance(v, list) else 1 for v in data["questions"].values()) == 72
+
+          counts = {}
+          for structure in data["structures"].values():
+              counts[structure["system"]] = counts.get(structure["system"], 0) + 1
+          assert counts == {
+              "external": 9,
+              "digestive": 7,
+              "circulatory": 7,
+              "respiratory": 4,
+              "excretory": 4,
+              "reproductive": 7,
+              "nervous": 5,
+              "crosssection": 12,
+          }, counts
+
+          pairs = [
+              ("atlas_external_en.svg", "en-external.svg"),
+              ("atlas_digestive_en.svg", "en-digestive.svg"),
+              ("atlas_circulatory_en.svg", "en-circulatory.svg"),
+              ("atlas_respiratory_en.svg", "en-respiratory.svg"),
+              ("atlas_excretory_en.svg", "en-excretory.svg"),
+              ("atlas_reproductive_en.svg", "en-reproductive.svg"),
+              ("atlas_nervous_en.svg", "en-nervous.svg"),
+              ("atlas_crosssection_en.svg", "en-crosssection.svg"),
+              ("atlas_external_ta.svg", "ta-external.svg"),
+              ("atlas_digestive_ta.svg", "ta-digestive.svg"),
+              ("atlas_circulatory_ta.svg", "ta-circulatory.svg"),
+              ("atlas_respiratory_ta.svg", "ta-respiratory.svg"),
+              ("atlas_excretory_ta.svg", "ta-excretory.svg"),
+              ("atlas_reproductive_ta.svg", "ta-reproductive.svg"),
+              ("atlas_nervous_ta.svg", "ta-nervous.svg"),
+              ("atlas_crosssection_ta.svg", "ta-crosssection.svg"),
+          ]
+
+          def local(tag):
+              return tag.rsplit("}", 1)[-1]
+
+          allowed_classes = {"organ-label", "micro-label", "orientation-note"}
+
+          for app_name, ref_name in pairs:
+              app_path = pathlib.Path("app/src/main/res/raw") / app_name
+              ref_path = pathlib.Path("review/legacy-extractions/svg") / ref_name
+              app_root = ET.parse(app_path).getroot()
+              ref_root = ET.parse(ref_path).getroot()
+
+              assert app_root.attrib.get("viewBox") == ref_root.attrib.get("viewBox"), app_name
+
+              app_nodes = list(app_root.iter())
+              ref_nodes = list(ref_root.iter())
+              assert len(app_nodes) == len(ref_nodes), (app_name, len(app_nodes), len(ref_nodes))
+
+              changed_label_styles = 0
+              for i, (a, r) in enumerate(zip(app_nodes, ref_nodes)):
+                  assert local(a.tag) == local(r.tag), (app_name, i, local(a.tag), local(r.tag))
+                  assert (a.text or "") == (r.text or ""), (app_name, i, "text changed")
+                  assert (a.tail or "") == (r.tail or ""), (app_name, i, "tail changed")
+
+                  aa = dict(a.attrib)
+                  rr = dict(r.attrib)
+                  a_style = aa.pop("style", None)
+                  r_style = rr.pop("style", None)
+                  assert aa == rr, (app_name, i, "non-style attribute changed", aa, rr)
+
+                  cls = aa.get("class", "")
+                  if a_style != r_style:
+                      assert local(a.tag) == "text", (app_name, i, "style changed on non-text")
+                      assert cls in allowed_classes, (app_name, i, "style changed on non-label", cls)
+                      changed_label_styles += 1
+                  else:
+                      assert a_style == r_style
+
+              assert changed_label_styles > 0, (app_name, "expected label style adjustments")
+              print(app_name, "LABEL_STYLE_ONLY=PASS", changed_label_styles)
+
+          print("CONTENT_INVARIANTS=PASS")
+          print("ATLAS_SEMANTIC_IDENTITY=PASS")
+          PY
+
+          test "$(find app/src/main/res/raw -maxdepth 1 -name 'atlas_*_en.svg' | wc -l)" -eq 8
+          test "$(find app/src/main/res/raw -maxdepth 1 -name 'atlas_*_ta.svg' | wc -l)" -eq 8
+
+          if grep -RInE --include='*.kt' 'android\.webkit|androidx\.webkit|WebViewAssetLoader|\bWebView\b' app/src/main/java; then
+            echo "UNEXPECTED_APP_WEBVIEW_SOURCE=YES"
+            exit 31
+          fi
+          echo "UNEXPECTED_APP_WEBVIEW_SOURCE=NO"
+
+      - name: Clean
+        run: gradle --no-daemon clean
+
+      - name: Lint
+        run: gradle --no-daemon :app:lintDebug :app:lintRelease
+
+      - name: Unit tests
+        run: gradle --no-daemon :app:testDebugUnitTest
+
+      - name: Assemble Debug
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Inspect Debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1)"
+          test -n "$APK"
+
+          {
+            echo "APK=$APK"
+            sha256sum "$APK"
+
+            echo
+            echo "== BADGING =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK"
+
+            echo
+            echo "== PERMISSIONS =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt" dump permissions "$APK"
+
+            echo
+            echo "== BROWSER PAYLOAD =="
+            if zipinfo -1 "$APK" | grep -Ei '\.(html|css|js)$'; then
+              echo "UNEXPECTED_BROWSER_PAYLOAD=YES"
+              exit 41
+            else
+              echo "UNEXPECTED_BROWSER_PAYLOAD=NO"
+            fi
+
+            echo
+            echo "== ATLAS SVG PAYLOAD =="
+            SVG_COUNT="$(zipinfo -1 "$APK" | grep -Ec '(^|/)atlas_(external|digestive|circulatory|respiratory|excretory|reproductive|nervous|crosssection)_(en|ta)\.svg$' || true)"
+            echo "ATLAS_SVG_COUNT=$SVG_COUNT"
+            test "$SVG_COUNT" -eq 16
+
+            echo
+            echo "== DEX CLASS CHECKS =="
+            TMP="$(mktemp -d)"
+            unzip -qq "$APK" 'classes*.dex' -d "$TMP"
+
+            if find "$TMP" -name 'classes*.dex' -print0 | while IFS= read -r -d '' dex; do
+                 "$ANDROID_HOME/build-tools/35.0.0/dexdump" "$dex"
+               done | grep -E "Class descriptor.*L(android|androidx)/webkit/|Class descriptor.*WebViewAssetLoader"; then
+              echo "UNEXPECTED_PACKAGED_WEBKIT_CLASS=YES"
+              exit 42
+            else
+              echo "UNEXPECTED_PACKAGED_WEBKIT_CLASS=NO"
+            fi
+
+            if find "$TMP" -name 'classes*.dex' -print0 | xargs -0 strings | grep -q 'com/caverock/androidsvg/SVG'; then
+              echo "ANDROIDSVG_RUNTIME_PRESENT=YES"
+            else
+              echo "ANDROIDSVG_RUNTIME_PRESENT=NO"
+              exit 43
+            fi
+
+            echo
+            echo "== TAMIL LOCALE SIGNALS =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt2" dump resources "$APK" | grep -E 'config.*ta|locale.*ta|values-ta' || true
+          } | tee apk-inspection.txt
+
+      - name: Release structural compile
+        run: gradle --no-daemon :app:assembleRelease
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase2-visual-fidelity-debug
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      - name: Upload unsigned Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase2-visual-fidelity-unsigned-release
+          path: app/build/outputs/apk/release/*unsigned.apk
+          if-no-files-found: warn
+
+      - name: Upload APK inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase2-visual-fidelity-apk-inspection
+          path: apk-inspection.txt
+          if-no-files-found: error
+
+      - name: Upload lint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase2-visual-fidelity-lint
+          path: app/build/reports/lint-results*
+          if-no-files-found: warn
