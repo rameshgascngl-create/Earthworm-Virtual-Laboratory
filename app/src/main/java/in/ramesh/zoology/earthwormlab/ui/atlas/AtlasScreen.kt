@@ -1,0 +1,328 @@
+package `in`.ramesh.zoology.earthwormlab.ui.atlas
+
+import android.graphics.drawable.PictureDrawable
+import android.view.View
+import android.widget.ImageView
+import androidx.annotation.RawRes
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxWithConstraints
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Card
+import androidx.compose.material3.FilterChip
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import com.caverock.androidsvg.SVG
+import `in`.ramesh.zoology.earthwormlab.R
+import `in`.ramesh.zoology.earthwormlab.data.ScientificContentRepository
+import `in`.ramesh.zoology.earthwormlab.model.AnatomicalStructure
+import `in`.ramesh.zoology.earthwormlab.model.EarthwormSystem
+import `in`.ramesh.zoology.earthwormlab.model.Hotspot
+import `in`.ramesh.zoology.earthwormlab.preferences.AppLanguage
+
+private const val ATLAS_ASPECT_RATIO = 1200f / 560f
+
+/**
+ * Phase-2 native anatomical atlas.
+ *
+ * The plate itself is rendered through AndroidSVG into an Android ImageView;
+ * there is no WebView, HTML, JavaScript or network dependency. Interaction is
+ * provided by Compose using the normalized hotspot coordinates already
+ * validated against the frozen reference dataset.
+ *
+ * Scientific prose is not duplicated here. The detail card reads directly
+ * from [ScientificContentRepository], which loads earthworm_content_v138.json.
+ */
+@Composable
+fun AtlasScreen(
+    system: EarthwormSystem,
+    language: AppLanguage,
+    repository: ScientificContentRepository,
+    modifier: Modifier = Modifier,
+) {
+    require(system != EarthwormSystem.PREPARATION) {
+        "Preparation uses PreparationScreen, not AtlasScreen."
+    }
+
+    val structures = remember(system, repository) { repository.structuresFor(system) }
+    var selectedId by remember(system) { mutableStateOf(structures.firstOrNull()?.id) }
+    val selectedStructure = structures.firstOrNull { it.id == selectedId }
+    val selectedContent = selectedStructure?.let { repository.contentFor(it.id) }
+
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(bottom = 24.dp),
+    ) {
+        Text(
+            text = stringResource(R.string.atlas_hint),
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+        )
+
+        AtlasPlate(
+            system = system,
+            language = language,
+            structures = structures,
+            repository = repository,
+            selectedId = selectedId,
+            onStructureSelected = { selectedId = it },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 8.dp),
+        )
+
+        Text(
+            text = stringResource(R.string.atlas_structures),
+            style = MaterialTheme.typography.titleMedium,
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 6.dp),
+        )
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState())
+                .padding(horizontal = 12.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+        ) {
+            structures.forEach { structure ->
+                val content = repository.contentFor(structure.id)
+                val label = content?.label(language).orEmpty().ifBlank { structure.id }
+                FilterChip(
+                    selected = structure.id == selectedId,
+                    onClick = { selectedId = structure.id },
+                    label = { Text(label) },
+                )
+            }
+        }
+
+        if (selectedContent != null) {
+            StructureDetailCard(
+                content = selectedContent,
+                language = language,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+            )
+        }
+    }
+}
+
+@Composable
+private fun AtlasPlate(
+    system: EarthwormSystem,
+    language: AppLanguage,
+    structures: List<AnatomicalStructure>,
+    repository: ScientificContentRepository,
+    selectedId: String?,
+    onStructureSelected: (String) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    val rawResId = atlasResource(system, language)
+    val context = LocalContext.current
+
+    Card(modifier = modifier) {
+        BoxWithConstraints(
+            modifier = Modifier
+                .fillMaxWidth()
+                .aspectRatio(ATLAS_ASPECT_RATIO)
+                .background(Color(0xFF071B1A)),
+        ) {
+            AndroidView(
+                modifier = Modifier.fillMaxSize(),
+                factory = { viewContext ->
+                    ImageView(viewContext).apply {
+                        scaleType = ImageView.ScaleType.FIT_CENTER
+                        adjustViewBounds = true
+                        setLayerType(View.LAYER_TYPE_SOFTWARE, null)
+                    }
+                },
+                update = { imageView ->
+                    val svg = SVG.getFromResource(context, rawResId)
+                    imageView.setImageDrawable(PictureDrawable(svg.renderToPicture()))
+                },
+            )
+
+            structures.forEach { structure ->
+                val (x, y) = structure.hotspot.anchor()
+                val label = repository.contentFor(structure.id)?.label(language).orEmpty()
+                    .ifBlank { structure.id }
+                val selected = structure.id == selectedId
+                val touchSize = 36.dp
+                Box(
+                    modifier = Modifier
+                        .size(touchSize)
+                        .align(Alignment.TopStart)
+                        .padding(0.dp)
+                        .then(
+                            Modifier
+                                .padding(
+                                    start = (maxWidth * x - touchSize / 2).coerceAtLeast(0.dp),
+                                    top = (maxHeight * y - touchSize / 2).coerceAtLeast(0.dp),
+                                ),
+                        )
+                        .semantics { contentDescription = label }
+                        .clickable { onStructureSelected(structure.id) },
+                    contentAlignment = Alignment.Center,
+                ) {
+                    Box(
+                        modifier = Modifier
+                            .size(if (selected) 18.dp else 13.dp)
+                            .background(
+                                color = if (selected) {
+                                    MaterialTheme.colorScheme.primary
+                                } else {
+                                    MaterialTheme.colorScheme.tertiary
+                                },
+                                shape = CircleShape,
+                            )
+                            .border(
+                                width = 2.dp,
+                                color = Color.White,
+                                shape = CircleShape,
+                            ),
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
+private fun StructureDetailCard(
+    content: ScientificContentRepository.StructureContent,
+    language: AppLanguage,
+    modifier: Modifier = Modifier,
+) {
+    Card(modifier = modifier) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(
+                text = stringResource(R.string.atlas_selected),
+                style = MaterialTheme.typography.labelLarge,
+                color = MaterialTheme.colorScheme.primary,
+            )
+            Text(
+                text = content.label(language),
+                style = MaterialTheme.typography.headlineSmall,
+                modifier = Modifier.padding(top = 2.dp, bottom = 12.dp),
+            )
+
+            DetailField(
+                title = stringResource(R.string.atlas_location),
+                value = content.location(language),
+            )
+            DetailField(
+                title = stringResource(R.string.atlas_function),
+                value = content.function(language),
+            )
+            DetailField(
+                title = stringResource(R.string.atlas_significance),
+                value = content.significance(language),
+            )
+            DetailField(
+                title = stringResource(R.string.atlas_correction),
+                value = content.correction(language),
+            )
+        }
+    }
+}
+
+@Composable
+private fun DetailField(
+    title: String,
+    value: String,
+) {
+    if (value.isBlank()) return
+    Text(
+        text = title,
+        style = MaterialTheme.typography.titleSmall,
+        color = MaterialTheme.colorScheme.primary,
+    )
+    Text(
+        text = value,
+        style = MaterialTheme.typography.bodyMedium,
+        modifier = Modifier.padding(top = 2.dp, bottom = 10.dp),
+    )
+}
+
+private fun ScientificContentRepository.StructureContent.label(language: AppLanguage): String =
+    if (language == AppLanguage.TAMIL) ta else en
+
+private fun ScientificContentRepository.StructureContent.location(language: AppLanguage): String =
+    if (language == AppLanguage.TAMIL) locTa else locEn
+
+private fun ScientificContentRepository.StructureContent.function(language: AppLanguage): String =
+    if (language == AppLanguage.TAMIL) fnTa else fnEn
+
+private fun ScientificContentRepository.StructureContent.significance(language: AppLanguage): String =
+    if (language == AppLanguage.TAMIL) sigTa else sigEn
+
+private fun ScientificContentRepository.StructureContent.correction(language: AppLanguage): String =
+    if (language == AppLanguage.TAMIL) fixTa else fixEn
+
+private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
+    is Hotspot.Point -> xFraction to yFraction
+    is Hotspot.Rect -> (xFraction + widthFraction / 2f) to (yFraction + heightFraction / 2f)
+    is Hotspot.Polygon -> {
+        if (points.isEmpty()) {
+            0.5f to 0.5f
+        } else {
+            points.map { it.first }.average().toFloat() to
+                points.map { it.second }.average().toFloat()
+        }
+    }
+}
+
+@RawRes
+private fun atlasResource(
+    system: EarthwormSystem,
+    language: AppLanguage,
+): Int = when (system) {
+    EarthwormSystem.EXTERNAL ->
+        if (language == AppLanguage.TAMIL) R.raw.atlas_external_ta else R.raw.atlas_external_en
+    EarthwormSystem.DIGESTIVE ->
+        if (language == AppLanguage.TAMIL) R.raw.atlas_digestive_ta else R.raw.atlas_digestive_en
+    EarthwormSystem.CIRCULATORY ->
+        if (language == AppLanguage.TAMIL) R.raw.atlas_circulatory_ta else R.raw.atlas_circulatory_en
+    EarthwormSystem.RESPIRATORY ->
+        if (language == AppLanguage.TAMIL) R.raw.atlas_respiratory_ta else R.raw.atlas_respiratory_en
+    EarthwormSystem.EXCRETORY ->
+        if (language == AppLanguage.TAMIL) R.raw.atlas_excretory_ta else R.raw.atlas_excretory_en
+    EarthwormSystem.REPRODUCTIVE ->
+        if (language == AppLanguage.TAMIL) R.raw.atlas_reproductive_ta else R.raw.atlas_reproductive_en
+    EarthwormSystem.NERVOUS ->
+        if (language == AppLanguage.TAMIL) R.raw.atlas_nervous_ta else R.raw.atlas_nervous_en
+    EarthwormSystem.TRANSVERSE_SECTION ->
+        if (language == AppLanguage.TAMIL) R.raw.atlas_crosssection_ta else R.raw.atlas_crosssection_en
+    EarthwormSystem.PREPARATION -> error("Preparation has no anatomical atlas resource.")
+}
