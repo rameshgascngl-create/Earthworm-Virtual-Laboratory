@@ -1,12 +1,13 @@
-name: Validate Earthworm Android source and release candidate
+name: Validate SVG label legibility correction
 on:
   workflow_dispatch:
   pull_request:
 permissions:
   contents: read
 concurrency:
-  group: earthworm-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: earthworm-svg-label-qa-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   validate:
     runs-on: ubuntu-24.04
@@ -16,141 +17,223 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Phase-3C.1 authorised-diff integrity
+      - name: CI-only branch integrity
         shell: bash
         run: |
           set -euo pipefail
-          BASE=87b57f17ab61ee25503fc238b345def62ddc92ab
-          test "$(git merge-base "$BASE" HEAD)" = "$BASE"
-          bad="$(git diff --name-only "$BASE" HEAD | grep -Ev '^(\.github/workflows/android\.yml|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen\.kt|app/src/main/res/values/strings\.xml|app/src/main/res/values-ta/strings\.xml|app/src/main/res/raw/atlas_digestive_en\.svg|app/src/main/res/raw/atlas_digestive_ta\.svg)$' || true)"
-          if [ -n "$bad" ]; then
-            echo "Unauthorised Phase-3C.1 changes detected:"
-            echo "$bad"
+          SOURCE=ccbe6f13be70bb5e8bc3d5515e1012fea6914605
+          test "$(git merge-base "$SOURCE" HEAD)" = "$SOURCE"
+          unexpected="$(git diff --name-only "$SOURCE" HEAD | grep -Ev '^\.github/workflows/android\.yml$' || true)"
+          if [ -n "$unexpected" ]; then
+            echo "CI branch modified application/source files:"
+            echo "$unexpected"
             exit 1
           fi
 
-      - name: Preserve Phase-2B native/content integrity
-        run: node tests/native-phase2b-preflight.cjs
-
-      - name: Verify frozen scientific, process, TTS and non-digestive atlas layers
+      - name: SVG correction authorised scope
         shell: bash
         run: |
           set -euo pipefail
-          BASE=87b57f17ab61ee25503fc238b345def62ddc92ab
-          test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/StructureNarrator.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/data/ScientificContentRepository.kt             app/src/main/res/raw/earthworm_content_v138.json             app/src/main/res/drawable-nodpi             app/src/main/java/in/ramesh/zoology/earthwormlab/data/StructureGeometry.kt)"
-          changed_svg="$(git diff --name-only "$BASE" HEAD -- 'app/src/main/res/raw/atlas_*.svg' || true)"
-          unexpected="$(printf '%s\n' "$changed_svg" | grep -Ev '^(app/src/main/res/raw/atlas_digestive_en\.svg|app/src/main/res/raw/atlas_digestive_ta\.svg)?$' || true)"
+          BASE=55e9e4e71868c25383dba1432a08644f91f29dcc
+          SOURCE=ccbe6f13be70bb5e8bc3d5515e1012fea6914605
+          test "$(git merge-base "$BASE" "$SOURCE")" = "$BASE"
+          changed="$(git diff --name-only "$BASE" "$SOURCE")"
+          printf '%s\n' "$changed"
+          test "$(printf '%s\n' "$changed" | sed '/^$/d' | wc -l)" -eq 16
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^app/src/main/res/raw/atlas_(external|digestive|circulatory|respiratory|excretory|reproductive|nervous|crosssection)_(en|ta)\.svg$' || true)"
           test -z "$unexpected"
 
-      - name: Phase-3C.1 spatial-behaviour contract
+      - name: XML and label-style-only semantic gate
         shell: bash
         run: |
           set -euo pipefail
-          A=app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt
-          grep -q 'if (system != EarthwormSystem.RESPIRATORY)' "$A"
-          grep -q 'if (system == EarthwormSystem.RESPIRATORY) return' "$A"
-          grep -q 'SemanticZoomTier.OVERVIEW' "$A"
-          grep -q 'SemanticZoomTier.DETAIL' "$A"
-          ! grep -q 'SemanticZoomTier.DEEP' "$A"
-          grep -q 'scale < 1.7f' "$A"
-          grep -q 'horizontalScroll(rememberScrollState())' "$A"
-          grep -q 'scaleX = 1f / scale' "$A"
-          grep -q 'scaleY = 1f / scale' "$A"
-          ! grep -q 'semanticZoomTier == SemanticZoomTier.OVERVIEW && !orientationMode' "$A"
-
-      - name: Digestive atlas scientific-label contract
-        shell: bash
-        run: |
-          set -euo pipefail
-          EN=app/src/main/res/raw/atlas_digestive_en.svg
-          TA=app/src/main/res/raw/atlas_digestive_ta.svg
-          grep -q 'Gizzard · VIII / IX–X' "$EN"
-          grep -q 'Glandular stomach · post-gizzard, pre-XV' "$EN"
-          grep -q 'Intestinal caeca · origin XXVII' "$EN"
-          grep -q 'அரவைப்பை · VIII / IX–X' "$TA"
-          grep -q 'சுரப்புமிகு இரைப்பை · அரவைப்பைக்குப் பின், XV-க்கு முன்' "$TA"
-          grep -q 'குடல் நீட்சிகள் · தொடக்கம் XXVII' "$TA"
-          ! grep -q 'Gizzard VIII†' "$EN"
-          ! grep -q 'Stomach IX–XIV' "$EN"
-          ! grep -q 'Intestinal caeca XXVI†' "$EN"
-          ! grep -q 'அரவைப்பை VIII†' "$TA"
-          ! grep -q 'இரைப்பை IX–XIV' "$TA"
-          ! grep -q 'குடல் நீட்சிகள் XXVI†' "$TA"
           python3 - <<'PY'
+          import subprocess
           import xml.etree.ElementTree as ET
-          for p in (
-              "app/src/main/res/raw/atlas_digestive_en.svg",
-              "app/src/main/res/raw/atlas_digestive_ta.svg",
-          ):
-              ET.parse(p)
-              print("XML PASS", p)
-          PY
-          node - <<'NODE'
-          const fs=require('fs');
-          const j=JSON.parse(fs.readFileSync('app/src/main/res/raw/earthworm_content_v138.json','utf8'));
-          if (!j.structures.gizzard.locEn.includes('IX–X') || !j.structures.gizzard.locEn.includes('VIII')) {
-            throw new Error('Frozen gizzard source-variation statement missing');
-          }
-          if (!j.structures.stomach.locEn.includes('posterior to the gizzard') || !j.structures.stomach.locEn.includes('anterior to XV')) {
-            throw new Error('Frozen stomach positional statement missing');
-          }
-          if (!j.structures['intestinal-caeca'].locEn.includes('originate in XXVII')) {
-            throw new Error('Frozen caecal-origin statement missing');
-          }
-          console.log('PASS digestive visible labels align with frozen scientific content');
-          NODE
+          from pathlib import Path
 
-      - name: Security/offline contract
+          BASE = "55e9e4e71868c25383dba1432a08644f91f29dcc"
+          systems = ["external","digestive","circulatory","respiratory","excretory","reproductive","nervous","crosssection"]
+          files = [f"app/src/main/res/raw/atlas_{s}_{lang}.svg" for s in systems for lang in ("en","ta")]
+
+          def parse_bytes(data):
+              return ET.fromstring(data)
+
+          def old_bytes(path):
+              return subprocess.check_output(["git","show",f"{BASE}:{path}"])
+
+          def class_name(el):
+              return el.attrib.get("class","")
+
+          def compare(old, new, path):
+              if old.tag != new.tag:
+                  raise AssertionError(f"{path}: tag changed {old.tag} -> {new.tag}")
+              if (old.text or "") != (new.text or ""):
+                  raise AssertionError(f"{path}: text content changed in {old.tag}")
+              if (old.tail or "") != (new.tail or ""):
+                  raise AssertionError(f"{path}: tail content changed in {old.tag}")
+
+              allowed = old.tag.endswith("text") and class_name(old) in {"organ-label","micro-label"}
+              oa = dict(old.attrib)
+              na = dict(new.attrib)
+              if allowed:
+                  old_style = oa.pop("style", None)
+                  new_style = na.pop("style", None)
+                  if old_style == new_style:
+                      raise AssertionError(f"{path}: expected label style change missing")
+                  if new_style is None:
+                      raise AssertionError(f"{path}: label style missing")
+                  expected_width = "3.6" if class_name(old) == "organ-label" else "2.8"
+                  expected_weight = "800" if class_name(old) == "organ-label" else "700"
+                  required = [
+                      "fill: #ffffff",
+                      "stroke: #001412",
+                      f"stroke-width: {expected_width}",
+                      f"font-weight: {expected_weight}",
+                  ]
+                  for token in required:
+                      if token not in new_style:
+                          raise AssertionError(f"{path}: missing {token} in {class_name(old)}")
+              if oa != na:
+                  raise AssertionError(f"{path}: non-style attributes changed on {old.tag}: {oa} != {na}")
+
+              oc, nc = list(old), list(new)
+              if len(oc) != len(nc):
+                  raise AssertionError(f"{path}: child count changed")
+              for a,b in zip(oc,nc):
+                  compare(a,b,path)
+
+          for path in files:
+              old_root = parse_bytes(old_bytes(path))
+              new_root = ET.parse(path).getroot()
+              compare(old_root,new_root,path)
+              print("PASS style-only XML correction", path)
+
+          print("PASS all 16 SVGs preserve wording, coordinates, structure IDs and anatomy")
+          PY
+
+      - name: Preserve native anatomy and scientific integrity
+        run: node tests/native-phase2b-preflight.cjs
+
+      - name: Freeze non-SVG learning core and home identity
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=55e9e4e71868c25383dba1432a08644f91f29dcc
+          test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java             app/src/main/res/drawable-nodpi             app/src/main/res/values             app/src/main/res/values-ta             app/src/main/res/raw/earthworm_content_v138.json             reference/assessments.json             app/src/main/AndroidManifest.xml             app/build.gradle)"
+
+      - name: Security and offline contract
         shell: bash
         run: |
           set -euo pipefail
           ! grep -q 'android.permission.INTERNET' app/src/main/AndroidManifest.xml
+          ! grep -R -E 'android\.webkit\.WebView|WebViewClient|androidx\.webkit' app/src/main/java app/build.gradle
+          ! find app/src/main -type f | grep -E '\.(html?|js|mjs|cjs)$'
 
   build:
     needs: validate
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:
           packages: 'platform-tools'
+
       - name: Install required Android SDK packages
-        run: |
-          sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.13'
-      - name: Android lint and actual compilation
-        run: gradle --no-daemon :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
+
+      - name: Clean Android lint, tests and compilation
+        run: gradle --no-daemon clean :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
+
+      - name: Inspect label-QA APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/debug -maxdepth 1 -type f -name '*.apk' | head -n1)"
+          test -n "$APK" && test -f "$APK"
+          AAPT="$ANDROID_SDK_ROOT/build-tools/35.0.0/aapt"
+          AAPT2="$ANDROID_SDK_ROOT/build-tools/35.0.0/aapt2"
+
+          "$AAPT" dump badging "$APK" > qa-badging.txt
+          "$AAPT" dump permissions "$APK" > qa-permissions.txt
+          "$AAPT2" dump resources "$APK" > qa-resources.txt
+
+          grep -q "package: name='in.ramesh.zoology.earthwormlab'" qa-badging.txt
+          grep -q "versionCode='10308'" qa-badging.txt
+          grep -q "versionName='1.3.8'" qa-badging.txt
+          grep -q "sdkVersion:'24'" qa-badging.txt
+          grep -q "targetSdkVersion:'36'" qa-badging.txt
+          ! grep -q 'android.permission.INTERNET' qa-permissions.txt
+
+          for n in external digestive circulatory respiratory excretory reproductive nervous crosssection; do
+            grep -q "hq_atlas_${n}" qa-resources.txt
+            grep -q "atlas_${n}_en" qa-resources.txt
+            grep -q "atlas_${n}_ta" qa-resources.txt
+          done
+
+          if unzip -l "$APK" | grep -E '\.(html?|js|mjs|cjs)$'; then
+            echo "Unexpected browser payload packaged"
+            exit 1
+          fi
+
+          {
+            echo "source_commit=ccbe6f13be70bb5e8bc3d5515e1012fea6914605"
+            echo "home_base=55e9e4e71868c25383dba1432a08644f91f29dcc"
+            echo "applicationId=in.ramesh.zoology.earthwormlab"
+            echo "versionName=1.3.8"
+            echo "versionCode=10308"
+            echo "minSdk=24"
+            echo "targetSdk=36"
+            echo "INTERNET_permission=absent"
+            echo "HQ_WebPs=8/8"
+            echo "SVG_resources=16/16"
+            echo "label_fill=#ffffff"
+            echo "label_stroke=#001412"
+            echo "organ_label_stroke_width=3.6"
+            echo "micro_label_stroke_width=2.8"
+            echo "APK_SHA256=$(sha256sum "$APK" | awk '{print $1}')"
+          } | tee qa-evidence.txt
+
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-Phase3C1-device-QA-candidate
-          path: app/build/outputs/apk/debug/*.apk
+          name: Earthworm-1.3.8-SVG-Label-Legibility-DEVICE-QA-CANDIDATE
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            qa-evidence.txt
+            qa-badging.txt
+            qa-permissions.txt
           if-no-files-found: error
+
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-Phase3C1-unsigned-release-structural-check
+          name: Earthworm-1.3.8-SVG-Label-Legibility-unsigned-release-structural-check
           path: |
             app/build/outputs/apk/release/*unsigned.apk
             app/build/outputs/bundle/release/*.aab
           if-no-files-found: error
+
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: android-lint-reports
+          name: svg-label-legibility-lint-reports
           path: app/build/reports/lint-results*
           if-no-files-found: warn
