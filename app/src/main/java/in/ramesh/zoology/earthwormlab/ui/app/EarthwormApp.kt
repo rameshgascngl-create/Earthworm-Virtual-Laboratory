@@ -12,30 +12,36 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import `in`.ramesh.zoology.earthwormlab.R
+import `in`.ramesh.zoology.earthwormlab.data.ScientificContentRepository
 import `in`.ramesh.zoology.earthwormlab.model.EarthwormSystem
 import `in`.ramesh.zoology.earthwormlab.preferences.AppLanguage
+import `in`.ramesh.zoology.earthwormlab.ui.atlas.AtlasScreen
 import `in`.ramesh.zoology.earthwormlab.ui.navigation.SystemTabRow
 import `in`.ramesh.zoology.earthwormlab.ui.preparation.PreparationScreen
-import `in`.ramesh.zoology.earthwormlab.ui.placeholder.SystemPlaceholderScreen
 
 /**
- * Phase 1 shell only. Systems other than PREPARATION render
- * [SystemPlaceholderScreen] — deliberately not stubbed atlas/dissection/
- * assessment content, so nobody mistakes a placeholder for migrated data
- * (migration brief: "Do not label intentionally deferred features as
- * regressions" — equally, don't let them look finished either).
+ * Native application shell. Phase 2 replaces the eight system placeholders
+ * with [AtlasScreen] while keeping PREPARATION as the dissection-readiness
+ * screen. Scientific content remains data-driven through
+ * [ScientificContentRepository].
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EarthwormApp(viewModel: EarthwormViewModel) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val appContext = LocalContext.current.applicationContext
+    val scientificContentRepository = remember(appContext) {
+        ScientificContentRepository(appContext)
+    }
 
     EarthwormTheme {
         Scaffold(
@@ -71,7 +77,11 @@ fun EarthwormApp(viewModel: EarthwormViewModel) {
                 } else {
                     when (uiState.selectedSystem) {
                         EarthwormSystem.PREPARATION -> PreparationScreen()
-                        else -> SystemPlaceholderScreen(system = uiState.selectedSystem)
+                        else -> AtlasScreen(
+                            system = uiState.selectedSystem,
+                            language = uiState.language,
+                            repository = scientificContentRepository,
+                        )
                     }
                 }
             }
