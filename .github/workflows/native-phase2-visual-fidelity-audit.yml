@@ -1,0 +1,65 @@
+name: Native Phase 2 visual fidelity audit evidence
+on:
+  push:
+    branches:
+      - audit/native-v2-phase2-visual-fidelity-20260927
+
+permissions:
+  contents: read
+
+jobs:
+  evidence:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Build visual provenance report
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p audit-evidence
+          {
+            echo "PHASE2_HEAD=$(git rev-parse HEAD)"
+            echo
+            echo "== RECOVERED HQ WEBP SHA256 =="
+            sha256sum app/src/main/res/drawable-nodpi/hq_atlas_*.webp
+            echo
+            echo "== CURRENT NATIVE SVG SHA256 =="
+            sha256sum app/src/main/res/raw/atlas_*_en.svg app/src/main/res/raw/atlas_*_ta.svg
+            echo
+            echo "== ASSET TYPE / DIMENSION SIGNALS =="
+            file app/src/main/res/drawable-nodpi/hq_atlas_*.webp
+          } | tee audit-evidence/visual-provenance.txt
+
+          python3 - <<'PY' | tee audit-evidence/svg-inventory.json
+          import json, pathlib, re
+          out={}
+          for p in sorted(pathlib.Path("app/src/main/res/raw").glob("atlas_*_en.svg")):
+              s=p.read_text(encoding="utf-8")
+              sys=p.stem.removeprefix("atlas_").removesuffix("_en")
+              out[sys]={
+                  "path":str(p),
+                  "viewBox":re.search(r'viewBox="([^"]+)"',s).group(1),
+                  "dataStructureCount":s.count("data-structure="),
+                  "organLabelCount":s.count('class="organ-label"'),
+                  "microLabelCount":s.count('class="micro-label"'),
+                  "hitClassCount":s.count('class="hit"'),
+                  "embeddedRasterCount":len(re.findall(r"<image\\b",s)),
+              }
+          print(json.dumps(out,indent=2))
+          PY
+
+      - name: Upload visual audit evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-phase2-visual-fidelity-audit-evidence
+          path: |
+            app/src/main/res/drawable-nodpi/hq_atlas_*.webp
+            app/src/main/res/raw/atlas_*_en.svg
+            app/src/main/res/raw/atlas_*_ta.svg
+            review/HQ-ATLAS-RECOVERY-MANIFEST.json
+            audit-evidence/*
+          if-no-files-found: error
