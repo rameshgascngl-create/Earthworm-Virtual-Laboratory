@@ -645,14 +645,12 @@ private fun AtlasPlate(
         context,
         labelsVisible,
         semanticZoomTier,
-        orientationMode,
     ) {
         loadAtlasSvg(
             context = context,
             rawResId = rawResId,
             labelsVisible = labelsVisible,
             semanticZoomTier = semanticZoomTier,
-            orientationMode = orientationMode,
         )
     }
 
@@ -1214,7 +1212,6 @@ private fun loadAtlasSvg(
     @RawRes rawResId: Int,
     labelsVisible: Boolean,
     semanticZoomTier: SemanticZoomTier,
-    orientationMode: Boolean,
 ): SVG {
     val source = context.resources.openRawResource(rawResId)
         .bufferedReader(Charsets.UTF_8)
