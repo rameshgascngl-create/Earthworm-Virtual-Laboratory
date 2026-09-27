@@ -19,6 +19,7 @@ internal enum class BiologicalProcess {
     BLOOD_CIRCULATION,
     DIGESTIVE_JOURNEY,
     NEPHRIDIAL_EXCRETION,
+    NERVOUS_CONDUCTION,
 }
 
 internal enum class ProcessPhase {
@@ -31,6 +32,10 @@ internal enum class ProcessPhase {
     INTESTINAL_PROCESSING,
     NEPHRIDIAL_PROCESSING,
     EXCRETORY_ROUTE_COMPARISON,
+    SENSORY_INTEGRATION,
+    NERVE_RING_RELAY,
+    LONGITUDINAL_CONDUCTION,
+    SEGMENTAL_RESPONSE,
 }
 
 internal enum class ProcessDirection {
@@ -47,6 +52,10 @@ internal enum class ProcessDirection {
     FILTRATION,
     ENTERONEPHRIC,
     EXONEPHRIC,
+    SENSORY_INPUT,
+    NEURAL_RELAY,
+    IMPULSE_CONDUCTION,
+    MOTOR_RESPONSE,
 }
 
 internal data class ProcessStage(
@@ -352,6 +361,67 @@ internal object ProcessGuidance {
                     mechanismTa = "உடற்சுவரில் மிக அதிக எண்ணிக்கையில் உள்ள உடற்சுவர் நெஃப்ரிடியாக்கள் நெஃப்ரிடியத் துளைகள் வழியாக கழிவுத் திரவத்தை நேரடியாக வெளியேற்றுகின்றன. இந்த வெளிப்புற வெளியேற்றப் பாதை, குடலுக்குள் திறக்கும் தொண்டை மற்றும் இடைத்திரை நெஃப்ரிடியாக்களிலிருந்து இவற்றை வேறுபடுத்துகிறது.",
                     cueEn = "Direct external discharge",
                     cueTa = "நேரடி வெளிப்புற வெளியேற்றம்",
+                ),
+            ),
+        ),
+        EarthwormSystem.NERVOUS to ProcessDefinition(
+            process = BiologicalProcess.NERVOUS_CONDUCTION,
+            system = EarthwormSystem.NERVOUS,
+            stages = listOf(
+                ProcessStage(
+                    target = "cerebral-ganglia",
+                    phase = ProcessPhase.SENSORY_INTEGRATION,
+                    direction = ProcessDirection.SENSORY_INPUT,
+                    titleEn = "Cerebral ganglia — anterior sensory integration",
+                    titleTa = "மூளை நரம்புத் திரள்கள் — முன்புற உணர்வு ஒருங்கிணைப்பு",
+                    mechanismEn = "Anterior sensory information is integrated in the cerebral ganglia, which coordinate behavioural responses. The sensory receptors themselves are not represented as separate validated hotspots in the present atlas.",
+                    mechanismTa = "முன்புற உணர்வுத் தகவல்கள் மூளை நரம்புத் திரள்களில் ஒருங்கிணைக்கப்பட்டு நடத்தை மறுமொழிகள் ஒழுங்குபடுத்தப்படுகின்றன. உணர்வு ரிசெப்டர்கள் தற்போதைய அட்லஸில் தனித்த சரிபார்க்கப்பட்ட ஹாட்ஸ்பாட்களாக குறிக்கப்படவில்லை.",
+                    cueEn = "Sensory input reaches an anterior integration centre",
+                    cueTa = "உணர்வுத் தகவல் முன்புற ஒருங்கிணைப்பு மையத்தை அடைகிறது",
+                ),
+                ProcessStage(
+                    target = "circum-pharyngeal-connectives",
+                    phase = ProcessPhase.NERVE_RING_RELAY,
+                    direction = ProcessDirection.NEURAL_RELAY,
+                    titleEn = "Circumpharyngeal connectives — nerve-ring relay",
+                    titleTa = "தொண்டைசுற்று நரம்பு இணைப்புகள் — நரம்பு வளையக் கடத்தல்",
+                    mechanismEn = "The paired circumpharyngeal connectives complete the nerve ring and relay impulses between the dorsal cerebral centre and the ventral anterior nervous centres.",
+                    mechanismTa = "இணையான தொண்டைசுற்று நரம்பு இணைப்புகள் நரம்பு வளையத்தை நிறைவு செய்து, முதுகுப்புற மூளை நரம்பு மையத்துக்கும் வயிற்றுப்புற முன்நரம்பு மையங்களுக்கும் இடையே தூண்டல்களைக் கடத்துகின்றன.",
+                    cueEn = "Impulse relay around the pharynx",
+                    cueTa = "தொண்டையைச் சுற்றி நரம்புத் தூண்டல் கடத்தல்",
+                ),
+                ProcessStage(
+                    target = "subpharyngeal-ganglion",
+                    phase = ProcessPhase.NERVE_RING_RELAY,
+                    direction = ProcessDirection.NEURAL_RELAY,
+                    titleEn = "Subpharyngeal ganglion — anterior motor integration",
+                    titleTa = "தொண்டைக்கீழ் நரம்புத் திரள் — முன்புற இயக்க ஒருங்கிணைப்பு",
+                    mechanismEn = "The subpharyngeal ganglion links the nerve ring to the ventral nerve cord and acts as an important anterior motor-integration centre.",
+                    mechanismTa = "தொண்டைக்கீழ் நரம்புத் திரள் நரம்பு வளையத்தையும் வயிற்றுப்புற நரம்புவடத்தையும் இணைத்து, முக்கிய முன்புற இயக்க ஒருங்கிணைப்பு மையமாக செயல்படுகிறது.",
+                    cueEn = "Relay from nerve ring to ventral cord",
+                    cueTa = "நரம்பு வளையத்திலிருந்து வயிற்றுப்புற நரம்புவடத்துக்கு கடத்தல்",
+                ),
+                ProcessStage(
+                    target = "ventral-nerve-cord",
+                    phase = ProcessPhase.LONGITUDINAL_CONDUCTION,
+                    direction = ProcessDirection.IMPULSE_CONDUCTION,
+                    titleEn = "Ventral nerve cord — longitudinal impulse conduction",
+                    titleTa = "வயிற்றுப்புற நரம்புவடம் — நீளவழி தூண்டல் கடத்தல்",
+                    mechanismEn = "The ganglionated ventral nerve cord conducts impulses along the body and coordinates segmental locomotor patterns.",
+                    mechanismTa = "கண்ட நரம்புத் திரள்களைக் கொண்ட வயிற்றுப்புற நரம்புவடம் உடலின் நீளவழியாக நரம்புத் தூண்டல்களைக் கடத்தி கண்டவாரியான இயக்க ஒழுங்கை ஒருங்கிணைக்கிறது.",
+                    cueEn = "Longitudinal neural conduction",
+                    cueTa = "நீளவழி நரம்புத் தூண்டல் கடத்தல்",
+                ),
+                ProcessStage(
+                    target = "segmental-ganglia",
+                    phase = ProcessPhase.SEGMENTAL_RESPONSE,
+                    direction = ProcessDirection.MOTOR_RESPONSE,
+                    titleEn = "Segmental ganglia — local integration and response control",
+                    titleTa = "கண்ட நரம்புத் திரள்கள் — உள்ளூர் ஒருங்கிணைப்பு மற்றும் மறுமொழிக் கட்டுப்பாடு",
+                    mechanismEn = "Segmental ganglia integrate local sensory information and control local muscles, allowing coordinated segmental responses. The muscles themselves are not separate validated nervous-system hotspots in the current atlas.",
+                    mechanismTa = "கண்ட நரம்புத் திரள்கள் உள்ளூர் உணர்வுத் தகவல்களை ஒருங்கிணைத்து உள்ளூர் தசைகளை கட்டுப்படுத்துவதன் மூலம் ஒருங்கிணைந்த கண்டவாரியான மறுமொழிகளை உருவாக்குகின்றன. தசைகள் தற்போதைய நரம்பு மண்டல அட்லஸில் தனித்த சரிபார்க்கப்பட்ட ஹாட்ஸ்பாட்களாக குறிக்கப்படவில்லை.",
+                    cueEn = "Local integration → muscular response",
+                    cueTa = "உள்ளூர் ஒருங்கிணைப்பு → தசை மறுமொழி",
                 ),
             ),
         ),
