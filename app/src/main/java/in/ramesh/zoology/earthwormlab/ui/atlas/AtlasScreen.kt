@@ -100,6 +100,7 @@ fun AtlasScreen(
     val audioCorrectionCue = stringResource(R.string.atlas_audio_correction)
     val guidedActionCue = stringResource(R.string.atlas_audio_guided_action)
     val guidedStepCue = stringResource(R.string.atlas_audio_guided_step)
+    val guidedOfCue = stringResource(R.string.atlas_audio_guided_of)
     val physiologyProcessCue = stringResource(R.string.atlas_audio_process)
     val guidedSteps = remember(system, repository) { repository.guidedStepsFor(system) }
     var guidedMode by rememberSaveable(system.dataKey, "atlas-guided-mode") { mutableStateOf(false) }
@@ -159,6 +160,7 @@ fun AtlasScreen(
                                 stepNumber = safeIndex + 1,
                                 stepCount = guidedSteps.size,
                                 stepCue = guidedStepCue,
+                                ofCue = guidedOfCue,
                                 locationCue = audioLocationCue,
                                 functionCue = audioFunctionCue,
                                 actionCue = guidedActionCue,
@@ -782,13 +784,14 @@ private fun ScientificContentRepository.StructureContent.guidedNarration(
     stepNumber: Int,
     stepCount: Int,
     stepCue: String,
+    ofCue: String,
     locationCue: String,
     functionCue: String,
     actionCue: String,
     instruction: String,
 ): String =
     listOf(
-        stepCue + " " + stepNumber + " / " + stepCount,
+        stepCue + " " + stepNumber + ". " + ofCue + " " + stepCount,
         label(language),
         location(language).takeIf { it.isNotBlank() }?.let { locationCue + ": " + it },
         function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
