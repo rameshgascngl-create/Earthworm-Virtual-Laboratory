@@ -1,12 +1,13 @@
-name: Validate Earthworm Android source and release candidate
+name: Validate privacy-link QA candidate
 on:
   workflow_dispatch:
   pull_request:
 permissions:
   contents: read
 concurrency:
-  group: earthworm-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  group: earthworm-privacy-link-qa-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   validate:
     runs-on: ubuntu-24.04
@@ -16,141 +17,126 @@ jobs:
         with:
           persist-credentials: false
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
 
-      - name: Phase-3C.1 authorised-diff integrity
+      - name: CI-only branch integrity
         shell: bash
         run: |
           set -euo pipefail
-          BASE=87b57f17ab61ee25503fc238b345def62ddc92ab
-          test "$(git merge-base "$BASE" HEAD)" = "$BASE"
-          bad="$(git diff --name-only "$BASE" HEAD | grep -Ev '^(\.github/workflows/android\.yml|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen\.kt|app/src/main/res/values/strings\.xml|app/src/main/res/values-ta/strings\.xml|app/src/main/res/raw/atlas_digestive_en\.svg|app/src/main/res/raw/atlas_digestive_ta\.svg)$' || true)"
-          if [ -n "$bad" ]; then
-            echo "Unauthorised Phase-3C.1 changes detected:"
-            echo "$bad"
-            exit 1
-          fi
-
-      - name: Preserve Phase-2B native/content integrity
-        run: node tests/native-phase2b-preflight.cjs
-
-      - name: Verify frozen scientific, process, TTS and non-digestive atlas layers
-        shell: bash
-        run: |
-          set -euo pipefail
-          BASE=87b57f17ab61ee25503fc238b345def62ddc92ab
-          test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/StructureNarrator.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/data/ScientificContentRepository.kt             app/src/main/res/raw/earthworm_content_v138.json             app/src/main/res/drawable-nodpi             app/src/main/java/in/ramesh/zoology/earthwormlab/data/StructureGeometry.kt)"
-          changed_svg="$(git diff --name-only "$BASE" HEAD -- 'app/src/main/res/raw/atlas_*.svg' || true)"
-          unexpected="$(printf '%s\n' "$changed_svg" | grep -Ev '^(app/src/main/res/raw/atlas_digestive_en\.svg|app/src/main/res/raw/atlas_digestive_ta\.svg)?$' || true)"
+          SOURCE=56272ffea4aa93942b3728bdd3f881f7a96e3ae0
+          test "$(git merge-base "$SOURCE" HEAD)" = "$SOURCE"
+          unexpected="$(git diff --name-only "$SOURCE" HEAD | grep -Ev '^\.github/workflows/android\.yml$' || true)"
           test -z "$unexpected"
 
-      - name: Phase-3C.1 spatial-behaviour contract
+      - name: Privacy-launch correction scope
         shell: bash
         run: |
           set -euo pipefail
-          A=app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt
-          grep -q 'if (system != EarthwormSystem.RESPIRATORY)' "$A"
-          grep -q 'if (system == EarthwormSystem.RESPIRATORY) return' "$A"
-          grep -q 'SemanticZoomTier.OVERVIEW' "$A"
-          grep -q 'SemanticZoomTier.DETAIL' "$A"
-          ! grep -q 'SemanticZoomTier.DEEP' "$A"
-          grep -q 'scale < 1.7f' "$A"
-          grep -q 'horizontalScroll(rememberScrollState())' "$A"
-          grep -q 'scaleX = 1f / scale' "$A"
-          grep -q 'scaleY = 1f / scale' "$A"
-          ! grep -q 'semanticZoomTier == SemanticZoomTier.OVERVIEW && !orientationMode' "$A"
+          BASE=ed64c0f8505234e8949f5a5fa96e25c92e091c32
+          SOURCE=56272ffea4aa93942b3728bdd3f881f7a96e3ae0
+          changed="$(git diff --name-only "$BASE" "$SOURCE")"
+          printf '%s\n' "$changed"
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(app/src/main/java/in/ramesh/zoology/earthwormlab/ui/preparation/PreparationScreen\.kt|app/src/main/res/values/strings\.xml|app/src/main/res/values-ta/strings\.xml)$' || true)"
+          test -z "$unexpected"
+          test "$(printf '%s\n' "$changed" | sed '/^$/d' | wc -l)" -eq 3
 
-      - name: Digestive atlas scientific-label contract
+      - name: Preserve native anatomy and scientific integrity
+        run: node tests/native-phase2b-preflight.cjs
+
+      - name: Freeze renderer, navigation, anatomy and science
         shell: bash
         run: |
           set -euo pipefail
-          EN=app/src/main/res/raw/atlas_digestive_en.svg
-          TA=app/src/main/res/raw/atlas_digestive_ta.svg
-          grep -q 'Gizzard · VIII / IX–X' "$EN"
-          grep -q 'Glandular stomach · post-gizzard, pre-XV' "$EN"
-          grep -q 'Intestinal caeca · origin XXVII' "$EN"
-          grep -q 'அரவைப்பை · VIII / IX–X' "$TA"
-          grep -q 'சுரப்புமிகு இரைப்பை · அரவைப்பைக்குப் பின், XV-க்கு முன்' "$TA"
-          grep -q 'குடல் நீட்சிகள் · தொடக்கம் XXVII' "$TA"
-          ! grep -q 'Gizzard VIII†' "$EN"
-          ! grep -q 'Stomach IX–XIV' "$EN"
-          ! grep -q 'Intestinal caeca XXVI†' "$EN"
-          ! grep -q 'அரவைப்பை VIII†' "$TA"
-          ! grep -q 'இரைப்பை IX–XIV' "$TA"
-          ! grep -q 'குடல் நீட்சிகள் XXVI†' "$TA"
-          python3 - <<'PY'
-          import xml.etree.ElementTree as ET
-          for p in (
-              "app/src/main/res/raw/atlas_digestive_en.svg",
-              "app/src/main/res/raw/atlas_digestive_ta.svg",
-          ):
-              ET.parse(p)
-              print("XML PASS", p)
-          PY
-          node - <<'NODE'
-          const fs=require('fs');
-          const j=JSON.parse(fs.readFileSync('app/src/main/res/raw/earthworm_content_v138.json','utf8'));
-          if (!j.structures.gizzard.locEn.includes('IX–X') || !j.structures.gizzard.locEn.includes('VIII')) {
-            throw new Error('Frozen gizzard source-variation statement missing');
-          }
-          if (!j.structures.stomach.locEn.includes('posterior to the gizzard') || !j.structures.stomach.locEn.includes('anterior to XV')) {
-            throw new Error('Frozen stomach positional statement missing');
-          }
-          if (!j.structures['intestinal-caeca'].locEn.includes('originate in XXVII')) {
-            throw new Error('Frozen caecal-origin statement missing');
-          }
-          console.log('PASS digestive visible labels align with frozen scientific content');
-          NODE
+          BASE=ed64c0f8505234e8949f5a5fa96e25c92e091c32
+          test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/app             app/src/main/java/in/ramesh/zoology/earthwormlab/data             app/src/main/res/raw             app/src/main/res/drawable-nodpi             reference/assessments.json             app/src/main/AndroidManifest.xml             app/build.gradle)"
 
-      - name: Security/offline contract
+      - name: Privacy launcher contract
+        shell: bash
+        run: |
+          set -euo pipefail
+          P=app/src/main/java/in/ramesh/zoology/earthwormlab/ui/preparation/PreparationScreen.kt
+          EN=app/src/main/res/values/strings.xml
+          TA=app/src/main/res/values-ta/strings.xml
+          grep -q 'Intent.ACTION_VIEW' "$P"
+          grep -q 'Intent.CATEGORY_BROWSABLE' "$P"
+          grep -q 'Intent.createChooser' "$P"
+          grep -q 'privacy_policy_fallback_url' "$P"
+          grep -q 'ClipboardManager' "$P"
+          grep -q 'Toast.makeText' "$P"
+          grep -q 'https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md' "$EN"
+          grep -q 'https://raw.githubusercontent.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/main/PRIVACY.md' "$EN"
+          grep -q 'privacy_policy_chooser_title' "$TA"
+          grep -q 'privacy_policy_copied_message' "$TA"
+
+      - name: Security and offline contract
         shell: bash
         run: |
           set -euo pipefail
           ! grep -q 'android.permission.INTERNET' app/src/main/AndroidManifest.xml
+          ! grep -R -E 'android\.webkit\.WebView|WebViewClient|androidx\.webkit' app/src/main/java app/build.gradle
+          ! find app/src/main -type f | grep -E '\.(html?|js|mjs|cjs)$'
 
   build:
     needs: validate
     runs-on: ubuntu-24.04
-    timeout-minutes: 30
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
+
       - name: Set up Android SDK
         uses: android-actions/setup-android@v4
         with:
           packages: 'platform-tools'
+
       - name: Install required Android SDK packages
-        run: |
-          sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0'
+
       - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.13'
-      - name: Android lint and actual compilation
-        run: gradle --no-daemon :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
+
+      - name: Clean Android lint, tests and compilation
+        run: gradle --no-daemon clean :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
+
+      - name: Inspect privacy-link QA APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/debug -maxdepth 1 -type f -name '*.apk' | head -n1)"
+          test -n "$APK" && test -f "$APK"
+          AAPT="$ANDROID_SDK_ROOT/build-tools/35.0.0/aapt"
+          "$AAPT" dump badging "$APK" > qa-badging.txt
+          "$AAPT" dump permissions "$APK" > qa-permissions.txt
+          grep -q "package: name='in.ramesh.zoology.earthwormlab'" qa-badging.txt
+          grep -q "versionCode='10308'" qa-badging.txt
+          grep -q "versionName='1.3.8'" qa-badging.txt
+          ! grep -q 'android.permission.INTERNET' qa-permissions.txt
+          {
+            echo "source_commit=56272ffea4aa93942b3728bdd3f881f7a96e3ae0"
+            echo "applicationId=in.ramesh.zoology.earthwormlab"
+            echo "versionName=1.3.8"
+            echo "versionCode=10308"
+            echo "privacy_launcher=chooser_plus_raw_fallback_plus_clipboard"
+            echo "INTERNET_permission=absent"
+            echo "APK_SHA256=$(sha256sum "$APK" | awk '{print $1}')"
+          } | tee qa-evidence.txt
+
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-Phase3C1-device-QA-candidate
-          path: app/build/outputs/apk/debug/*.apk
-          if-no-files-found: error
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Earthworm-1.3.8-Phase3C1-unsigned-release-structural-check
+          name: Earthworm-1.3.8-Privacy-Link-DEVICE-QA-CANDIDATE
           path: |
-            app/build/outputs/apk/release/*unsigned.apk
-            app/build/outputs/bundle/release/*.aab
+            app/build/outputs/apk/debug/*.apk
+            qa-evidence.txt
+            qa-badging.txt
+            qa-permissions.txt
           if-no-files-found: error
-      - uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: android-lint-reports
-          path: app/build/reports/lint-results*
-          if-no-files-found: warn
