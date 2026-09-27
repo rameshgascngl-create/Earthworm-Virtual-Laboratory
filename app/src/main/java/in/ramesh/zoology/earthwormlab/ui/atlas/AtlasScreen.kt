@@ -711,36 +711,15 @@ private fun ScientificContentRepository.StructureContent.extendedNarration(
         .filter { it.isNotBlank() }
         .joinToString(". ", postfix = ".")
 
-private fun ScientificContentRepository.StructureContent.guidedNarration(
-    language: AppLanguage,
-    stepNumber: Int,
-    stepCount: Int,
-    stepCue: String,
-    ofCue: String,
-    locationCue: String,
-    functionCue: String,
-    actionCue: String,
-    instruction: String,
-): String =
-    listOf(
-        stepCue + " " + stepNumber + ". " + ofCue + " " + stepCount,
-        label(language),
-        location(language).takeIf { it.isNotBlank() }?.let { locationCue + ": " + it },
-        function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
-        instruction.takeIf { it.isNotBlank() }?.let { actionCue + ": " + it },
-    )
-        .filterNotNull()
-        .map { it.trim().trimEnd('.') }
-        .filter { it.isNotBlank() }
-        .joinToString(". ", postfix = ".")
-
-private fun ScientificContentRepository.StructureContent.physiologyNarration(
+private fun ScientificContentRepository.StructureContent.processNarration(
     language: AppLanguage,
     processCue: String,
+    processTitle: String,
     functionCue: String,
 ): String =
     listOf(
-        processCue + ": " + label(language),
+        processCue + ": " + processTitle,
+        label(language),
         function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
         significance(language).takeIf { it.isNotBlank() },
     )
@@ -749,42 +728,12 @@ private fun ScientificContentRepository.StructureContent.physiologyNarration(
         .filter { it.isNotBlank() }
         .joinToString(". ", postfix = ".")
 
-private fun guidedFallbackNarration(
-    language: AppLanguage,
-    label: String,
-    tool: String,
-): String {
-    return when (language) {
-        AppLanguage.ENGLISH -> when (tool) {
-            "inspect" -> "Inspect and identify " + label
-            "probe" -> "Use the probe to identify " + label
-            "magnifier" -> "Use the magnifier to examine " + label
-            "forceps" -> "Use forceps carefully to expose or identify " + label
-            "pin" -> "Use pinning as directed to position " + label
-            "scissors" -> "Use scissors only as directed while identifying " + label
-            else -> "Identify and study " + label
-        }
-        AppLanguage.TAMIL -> when (tool) {
-            "inspect" -> label + " அமைப்பைக் கவனித்து அடையாளம் காணவும்"
-            "probe" -> "ஆய்வுக்கோலைப் பயன்படுத்தி " + label + " அமைப்பை அடையாளம் காணவும்"
-            "magnifier" -> "பெரிதாக்கியைப் பயன்படுத்தி " + label + " அமைப்பைக் கவனிக்கவும்"
-            "forceps" -> "இடுக்கியை கவனமாகப் பயன்படுத்தி " + label + " அமைப்பை வெளிப்படுத்தி அடையாளம் காணவும்"
-            "pin" -> "வழிகாட்டுதலின்படி ஊசியைப் பயன்படுத்தி " + label + " அமைப்பை நிலைநிறுத்தவும்"
-            "scissors" -> label + " அமைப்பை அடையாளம் காணும்போது வழிகாட்டுதலின்படி மட்டுமே கத்தரிக்கோலைப் பயன்படுத்தவும்"
-            else -> label + " அமைப்பைக் கவனித்து கற்கவும்"
-        }
-    }
-}
-
 @Composable
-private fun guidedToolLabel(tool: String): String = when (tool) {
-    "inspect" -> stringResource(R.string.atlas_guided_tool_inspect)
-    "probe" -> stringResource(R.string.atlas_guided_tool_probe)
-    "magnifier" -> stringResource(R.string.atlas_guided_tool_magnifier)
-    "forceps" -> stringResource(R.string.atlas_guided_tool_forceps)
-    "pin" -> stringResource(R.string.atlas_guided_tool_pin)
-    "scissors" -> stringResource(R.string.atlas_guided_tool_scissors)
-    else -> tool
+private fun processTitle(process: BiologicalProcess): String = when (process) {
+    BiologicalProcess.CUTANEOUS_RESPIRATION ->
+        stringResource(R.string.atlas_process_cutaneous_respiration)
+    BiologicalProcess.BLOOD_CIRCULATION_OVERVIEW ->
+        stringResource(R.string.atlas_process_blood_circulation)
 }
 
 private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
