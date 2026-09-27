@@ -56,7 +56,19 @@ class ScientificContentRepository(context: Context) {
      * genuinely needs the label text itself (e.g. TalkBack content
      * description), not as a substitute for proper string resources for
      * UI chrome. */
-    data class StructureContent(val id: String, val en: String, val ta: String)
+    data class StructureContent(
+        val id: String,
+        val en: String,
+        val ta: String,
+        val locEn: String,
+        val locTa: String,
+        val fnEn: String,
+        val fnTa: String,
+        val sigEn: String,
+        val sigTa: String,
+        val fixEn: String,
+        val fixTa: String,
+    )
 
     fun structuresFor(system: EarthwormSystem): List<AnatomicalStructure> =
         structuresJson.entries
@@ -69,6 +81,14 @@ class ScientificContentRepository(context: Context) {
                 id = id,
                 en = obj["en"]?.jsonPrimitive?.content.orEmpty(),
                 ta = obj["ta"]?.jsonPrimitive?.content.orEmpty(),
+                locEn = obj["locEn"]?.jsonPrimitive?.content.orEmpty(),
+                locTa = obj["locTa"]?.jsonPrimitive?.content.orEmpty(),
+                fnEn = obj["fnEn"]?.jsonPrimitive?.content.orEmpty(),
+                fnTa = obj["fnTa"]?.jsonPrimitive?.content.orEmpty(),
+                sigEn = obj["sigEn"]?.jsonPrimitive?.content.orEmpty(),
+                sigTa = obj["sigTa"]?.jsonPrimitive?.content.orEmpty(),
+                fixEn = obj["fixEn"]?.jsonPrimitive?.content.orEmpty(),
+                fixTa = obj["fixTa"]?.jsonPrimitive?.content.orEmpty(),
             )
         }
 
