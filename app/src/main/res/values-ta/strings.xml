@@ -37,7 +37,6 @@
     <string name="atlas_focus_mode">கவன முறை</string>
     <string name="atlas_zoom_overview">பெரிதாக்கம்: மேலோட்டம்</string>
     <string name="atlas_zoom_detail">பெரிதாக்கம்: விவரம்</string>
-    <string name="atlas_zoom_deep">பெரிதாக்கம்: நுண்விவரம்</string>
     <string name="atlas_mode_svg">SVG அட்லஸ்</string>
     <string name="atlas_mode_detailed">விரிவான படம்</string>
     <string name="atlas_mode_caption">SVG அட்லஸ் ஊடாடும் கற்றலுக்கானது. விரிவான படம் உயர்தெளிவுடைய உடற்கூறு குறிப்புப் படமாகும்; அதில் தொடு குறியீடுகள் காட்டப்படாது.</string>

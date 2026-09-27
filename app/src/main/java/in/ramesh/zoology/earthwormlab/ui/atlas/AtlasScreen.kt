@@ -645,14 +645,12 @@ private fun AtlasPlate(
         context,
         labelsVisible,
         semanticZoomTier,
-        orientationMode,
     ) {
         loadAtlasSvg(
             context = context,
             rawResId = rawResId,
             labelsVisible = labelsVisible,
             semanticZoomTier = semanticZoomTier,
-            orientationMode = orientationMode,
         )
     }
 
@@ -661,6 +659,7 @@ private fun AtlasPlate(
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
                     .padding(horizontal = 10.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
@@ -670,11 +669,13 @@ private fun AtlasPlate(
                     onClick = { labelsVisible = !labelsVisible },
                     label = { Text(stringResource(R.string.atlas_labels)) },
                 )
-                FilterChip(
-                    selected = orientationMode,
-                    onClick = { orientationMode = !orientationMode },
-                    label = { Text(stringResource(R.string.atlas_orientation_mode)) },
-                )
+                if (system != EarthwormSystem.RESPIRATORY) {
+                    FilterChip(
+                        selected = orientationMode,
+                        onClick = { orientationMode = !orientationMode },
+                        label = { Text(stringResource(R.string.atlas_orientation_mode)) },
+                    )
+                }
                 FilterChip(
                     selected = focusMode,
                     onClick = { focusMode = !focusMode },
@@ -689,7 +690,6 @@ private fun AtlasPlate(
                                 when (semanticZoomTier) {
                                     SemanticZoomTier.OVERVIEW -> R.string.atlas_zoom_overview
                                     SemanticZoomTier.DETAIL -> R.string.atlas_zoom_detail
-                                    SemanticZoomTier.DEEP -> R.string.atlas_zoom_deep
                                 }
                             )
                         )
@@ -787,6 +787,10 @@ private fun AtlasPlate(
                                 Box(
                                     modifier = Modifier
                                         .size(40.dp)
+                                        .graphicsLayer {
+                                            scaleX = 1f / scale
+                                            scaleY = 1f / scale
+                                        }
                                         .border(
                                             width = 3.dp,
                                             color = MaterialTheme.colorScheme.tertiary,
@@ -885,14 +889,10 @@ private fun AtlasPlate(
 private enum class SemanticZoomTier {
     OVERVIEW,
     DETAIL,
-    DEEP,
 }
 
-private fun semanticZoomTier(scale: Float): SemanticZoomTier = when {
-    scale < 1.55f -> SemanticZoomTier.OVERVIEW
-    scale < 2.6f -> SemanticZoomTier.DETAIL
-    else -> SemanticZoomTier.DEEP
-}
+private fun semanticZoomTier(scale: Float): SemanticZoomTier =
+    if (scale < 1.7f) SemanticZoomTier.OVERVIEW else SemanticZoomTier.DETAIL
 
 @Composable
 private fun SpatialOrientationOverlay(
@@ -900,45 +900,59 @@ private fun SpatialOrientationOverlay(
     language: AppLanguage,
     modifier: Modifier = Modifier,
 ) {
+    if (system == EarthwormSystem.RESPIRATORY) return
+
     Box(modifier = modifier.padding(8.dp)) {
-        if (system == EarthwormSystem.TRANSVERSE_SECTION) {
-            Text(
-                text = if (language == AppLanguage.TAMIL) "முதுகுப்புறம் ↑" else "Dorsal ↑",
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.tertiary,
-                modifier = Modifier.align(Alignment.TopCenter),
-            )
-            Text(
-                text = if (language == AppLanguage.TAMIL) "வயிற்றுப்புறம் ↓" else "Ventral ↓",
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.tertiary,
-                modifier = Modifier.align(Alignment.BottomCenter),
-            )
-        } else {
-            Text(
-                text = if (language == AppLanguage.TAMIL) "← முன்முனை" else "← Anterior",
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.tertiary,
-                modifier = Modifier.align(Alignment.TopStart),
-            )
-            Text(
-                text = if (language == AppLanguage.TAMIL) "பின்முனை →" else "Posterior →",
-                style = MaterialTheme.typography.labelLarge,
-                color = MaterialTheme.colorScheme.tertiary,
-                modifier = Modifier.align(Alignment.TopEnd),
-            )
-            if (system == EarthwormSystem.EXTERNAL) {
+        when (system) {
+            EarthwormSystem.TRANSVERSE_SECTION -> {
                 Text(
-                    text = if (language == AppLanguage.TAMIL) {
-                        "கண்ட வழிகாட்டி · கிளிட்டெல்லம் XIV–XVI"
-                    } else {
-                        "Segment guide · clitellum XIV–XVI"
-                    },
-                    style = MaterialTheme.typography.labelMedium,
+                    text = if (language == AppLanguage.TAMIL) "முதுகுப்புறம் ↑" else "Dorsal ↑",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.align(Alignment.TopCenter),
+                )
+                Text(
+                    text = if (language == AppLanguage.TAMIL) "வயிற்றுப்புறம் ↓" else "Ventral ↓",
+                    style = MaterialTheme.typography.labelLarge,
                     color = MaterialTheme.colorScheme.tertiary,
                     modifier = Modifier.align(Alignment.BottomCenter),
                 )
             }
+
+            EarthwormSystem.EXTERNAL,
+            EarthwormSystem.DIGESTIVE,
+            EarthwormSystem.CIRCULATORY,
+            EarthwormSystem.EXCRETORY,
+            EarthwormSystem.REPRODUCTIVE,
+            EarthwormSystem.NERVOUS -> {
+                Text(
+                    text = if (language == AppLanguage.TAMIL) "← முன்முனை" else "← Anterior",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.align(Alignment.TopStart),
+                )
+                Text(
+                    text = if (language == AppLanguage.TAMIL) "பின்முனை →" else "Posterior →",
+                    style = MaterialTheme.typography.labelLarge,
+                    color = MaterialTheme.colorScheme.tertiary,
+                    modifier = Modifier.align(Alignment.TopEnd),
+                )
+                if (system == EarthwormSystem.EXTERNAL) {
+                    Text(
+                        text = if (language == AppLanguage.TAMIL) {
+                            "கண்ட வழிகாட்டி · கிளிட்டெல்லம் XIV–XVI"
+                        } else {
+                            "Segment guide · clitellum XIV–XVI"
+                        },
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.tertiary,
+                        modifier = Modifier.align(Alignment.BottomCenter),
+                    )
+                }
+            }
+
+            EarthwormSystem.RESPIRATORY,
+            EarthwormSystem.PREPARATION -> Unit
         }
     }
 }
@@ -1198,7 +1212,6 @@ private fun loadAtlasSvg(
     @RawRes rawResId: Int,
     labelsVisible: Boolean,
     semanticZoomTier: SemanticZoomTier,
-    orientationMode: Boolean,
 ): SVG {
     val source = context.resources.openRawResource(rawResId)
         .bufferedReader(Charsets.UTF_8)
@@ -1228,12 +1241,11 @@ private fun loadAtlasSvg(
             .replace("class=\"organ-label\"", "class=\"organ-label\" visibility=\"hidden\"")
             .replace("class=\"micro-label\"", "class=\"micro-label\" visibility=\"hidden\"")
             .replace("class=\"orientation-note\"", "class=\"orientation-note\" visibility=\"hidden\"")
-        semanticZoomTier == SemanticZoomTier.OVERVIEW && !orientationMode -> styled
+        semanticZoomTier == SemanticZoomTier.OVERVIEW -> styled
             .replace("class=\"micro-label\"", "class=\"micro-label\" visibility=\"hidden\"")
             .replace("class=\"orientation-note\"", "class=\"orientation-note\" visibility=\"hidden\"")
-        !orientationMode -> styled
-            .replace("class=\"orientation-note\"", "class=\"orientation-note\" visibility=\"hidden\"")
         else -> styled
+            .replace("class=\"orientation-note\"", "class=\"orientation-note\" visibility=\"hidden\"")
     }
 
     return SVG.getFromString(withLabelMode)
