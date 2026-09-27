@@ -3,7 +3,7 @@
     <!-- Taken verbatim from earthworm_content_v138.json → systems.*.ta, the
          same reviewed Tamil terminology already used by the hybrid
          reference and the Java-native branches. Not retranslated here. -->
-    <string name="system_preparation">ஆயத்தம்</string>
+    <string name="system_preparation">ஆயத்தம்</string>\n    <string name="nav_home">முகப்பு</string>
     <string name="system_external">புற அமைப்பியல்</string>
     <string name="system_digestive">செரிமான மண்டலம்</string>
     <string name="system_circulatory">இரத்த ஓட்ட மண்டலம்</string>
