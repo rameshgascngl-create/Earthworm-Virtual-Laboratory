@@ -20,58 +20,45 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Phase-3B4C authorised-diff integrity
+      - name: Phase-3C authorised-diff integrity
         shell: bash
         run: |
           set -euo pipefail
-          BASE=854ddf873ab1ed2626fb161b816e4d5f0296e691
+          BASE=cb1c8189badfb93a3cbdb6e96c8ac10f8b89b52a
           test "$(git merge-base "$BASE" HEAD)" = "$BASE"
-          bad="$(git diff --name-only "$BASE" HEAD | grep -Ev '^(\.github/workflows/android\.yml|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen\.kt|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance\.kt|app/src/main/res/values/strings\.xml|app/src/main/res/values-ta/strings\.xml)$' || true)"
+          bad="$(git diff --name-only "$BASE" HEAD | grep -Ev '^(\.github/workflows/android\.yml|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen\.kt|app/src/main/res/values/strings\.xml|app/src/main/res/values-ta/strings\.xml)$' || true)"
           if [ -n "$bad" ]; then
-            echo "Unauthorised Phase-3B4C changes detected:"
+            echo "Unauthorised Phase-3C changes detected:"
             echo "$bad"
             exit 1
           fi
       - name: Preserve Phase-2B native/content integrity
         run: node tests/native-phase2b-preflight.cjs
-      - name: Verify frozen scientific, atlas and TTS layers
+      - name: Verify frozen scientific, atlas, process and TTS layers
         shell: bash
         run: |
           set -euo pipefail
-          BASE=854ddf873ab1ed2626fb161b816e4d5f0296e691
-          test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/StructureNarrator.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/data/ScientificContentRepository.kt             app/src/main/res/raw/earthworm_content_v138.json             app/src/main/res/raw/atlas_*.svg             app/src/main/res/drawable-nodpi             app/src/main/java/in/ramesh/zoology/earthwormlab/data/StructureGeometry.kt)"
-      - name: Phase-3B4C nervous-conduction contract
+          BASE=cb1c8189badfb93a3cbdb6e96c8ac10f8b89b52a
+          test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/StructureNarrator.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/data/ScientificContentRepository.kt             app/src/main/res/raw/earthworm_content_v138.json             app/src/main/res/raw/atlas_*.svg             app/src/main/res/drawable-nodpi             app/src/main/java/in/ramesh/zoology/earthwormlab/data/StructureGeometry.kt)"
+      - name: Phase-3C spatial-intelligence contract
         shell: bash
         run: |
           set -euo pipefail
-          P=app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance.kt
           A=app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt
-          node - <<'NODE'
-          const fs=require('fs');
-          const j=JSON.parse(fs.readFileSync('app/src/main/res/raw/earthworm_content_v138.json','utf8'));
-          const ids=['cerebral-ganglia','circum-pharyngeal-connectives','subpharyngeal-ganglion','ventral-nerve-cord','segmental-ganglia'];
-          for (const id of ids) {
-            if (!j.structures[id]) throw new Error('Missing nervous process target: '+id);
-            if (j.structures[id].system!=='nervous') throw new Error('Wrong system for '+id);
-          }
-          if (!/sensory/i.test(j.structures['cerebral-ganglia'].fnEn)) throw new Error('Cerebral sensory-integration support missing');
-          if (!/relay impulses/i.test(j.structures['circum-pharyngeal-connectives'].fnEn)) throw new Error('Connective relay support missing');
-          if (!/motor-integration/i.test(j.structures['subpharyngeal-ganglion'].sigEn)) throw new Error('Subpharyngeal motor-integration support missing');
-          if (!/conducts impulses/i.test(j.structures['ventral-nerve-cord'].fnEn)) throw new Error('Ventral-cord conduction support missing');
-          if (!/local muscles/i.test(j.structures['segmental-ganglia'].fnEn)) throw new Error('Segmental response support missing');
-          console.log('PASS nervous targets and pathway evidence');
-          NODE
-          grep -q 'NERVOUS_CONDUCTION' "$P"
-          grep -q 'EarthwormSystem.NERVOUS to ProcessDefinition' "$P"
-          grep -q 'ProcessPhase.SENSORY_INTEGRATION' "$P"
-          grep -q 'ProcessPhase.NERVE_RING_RELAY' "$P"
-          grep -q 'ProcessPhase.LONGITUDINAL_CONDUCTION' "$P"
-          grep -q 'ProcessPhase.SEGMENTAL_RESPONSE' "$P"
-          grep -q 'The sensory receptors themselves are not represented as separate validated hotspots' "$P"
-          grep -q 'The muscles themselves are not separate validated nervous-system hotspots' "$P"
-          grep -q 'BiologicalProcess.NERVOUS_CONDUCTION' "$A"
-          grep -q 'atlas_process_nervous_conduction' app/src/main/res/values/strings.xml
-          grep -q 'atlas_process_nervous_conduction' app/src/main/res/values-ta/strings.xml
+          grep -q 'SemanticZoomTier' "$A"
+          grep -q 'scale < 1.55f' "$A"
+          grep -q 'scale < 2.6f' "$A"
+          grep -q 'orientationMode' "$A"
+          grep -q 'focusMode' "$A"
+          grep -q 'SpatialOrientationOverlay' "$A"
+          grep -q 'markerAlpha' "$A"
+          grep -q 'size(40.dp)' "$A"
+          grep -q 'semanticZoomTier = semanticZoomTier' "$A"
+          grep -q 'atlas_orientation_mode' app/src/main/res/values/strings.xml
+          grep -q 'atlas_focus_mode' app/src/main/res/values/strings.xml
+          grep -q 'atlas_zoom_overview' app/src/main/res/values/strings.xml
+          grep -q 'atlas_orientation_mode' app/src/main/res/values-ta/strings.xml
+          grep -q 'atlas_focus_mode' app/src/main/res/values-ta/strings.xml
           ! grep -q 'android.permission.INTERNET' app/src/main/AndroidManifest.xml
   build:
     needs: validate
@@ -100,12 +87,12 @@ jobs:
         run: gradle --no-daemon :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-Phase3B4C-device-QA-candidate
+          name: Earthworm-1.3.8-Phase3C-device-QA-candidate
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-Phase3B4C-unsigned-release-structural-check
+          name: Earthworm-1.3.8-Phase3C-unsigned-release-structural-check
           path: |
             app/build/outputs/apk/release/*unsigned.apk
             app/build/outputs/bundle/release/*.aab
