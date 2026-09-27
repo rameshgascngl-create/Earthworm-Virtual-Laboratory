@@ -46,10 +46,10 @@
       "retainedTerms": [
         "இரத்த ஓட்ட மண்டலம்",
         "கழிவு நீக்க மண்டலம்",
-        "நெஃப்ரிடியா",
-        "கிளைட்டெல்லம்",
-        "டைஃப்ளோசோல்",
-        "பெரிட்டோனியம்",
+        "நெஃப்ரீடியா",
+        "கிளைடெல்லம்",
+        "டிப்லோசோல்",
+        "உடற்குழி எபிதீலியம்",
         "விந்துநாளங்கள்",
         "அண்டநாளம்"
       ],
@@ -122,7 +122,7 @@
     "prostomium": {
       "system": "external",
       "en": "Prostomium",
-      "ta": "முன்வாய்மடல்",
+      "ta": "புரோஸ்டோமியம் (மேலுதடு)",
       "locEn": "Preoral lobe overhanging the mouth at the anterior end.",
       "locTa": "முன்முனையில் வாய்க்கு மேலாக நீளும் வாய்முன் மடல்.",
       "fnEn": "Assists burrowing and sensory exploration; it is not a true body segment.",
@@ -135,7 +135,7 @@
     "clitellum": {
       "system": "external",
       "en": "Clitellum",
-      "ta": "கிளைட்டெல்லம் (சுரப்புப் பட்டை)",
+      "ta": "கிளைடெல்லம் (சுரப்புப் பட்டை)",
       "locEn": "A glandular, non-segmented-looking band across segments XIV–XVI in a mature worm.",
       "locTa": "முதிர்ந்த மண்புழுவின் XIV–XVI கண்டங்களைச் சூழ்ந்த தடித்த சுரப்புப் பட்டை.",
       "fnEn": "Secretes mucus during copulation and materials that form the cocoon.",
@@ -161,20 +161,20 @@
     "spermathecal-pores": {
       "system": "external",
       "en": "Spermathecal pores",
-      "ta": "விந்தேற்புத் துளைகள்",
+      "ta": "விந்துகொள்பைத் திறப்புகள்",
       "locEn": "Four pairs in intersegmental grooves 5/6, 6/7, 7/8 and 8/9, ventrolaterally.",
-      "locTa": "5/6, 6/7, 7/8, 8/9 ஆகிய இடைக்கண்ட வரம்புகளில் கீழ்ப்பக்கவாட்டில் நான்கு இணைகள்.",
+      "locTa": "5/6, 6/7, 7/8, 8/9 ஆகிய இடைக்கண்ட வரம்புகளில் வயிற்றுப்புற பக்கவாட்டில் நான்கு இணைகள்.",
       "fnEn": "Receive sperm from the mating partner into the spermathecae.",
-      "fnTa": "இணைசேரும் மற்றொரு மண்புழுவிலிருந்து விந்தணுக்களை விந்தேற்புப் பைகளுக்குள் பெறுகின்றன.",
+      "fnTa": "இணைசேரும் மற்றொரு மண்புழுவிலிருந்து விந்தணுக்களை விந்துகொள்பைகளுக்குள் பெறுகின்றன.",
       "sigEn": "Their positions are important taxonomic characters.",
       "sigTa": "இவற்றின் அமைவிடங்கள் முக்கிய வகைப்பாட்டுப் பண்புகளாகும்.",
       "fixEn": "They are paired openings, unlike the single median female pore.",
-      "fixTa": "இவை இணைத் துளைகள்; ஒற்றை நடுக்கோட்டுப் பெண் இனத்துளையிலிருந்து வேறுபட்டவை."
+      "fixTa": "இவை இணைத் துளைகள்; ஒற்றை நடுக்கோட்டுப் பெண் இனப்பெருக்கத் துளையிலிருந்து வேறுபட்டவை."
     },
     "female-pore": {
       "system": "external",
       "en": "Female genital pore",
-      "ta": "பெண் இனத்துளை",
+      "ta": "பெண் இனப்பெருக்கத் துளை",
       "locEn": "Single, median and ventral on segment XIV.",
       "locTa": "XIV-ஆம் கண்டத்தில் வயிற்றுப்புற நடுக்கோட்டில் ஒற்றையாக அமைந்துள்ளது.",
       "fnEn": "Releases ova into the cocoon-forming pathway.",
@@ -187,9 +187,9 @@
     "male-pores": {
       "system": "external",
       "en": "Male genital pores",
-      "ta": "ஆண் இனத்துளைகள்",
+      "ta": "ஆண் இனப்பெருக்கத் துளைகள்",
       "locEn": "One pair on segment XVIII, ventrolaterally. Reports agree on segment XVIII but differ in surface morphology, describing minute pores in small discs or pores associated with shallow copulatory pouches/slit-like openings.",
-      "locTa": "XVIII-ஆம் கண்டத்தில் கீழ்ப்பக்கவாட்டில் ஓர் இணை. XVIII என்ற கண்ட அமைவிடம் ஆய்வுகளில் ஒத்துப்போகிறது; ஆனால் வெளிப்புற தோற்றம் சிறிய வட்டப் பகுதியிலுள்ள நுண்துளைகள், அல்லது ஆழமற்ற இணைசேர்க்கைப் பைகள்/பிளவு போன்ற திறப்புகள் என மாதிரிகளுக்கு இடையே மாறுபட்டு விவரிக்கப்படுகிறது.",
+      "locTa": "XVIII-ஆம் கண்டத்தில் வயிற்றுப்புற பக்கவாட்டில் ஓர் இணை. XVIII என்ற கண்ட அமைவிடம் ஆய்வுகளில் ஒத்துப்போகிறது; ஆனால் வெளிப்புற தோற்றம் சிறிய வட்டப் பகுதியிலுள்ள நுண்துளைகள், அல்லது ஆழமற்ற இணைசேர்க்கைப் பைகள்/பிளவு போன்ற திறப்புகள் என மாதிரிகளுக்கு இடையே மாறுபட்டு விவரிக்கப்படுகிறது.",
       "fnEn": "Discharge sperm and prostatic secretion during copulation.",
       "fnTa": "இணைசேர்க்கையின் போது விந்தணுக்களையும் புரோஸ்டேட் சுரப்பையும் வெளியிடுகின்றன.",
       "sigEn": "Segment XVIII is the robust teaching landmark; pore-surface morphology should be treated as specimen-dependent.",
@@ -200,20 +200,20 @@
     "anus": {
       "system": "external",
       "en": "Anus",
-      "ta": "மலத்துளை",
+      "ta": "மலவாய்",
       "locEn": "Terminal opening in the posterior pygidial region. The pygidium is not a true metameric segment.",
-      "locTa": "பின்முனைப் பைகிடியப் பகுதியில் அமைந்துள்ள இறுதித் திறப்பு; பைகிடியம் உண்மையான உடற்கண்டம் அல்ல.",
+      "locTa": "பின்முனைப் பைகிடியப் பகுதியில் அமைந்துள்ள இறுதித் திறப்பு; பைஜிடியம் உண்மையான உடற்கண்டம் அல்ல.",
       "fnEn": "Eliminates undigested material from the alimentary canal.",
       "fnTa": "செரியாத உணவுக் கழிவை உணவுப்பாதையிலிருந்து வெளியேற்றுகிறது.",
       "sigEn": "The posterior end is more blunt than the prostomial anterior end.",
-      "sigTa": "முன்வாய்மடல் உள்ள முன்முனையைவிட பின்முனை பொதுவாக மழுங்கியதாகும்.",
+      "sigTa": "புரோஸ்டோமியம் உள்ள முன்முனையைவிட பின்முனை பொதுவாக மழுங்கியதாகும்.",
       "fixEn": "The pygidium is not counted as a typical true segment.",
-      "fixTa": "பைகிடியம் வழக்கமான உண்மைக் கண்டமாகக் கணக்கிடப்படுவதில்லை."
+      "fixTa": "பைஜிடியம் வழக்கமான உண்மைக் கண்டமாகக் கணக்கிடப்படுவதில்லை."
     },
     "pharynx": {
       "system": "digestive",
       "en": "Muscular pharynx",
-      "ta": "தசைமிகு தொண்டை",
+      "ta": "தசையாலான தொண்டைப்பகுதி",
       "locEn": "Mainly in segment IV, behind the buccal chamber.",
       "locTa": "வாயறைக்குப் பின்னால், முதன்மையாக IV-ஆம் கண்டத்தில்.",
       "fnEn": "Its muscular action draws in soil and organic matter; pharyngeal glands add secretion.",
@@ -221,33 +221,33 @@
       "sigEn": "The foregut begins as a food-ingestion pump, not merely a passive tube.",
       "sigTa": "முன்குடல் வெறும் குழாய் அல்ல; உணவை உள்ளிழுக்கும் இயக்கப்பகுதியாகத் தொடங்குகிறது.",
       "fixEn": "Do not confuse the muscular pharynx, which draws food inward, with the thick-walled gizzard, which performs mechanical grinding.",
-      "fixTa": "உணவை உள்ளிழுக்கும் தசைமயமான தொண்டையையும், உணவை இயந்திரமாக அரைக்கும் தடித்த சுவருடைய அரவைப்பையையும் ஒன்றாகக் குழப்பக்கூடாது."
+      "fixTa": "உணவை உள்ளிழுக்கும் தசைமயமான தொண்டையையும், உணவை இயந்திரமாக அரைக்கும் தடித்த சுவருடைய அரைவைப்பையையும் ஒன்றாகக் குழப்பக்கூடாது."
     },
     "oesophagus": {
       "system": "digestive",
       "en": "Oesophagus",
-      "ta": "உணவுக்குழாய்",
+      "ta": "உணவுக்குழல்",
       "locEn": "A narrow tube through segments V–VII.",
       "locTa": "V–VII கண்டங்களில் நீளும் குறுகிய குழாய்.",
       "fnEn": "Conducts ingested material from pharynx to gizzard.",
-      "fnTa": "தொண்டையிலிருந்து அரவைப்பைக்கு உணவைக் கடத்துகிறது.",
+      "fnTa": "தொண்டையிலிருந்து அரைவைப்பைக்கு உணவைக் கடத்துகிறது.",
       "sigEn": "Its narrow lumen contrasts with the muscular gizzard.",
-      "sigTa": "இதன் குறுகிய உட்புழை, தடித்த அரவைப்பையிலிருந்து தெளிவாக வேறுபடும்.",
+      "sigTa": "இதன் குறுகிய உட்புழை, தடித்த அரைவைப்பையிலிருந்து தெளிவாக வேறுபடும்.",
       "fixEn": "Transport is its chief role; mechanical grinding occurs in the gizzard.",
-      "fixTa": "கடத்தல் இதன் முக்கியப் பணி; இயந்திர அரைப்பு அரவைப்பையில் நடைபெறுகிறது."
+      "fixTa": "கடத்தல் இதன் முக்கியப் பணி; இயந்திர அரைப்பு அரைவைப்பையில் நடைபெறுகிறது."
     },
     "gizzard": {
       "system": "digestive",
       "en": "Gizzard",
-      "ta": "அரவைப்பை",
+      "ta": "அரைவைப்பை",
       "locEn": "Published Metaphire posthuma specimen accounts differ in segment placement: the 2011 Thai redescription reports the gizzard in IX–X, while Indian material and classic practical accounts report VIII.",
-      "locTa": "Metaphire posthuma மாதிரி ஆய்வுகளில் அரவைப்பையின் கண்ட அமைவிடம் மாறுபடுகிறது: 2011 தாய்லாந்து மறுவிளக்க ஆய்வில் IX–X என்றும், இந்திய மாதிரிகளிலும் பாரம்பரிய செய்முறை நூல்களிலும் VIII என்றும் பதிவுகள் உள்ளன.",
+      "locTa": "Metaphire posthuma மாதிரி ஆய்வுகளில் அரைவைப்பையின் கண்ட அமைவிடம் மாறுபடுகிறது: 2011 தாய்லாந்து மறுவிளக்க ஆய்வில் IX–X என்றும், இந்திய மாதிரிகளிலும் பாரம்பரிய செய்முறை நூல்களிலும் VIII என்றும் பதிவுகள் உள்ளன.",
       "fnEn": "Mechanically grinds soil-borne organic particles with ingested grit.",
       "fnTa": "உள்ளிழுக்கப்பட்ட மண்துகள்களின் உதவியுடன் கரிம உணவுத் துகள்களை இயந்திரமாக அரைக்கிறது.",
       "sigEn": "Treat gizzard position as specimen- and source-aware in this species; its identity as the thick muscular grinding region is more robust than a single universal segment number.",
-      "sigTa": "இவ்வினத்தில் அரவைப்பையின் கண்ட அமைவிடத்தை மாதிரி மற்றும் ஆதாரத்தைப் பொருத்தே கற்பிக்க வேண்டும்; ஒரே கண்ட எண்ணைவிட தடித்த தசைச் சுவருடைய அரைக்கும் பகுதி என்ற அடையாளமே நிலையானது.",
+      "sigTa": "இவ்வினத்தில் அரைவைப்பையின் கண்ட அமைவிடத்தை மாதிரி மற்றும் ஆதாரத்தைப் பொருத்தே கற்பிக்க வேண்டும்; ஒரே கண்ட எண்ணைவிட தடித்த தசைச் சுவருடைய அரைக்கும் பகுதி என்ற அடையாளமே நிலையானது.",
       "fixEn": "Do not state that every Metaphire posthuma specimen has the gizzard only in VIII or only in IX–X.",
-      "fixTa": "அனைத்து Metaphire posthuma மாதிரிகளிலும் அரவைப்பை VIII-இல் மட்டும் அல்லது IX–X-இல் மட்டும் உள்ளது என்று பொதுமைப்படுத்த வேண்டாம்.",
+      "fixTa": "அனைத்து Metaphire posthuma மாதிரிகளிலும் அரைவைப்பை VIII-இல் மட்டும் அல்லது IX–X-இல் மட்டும் உள்ளது என்று பொதுமைப்படுத்த வேண்டாம்.",
       "deep": "gizzard"
     },
     "stomach": {
@@ -255,20 +255,20 @@
       "en": "Glandular stomach",
       "ta": "சுரப்புமிகு இரைப்பை",
       "locEn": "Traditional practical manuals call the post-gizzard, pre-intestinal foregut the stomach. Because published M. posthuma gizzard position varies and the intestine begins at XV, this region should be shown posterior to the gizzard and anterior to XV rather than assigned an overlapping fixed range.",
-      "locTa": "பாரம்பரிய செய்முறை நூல்கள் அரவைப்பைக்குப் பிந்தைய, குடலுக்கு முந்தைய முன்குடல் பகுதியை ‘இரைப்பை’ எனக் குறிப்பிடுகின்றன. M. posthuma-வில் அரவைப்பையின் கண்ட அமைவிடம் ஆய்வுகளுக்கு இடையே மாறுவதாலும் குடல் XV-இல் தொடங்குவதாலும், இப்பகுதியை அரவைப்பைக்குப் பின்பும் XV-க்கு முன்பும் காட்ட வேண்டும்; மாறாக ஒட்டிக்கொள்ளும் நிரந்தர கண்டவரம்பைச் சொல்ல வேண்டாம்.",
+      "locTa": "பாரம்பரிய செய்முறை நூல்கள் அரைவைப்பைக்குப் பிந்தைய, குடலுக்கு முந்தைய முன்குடல் பகுதியை ‘இரைப்பை’ எனக் குறிப்பிடுகின்றன. M. posthuma-வில் அரைவைப்பையின் கண்ட அமைவிடம் ஆய்வுகளுக்கு இடையே மாறுவதாலும் குடல் XV-இல் தொடங்குவதாலும், இப்பகுதியை அரைவைப்பைக்குப் பின்பும் XV-க்கு முன்பும் காட்ட வேண்டும்; மாறாக ஒட்டிக்கொள்ளும் நிரந்தர கண்டவரம்பைச் சொல்ல வேண்டாம்.",
       "fnEn": "Chemical conditioning and digestion continue through glandular secretion.",
       "fnTa": "சுரப்புகளின் மூலம் உணவின் வேதியியல் மாற்றமும் செரிமானமும் தொடர்கிறது.",
       "sigEn": "This is a teaching-region term rather than a consistently delimited character in modern taxonomic redescriptions.",
       "sigTa": "இது நவீன வகைப்பாட்டு மறுவிளக்கங்களில் ஒரே விதமாக எல்லை நிர்ணயிக்கப்படும் பண்பாக இல்லாமல், முதன்மையாக பாடச் செய்முறைப் பகுப்புப் பெயராகும்.",
       "fixEn": "Do not combine 'gizzard IX–X' with the old fixed 'stomach IX–XIV' range; that creates an anatomical overlap.",
-      "fixTa": "‘அரவைப்பை IX–X’ என்ற அமைவிடத்துடன் பழைய ‘இரைப்பை IX–XIV’ வரம்பை சேர்த்து காட்ட வேண்டாம்; அது உடற்கூறு ஒட்டுமொத்தப் பிழையை உருவாக்கும்."
+      "fixTa": "‘அரைவைப்பை IX–X’ என்ற அமைவிடத்துடன் பழைய ‘இரைப்பை IX–XIV’ வரம்பை சேர்த்து காட்ட வேண்டாம்; அது உடற்கூறு ஒட்டுமொத்தப் பிழையை உருவாக்கும்."
     },
     "intestine": {
       "system": "digestive",
       "en": "Intestine",
       "ta": "குடல்",
       "locEn": "Begins at segment XV and extends nearly to the anus.",
-      "locTa": "XV-ஆம் கண்டத்தில் தொடங்கி மலத்துளைக்கு அருகுவரை நீள்கிறது.",
+      "locTa": "XV-ஆம் கண்டத்தில் தொடங்கி மலவாய்க்கு அருகுவரை நீள்கிறது.",
       "fnEn": "Completes digestion and absorbs soluble nutrients.",
       "fnTa": "செரிமானத்தை நிறைவு செய்து கரையக்கூடிய ஊட்டப் பொருள்களை உறிஞ்சுகிறது.",
       "sigEn": "Chloragogen cells around the gut participate in intermediary metabolism and storage.",
@@ -279,20 +279,20 @@
     "intestinal-caeca": {
       "system": "digestive",
       "en": "Intestinal caeca",
-      "ta": "குடல் நீட்சிகள்",
+      "ta": "குடல் பிதுக்கங்கள்",
       "locEn": "Paired simple intestinal caeca originate in XXVII. Their anterior extent varies among published M. posthuma specimens, reaching about XXV in the 2011 Thai redescription and XXIV in Indian reports.",
-      "locTa": "இணையான எளிய குடல் நீட்சிகள் XXVII-ஆம் கண்டத்தில் தொடங்குகின்றன. வெளியிடப்பட்ட M. posthuma மாதிரிகளில் அவை முன்புறம் நீளும் எல்லை மாறுபடுகிறது: 2011 தாய்லாந்து மறுவிளக்க ஆய்வில் சுமார் XXV வரை, இந்திய அறிக்கைகளில் XXIV வரை பதிவுள்ளது.",
+      "locTa": "இணையான எளிய குடல் பிதுக்கங்கள் XXVII-ஆம் கண்டத்தில் தொடங்குகின்றன. வெளியிடப்பட்ட M. posthuma மாதிரிகளில் அவை முன்புறம் நீளும் எல்லை மாறுபடுகிறது: 2011 தாய்லாந்து மறுவிளக்க ஆய்வில் சுமார் XXV வரை, இந்திய அறிக்கைகளில் XXIV வரை பதிவுள்ளது.",
       "fnEn": "Increase secretory and digestive capacity of the intestinal region.",
       "fnTa": "குடலின் சுரப்புக்கும் செரிமானத்திற்கும் உதவுகின்றன.",
       "sigEn": "The XXVII origin is the more stable species-level landmark; anterior reach should not be taught as invariant.",
       "sigTa": "XXVII-இல் தொடங்குவது நிலையான இனநிலை அடையாளமாகும்; முன்புற நீளத்தை மாறாத ஒன்றாகக் கற்பிக்கக் கூடாது.",
       "fixEn": "Do not move the caecal origin to XXVI, and do not present XXIV or XXV as a universal anterior endpoint.",
-      "fixTa": "குடல் நீட்சிகளின் தொடக்கத்தை XXVI-க்கு மாற்ற வேண்டாம்; XXIV அல்லது XXV என்பதை எல்லா மாதிரிகளுக்கும் ஒரே முன்புற முடிவாகக் கூற வேண்டாம்."
+      "fixTa": "குடல் பிதுக்கம்களின் தொடக்கத்தை XXVI-க்கு மாற்ற வேண்டாம்; XXIV அல்லது XXV என்பதை எல்லா மாதிரிகளுக்கும் ஒரே முன்புற முடிவாகக் கூற வேண்டாம்."
     },
     "typhlosole": {
       "system": "digestive",
       "en": "Typhlosole",
-      "ta": "டைஃப்ளோசோல்",
+      "ta": "டிப்லோசோல்",
       "locEn": "A longitudinal dorsal infolding of the intestinal wall in the posterior intestinal region.",
       "locTa": "பின்குடல் பகுதியில் குடல் சுவரின் முதுகுப்புற நீள்மடிப்பு.",
       "fnEn": "Increases absorptive surface area without greatly enlarging body diameter.",
@@ -319,9 +319,9 @@
     "lateral-hearts": {
       "system": "circulatory",
       "en": "Four pairs of hearts",
-      "ta": "நான்கு இணை இதய வளைவுகள்",
+      "ta": "நான்கு இணை இதயங்கள்",
       "locEn": "Traditional Indian practical accounts distinguish lateral hearts in VII and IX and latero-oesophageal hearts in XII and XIII. A modern redescription of Metaphire posthuma independently confirms that the last hearts are in XIII.",
-      "locTa": "இந்திய பாரம்பரிய செய்முறை விளக்கங்களில் VII, IX கண்டங்களில் பக்கவாட்டு இதயங்களும் XII, XIII கண்டங்களில் பக்கவாட்டு உணவுக்குழாய் இதயங்களும் கூறப்படுகின்றன. Metaphire posthuma-வின் நவீன மறுவிளக்க ஆய்வு கடைசி இதயங்கள் XIII-இல் இருப்பதைத் தனியாக உறுதிப்படுத்துகிறது.",
+      "locTa": "இந்திய பாரம்பரிய செய்முறை விளக்கங்களில் VII, IX கண்டங்களில் பக்கவாட்டு இதயங்களும் XII, XIII கண்டங்களில் பக்கவாட்டு உணவுக்குழல் இதயங்களும் கூறப்படுகின்றன. Metaphire posthuma-வின் நவீன மறுவிளக்க ஆய்வு கடைசி இதயங்கள் XIII-இல் இருப்பதைத் தனியாக உறுதிப்படுத்துகிறது.",
       "fnEn": "Connect major longitudinal vessels and maintain pressure-driven circulation.",
       "fnTa": "முக்கிய நீள்நாளங்களை இணைத்து அழுத்தமூலம் இரத்த ஓட்டத்தை நிலைநிறுத்துகின்றன.",
       "sigEn": "Treat the complete VII/IX/XII/XIII map as the prescribed practical convention; the directly verified point from the cited species redescription is the last-heart position in XIII.",
@@ -333,7 +333,7 @@
     "supra-oesophageal-vessel": {
       "system": "circulatory",
       "en": "Supra-oesophageal vessel",
-      "ta": "உணவுக்குழாய் மேல்நாளம்",
+      "ta": "உணவுக்குழல் மேல்நாளம்",
       "locEn": "Above the oesophagus in the anterior region.",
       "locTa": "முன்பகுதியில் உணவுக்குழாயின் மேலே அமைந்துள்ளது.",
       "fnEn": "Participates in anterior blood collection and heart connections.",
@@ -372,7 +372,7 @@
     "moist-epidermis": {
       "system": "respiratory",
       "en": "Moist epidermis",
-      "ta": "ஈரமான புறத்தோல்",
+      "ta": "ஈரமான எபிடெர்மிஸ் (புறத்தோல்)",
       "locEn": "The thin outer living epidermal region beneath the cuticle over the whole body.",
       "locTa": "உடல் முழுவதும் கியூட்டிக்கிளுக்குக் கீழே அமைந்த மெல்லிய உயிருள்ள புறத்தோல் பகுதி.",
       "fnEn": "Provides the principal diffusion surface for O₂ and CO₂.",
@@ -380,12 +380,12 @@
       "sigEn": "Continual moisture is essential because gases must dissolve before diffusion.",
       "sigTa": "வாயுக்கள் பரவுவதற்கு முன் நீரில் கரைய வேண்டியதால் தொடர்ச்சியான ஈரப்பதம் அவசியம்.",
       "fixEn": "The cuticle is not an impermeable shell.",
-      "fixTa": "கியூட்டிக்கிள் வாயுக்கள் ஊடுருவாத கடின ஓடு அல்ல."
+      "fixTa": "கியுட்டிகிள் வாயுக்கள் ஊடுருவாத கடின ஓடு அல்ல."
     },
     "mucus-film": {
       "system": "respiratory",
       "en": "Mucus film",
-      "ta": "சளிப்பொருள் ஈரப்படலம்",
+      "ta": "கோழை ஈரப்படலம்",
       "locEn": "A thin film coating the external body surface.",
       "locTa": "உடலின் வெளிப்பரப்பை மூடிய மெல்லிய ஈரப்படலம்.",
       "fnEn": "Keeps the respiratory surface moist and reduces damaging friction in soil.",
@@ -393,7 +393,7 @@
       "sigEn": "Drying sharply limits diffusion and threatens survival.",
       "sigTa": "உடல் உலர்ந்தால் வாயுப் பரவல் கடுமையாகக் குறைந்து உயிர்வாழ்வு பாதிக்கப்படும்.",
       "fixEn": "Mucus supports respiration but is not a respiratory organ by itself.",
-      "fixTa": "சளிப்பொருள் சுவாசத்திற்கு உதவுகிறது; ஆனால் தனித்த சுவாச உறுப்பு அல்ல."
+      "fixTa": "கோழை சுவாசத்திற்கு உதவுகிறது; ஆனால் தனித்த சுவாச உறுப்பு அல்ல."
     },
     "cutaneous-capillaries": {
       "system": "respiratory",
@@ -413,7 +413,7 @@
       "en": "Cutaneous gas exchange",
       "ta": "தோல் வழி வாயுப் பரிமாற்றம்",
       "locEn": "Across the moist cuticle–epidermis–capillary barrier.",
-      "locTa": "ஈரமான கியூட்டிக்கிள்–புறத்தோல்–தந்துகி தடுப்பின் குறுக்காக நடைபெறுகிறது.",
+      "locTa": "ஈரமான கியுட்டிகிள்–புறத்தோல்–தந்துகி தடுப்பின் குறுக்காக நடைபெறுகிறது.",
       "fnEn": "O₂ diffuses inward and CO₂ diffuses outward down partial-pressure gradients.",
       "fnTa": "வாயுக்களின் பகுதி அழுத்த வேறுபாட்டால் ஆக்சிஜன் உடலுக்குள்ளும், கார்பன் டைஆக்சைடு வெளியேயும் பரவுகின்றன.",
       "sigEn": "Earthworms lack specialized respiratory organs.",
@@ -425,7 +425,7 @@
     "pharyngeal-nephridia": {
       "system": "excretory",
       "en": "Pharyngeal nephridia",
-      "ta": "தொண்டை நெஃப்ரிடியாக்கள்",
+      "ta": "தொண்டை நெஃப்ரீடியா",
       "locEn": "Three paired tufts in segments IV–VI.",
       "locTa": "IV–VI கண்டங்களில் மூன்று இணைத் தொகுதிகளாக.",
       "fnEn": "Modify metabolic wastes and discharge through ducts into the buccal cavity and pharynx.",
@@ -438,7 +438,7 @@
     "septal-nephridia": {
       "system": "excretory",
       "en": "Septal nephridia",
-      "ta": "இடைத்திரை நெஃப்ரிடியாக்கள்",
+      "ta": "இடைச்சுவர் நெஃப்ரீடியா",
       "locEn": "Numerous on septum 15/16 and the subsequent intersegmental septa.",
       "locTa": "15/16 இடைக்கண்டத் திரையிலும் அதற்குப் பிந்தைய இடைக்கண்டத் திரைகளிலும் எண்ணற்றவையாக அமைந்துள்ளன.",
       "fnEn": "Filter and modify body fluid, contributing to excretion and osmoregulation.",
@@ -446,39 +446,39 @@
       "sigEn": "Their ducts ultimately communicate with the gut in this species account.",
       "sigTa": "இவ்வினத்தில் இவற்றின் நாளங்கள் இறுதியில் குடலுடன் தொடர்புகொள்கின்றன.",
       "fixEn": "They are numerous micronephridia on each septum, not a single paired meganephridial system.",
-      "fixTa": "ஒவ்வொரு இடைத்திரையிலும் இவை பல மைக்ரோநெஃப்ரிடியாக்களாக உள்ளன; ஓரிணை மேகாநெஃப்ரிடிய மண்டலம் அல்ல."
+      "fixTa": "ஒவ்வொரு இடைத்திரையிலும் இவை பல மைக்ரோநெஃப்ரீடியாக்களாக உள்ளன; ஓரிணை மேகாநெஃப்ரீடிய மண்டலம் அல்ல."
     },
     "integumentary-nephridia": {
       "system": "excretory",
       "en": "Integumentary nephridia",
-      "ta": "உடற்சுவர் நெஃப்ரிடியாக்கள்",
+      "ta": "தோல் நெஃப்ரீடியா",
       "locEn": "Very numerous in the body wall from about segment III posteriorly.",
       "locTa": "சுமார் III-ஆம் கண்டத்திலிருந்து பின்புறம் உடற்சுவரில் மிக அதிக எண்ணிக்கையில்.",
       "fnEn": "Discharge excretory fluid directly outside through nephridiopores.",
-      "fnTa": "நெஃப்ரிடியத் துளைகள் வழியாக கழிவுத் திரவத்தை நேரடியாக வெளியேற்றுகின்றன.",
+      "fnTa": "நெஃப்ரீடியத் துளைகள் வழியாக கழிவுத் திரவத்தை நேரடியாக வெளியேற்றுகின்றன.",
       "sigEn": "They are exonephric, unlike gut-opening pharyngeal and septal systems.",
-      "sigTa": "குடலுக்குள் திறக்கும் தொண்டை மற்றும் இடைத்திரை நெஃப்ரிடியாக்களிலிருந்து மாறாக இவை எக்சோநெஃப்ரிக் வகை.",
+      "sigTa": "குடலுக்குள் திறக்கும் தொண்டை மற்றும் இடைத்திரை நெஃப்ரீடியாக்களிலிருந்து மாறாக இவை எக்சோநெஃப்ரிக் வகை.",
       "fixEn": "The tiny external openings are nephridiopores, not dorsal pores.",
-      "fixTa": "நுண்ணிய வெளித் திறப்புகள் நெஃப்ரிடியத் துளைகள்; முதுகுத் துளைகள் அல்ல."
+      "fixTa": "நுண்ணிய வெளித் திறப்புகள் நெஃப்ரீடியத் துளைகள்; முதுகுப்புறத் துளைகள் அல்ல."
     },
     "nephridium": {
       "system": "excretory",
       "en": "Septal nephridium (enlarged)",
-      "ta": "இடைத்திரை நெஃப்ரிடியம் (பெரிதாக்கம்)",
+      "ta": "இடைச்சுவர் நெஃப்ரீடியம் (பெரிதாக்கம்)",
       "locEn": "An enlarged septal nephridium with a coelomic nephrostome and a coiled tubule.",
-      "locTa": "உடற்குழிக்குள் திறக்கும் நெஃப்ரோஸ்டோம் புனலையும் சுருண்ட குழலையும் கொண்ட இடைத்திரை நெஃப்ரிடியத்தின் பெரிதாக்கப்பட்ட மாதிரி.",
+      "locTa": "உடற்குழிக்குள் திறக்கும் நெஃப்ரோஸ்டோம் புனலையும் சுருண்ட குழலையும் கொண்ட இடைத்திரை நெஃப்ரீடியத்தின் பெரிதாக்கப்பட்ட மாதிரி.",
       "fnEn": "Receives coelomic fluid through its nephrostome; tubular reabsorption and secretion modify the excretory fluid.",
       "fnTa": "நெஃப்ரோஸ்டோம் வழியே உடற்குழித் திரவத்தைப் பெறுகிறது; குழலில் மீளுறிஞ்சலும் சுரப்பும் நடைபெறுகின்றன.",
       "sigEn": "Excretion and osmoregulation are integrated functions.",
       "sigTa": "கழிவுகளை நீக்குவதுடன் நீர் மற்றும் உப்புச் சமநிலையையும் பேணுகிறது.",
       "fixEn": "A nephridium is not identical in organization to a vertebrate nephron.",
-      "fixTa": "நெஃப்ரிடியம் முதுகெலும்பியின் நெஃப்ரானுடன் அமைப்பில் ஒரே மாதிரியானது அல்ல.",
+      "fixTa": "நெஃப்ரீடியம் முதுகெலும்பியின் நெஃப்ரானுடன் அமைப்பில் ஒரே மாதிரியானது அல்ல.",
       "deep": "nephridium"
     },
     "spermathecae": {
       "system": "reproductive",
       "en": "Spermathecae",
-      "ta": "விந்தேற்புப் பைகள்",
+      "ta": "விந்துகொள்பைகள்",
       "locEn": "Four pairs in segments VI–IX, opening at intersegments 5/6–8/9.",
       "locTa": "VI–IX கண்டங்களில் நான்கு இணைகள்; 5/6–8/9 இடைக்கண்ட வரம்புகளில் திறக்கின்றன.",
       "fnEn": "Receive and store sperm from another worm after copulation.",
@@ -514,7 +514,7 @@
       "sigEn": "Their large size can obscure smaller testes in a dissection.",
       "sigTa": "உடற்கூறாய்வில் இவை பெரியதாக இருப்பதால் சிறிய விந்தகங்களை மறைக்கக்கூடும்.",
       "fixEn": "Spermathecae store received sperm; seminal vesicles support the worm's own developing sperm.",
-      "fixTa": "விந்தேற்புப் பைகள் பிற மண்புழுவின் விந்தணுக்களைச் சேமிக்கின்றன; விந்துப் பைகள் இம்மண்புழுவின் வளரும் விந்தணுக்களைப் பேணுகின்றன."
+      "fixTa": "விந்துகொள்பைகள் பிற மண்புழுவின் விந்தணுக்களைச் சேமிக்கின்றன; விந்துப் பைகள் இம்மண்புழுவின் வளரும் விந்தணுக்களைப் பேணுகின்றன."
     },
     "ovaries": {
       "system": "reproductive",
@@ -527,15 +527,15 @@
       "sigEn": "Mature ova detach toward the oviducal funnels.",
       "sigTa": "முதிர்ந்த அண்டங்கள் அண்டநாளப் புனல்களை நோக்கிப் பிரிகின்றன.",
       "fixEn": "The ovary is paired internally, although the external female pore is single.",
-      "fixTa": "வெளிப்புறப் பெண் இனத்துளை ஒற்றையாக இருந்தாலும் உள்ளமைப்பில் அண்டகங்கள் இணையாக உள்ளன.",
+      "fixTa": "வெளிப்புறப் பெண் இனப்பெருக்கத் துளை ஒற்றையாக இருந்தாலும் உள்ளமைப்பில் அண்டகங்கள் இணையாக உள்ளன.",
       "deep": "gonads"
     },
     "oviducts": {
       "system": "reproductive",
       "en": "Oviducal funnels and oviducts",
-      "ta": "அண்டநாளப் புனல்களும் அண்டநாள்களும்",
+      "ta": "அண்டகப் புனல்களும் அண்டநாளங்களும்",
       "locEn": "Funnels in segment XIII; short ducts unite and open by the single female pore on XIV.",
-      "locTa": "XIII-ஆம் கண்டத்தில் புனல்கள்; குறுநாளங்கள் இணைந்து XIV-ஆம் கண்டத்தின் ஒற்றைப் பெண் இனத்துளையில் திறக்கின்றன.",
+      "locTa": "XIII-ஆம் கண்டத்தில் புனல்கள்; குறுநாளங்கள் இணைந்து XIV-ஆம் கண்டத்தின் ஒற்றைப் பெண் இனப்பெருக்கத் துளையில் திறக்கின்றன.",
       "fnEn": "Collect and conduct ova to the exterior during cocoon formation.",
       "fnTa": "முட்டைக்கூடு உருவாகும் போது அண்டங்களைப் பெற்று வெளிப்புறத்திற்குக் கடத்துகின்றன.",
       "sigEn": "Short paired ducts converge to one median opening.",
@@ -563,7 +563,7 @@
       "locEn": "Slender paired ducts running posteriorly from spermiducal funnels toward segment XVIII.",
       "locTa": "விந்துப் புனல்களிலிருந்து XVIII-ஆம் கண்டம் நோக்கிப் பின்நீளும் மெலிந்த இணை நாளங்கள்.",
       "fnEn": "Conduct sperm toward the male genital pores.",
-      "fnTa": "விந்தணுக்களை ஆண் இனத்துளைகள் நோக்கிக் கடத்துகின்றன.",
+      "fnTa": "விந்தணுக்களை ஆண் இனப்பெருக்கத் துளைகள் நோக்கிக் கடத்துகின்றன.",
       "sigEn": "They are delicate and easily confused with fine blood vessels.",
       "sigTa": "இவை மென்மையானவை; நுண் இரத்த நாளங்களுடன் எளிதில் குழப்பப்படலாம்.",
       "fixEn": "Use a blunt probe; pulling with forceps can tear them.",
@@ -572,7 +572,7 @@
     "cerebral-ganglia": {
       "system": "nervous",
       "en": "Cerebral ganglia",
-      "ta": "மூளை நரம்புத் திரள்கள் (தொண்டைமேல் நரம்புத் திரள்கள்)",
+      "ta": "தொண்டைமேல் நரம்பு செல் திரள்கள் (மூளை)",
       "locEn": "A paired, bilobed mass dorsal to the pharynx around segment III.",
       "locTa": "சுமார் III-ஆம் கண்டத்தில் தொண்டைக்கு மேலாக அமைந்த இணை இருமடல் நரம்புத் திரள்.",
       "fnEn": "Integrates anterior sensory input and coordinates behavioural responses.",
@@ -586,7 +586,7 @@
     "circum-pharyngeal-connectives": {
       "system": "nervous",
       "en": "Circumpharyngeal connectives",
-      "ta": "தொண்டைசுற்று நரம்பு இணைப்புகள்",
+      "ta": "தொண்டைசூழ் இணைப்பு நரம்புகள்",
       "locEn": "Paired connectives encircling the pharynx from cerebral to subpharyngeal ganglia.",
       "locTa": "மூளை நரம்புத் திரளிலிருந்து கீழ்த்தொண்டை நரம்புத் திரள்வரை தொண்டையைச் சுற்றும் இணை நரம்புகள்.",
       "fnEn": "Complete the nerve ring and relay impulses between dorsal and ventral centres.",
@@ -599,7 +599,7 @@
     "subpharyngeal-ganglion": {
       "system": "nervous",
       "en": "Subpharyngeal ganglion",
-      "ta": "தொண்டைக்கீழ் நரம்புத் திரள்",
+      "ta": "தொண்டைக்கீழ் நரம்பு செல் திரள்",
       "locEn": "Ventral to the pharynx, around segment IV.",
       "locTa": "சுமார் IV-ஆம் கண்டத்தில் தொண்டைக்குக் கீழே.",
       "fnEn": "Links the nerve ring with the longitudinal ventral nerve cord.",
@@ -646,29 +646,29 @@
       "sigEn": "Its ventral position distinguishes the mouth from the preoral prostomium.",
       "sigTa": "வயிற்றுப்புற அமைவிடம் வாயை, வாய்க்கு முன்புள்ள முன்வாய்மடலிலிருந்து வேறுபடுத்துகிறது.",
       "fixEn": "The prostomium overhangs the mouth but is not itself the mouth.",
-      "fixTa": "முன்வாய்மடல் வாயை மேலிருந்து மூடுகிறது; அது வாய் அல்ல."
+      "fixTa": "புரோஸ்டோமியம் வாயை மேலிருந்து மூடுகிறது; அது வாய் அல்ல."
     },
     "dorsal-pores": {
       "system": "external",
       "en": "Dorsal pores",
-      "ta": "முதுகுத் துளைகள்",
+      "ta": "முதுகுப்புறத் துளைகள்",
       "locEn": "Minute mid-dorsal openings in intersegmental grooves, beginning at 12/13 and continuing posteriorly.",
       "locTa": "12/13 இடைக்கண்ட வரம்பில் தொடங்கி பின்புறம் தொடரும் நுண்ணிய முதுகு நடுக்கோட்டுத் திறப்புகள்.",
       "fnEn": "Allow coelomic fluid to reach the body surface, helping maintain surface moisture.",
       "fnTa": "உடற்குழித் திரவத்தை உடல் மேற்பரப்பிற்குக் கொண்டு வந்து ஈரப்பதத்தைப் பேண உதவுகின்றன.",
       "sigEn": "They are external coelomic openings, not nephridiopores.",
-      "sigTa": "இவை உடற்குழியின் வெளித்திறப்புகள்; நெஃப்ரிடியத் துளைகள் அல்ல.",
+      "sigTa": "இவை உடற்குழியின் வெளித்திறப்புகள்; நெஃப்ரீடியத் துளைகள் அல்ல.",
       "fixEn": "Do not confuse dorsal pores with the much more numerous integumentary nephridiopores.",
-      "fixTa": "மிக அதிக எண்ணிக்கையிலான உடற்சுவர் நெஃப்ரிடியத் துளைகளுடன் முதுகுத் துளைகளை குழப்பக்கூடாது."
+      "fixTa": "மிக அதிக எண்ணிக்கையிலான உடற்சுவர் நெஃப்ரீடியத் துளைகளுடன் முதுகுத் துளைகளை குழப்பக்கூடாது."
     },
     "lateral-oesophageal-vessels": {
       "system": "circulatory",
       "en": "Lateral-oesophageal vessels",
-      "ta": "உணவுக்குழாய் பக்கவாட்டு நாளங்கள்",
+      "ta": "உணவுக்குழல் பக்கவாட்டு நாளங்கள்",
       "locEn": "A paired set along the ventrolateral sides of the oesophagus in the first thirteen segments.",
-      "locTa": "முதல் பதின்மூன்று கண்டங்களில் உணவுக்குழாயின் கீழ்ப்பக்கவாட்டில் அமைந்த இணை நாளங்கள்.",
+      "locTa": "முதல் பதின்மூன்று கண்டங்களில் உணவுக்குழாயின் வயிற்றுப்புற பக்கவாட்டில் அமைந்த இணை நாளங்கள்.",
       "fnEn": "Collect blood from the anterior body wall, nephridia, septa, reproductive organs and alimentary canal, and communicate with the supra-oesophageal system.",
-      "fnTa": "முன்புற உடற்சுவர், நெஃப்ரிடியாக்கள், இடைத்திரைகள், இனப்பெருக்க உறுப்புகள் மற்றும் உணவுப்பாதையிலிருந்து இரத்தத்தைச் சேகரித்து உணவுக்குழாய் மேல்நாள அமைப்புடன் தொடர்பு கொள்கின்றன.",
+      "fnTa": "முன்புற உடற்சுவர், நெஃப்ரீடியாக்கள், இடைத்திரைகள், இனப்பெருக்க உறுப்புகள் மற்றும் உணவுப்பாதையிலிருந்து இரத்தத்தைச் சேகரித்து உணவுக்குழல் மேல்நாள அமைப்புடன் தொடர்பு கொள்கின்றன.",
       "sigEn": "They show that anterior circulation is a multi-vessel network rather than a two-tube plan.",
       "sigTa": "முன்புற இரத்த ஓட்டம் இரண்டு நாளங்கள் மட்டுமல்லாமல் பல நாளங்கள் இணைந்த வலையமைப்பு என்பதை இவை காட்டுகின்றன.",
       "fixEn": "They are paired collecting vessels; do not merge them conceptually with the single ventral vessel.",
@@ -690,7 +690,7 @@
     "cs-cuticle": {
       "system": "crosssection",
       "en": "Cuticle",
-      "ta": "கியூட்டிக்கிள்",
+      "ta": "கியுட்டிகிள்",
       "locEn": "The thin, non-cellular outer covering secreted by the epidermis.",
       "locTa": "புறத்தோலால் சுரக்கப்படும் மெல்லிய செல்களற்ற வெளிப்படலம்.",
       "fnEn": "Protects the body while remaining sufficiently permeable for cutaneous gas exchange.",
@@ -704,15 +704,15 @@
     "cs-epidermis": {
       "system": "crosssection",
       "en": "Epidermis",
-      "ta": "புறத்தோல்",
+      "ta": "எபிடெர்மிஸ் (புறத்தோல்)",
       "locEn": "A living cellular layer immediately beneath the cuticle.",
       "locTa": "கியூட்டிக்கிளுக்குச் சற்றுக் கீழே அமைந்த உயிருள்ள செல்படலம்.",
       "fnEn": "Secretes cuticle and mucus and contains receptor and supporting cells.",
       "fnTa": "கியூட்டிக்கிளையும் சளிப்பொருளையும் சுரப்பதுடன் உணர்வேற்பி மற்றும் துணைச் செல்களைக் கொண்டுள்ளது.",
       "sigEn": "Its mucus supports both burrowing and cutaneous respiration.",
-      "sigTa": "இதன் சளிப்பொருள் மண் துளைத்துச் செல்லுதலுக்கும் தோல் சுவாசத்திற்கும் உதவுகிறது.",
+      "sigTa": "இதன் கோழை மண் துளைத்துச் செல்லுதலுக்கும் தோல் சுவாசத்திற்கும் உதவுகிறது.",
       "fixEn": "The epidermis is cellular; the overlying cuticle is not.",
-      "fixTa": "புறத்தோல் செல்களால் ஆனது; மேலுள்ள கியூட்டிக்கிள் செல்களற்றது.",
+      "fixTa": "புறத்தோல் செல்களால் ஆனது; மேலுள்ள கியுட்டிகிள் செல்களற்றது.",
       "deep": "bodywall"
     },
     "cs-circular-muscle": {
@@ -744,7 +744,7 @@
     "cs-peritoneum": {
       "system": "crosssection",
       "en": "Peritoneum",
-      "ta": "பெரிட்டோனியம்",
+      "ta": "உடற்குழி எபிதீலியம்",
       "locEn": "A thin coelomic epithelium lining the inner body wall and covering viscera.",
       "locTa": "உடற்சுவரின் உட்பரப்பையும் உள்ளுறுப்புகளின் வெளிப்பரப்பையும் போர்த்தும் மெல்லிய உடற்குழி மேலணி.",
       "fnEn": "Defines the coelomic boundary and contributes to visceral support.",
@@ -1106,7 +1106,7 @@
       "enTitle": "Orient the preserved specimen",
       "taTitle": "மாதிரியைச் சரியாக வைத்தல்",
       "en": "Place the worm in the tray with the darker dorsal surface uppermost. Confirm the prostomium, posterior end, clitellum and mid-dorsal vessel before using any instrument.",
-      "ta": "பதப்படுத்திய மண்புழுவைத் தட்டில் வைக்கவும். கருமையான முதுகுப்புறம் மேல்நோக்கி இருக்க வேண்டும். கருவியைப் பயன்படுத்தும் முன் முன்வாய்மடல், பின்முனை, கிளைட்டெல்லம், முதுகுப்புற இரத்த நாளம் ஆகியவற்றை அடையாளம் காணவும்."
+      "ta": "பதப்படுத்திய மண்புழுவைத் தட்டில் வைக்கவும். கருமையான முதுகுப்புறம் மேல்நோக்கி இருக்க வேண்டும். கருவியைப் பயன்படுத்தும் முன் புரோஸ்டோமியம், பின்முனை, கிளைடெல்லம், முதுகுப்புற இரத்த நாளம் ஆகியவற்றை அடையாளம் காணவும்."
     },
     {
       "enTitle": "Anchor the anterior end",
@@ -1210,7 +1210,7 @@
         "oTa": [
           "முதுகுப்புற இரத்த நாளம்",
           "வயிற்றுப்புற நரம்புவடம்",
-          "பெண் இனத்துளை",
+          "பெண் இனப்பெருக்கத் துளை",
           "நரம்புவடக் கீழ்நாளம்"
         ],
         "a": 0
@@ -1309,7 +1309,7 @@
     "external": [
       {
         "en": "The clitellum of the teaching specimen occupies:",
-        "ta": "பாட மாதிரியின் கிளைட்டெல்லம் அமைந்த கண்டங்கள்:",
+        "ta": "பாட மாதிரியின் கிளைடெல்லம் அமைந்த கண்டங்கள்:",
         "oEn": [
           "X–XII",
           "XIV–XVI",
@@ -1326,7 +1326,7 @@
       },
       {
         "en": "The single female genital pore is on segment:",
-        "ta": "ஒற்றைப் பெண் இனத்துளை உள்ள கண்டம்:",
+        "ta": "ஒற்றைப் பெண் இனப்பெருக்கத் துளை உள்ள கண்டம்:",
         "oEn": [
           "XIV",
           "XVIII",
@@ -1377,7 +1377,7 @@
       },
       {
         "en": "Four pairs of spermathecal pores occur at:",
-        "ta": "நான்கு இணை விந்தேற்புத் துளைகள் அமைந்த வரம்புகள்:",
+        "ta": "நான்கு இணை விந்துகொள்பைத் திறப்புகள் அமைந்த வரம்புகள்:",
         "oEn": [
           "5/6–8/9",
           "9/10–12/13",
@@ -1412,7 +1412,7 @@
       {
         "type": "ar",
         "en": "Assertion: The clitellum indicates sexual maturity. Reason: Setae anchor the body during locomotion.",
-        "ta": "கூற்று: கிளைட்டெல்லம் பாலியல் முதிர்ச்சியைக் குறிக்கிறது. காரணம்: இயக்கத்தின் போது சீட்டாக்கள் உடலைப் பற்றவைக்கின்றன.",
+        "ta": "கூற்று: கிளைடெல்லம் பாலியல் முதிர்ச்சியைக் குறிக்கிறது. காரணம்: இயக்கத்தின் போது சீட்டாக்கள் உடலைப் பற்றவைக்கின்றன.",
         "oEn": [
           "Both Assertion and Reason are true, and Reason correctly explains Assertion",
           "Both are true, but Reason does not correctly explain Assertion",
@@ -1442,13 +1442,13 @@
           "4. XIV"
         ],
         "pairsTa": [
-          "A. கிளைட்டெல்லம்",
+          "A. கிளைடெல்லம்",
           "1. XVIII",
-          "B. பெண் இனத்துளை",
+          "B. பெண் இனப்பெருக்கத் துளை",
           "2. 5/6–8/9",
-          "C. ஆண் இனத்துளைகள்",
+          "C. ஆண் இனப்பெருக்கத் துளைகள்",
           "3. XIV–XVI",
-          "D. விந்தேற்புத் துளைகள்",
+          "D. விந்துகொள்பைத் திறப்புகள்",
           "4. XIV"
         ],
         "oEn": [
@@ -1478,15 +1478,15 @@
         ],
         "oTa": [
           "தொண்டை",
-          "அரவைப்பை",
-          "டைஃப்ளோசோல்",
-          "உணவுக்குழாய்"
+          "அரைவைப்பை",
+          "டிப்லோசோல்",
+          "உணவுக்குழல்"
         ],
         "a": 1
       },
       {
         "en": "The typhlosole increases:",
-        "ta": "டைஃப்ளோசோல் அதிகரிப்பது:",
+        "ta": "டிப்லோசோல் அதிகரிப்பது:",
         "oEn": [
           "External surface",
           "Absorptive surface",
@@ -1503,7 +1503,7 @@
       },
       {
         "en": "In the cited Metaphire posthuma redescription, the paired intestinal caeca originate in segment:",
-        "ta": "மேற்கோள் Metaphire posthuma மறுவிளக்க ஆய்வின்படி இணையான குடல் நீட்சிகள் தொடங்கும் கண்டம்:",
+        "ta": "மேற்கோள் Metaphire posthuma மறுவிளக்க ஆய்வின்படி இணையான குடல் பிதுக்கங்கள் தொடங்கும் கண்டம்:",
         "oEn": [
           "VIII",
           "XV",
@@ -1562,9 +1562,9 @@
           "Pharynx"
         ],
         "oTa": [
-          "குடல் நீட்சிகள்",
-          "டைஃப்ளோசோல்",
-          "அரவைப்பை",
+          "குடல் பிதுக்கங்கள்",
+          "டிப்லோசோல்",
+          "அரைவைப்பை",
           "தொண்டை"
         ],
         "a": 0
@@ -1572,7 +1572,7 @@
       {
         "type": "ar",
         "en": "Assertion: The typhlosole increases absorption. Reason: It bears cuticular teeth that grind food.",
-        "ta": "கூற்று: டைஃப்ளோசோல் உறிஞ்சுதலை அதிகரிக்கிறது. காரணம்: அதில் உணவை அரைக்கும் கியூட்டிக்கிள் பற்கள் உள்ளன.",
+        "ta": "கூற்று: டிப்லோசோல் உறிஞ்சுதலை அதிகரிக்கிறது. காரணம்: அதில் உணவை அரைக்கும் கியுட்டிகிள் பற்கள் உள்ளன.",
         "oEn": [
           "Both Assertion and Reason are true, and Reason correctly explains Assertion",
           "Both are true, but Reason does not correctly explain Assertion",
@@ -1604,11 +1604,11 @@
         "pairsTa": [
           "A. தொண்டை",
           "1. பரப்பளவு அதிகரித்தல்",
-          "B. அரவைப்பை",
+          "B. அரைவைப்பை",
           "2. உறிஞ்சுதல்",
           "C. குடல்",
           "3. அரைத்தல்",
-          "D. டைஃப்ளோசோல்",
+          "D. டிப்லோசோல்",
           "4. உணவு உள்ளிழுத்தல்"
         ],
         "oEn": [
@@ -1690,14 +1690,14 @@
         "oTa": [
           "நரம்புவடக் கீழ்நாளம்",
           "முதுகுப்புற நாளம்",
-          "உணவுக்குழாய் மேல்நாளம்",
+          "உணவுக்குழல் மேல்நாளம்",
           "வயிற்றுப்புற நாளம்"
         ],
         "a": 0
       },
       {
         "en": "Lateral-oesophageal vessels chiefly function as:",
-        "ta": "உணவுக்குழாய் பக்கவாட்டு நாளங்களின் முதன்மைப் பணி:",
+        "ta": "உணவுக்குழல் பக்கவாட்டு நாளங்களின் முதன்மைப் பணி:",
         "oEn": [
           "Paired anterior collecting vessels",
           "Respiratory sacs",
@@ -1768,7 +1768,7 @@
           "2. நரம்புவடத்திற்குக் கீழ்",
           "C. நரம்புவடக் கீழ்நாளம்",
           "3. இணை முன்புறச் சேகரிப்புகள்",
-          "D. உணவுக்குழாய் பக்கநாளங்கள்",
+          "D. உணவுக்குழல் பக்கநாளங்கள்",
           "4. குடலுக்குக் கீழ்"
         ],
         "oEn": [
@@ -1800,7 +1800,7 @@
           "செவுள்",
           "நுரையீரல்",
           "ஈரமான தோல்",
-          "குடல் நீட்சி"
+          "குடல் பிதுக்கம்"
         ],
         "a": 2
       },
@@ -1834,7 +1834,7 @@
           "டிராக்கியாக்கள்",
           "தந்துகி இரத்தம்",
           "காற்றுப் பைகள்",
-          "நெஃப்ரிடியாக்கள்"
+          "நெஃப்ரீடியாக்கள்"
         ],
         "a": 1
       },
@@ -1848,9 +1848,9 @@
           "Seta → muscle → vessel"
         ],
         "oTa": [
-          "ஈரம் → கியூட்டிக்கிள்/புறத்தோல் → தந்துகி",
-          "தந்துகி → சளிப்பொருள் → காற்றுப்பை",
-          "நெஃப்ரிடியம் → உடற்குழி → குடல்",
+          "ஈரம் → கியுட்டிகிள்/புறத்தோல் → தந்துகி",
+          "தந்துகி → கோழை → காற்றுப்பை",
+          "நெஃப்ரீடியம் → உடற்குழி → குடல்",
           "சீட்டா → தசை → நாளம்"
         ],
         "a": 0
@@ -1922,7 +1922,7 @@
           "4. Blood transport"
         ],
         "pairsTa": [
-          "A. சளிப்பொருள்",
+          "A. கோழை",
           "1. பரவல் தடுப்பு",
           "B. புறத்தோல்",
           "2. செறிவுச் சரிவு நிலைநிறுத்தல்",
@@ -1949,7 +1949,7 @@
     "excretory": [
       {
         "en": "Which nephridia discharge directly outside?",
-        "ta": "நேரடியாக உடலுக்கு வெளியே திறக்கும் நெஃப்ரிடியாக்கள்:",
+        "ta": "நேரடியாக உடலுக்கு வெளியே திறக்கும் நெஃப்ரீடியாக்கள்:",
         "oEn": [
           "Integumentary",
           "Pharyngeal",
@@ -1957,8 +1957,8 @@
           "All through the mouth"
         ],
         "oTa": [
-          "உடற்சுவர் நெஃப்ரிடியாக்கள்",
-          "தொண்டை நெஃப்ரிடியாக்கள்",
+          "உடற்சுவர் நெஃப்ரீடியாக்கள்",
+          "தொண்டை நெஃப்ரீடியாக்கள்",
           "இடைத்திரை மட்டும்",
           "அனைத்தும் வாய் வழியாக"
         ],
@@ -1966,7 +1966,7 @@
       },
       {
         "en": "Pharyngeal nephridia occur in segments:",
-        "ta": "தொண்டை நெஃப்ரிடியாக்கள் உள்ள கண்டங்கள்:",
+        "ta": "தொண்டை நெஃப்ரீடியாக்கள் உள்ள கண்டங்கள்:",
         "oEn": [
           "I–III",
           "IV–VI",
@@ -1983,7 +1983,7 @@
       },
       {
         "en": "Nephridia contribute to both excretion and:",
-        "ta": "நெஃப்ரிடியாக்கள் கழிவு நீக்கத்துடன் செய்யும் மற்றொரு பணி:",
+        "ta": "நெஃப்ரீடியாக்கள் கழிவு நீக்கத்துடன் செய்யும் மற்றொரு பணி:",
         "oEn": [
           "Osmoregulation",
           "Vision",
@@ -2000,7 +2000,7 @@
       },
       {
         "en": "Which statement correctly describes nephridial organization in this teaching species?",
-        "ta": "இப்பாட இனத்தின் நெஃப்ரிடிய அமைப்பைச் சரியாக விளக்கும் கூற்று எது?",
+        "ta": "இப்பாட இனத்தின் நெஃப்ரீடிய அமைப்பைச் சரியாக விளக்கும் கூற்று எது?",
         "oEn": [
           "Septal, pharyngeal and integumentary forms are numerous micronephridia",
           "Each segment contains one pair of Lumbricus-type meganephridia",
@@ -2008,10 +2008,10 @@
           "Nephridia are respiratory organs"
         ],
         "oTa": [
-          "இடைத்திரை, தொண்டை, உடற்சுவர் வகைகள் அனைத்தும் அதிக எண்ணிக்கையிலான மைக்ரோநெஃப்ரிடியாக்கள்",
-          "ஒவ்வொரு கண்டத்திலும் Lumbricus வகை ஓரிணை மேகாநெஃப்ரிடியாக்கள் உள்ளன",
-          "உடற்சுவர் நெஃப்ரிடியாக்கள் மட்டும் உள்ளன",
-          "நெஃப்ரிடியாக்கள் சுவாச உறுப்புகள்"
+          "இடைத்திரை, தொண்டை, உடற்சுவர் வகைகள் அனைத்தும் அதிக எண்ணிக்கையிலான மைக்ரோநெஃப்ரீடியாக்கள்",
+          "ஒவ்வொரு கண்டத்திலும் Lumbricus வகை ஓரிணை மேகாநெஃப்ரீடியாக்கள் உள்ளன",
+          "உடற்சுவர் நெஃப்ரீடியாக்கள் மட்டும் உள்ளன",
+          "நெஃப்ரீடியாக்கள் சுவாச உறுப்புகள்"
         ],
         "a": 0
       },
@@ -2025,10 +2025,10 @@
           "Integumentary nephridia are enteronephric"
         ],
         "oTa": [
-          "இடைத்திரை மற்றும் தொண்டை மண்டலங்கள் என்டெரோநெஃப்ரிக்; உடற்சுவர் நெஃப்ரிடியாக்கள் எக்சோநெஃப்ரிக்",
-          "அனைத்து நெஃப்ரிடியாக்களும் வெளிப்புறத்திற்கே திறக்கின்றன",
-          "அனைத்து நெஃப்ரிடியாக்களும் இரத்த நாளங்களுக்குள் மட்டுமே திறக்கின்றன",
-          "உடற்சுவர் நெஃப்ரிடியாக்கள் என்டெரோநெஃப்ரிக்"
+          "இடைத்திரை மற்றும் தொண்டை மண்டலங்கள் என்டெரோநெஃப்ரிக்; உடற்சுவர் நெஃப்ரீடியாக்கள் எக்சோநெஃப்ரிக்",
+          "அனைத்து நெஃப்ரீடியாக்களும் வெளிப்புறத்திற்கே திறக்கின்றன",
+          "அனைத்து நெஃப்ரீடியாக்களும் இரத்த நாளங்களுக்குள் மட்டுமே திறக்கின்றன",
+          "உடற்சுவர் நெஃப்ரீடியாக்கள் என்டெரோநெஃப்ரிக்"
         ],
         "a": 0
       },
@@ -2052,7 +2052,7 @@
       {
         "type": "ar",
         "en": "Assertion: Integumentary nephridia are exonephric. Reason: Septal nephridia discharge enteronephrically.",
-        "ta": "கூற்று: உடற்சுவர் நெஃப்ரிடியாக்கள் எக்சோநெஃப்ரிக் வகை. காரணம்: இடைத்திரை நெஃப்ரிடியாக்கள் என்டெரோநெஃப்ரிக் வழியில் வெளியேற்றுகின்றன.",
+        "ta": "கூற்று: உடற்சுவர் நெஃப்ரீடியாக்கள் எக்சோநெஃப்ரிக் வகை. காரணம்: இடைத்திரை நெஃப்ரீடியாக்கள் என்டெரோநெஃப்ரிக் வழியில் வெளியேற்றுகின்றன.",
         "oEn": [
           "Both Assertion and Reason are true, and Reason correctly explains Assertion",
           "Both are true, but Reason does not correctly explain Assertion",
@@ -2070,7 +2070,7 @@
       {
         "type": "match",
         "en": "Match nephridia with their categories.",
-        "ta": "நெஃப்ரிடியாக்களை அவற்றின் வகைகளுடன் பொருத்துக.",
+        "ta": "நெஃப்ரீடியாக்களை அவற்றின் வகைகளுடன் பொருத்துக.",
         "pairsEn": [
           "A. Septal",
           "1. Micronephridial and enteronephric",
@@ -2083,13 +2083,13 @@
         ],
         "pairsTa": [
           "A. இடைத்திரை",
-          "1. மைக்ரோநெஃப்ரிடிய; என்டெரோநெஃப்ரிக்",
+          "1. மைக்ரோநெஃப்ரீடிய; என்டெரோநெஃப்ரிக்",
           "B. உடற்சுவர்",
-          "2. மைக்ரோநெஃப்ரிடிய; என்டெரோநெஃப்ரிக்",
+          "2. மைக்ரோநெஃப்ரீடிய; என்டெரோநெஃப்ரிக்",
           "C. தொண்டை",
           "3. வெளித்திறப்பு",
-          "D. நெஃப்ரிடியத் துளை",
-          "4. மைக்ரோநெஃப்ரிடிய; எக்சோநெஃப்ரிக்"
+          "D. நெஃப்ரீடியத் துளை",
+          "4. மைக்ரோநெஃப்ரீடிய; எக்சோநெஃப்ரிக்"
         ],
         "oEn": [
           "A–2, B–4, C–1, D–3",
@@ -2109,7 +2109,7 @@
     "reproductive": [
       {
         "en": "Spermathecae chiefly store:",
-        "ta": "விந்தேற்புப் பைகள் முதன்மையாகச் சேமிப்பது:",
+        "ta": "விந்துகொள்பைகள் முதன்மையாகச் சேமிப்பது:",
         "oEn": [
           "The worm's own ova",
           "Partner-derived sperm",
@@ -2143,7 +2143,7 @@
       },
       {
         "en": "Male genital pores occur on segment:",
-        "ta": "ஆண் இனத்துளைகள் உள்ள கண்டம்:",
+        "ta": "ஆண் இனப்பெருக்கத் துளைகள் உள்ள கண்டம்:",
         "oEn": [
           "XIV",
           "XVIII",
@@ -2168,9 +2168,9 @@
           "Dorsal vessel"
         ],
         "oTa": [
-          "கிளைட்டெல்லம்",
-          "அரவைப்பை",
-          "நெஃப்ரிடியாக்கள்",
+          "கிளைடெல்லம்",
+          "அரைவைப்பை",
+          "நெஃப்ரீடியாக்கள்",
           "முதுகுப்புற நாளம்"
         ],
         "a": 0
@@ -2185,7 +2185,7 @@
           "Prostate glands"
         ],
         "oTa": [
-          "விந்தேற்புப் பைகள்",
+          "விந்துகொள்பைகள்",
           "விந்துப் பைகள்",
           "அண்டகங்கள்",
           "புரோஸ்டேட் சுரப்பிகள்"
@@ -2244,11 +2244,11 @@
         "pairsTa": [
           "A. விந்தகம்",
           "1. முட்டைக்கூடு சுரப்பு",
-          "B. விந்தேற்புப் பை",
+          "B. விந்துகொள்பை",
           "2. பிறவிந்தணு சேமிப்பு",
           "C. அண்டகம்",
           "3. விந்தணு உற்பத்தி",
-          "D. கிளைட்டெல்லம்",
+          "D. கிளைடெல்லம்",
           "4. அண்டச் செல் உற்பத்தி"
         ],
         "oEn": [
@@ -2295,9 +2295,9 @@
         ],
         "oTa": [
           "தொண்டை",
-          "அரவைப்பை",
-          "கிளைட்டெல்லம்",
-          "மலத்துளை"
+          "அரைவைப்பை",
+          "கிளைடெல்லம்",
+          "மலவாய்"
         ],
         "a": 0
       },
@@ -2320,7 +2320,7 @@
       },
       {
         "en": "The cerebral ganglia lie chiefly:",
-        "ta": "மூளை நரம்புத் திரள்கள் முதன்மையாக அமைந்துள்ள இடம்:",
+        "ta": "தொண்டைமேல் நரம்பு செல் திரள்கள் முதன்மையாக அமைந்துள்ள இடம்:",
         "oEn": [
           "Dorsal to pharynx",
           "Inside gizzard",
@@ -2329,7 +2329,7 @@
         ],
         "oTa": [
           "தொண்டைக்கு மேல்",
-          "அரவைப்பைக்குள்",
+          "அரைவைப்பைக்குள்",
           "நரம்புவடக் கீழ்நாளத்திற்குக் கீழ்",
           "கிளைட்டெல்லத்துக்குள்"
         ],
@@ -2363,9 +2363,9 @@
         ],
         "oTa": [
           "கண்ட நரம்புத் திரள்கள்",
-          "டைஃப்ளோசோல்",
+          "டிப்லோசோல்",
           "புரோஸ்டேட் சுரப்பிகள்",
-          "நெஃப்ரிடியத் துளைகள்"
+          "நெஃப்ரீடியத் துளைகள்"
         ],
         "a": 0
       },
@@ -2402,7 +2402,7 @@
           "4. Ventral anterior centre"
         ],
         "pairsTa": [
-          "A. மூளை நரம்புத் திரள்கள்",
+          "A. தொண்டைமேல் நரம்பு செல் திரள்கள்",
           "1. தொண்டைக்கு மேல்",
           "B. இணைப்புகள்",
           "2. உள்ளூர் கட்டுப்பாடு",
@@ -2488,10 +2488,10 @@
           "Peritoneum → cuticle → circular → epidermis"
         ],
         "oTa": [
-          "கியூட்டிக்கிள் → புறத்தோல் → வட்டத் தசை → நீளவாட்டுத் தசை → பெரிட்டோனியம்",
-          "புறத்தோல் → கியூட்டிக்கிள் → நீளவாட்டுத் தசை → வட்டத் தசை → உடற்குழி",
-          "கியூட்டிக்கிள் → நீளவாட்டுத் தசை → புறத்தோல் → பெரிட்டோனியம்",
-          "பெரிட்டோனியம் → கியூட்டிக்கிள் → வட்டத் தசை → புறத்தோல்"
+          "கியுட்டிகிள் → புறத்தோல் → வட்டத் தசை → நீளவாட்டுத் தசை → உடற்குழி எபிதீலியம்",
+          "புறத்தோல் → கியுட்டிகிள் → நீளவாட்டுத் தசை → வட்டத் தசை → உடற்குழி",
+          "கியுட்டிகிள் → நீளவாட்டுத் தசை → புறத்தோல் → உடற்குழி எபிதீலியம்",
+          "உடற்குழி எபிதீலியம் → கியுட்டிகிள் → வட்டத் தசை → புறத்தோல்"
         ],
         "a": 0
       },
@@ -2522,8 +2522,8 @@
           "Chitin plates"
         ],
         "oTa": [
-          "மீசோடெர்மில் தோன்றிய பெரிட்டோனியம்",
-          "கியூட்டிக்கிள் மட்டும்",
+          "மீசோடெர்மில் தோன்றிய உடற்குழி எபிதீலியம்",
+          "கியுட்டிகிள் மட்டும்",
           "இரத்த நாள உள்ளணி",
           "கைட்டின் தகடுகள்"
         ],
@@ -2562,10 +2562,10 @@
           "4. Non-cellular cover"
         ],
         "pairsTa": [
-          "A. கியூட்டிக்கிள்",
+          "A. கியுட்டிகிள்",
           "1. நீளச்செய்தல்",
           "B. புறத்தோல்",
-          "2. சளிப்பொருள் சுரப்பு",
+          "2. கோழை சுரப்பு",
           "C. வட்டத் தசை",
           "3. குறுகச்செய்தல்",
           "D. நீளவாட்டுத் தசை",
@@ -2590,33 +2590,33 @@
   "microscopicLessons": {
     "gizzard": {
       "en": "Gizzard cross-section",
-      "ta": "அரவைப்பையின் குறுக்குவெட்டு",
+      "ta": "அரைவைப்பையின் குறுக்குவெட்டு",
       "textEn": "A thick circular-muscle wall surrounds a narrow lumen lined by abrasion-resistant cuticle. Contraction against swallowed mineral grit fragments organic particles.",
-      "textTa": "தடித்த வட்டத் தசைச் சுவர், குறுகிய உட்புழையைச் சூழ்கிறது. தேய்மானத்தைத் தாங்கும் கியூட்டிக்கிள் உட்படலம் காணப்படும். விழுங்கிய மண்துகள்களுக்கு எதிராகத் தசை சுருங்கி கரிம உணவுத் துகள்களை அரைக்கிறது."
+      "textTa": "தடித்த வட்டத் தசைச் சுவர், குறுகிய உட்புழையைச் சூழ்கிறது. தேய்மானத்தைத் தாங்கும் கியுட்டிகிள் உட்படலம் காணப்படும். விழுங்கிய மண்துகள்களுக்கு எதிராகத் தசை சுருங்கி கரிம உணவுத் துகள்களை அரைக்கிறது."
     },
     "typhlosole": {
       "en": "Typhlosolar intestine",
-      "ta": "டைஃப்ளோசோல் கொண்ட குடல்",
+      "ta": "டிப்லோசோல் கொண்ட குடல்",
       "textEn": "The dorsal intestinal wall folds deeply into the lumen. The fold increases epithelial area available for absorption and contains supporting connective and vascular tissue.",
       "textTa": "குடலின் முதுகுப்புறச் சுவர் உட்புழைக்குள் ஆழமாக மடிகிறது. இம்மடிப்பு உறிஞ்சும் மேலணிப் பரப்பை அதிகரிக்கிறது; அதனுள் துணை இணைப்புத்திசுவும் இரத்த நாளங்களும் காணப்படுகின்றன."
     },
     "nephridium": {
       "en": "Nephridial tubule",
-      "ta": "நெஃப்ரிடியக் குழல்",
+      "ta": "நெஃப்ரீடியக் குழல்",
       "textEn": "The entrance structure differs among nephridial types. Septal nephridia have nephrostomal funnels, whereas the pharyngeal and integumentary micronephridia are closed forms. Their long coiled tubules modify wastes by selective reabsorption and secretion. In this species all three positional types are numerous micronephridia: septal and pharyngeal systems discharge enteronephrically, while integumentary nephridia discharge exonephrically.",
-      "textTa": "நெஃப்ரிடிய வகைகளுக்கு இடையே தொடக்க அமைப்பு வேறுபடுகிறது. இடைத்திரை நெஃப்ரிடியாக்களில் நெஃப்ரோஸ்டோம் புனல்கள் உள்ளன; தொண்டை மற்றும் உடற்சுவர் மைக்ரோநெஃப்ரிடியாக்கள் மூடிய வகைகள். நீண்ட சுருண்ட குழல்களில் தேர்ந்தெடுத்த மீளுறிஞ்சலும் சுரப்பும் நடைபெற்று கழிவுகள் மாற்றப்படுகின்றன. இவ்வினத்தில் அமைவிட அடிப்படையிலான மூன்று வகைகளும் அதிக எண்ணிக்கையிலான மைக்ரோநெஃப்ரிடியாக்களே: இடைத்திரை மற்றும் தொண்டை மண்டலங்கள் என்டெரோநெஃப்ரிக் வழியிலும், உடற்சுவர் நெஃப்ரிடியாக்கள் எக்சோநெஃப்ரிக் வழியிலும் வெளியேற்றுகின்றன."
+      "textTa": "நெஃப்ரீடிய வகைகளுக்கு இடையே தொடக்க அமைப்பு வேறுபடுகிறது. இடைத்திரை நெஃப்ரீடியாக்களில் நெஃப்ரோஸ்டோம் புனல்கள் உள்ளன; தொண்டை மற்றும் உடற்சுவர் மைக்ரோநெஃப்ரீடியாக்கள் மூடிய வகைகள். நீண்ட சுருண்ட குழல்களில் தேர்ந்தெடுத்த மீளுறிஞ்சலும் சுரப்பும் நடைபெற்று கழிவுகள் மாற்றப்படுகின்றன. இவ்வினத்தில் அமைவிட அடிப்படையிலான மூன்று வகைகளும் அதிக எண்ணிக்கையிலான மைக்ரோநெஃப்ரீடியாக்களே: இடைத்திரை மற்றும் தொண்டை மண்டலங்கள் என்டெரோநெஃப்ரிக் வழியிலும், உடற்சுவர் நெஃப்ரீடியாக்கள் எக்சோநெஃப்ரிக் வழியிலும் வெளியேற்றுகின்றன."
     },
     "spermatheca": {
       "en": "Spermathecal organization",
-      "ta": "விந்தேற்புப் பையின் அமைப்பு",
+      "ta": "விந்துகொள்பையின் அமைப்பு",
       "textEn": "A spermatheca has a storage ampulla, duct and diverticulum. In this species model, sperm received during copulation is associated with the diverticular region and retained until cocoon formation.",
-      "textTa": "விந்தேற்புப் பையில் சேமிப்பு ஆம்புலா, நாளம், பக்கப்பை ஆகிய பகுதிகள் உள்ளன. இவ்வின மாதிரியில் இணைசேர்க்கையின் போது பெறப்பட்ட விந்தணுக்கள் பக்கப்பைப் பகுதியுடன் தொடர்புபட்டு முட்டைக்கூடு உருவாகும் வரை சேமிக்கப்படுகின்றன."
+      "textTa": "விந்துகொள்பையில் சேமிப்பு ஆம்புலா, நாளம், பக்கப்பை ஆகிய பகுதிகள் உள்ளன. இவ்வின மாதிரியில் இணைசேர்க்கையின் போது பெறப்பட்ட விந்தணுக்கள் பக்கப்பைப் பகுதியுடன் தொடர்புபட்டு முட்டைக்கூடு உருவாகும் வரை சேமிக்கப்படுகின்றன."
     },
     "skin": {
       "en": "Cutaneous respiratory barrier",
       "ta": "தோல் வழி வாயுப் பரிமாற்றம்",
       "textEn": "Oxygen dissolves in the surface moisture, crosses the thin cuticle and epidermis, and enters subepidermal capillaries. Carbon dioxide follows the reverse gradient. Drying disrupts this pathway.",
-      "textTa": "ஆக்சிஜன் மேற்பரப்பு ஈரத்தில் கரைந்து, மெல்லிய கியூட்டிக்கிள் மற்றும் புறத்தோலைக் கடந்து புறத்தோலடித் தந்துகிகளை அடைகிறது. கார்பன் டைஆக்சைடு எதிர்திசைச் சரிவில் வெளியேறுகிறது. தோல் உலர்வது இப்பாதையைத் தடை செய்கிறது."
+      "textTa": "ஆக்சிஜன் மேற்பரப்பு ஈரத்தில் கரைந்து, மெல்லிய கியுட்டிகிள் மற்றும் புறத்தோலைக் கடந்து புறத்தோலடித் தந்துகிகளை அடைகிறது. கார்பன் டைஆக்சைடு எதிர்திசைச் சரிவில் வெளியேறுகிறது. தோல் உலர்வது இப்பாதையைத் தடை செய்கிறது."
     },
     "heart": {
       "en": "Contractile heart-vessel wall",
@@ -2640,7 +2640,7 @@
       "en": "Body-wall histology",
       "ta": "உடற்சுவர் நுண்ணமைப்பு",
       "textEn": "From outside inward: non-cellular cuticle, glandular and sensory epidermis, thin circular muscle, thick bundled longitudinal muscle and peritoneum. The peritoneum faces the coelom. These layers form the active hydrostatic locomotor wall cut during dissection.",
-      "textTa": "வெளியிலிருந்து உள்ளாக: செல்களற்ற கியூட்டிக்கிள், சுரப்பு மற்றும் உணர்வுச் செல்கள் கொண்ட புறத்தோல், மெல்லிய வட்டத் தசை, தடித்த கட்டமைந்த நீளவாட்டுத் தசை, பெரிட்டோனியம். பெரிட்டோனியம் உடற்குழியை நோக்கி அமைந்துள்ளது. உடற்கூறாய்வில் வெட்டப்படும் இவ்வடுக்குகளே செயற்படும் நீரழுத்த இயக்கச் சுவரை உருவாக்குகின்றன."
+      "textTa": "வெளியிலிருந்து உள்ளாக: செல்களற்ற கியுட்டிகிள், சுரப்பு மற்றும் உணர்வுச் செல்கள் கொண்ட புறத்தோல், மெல்லிய வட்டத் தசை, தடித்த கட்டமைந்த நீளவாட்டுத் தசை, உடற்குழி எபிதீலியம். உடற்குழி எபிதீலியம் உடற்குழியை நோக்கி அமைந்துள்ளது. உடற்கூறாய்வில் வெட்டப்படும் இவ்வடுக்குகளே செயற்படும் நீரழுத்த இயக்கச் சுவரை உருவாக்குகின்றன."
     }
   }
 }
