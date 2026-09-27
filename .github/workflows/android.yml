@@ -20,15 +20,15 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Phase-3B4A authorised-diff integrity
+      - name: Phase-3B4B authorised-diff integrity
         shell: bash
         run: |
           set -euo pipefail
-          BASE=b4505c10920f2f97964d0523accda36c52f7a750
+          BASE=3652439b73654296c16090036d224a778749fb1e
           test "$(git merge-base "$BASE" HEAD)" = "$BASE"
           bad="$(git diff --name-only "$BASE" HEAD | grep -Ev '^(\.github/workflows/android\.yml|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen\.kt|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance\.kt|app/src/main/res/values/strings\.xml|app/src/main/res/values-ta/strings\.xml)$' || true)"
           if [ -n "$bad" ]; then
-            echo "Unauthorised Phase-3B4A changes detected:"
+            echo "Unauthorised Phase-3B4B changes detected:"
             echo "$bad"
             exit 1
           fi
@@ -38,42 +38,38 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          BASE=b4505c10920f2f97964d0523accda36c52f7a750
+          BASE=3652439b73654296c16090036d224a778749fb1e
           test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/StructureNarrator.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/data/ScientificContentRepository.kt             app/src/main/res/raw/earthworm_content_v138.json             app/src/main/res/raw/atlas_*.svg             app/src/main/res/drawable-nodpi             app/src/main/java/in/ramesh/zoology/earthwormlab/data/StructureGeometry.kt)"
-      - name: Phase-3B4A digestive-process contract
+      - name: Phase-3B4B nephridial physiology contract
         shell: bash
         run: |
           set -euo pipefail
           P=app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance.kt
           A=app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt
-          J=app/src/main/res/raw/earthworm_content_v138.json
           node - <<'NODE'
           const fs=require('fs');
           const j=JSON.parse(fs.readFileSync('app/src/main/res/raw/earthworm_content_v138.json','utf8'));
-          const ids=['pharynx','oesophagus','gizzard','stomach','intestine','intestinal-caeca','typhlosole'];
+          const ids=['pharyngeal-nephridia','septal-nephridia','integumentary-nephridia','nephridium'];
           for (const id of ids) {
-            if (!j.structures[id]) throw new Error('Missing digestive process target: '+id);
-            if (j.structures[id].system!=='digestive') throw new Error('Wrong system for '+id);
+            if (!j.structures[id]) throw new Error('Missing excretory process target: '+id);
+            if (j.structures[id].system!=='excretory') throw new Error('Wrong system for '+id);
           }
-          console.log('PASS digestive process targets:',ids.length);
+          if (!/enteronephric/i.test(j.structures['pharyngeal-nephridia'].sigEn)) throw new Error('Pharyngeal enteronephric evidence missing');
+          if (!/gut/i.test(j.structures['septal-nephridia'].sigEn)) throw new Error('Septal gut-discharge evidence missing');
+          if (!/exonephric/i.test(j.structures['integumentary-nephridia'].sigEn)) throw new Error('Integumentary exonephric evidence missing');
+          if (!/nephrostome/i.test(j.structures['nephridium'].fnEn)) throw new Error('Nephrostome physiology evidence missing');
+          console.log('PASS excretory targets and discharge-route evidence');
           NODE
-          grep -q 'DIGESTIVE_JOURNEY' "$P"
-          grep -q 'EarthwormSystem.DIGESTIVE to ProcessDefinition' "$P"
-          grep -q 'target = "pharynx"' "$P"
-          grep -q 'target = "oesophagus"' "$P"
-          grep -q 'target = "gizzard"' "$P"
-          grep -q 'target = "stomach"' "$P"
-          grep -q 'target = "intestine"' "$P"
-          grep -q 'target = "intestinal-caeca"' "$P"
-          grep -q 'target = "typhlosole"' "$P"
-          grep -q 'ProcessPhase.MECHANICAL_DIGESTION' "$P"
-          grep -q 'ProcessPhase.CHEMICAL_DIGESTION' "$P"
-          grep -q 'ProcessPhase.INTESTINAL_PROCESSING' "$P"
-          grep -q 'BiologicalProcess.DIGESTIVE_JOURNEY' "$A"
-          grep -q 'ProcessDirection.PROCESSING' "$A"
-          grep -q 'ProcessDirection.ABSORPTION' "$A"
-          grep -q 'atlas_process_digestive_journey' app/src/main/res/values/strings.xml
-          grep -q 'atlas_process_digestive_journey' app/src/main/res/values-ta/strings.xml
+          grep -q 'NEPHRIDIAL_EXCRETION' "$P"
+          grep -q 'EarthwormSystem.EXCRETORY to ProcessDefinition' "$P"
+          grep -q 'ProcessPhase.NEPHRIDIAL_PROCESSING' "$P"
+          grep -q 'ProcessPhase.EXCRETORY_ROUTE_COMPARISON' "$P"
+          grep -q 'ProcessDirection.ENTERONEPHRIC' "$P"
+          grep -q 'ProcessDirection.EXONEPHRIC' "$P"
+          grep -q 'NephridialComparisonCard' "$A"
+          grep -q 'comparisonVisible' "$A"
+          grep -q 'atlas_nephridial_compare_title' app/src/main/res/values/strings.xml
+          grep -q 'atlas_nephridial_compare_title' app/src/main/res/values-ta/strings.xml
           ! grep -q 'android.permission.INTERNET' app/src/main/AndroidManifest.xml
   build:
     needs: validate
@@ -102,12 +98,12 @@ jobs:
         run: gradle --no-daemon :app:lintDebug :app:lintRelease :app:assembleDebug :app:assembleDebugAndroidTest :app:assembleRelease :app:bundleRelease
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-Phase3B4A-device-QA-candidate
+          name: Earthworm-1.3.8-Phase3B4B-device-QA-candidate
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
       - uses: actions/upload-artifact@v4
         with:
-          name: Earthworm-1.3.8-Phase3B4A-unsigned-release-structural-check
+          name: Earthworm-1.3.8-Phase3B4B-unsigned-release-structural-check
           path: |
             app/build/outputs/apk/release/*unsigned.apk
             app/build/outputs/bundle/release/*.aab
