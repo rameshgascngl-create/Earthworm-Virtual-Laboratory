@@ -217,6 +217,8 @@ private fun AtlasPlate(
                         }
                     },
             ) {
+                val plateWidth = maxWidth
+                val plateHeight = maxHeight
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
@@ -247,10 +249,10 @@ private fun AtlasPlate(
                             .ifBlank { structure.id }
                         val selected = structure.id == selectedId
                         val touchSize = 44.dp
-                        val xOffset = (maxWidth * x - touchSize / 2)
-                            .coerceIn(0.dp, (maxWidth - touchSize).coerceAtLeast(0.dp))
-                        val yOffset = (maxHeight * y - touchSize / 2)
-                            .coerceIn(0.dp, (maxHeight - touchSize).coerceAtLeast(0.dp))
+                        val xOffset = (plateWidth * x - touchSize / 2)
+                            .coerceIn(0.dp, (plateWidth - touchSize).coerceAtLeast(0.dp))
+                        val yOffset = (plateHeight * y - touchSize / 2)
+                            .coerceIn(0.dp, (plateHeight - touchSize).coerceAtLeast(0.dp))
                         Box(
                             modifier = Modifier
                                 .size(touchSize)
