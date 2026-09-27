@@ -32,6 +32,7 @@ import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -89,6 +90,21 @@ fun AtlasScreen(
     var detailedMode by rememberSaveable(system.dataKey, "atlas-detailed-mode") { mutableStateOf(false) }
     val selectedStructure = structures.firstOrNull { it.id == selectedId }
     val selectedContent = selectedStructure?.let { repository.contentFor(it.id) }
+    val narrator = rememberStructureNarrator()
+    var audioEnabled by rememberSaveable("atlas-structure-audio") { mutableStateOf(true) }
+
+    val selectStructure: (String) -> Unit = { structureId ->
+        selectedId = structureId
+        if (audioEnabled) {
+            repository.contentFor(structureId)?.let { content ->
+                narrator.speak(content.narration(language), language)
+            }
+        }
+    }
+
+    LaunchedEffect(language, detailedMode) {
+        narrator.stop()
+    }
 
     Column(
         modifier = modifier
@@ -119,6 +135,14 @@ fun AtlasScreen(
                 onClick = { detailedMode = true },
                 label = { Text(stringResource(R.string.atlas_mode_detailed)) },
             )
+            FilterChip(
+                selected = audioEnabled,
+                onClick = {
+                    audioEnabled = !audioEnabled
+                    if (!audioEnabled) narrator.stop()
+                },
+                label = { Text(stringResource(R.string.atlas_audio)) },
+            )
         }
 
         Text(
@@ -141,7 +165,7 @@ fun AtlasScreen(
                 structures = structures,
                 repository = repository,
                 selectedId = selectedId,
-                onStructureSelected = { selectedId = it },
+                onStructureSelected = selectStructure,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = 8.dp),
@@ -166,7 +190,7 @@ fun AtlasScreen(
                 val label = content?.label(language).orEmpty().ifBlank { structure.id }
                 FilterChip(
                     selected = structure.id == selectedId,
-                    onClick = { selectedId = structure.id },
+                    onClick = { selectStructure(structure.id) },
                     label = { Text(label) },
                 )
             }
@@ -328,17 +352,36 @@ private fun AtlasPlate(
                                 .clickable { onStructureSelected(structure.id) },
                             contentAlignment = Alignment.Center,
                         ) {
+                            if (selected) {
+                                Box(
+                                    modifier = Modifier
+                                        .size(28.dp)
+                                        .background(
+                                            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.18f),
+                                            shape = CircleShape,
+                                        )
+                                        .border(
+                                            width = 2.dp,
+                                            color = MaterialTheme.colorScheme.primary,
+                                            shape = CircleShape,
+                                        ),
+                                )
+                            }
                             Box(
                                 modifier = Modifier
-                                    .size(if (selected) 18.dp else 10.dp)
+                                    .size(if (selected) 12.dp else 10.dp)
                                     .background(
-                                        color = Color.Transparent,
+                                        color = if (selected) {
+                                            MaterialTheme.colorScheme.primary
+                                        } else {
+                                            Color.Transparent
+                                        },
                                         shape = CircleShape,
                                     )
                                     .border(
                                         width = if (selected) 2.dp else 1.dp,
                                         color = if (selected) {
-                                            MaterialTheme.colorScheme.primary
+                                            Color.White
                                         } else {
                                             Color.White.copy(alpha = 0.82f)
                                         },
@@ -424,6 +467,17 @@ private fun ScientificContentRepository.StructureContent.significance(language: 
 
 private fun ScientificContentRepository.StructureContent.correction(language: AppLanguage): String =
     if (language == AppLanguage.TAMIL) fixTa else fixEn
+
+private fun ScientificContentRepository.StructureContent.narration(language: AppLanguage): String =
+    listOf(
+        label(language),
+        location(language),
+        function(language),
+        significance(language),
+    )
+        .map { it.trim() }
+        .filter { it.isNotBlank() }
+        .joinToString(". ")
 
 private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
     is Hotspot.Point -> xFraction to yFraction
