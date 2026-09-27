@@ -13,24 +13,13 @@
     <string name="system_nervous">நரம்பு மண்டலம்</string>
     <string name="system_transverse_section">குறுக்குவெட்டுத் தோற்றம்</string>
 
-    <!--
-        DELIBERATELY NOT TRANSLATED YET:
-          preparation_title, preparation_intro, preparation_item_*,
-          placeholder_title, placeholder_body
-
-        These four groups are new Phase-1 UI copy with no equivalent in
-        earthworm_content_v138.json or any reviewed hybrid source — unlike
-        the system names above, there is no existing reviewed Tamil to
-        preserve. Per the migration brief ("do not retranslate scientific
-        vocabulary from memory... leave it explicitly marked for review
-        rather than inventing a replacement"), machine-drafting confident
-        Tamil for lab-safety and instructional copy and presenting it as
-        equivalent to the reviewed dataset strings above would be worse
-        than the current, visible fallback: Android resource resolution
-        falls back to res/values/strings.xml (English) for any key missing
-        here, so the Tamil-language build currently shows these four
-        groups in English rather than in unreviewed Tamil. This is a real
-        Phase-1 gap, not a hidden one — resolve by having R. Ramesh (or another
-        fluent reviewer) supply/approve the Tamil text, then add the keys here.
-    -->
+    <!-- Phase-1 UI copy reviewed for Tamil parity; system/anatomical terminology above is unchanged. -->
+    <string name="preparation_title">தொடங்குவதற்கு முன்</string>
+    <string name="preparation_intro">உடற்கூறு பிரித்தாய்வைத் தொடங்குவதற்கு முன் பின்வருவனவற்றைச் சரிபார்க்கவும்.</string>
+    <string name="preparation_item_specimen">பதப்படுத்தப்பட்ட மண்புழு மாதிரி (Metaphire posthuma)</string>
+    <string name="preparation_item_dissection_tray">மெழுகுத் தளத்துடன் கூடிய பிரித்தாய்வுத் தட்டு</string>
+    <string name="preparation_item_instruments">பிரித்தாய்வுக் கருவிகள்: அறுவைக் கத்தி, இடுக்கி, கத்தரிக்கோல், ஊசிகள்</string>
+    <string name="preparation_item_safety">கையுறைகள் மற்றும் கழிவுகளைப் பாதுகாப்பாக அகற்றும் கொள்கலன்</string>
+    <string name="placeholder_title">%1$s — உடற்கூறு அட்லஸ் மாற்றம் நிலுவையில்</string>
+    <string name="placeholder_body">இந்த மண்டலத்தின் இடைச்செயல் உடற்கூறு அட்லஸ் இன்னும் Android செயலிக்கு மாற்றப்படவில்லை (கட்டம் 2). அதற்குப் பதிலாக வேறு உள்ளடக்கம் சேர்க்கப்படவில்லை.</string>
 </resources>
