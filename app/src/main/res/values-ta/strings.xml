@@ -75,7 +75,7 @@
     <string name="atlas_process_cutaneous_respiration">தோல் வழிச் சுவாச செயல்முறை</string>
     <string name="atlas_process_blood_circulation">இரத்த ஓட்ட செயல்முறை</string>
     <string name="atlas_process_digestive_journey">செரிமானப் பயணம்</string>
-    <string name="atlas_process_nephridial_excretion">நெஃப்ரிடியக் கழிவுநீக்க செயல்முறை</string>
+    <string name="atlas_process_nephridial_excretion">நெஃப்ரீடியக் கழிவுநீக்க செயல்முறை</string>
     <string name="atlas_process_nervous_conduction">நரம்புத் தூண்டல் கடத்தல்</string>
     <string name="atlas_process_play">செயல்முறையை இயக்கு</string>
     <string name="atlas_process_pause">இடைநிறுத்து</string>
@@ -97,10 +97,10 @@
     <string name="atlas_process_phase_nerve_ring_relay">நரம்பு வளையக் கடத்தல்</string>
     <string name="atlas_process_phase_longitudinal_conduction">நீளவழி நரம்புத் தூண்டல் கடத்தல்</string>
     <string name="atlas_process_phase_segmental_response">கண்டவாரியான ஒருங்கிணைப்பு மற்றும் மறுமொழி</string>
-    <string name="atlas_nephridial_compare_show">நெஃப்ரிடியா ஒப்பீடு</string>
+    <string name="atlas_nephridial_compare_show">நெஃப்ரீடியா ஒப்பீடு</string>
     <string name="atlas_nephridial_compare_hide">ஒப்பீட்டை மறை</string>
-    <string name="atlas_nephridial_compare_title">நெஃப்ரிடியா — ஒப்பீட்டு காட்சி</string>
-    <string name="atlas_nephridial_compare_intro">தொண்டை, இடைத்திரை மற்றும் உடற்சுவர் நெஃப்ரிடியாக்களை அவற்றின் அமைவிடம், பணி மற்றும் வெளியேற்றப் பாதையின் அடிப்படையில் ஒப்பிடுக.</string>
+    <string name="atlas_nephridial_compare_title">நெஃப்ரீடியா — ஒப்பீட்டு காட்சி</string>
+    <string name="atlas_nephridial_compare_intro">தொண்டை, இடைச் சுவர் மற்றும் தோல் நெஃப்ரீடியா வகைகளை அவற்றின் அமைவிடம், பணி மற்றும் வெளியேற்றப் பாதையின் அடிப்படையில் ஒப்பிடுக.</string>
     <string name="atlas_nephridial_discharge">வெளியேற்ற வகை / முக்கிய குறிப்பு</string>
     <!-- முகப்பு / ஆயத்தக் காட்சி: UI உரைகள் மட்டும். அறிவியல் உள்ளடக்கம் மாற்றப்படவில்லை. -->
     <string name="home_graphic_description">மண்புழு கற்றல் குறியீட்டு படம்</string>
