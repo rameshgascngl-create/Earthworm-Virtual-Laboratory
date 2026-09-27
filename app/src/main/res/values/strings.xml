@@ -29,11 +29,16 @@
     <string name="placeholder_body">This system\'s interactive atlas has not been migrated to the native app yet (Phase 2). Nothing has been substituted in its place.</string>
 
     <!-- Phase-2 native atlas UI chrome. Scientific/anatomical prose stays in earthworm_content_v138.json. -->
-    <string name="atlas_hint">Tap a marker or a structure name to inspect the anatomy.</string>
+    <string name="atlas_hint">Choose a view. In either view, tap a structure; pinch to zoom and drag to pan.</string>
     <string name="atlas_structures">Structures</string>
     <string name="atlas_location">Location</string>
     <string name="atlas_function">Function</string>
     <string name="atlas_significance">Teaching point</string>
     <string name="atlas_correction">Common correction</string>
     <string name="atlas_selected">Selected structure</string>
+    <string name="atlas_labels">Labels</string>
+    <string name="atlas_reset_view">Reset view</string>
+    <string name="atlas_mode_svg">Atlas SVG</string>
+    <string name="atlas_mode_detailed">Detailed Image</string>
+    <string name="atlas_mode_caption">Atlas SVG is the clean interactive diagram. Detailed Image is the original 2048×1536 high-resolution anatomical plate; touch markers, zoom/pan and Reset View remain active in both modes. Printed plate text remains part of the original English artwork.</string>
 </resources>
