@@ -1,4 +1,5 @@
 name: Validate Phase 3C.1 + Home native QA candidate
+# CI-only companion workflow; application source is frozen at 55e9e4e71868c25383dba1432a08644f91f29dcc.
 on:
   workflow_dispatch:
   push:
