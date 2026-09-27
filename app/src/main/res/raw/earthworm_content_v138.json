@@ -150,13 +150,13 @@
       "en": "Perichaetine setae",
       "ta": "சுற்றமைந்த சீட்டாக்கள் (நுண்முட்கள்)",
       "locEn": "Perichaetine setae encircle ordinary segments; a modern redescription of Metaphire posthuma records setae retained ventrally on the clitellum.",
-      "locTa": "பொதுவான கண்டங்களைச் சுற்றி பெரிகீட்டின் வகை சீட்டாக்கள் காணப்படும்; Metaphire posthuma-வின் நவீன மறுவிளக்க ஆய்வில் கிளைட்டெல்லத்தின் வயிற்றுப்புறத்திலும் சீட்டாக்கள் தொடர்வதாகப் பதிவுள்ளது.",
+      "locTa": "பொதுவான கண்டங்களைச் சுற்றி பெரிகீட்டின் வகை சீட்டாக்கள் காணப்படும்; Metaphire posthuma-வின் நவீன மறுவிளக்க ஆய்வில் கிளைடெல்லத்தின் வயிற்றுப்புறத்திலும் சீட்டாக்கள் தொடர்வதாகப் பதிவுள்ளது.",
       "fnEn": "Anchor parts of the body against soil during locomotion.",
       "fnTa": "இயக்கத்தின் போது உடற்பகுதியை மண்ணில் பற்றிப் பிடிக்க உதவுகின்றன.",
       "sigEn": "The clitellum should not be taught as universally devoid of setae in this species.",
-      "sigTa": "இவ்வினத்தில் கிளைட்டெல்லத்தில் சீட்டாக்கள் முற்றிலும் இல்லை என்று பொதுவாகக் கற்பிக்கக் கூடாது.",
+      "sigTa": "இவ்வினத்தில் கிளைடெல்லத்தில் சீட்டாக்கள் முற்றிலும் இல்லை என்று பொதுவாகக் கற்பிக்கக் கூடாது.",
       "fixEn": "Avoid the blanket statement 'setae absent on the clitellum'; retained ventral clitellar setae are documented for M. posthuma.",
-      "fixTa": "‘கிளைட்டெல்லத்தில் சீட்டாக்கள் இல்லை’ என்ற முழுமையான கூற்றைத் தவிர்க்கவும்; M. posthuma-வில் வயிற்றுப்புற கிளைட்டெல்லச் சீட்டாக்கள் பதிவாகியுள்ளன."
+      "fixTa": "‘கிளைடெல்லத்தில் சீட்டாக்கள் இல்லை’ என்ற முழுமையான கூற்றைத் தவிர்க்கவும்; M. posthuma-வில் வயிற்றுப்புற கிளைடெல்லச் சீட்டாக்கள் பதிவாகியுள்ளன."
     },
     "spermathecal-pores": {
       "system": "external",
@@ -180,7 +180,7 @@
       "fnEn": "Releases ova into the cocoon-forming pathway.",
       "fnTa": "அண்டங்களை முட்டைக்கூடு உருவாகும் பாதைக்கு வெளியிடுகிறது.",
       "sigEn": "It lies within the clitellar region.",
-      "sigTa": "இது கிளைட்டெல்லப் பகுதியில் அமைந்துள்ளது.",
+      "sigTa": "இது கிளைடெல்லப் பகுதியில் அமைந்துள்ளது.",
       "fixEn": "It is one pore, not a pair.",
       "fixTa": "இது ஒற்றைத் துளை; இணை அல்ல."
     },
@@ -354,7 +354,7 @@
       "sigEn": "Its close relation to the nerve cord matters during dissection.",
       "sigTa": "நரம்புவடத்திற்கு மிக அருகில் இருப்பதால் உடற்கூறாய்வில் கவனம் தேவை.",
       "fixEn": "Do not lift it as if it were the ventral nerve cord; colour and branching differ.",
-      "fixTa": "இதை வயிற்றுப்புற நரம்புவடம் எனக் கருதி உயர்த்தக்கூடாது; நிறமும் கிளை அமைப்பும் வேறுபடும்."
+      "fixTa": "இதை வயிற்றுப்புற இரட்டை நரம்புவடம் எனக் கருதி உயர்த்தக்கூடாது; நிறமும் கிளை அமைப்பும் வேறுபடும்."
     },
     "capillary-networks": {
       "system": "circulatory",
@@ -438,7 +438,7 @@
     "septal-nephridia": {
       "system": "excretory",
       "en": "Septal nephridia",
-      "ta": "இடைச்சுவர் நெஃப்ரீடியா",
+      "ta": "இடைச் சுவர் நெஃப்ரீடியா",
       "locEn": "Numerous on septum 15/16 and the subsequent intersegmental septa.",
       "locTa": "15/16 இடைக்கண்டத் திரையிலும் அதற்குப் பிந்தைய இடைக்கண்டத் திரைகளிலும் எண்ணற்றவையாக அமைந்துள்ளன.",
       "fnEn": "Filter and modify body fluid, contributing to excretion and osmoregulation.",
@@ -457,16 +457,16 @@
       "fnEn": "Discharge excretory fluid directly outside through nephridiopores.",
       "fnTa": "நெஃப்ரீடியத் துளைகள் வழியாக கழிவுத் திரவத்தை நேரடியாக வெளியேற்றுகின்றன.",
       "sigEn": "They are exonephric, unlike gut-opening pharyngeal and septal systems.",
-      "sigTa": "குடலுக்குள் திறக்கும் தொண்டை மற்றும் இடைத்திரை நெஃப்ரீடியாக்களிலிருந்து மாறாக இவை எக்சோநெஃப்ரிக் வகை.",
+      "sigTa": "குடலுக்குள் திறக்கும் தொண்டை மற்றும் இடைச் சுவர் நெஃப்ரீடியாக்களிலிருந்து மாறாக இவை எக்சோநெஃப்ரிக் வகை.",
       "fixEn": "The tiny external openings are nephridiopores, not dorsal pores.",
       "fixTa": "நுண்ணிய வெளித் திறப்புகள் நெஃப்ரீடியத் துளைகள்; முதுகுப்புறத் துளைகள் அல்ல."
     },
     "nephridium": {
       "system": "excretory",
       "en": "Septal nephridium (enlarged)",
-      "ta": "இடைச்சுவர் நெஃப்ரீடியம் (பெரிதாக்கம்)",
+      "ta": "இடைச் சுவர் நெஃப்ரீடியம் (பெரிதாக்கம்)",
       "locEn": "An enlarged septal nephridium with a coelomic nephrostome and a coiled tubule.",
-      "locTa": "உடற்குழிக்குள் திறக்கும் நெஃப்ரோஸ்டோம் புனலையும் சுருண்ட குழலையும் கொண்ட இடைத்திரை நெஃப்ரீடியத்தின் பெரிதாக்கப்பட்ட மாதிரி.",
+      "locTa": "உடற்குழிக்குள் திறக்கும் நெஃப்ரோஸ்டோம் புனலையும் சுருண்ட குழலையும் கொண்ட இடைச் சுவர் நெஃப்ரீடியத்தின் பெரிதாக்கப்பட்ட மாதிரி.",
       "fnEn": "Receives coelomic fluid through its nephrostome; tubular reabsorption and secretion modify the excretory fluid.",
       "fnTa": "நெஃப்ரோஸ்டோம் வழியே உடற்குழித் திரவத்தைப் பெறுகிறது; குழலில் மீளுறிஞ்சலும் சுரப்பும் நடைபெறுகின்றன.",
       "sigEn": "Excretion and osmoregulation are integrated functions.",
@@ -574,13 +574,13 @@
       "en": "Cerebral ganglia",
       "ta": "தொண்டைமேல் நரம்பு செல் திரள்கள் (மூளை)",
       "locEn": "A paired, bilobed mass dorsal to the pharynx around segment III.",
-      "locTa": "சுமார் III-ஆம் கண்டத்தில் தொண்டைக்கு மேலாக அமைந்த இணை இருமடல் நரம்புத் திரள்.",
+      "locTa": "சுமார் III-ஆம் கண்டத்தில் தொண்டைக்கு மேலாக அமைந்த இணை இருமடல் நரம்பு செல் திரள்.",
       "fnEn": "Integrates anterior sensory input and coordinates behavioural responses.",
       "fnTa": "முன்புற உணர்வுத் தகவல்களை ஒருங்கிணைத்து நடத்தை மறுமொழிகளை ஒழுங்குபடுத்துகிறது.",
       "sigEn": "It connects to the ventral system through circumpharyngeal connectives.",
-      "sigTa": "தொண்டைசுற்று இணைப்புகளால் வயிற்றுப்புற நரம்பு மண்டலத்துடன் இணைகிறது.",
+      "sigTa": "தொண்டைசூழ் இணைப்புகளால் வயிற்றுப்புற நரம்பு மண்டலத்துடன் இணைகிறது.",
       "fixEn": "The ‘brain’ is a ganglionic centre, not a vertebrate-like cerebral organ.",
-      "fixTa": "இது நரம்புத் திரள் மையம்; முதுகெலும்பியின் பெருமூளையைப் போன்ற உறுப்பு அல்ல.",
+      "fixTa": "இது நரம்பு செல் திரள் மையம்; முதுகெலும்பியின் பெருமூளையைப் போன்ற உறுப்பு அல்ல.",
       "deep": "ganglion"
     },
     "circum-pharyngeal-connectives": {
@@ -612,7 +612,7 @@
     "ventral-nerve-cord": {
       "system": "nervous",
       "en": "Ventral nerve cord",
-      "ta": "வயிற்றுப்புற நரம்புவடம்",
+      "ta": "வயிற்றுப்புற இரட்டை நரம்புவடம்",
       "locEn": "Runs along the ventral midline from the subpharyngeal ganglion to the posterior end.",
       "locTa": "கீழ்த்தொண்டை நரம்புத் திரளிலிருந்து பின்முனை வரை வயிற்றுப்புற நடுக்கோட்டில் நீள்கிறது.",
       "fnEn": "Conducts impulses and coordinates segmental locomotor patterns.",
@@ -809,7 +809,7 @@
     "cs-nerve-cord": {
       "system": "crosssection",
       "en": "Ventral nerve cord in section",
-      "ta": "குறுக்குவெட்டில் வயிற்றுப்புற நரம்புவடம்",
+      "ta": "குறுக்குவெட்டில் வயிற்றுப்புற இரட்டை நரம்புவடம்",
       "locEn": "On the ventral midline, below the ventral blood vessel and above the subneural vessel.",
       "locTa": "வயிற்றுப்புற நடுக்கோட்டில், வயிற்றுப்புற இரத்த நாளத்திற்குக் கீழும் நரம்புவடக் கீழ்நாளத்திற்கும் மேலும்.",
       "fnEn": "Conducts impulses and integrates segmental motor and sensory activity.",
@@ -1209,7 +1209,7 @@
         ],
         "oTa": [
           "முதுகுப்புற இரத்த நாளம்",
-          "வயிற்றுப்புற நரம்புவடம்",
+          "வயிற்றுப்புற இரட்டை நரம்புவடம்",
           "பெண் இனப்பெருக்கத் துளை",
           "நரம்புவடக் கீழ்நாளம்"
         ],
@@ -1360,7 +1360,7 @@
       },
       {
         "en": "Which statement about clitellar setae in Metaphire posthuma is supported by the cited modern redescription?",
-        "ta": "மேற்கோள் நவீன மறுவிளக்க ஆய்வின்படி Metaphire posthuma-வின் கிளைட்டெல்லச் சீட்டாக்கள் குறித்த சரியான கூற்று எது?",
+        "ta": "மேற்கோள் நவீன மறுவிளக்க ஆய்வின்படி Metaphire posthuma-வின் கிளைடெல்லச் சீட்டாக்கள் குறித்த சரியான கூற்று எது?",
         "oEn": [
           "Ventral clitellar setae may be retained",
           "All clitellar segments are completely devoid of setae",
@@ -1368,9 +1368,9 @@
           "Setae occur only on segment XIV"
         ],
         "oTa": [
-          "கிளைட்டெல்லத்தின் வயிற்றுப்புறத்தில் சீட்டாக்கள் தொடரலாம்",
-          "கிளைட்டெல்லக் கண்டங்களில் சீட்டாக்கள் முற்றிலும் இல்லை",
-          "கிளைட்டெல்லத்தின் முதுகுப்புறத்தில் மட்டும் சீட்டாக்கள் தொடர்கின்றன",
+          "கிளைடெல்லத்தின் வயிற்றுப்புறத்தில் சீட்டாக்கள் தொடரலாம்",
+          "கிளைடெல்லக் கண்டங்களில் சீட்டாக்கள் முற்றிலும் இல்லை",
+          "கிளைடெல்லத்தின் முதுகுப்புறத்தில் மட்டும் சீட்டாக்கள் தொடர்கின்றன",
           "XIV-ஆம் கண்டத்தில் மட்டும் சீட்டாக்கள் உள்ளன"
         ],
         "a": 0
@@ -1957,7 +1957,7 @@
           "All through the mouth"
         ],
         "oTa": [
-          "உடற்சுவர் நெஃப்ரீடியாக்கள்",
+          "தோல் நெஃப்ரீடியாக்கள்",
           "தொண்டை நெஃப்ரீடியாக்கள்",
           "இடைத்திரை மட்டும்",
           "அனைத்தும் வாய் வழியாக"
@@ -2010,7 +2010,7 @@
         "oTa": [
           "இடைத்திரை, தொண்டை, உடற்சுவர் வகைகள் அனைத்தும் அதிக எண்ணிக்கையிலான மைக்ரோநெஃப்ரீடியாக்கள்",
           "ஒவ்வொரு கண்டத்திலும் Lumbricus வகை ஓரிணை மேகாநெஃப்ரீடியாக்கள் உள்ளன",
-          "உடற்சுவர் நெஃப்ரீடியாக்கள் மட்டும் உள்ளன",
+          "தோல் நெஃப்ரீடியாக்கள் மட்டும் உள்ளன",
           "நெஃப்ரீடியாக்கள் சுவாச உறுப்புகள்"
         ],
         "a": 0
@@ -2025,10 +2025,10 @@
           "Integumentary nephridia are enteronephric"
         ],
         "oTa": [
-          "இடைத்திரை மற்றும் தொண்டை மண்டலங்கள் என்டெரோநெஃப்ரிக்; உடற்சுவர் நெஃப்ரீடியாக்கள் எக்சோநெஃப்ரிக்",
+          "இடைத்திரை மற்றும் தொண்டை மண்டலங்கள் என்டெரோநெஃப்ரிக்; தோல் நெஃப்ரீடியாக்கள் எக்சோநெஃப்ரிக்",
           "அனைத்து நெஃப்ரீடியாக்களும் வெளிப்புறத்திற்கே திறக்கின்றன",
           "அனைத்து நெஃப்ரீடியாக்களும் இரத்த நாளங்களுக்குள் மட்டுமே திறக்கின்றன",
-          "உடற்சுவர் நெஃப்ரீடியாக்கள் என்டெரோநெஃப்ரிக்"
+          "தோல் நெஃப்ரீடியாக்கள் என்டெரோநெஃப்ரிக்"
         ],
         "a": 0
       },
@@ -2052,7 +2052,7 @@
       {
         "type": "ar",
         "en": "Assertion: Integumentary nephridia are exonephric. Reason: Septal nephridia discharge enteronephrically.",
-        "ta": "கூற்று: உடற்சுவர் நெஃப்ரீடியாக்கள் எக்சோநெஃப்ரிக் வகை. காரணம்: இடைத்திரை நெஃப்ரீடியாக்கள் என்டெரோநெஃப்ரிக் வழியில் வெளியேற்றுகின்றன.",
+        "ta": "கூற்று: தோல் நெஃப்ரீடியாக்கள் எக்சோநெஃப்ரிக் வகை. காரணம்: இடைச் சுவர் நெஃப்ரீடியாக்கள் என்டெரோநெஃப்ரிக் வழியில் வெளியேற்றுகின்றன.",
         "oEn": [
           "Both Assertion and Reason are true, and Reason correctly explains Assertion",
           "Both are true, but Reason does not correctly explain Assertion",
@@ -2303,7 +2303,7 @@
       },
       {
         "en": "Segmental ganglia chiefly provide:",
-        "ta": "கண்ட நரம்புத் திரள்களின் முதன்மை பங்கு:",
+        "ta": "கண்ட நரம்பு செல் திரள்களின் முதன்மை பங்கு:",
         "oEn": [
           "Distributed local control",
           "Blood production",
@@ -2331,7 +2331,7 @@
           "தொண்டைக்கு மேல்",
           "அரைவைப்பைக்குள்",
           "நரம்புவடக் கீழ்நாளத்திற்குக் கீழ்",
-          "கிளைட்டெல்லத்துக்குள்"
+          "கிளைடெல்லத்துக்குள்"
         ],
         "a": 0
       },
@@ -2345,7 +2345,7 @@
           "Unsegmented muscle"
         ],
         "oTa": [
-          "இரட்டை, நெருக்கமாக இணைந்த, நரம்புத் திரள்கள் கொண்டது",
+          "இரட்டை, நெருக்கமாக இணைந்த, நரம்பு செல் திரள்கள் கொண்டது",
           "ஒற்றை உள்ளீடற்ற முதுகுக் குழாய்",
           "திறந்த இரத்தக் குழி",
           "கண்டமற்ற தசை"
@@ -2604,7 +2604,7 @@
       "en": "Nephridial tubule",
       "ta": "நெஃப்ரீடியக் குழல்",
       "textEn": "The entrance structure differs among nephridial types. Septal nephridia have nephrostomal funnels, whereas the pharyngeal and integumentary micronephridia are closed forms. Their long coiled tubules modify wastes by selective reabsorption and secretion. In this species all three positional types are numerous micronephridia: septal and pharyngeal systems discharge enteronephrically, while integumentary nephridia discharge exonephrically.",
-      "textTa": "நெஃப்ரீடிய வகைகளுக்கு இடையே தொடக்க அமைப்பு வேறுபடுகிறது. இடைத்திரை நெஃப்ரீடியாக்களில் நெஃப்ரோஸ்டோம் புனல்கள் உள்ளன; தொண்டை மற்றும் உடற்சுவர் மைக்ரோநெஃப்ரீடியாக்கள் மூடிய வகைகள். நீண்ட சுருண்ட குழல்களில் தேர்ந்தெடுத்த மீளுறிஞ்சலும் சுரப்பும் நடைபெற்று கழிவுகள் மாற்றப்படுகின்றன. இவ்வினத்தில் அமைவிட அடிப்படையிலான மூன்று வகைகளும் அதிக எண்ணிக்கையிலான மைக்ரோநெஃப்ரீடியாக்களே: இடைத்திரை மற்றும் தொண்டை மண்டலங்கள் என்டெரோநெஃப்ரிக் வழியிலும், உடற்சுவர் நெஃப்ரீடியாக்கள் எக்சோநெஃப்ரிக் வழியிலும் வெளியேற்றுகின்றன."
+      "textTa": "நெஃப்ரீடிய வகைகளுக்கு இடையே தொடக்க அமைப்பு வேறுபடுகிறது. இடைச் சுவர் நெஃப்ரீடியாக்களில் நெஃப்ரோஸ்டோம் புனல்கள் உள்ளன; தொண்டை மற்றும் தோல் மைக்ரோநெஃப்ரீடியாக்கள் மூடிய வகைகள். நீண்ட சுருண்ட குழல்களில் தேர்ந்தெடுத்த மீளுறிஞ்சலும் சுரப்பும் நடைபெற்று கழிவுகள் மாற்றப்படுகின்றன. இவ்வினத்தில் அமைவிட அடிப்படையிலான மூன்று வகைகளும் அதிக எண்ணிக்கையிலான மைக்ரோநெஃப்ரீடியாக்களே: இடைத்திரை மற்றும் தொண்டை மண்டலங்கள் என்டெரோநெஃப்ரிக் வழியிலும், தோல் நெஃப்ரீடியாக்கள் எக்சோநெஃப்ரிக் வழியிலும் வெளியேற்றுகின்றன."
     },
     "spermatheca": {
       "en": "Spermathecal organization",
