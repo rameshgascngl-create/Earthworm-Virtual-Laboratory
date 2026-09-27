@@ -1009,6 +1009,8 @@ private fun processTitle(process: BiologicalProcess): String = when (process) {
         stringResource(R.string.atlas_process_digestive_journey)
     BiologicalProcess.NEPHRIDIAL_EXCRETION ->
         stringResource(R.string.atlas_process_nephridial_excretion)
+    BiologicalProcess.NERVOUS_CONDUCTION ->
+        stringResource(R.string.atlas_process_nervous_conduction)
 }
 
 @Composable
@@ -1022,6 +1024,10 @@ private fun processPhaseTitle(phase: ProcessPhase): String = when (phase) {
     ProcessPhase.INTESTINAL_PROCESSING -> stringResource(R.string.atlas_process_phase_intestinal_processing)
     ProcessPhase.NEPHRIDIAL_PROCESSING -> stringResource(R.string.atlas_process_phase_nephridial_processing)
     ProcessPhase.EXCRETORY_ROUTE_COMPARISON -> stringResource(R.string.atlas_process_phase_excretory_routes)
+    ProcessPhase.SENSORY_INTEGRATION -> stringResource(R.string.atlas_process_phase_sensory_integration)
+    ProcessPhase.NERVE_RING_RELAY -> stringResource(R.string.atlas_process_phase_nerve_ring_relay)
+    ProcessPhase.LONGITUDINAL_CONDUCTION -> stringResource(R.string.atlas_process_phase_longitudinal_conduction)
+    ProcessPhase.SEGMENTAL_RESPONSE -> stringResource(R.string.atlas_process_phase_segmental_response)
 }
 
 private fun processDirectionGlyph(direction: ProcessDirection): String = when (direction) {
@@ -1038,6 +1044,10 @@ private fun processDirectionGlyph(direction: ProcessDirection): String = when (d
     ProcessDirection.FILTRATION -> "⇥"
     ProcessDirection.ENTERONEPHRIC -> "↣"
     ProcessDirection.EXONEPHRIC -> "↗"
+    ProcessDirection.SENSORY_INPUT -> "⇥"
+    ProcessDirection.NEURAL_RELAY -> "⇢"
+    ProcessDirection.IMPULSE_CONDUCTION -> "⇄"
+    ProcessDirection.MOTOR_RESPONSE -> "⇒"
 }
 
 private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
