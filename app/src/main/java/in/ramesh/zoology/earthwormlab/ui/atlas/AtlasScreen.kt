@@ -98,6 +98,9 @@ fun AtlasScreen(
     val audioFunctionCue = stringResource(R.string.atlas_audio_function)
     val audioTeachingCue = stringResource(R.string.atlas_audio_teaching)
     val audioCorrectionCue = stringResource(R.string.atlas_audio_correction)
+    val guidedActionCue = stringResource(R.string.atlas_audio_guided_action)
+    val guidedStepCue = stringResource(R.string.atlas_audio_guided_step)
+    val physiologyProcessCue = stringResource(R.string.atlas_audio_process)
     val guidedSteps = remember(system, repository) { repository.guidedStepsFor(system) }
     var guidedMode by rememberSaveable(system.dataKey, "atlas-guided-mode") { mutableStateOf(false) }
     var guidedIndex by rememberSaveable(system.dataKey, "atlas-guided-index") { mutableStateOf(0) }
@@ -124,12 +127,47 @@ fun AtlasScreen(
         narrator.stop()
     }
 
-    LaunchedEffect(guidedMode, guidedIndex, system) {
+    LaunchedEffect(
+        guidedMode,
+        guidedIndex,
+        system,
+        language,
+        audioEnabled,
+        guidedSteps,
+    ) {
         if (guidedMode && guidedSteps.isNotEmpty()) {
             val safeIndex = guidedIndex.coerceIn(0, guidedSteps.lastIndex)
-            val target = guidedSteps[safeIndex].target
+            val step = guidedSteps[safeIndex]
+            val target = step.target
             if (structures.any { it.id == target }) {
                 selectedId = target
+
+                if (audioEnabled) {
+                    repository.contentFor(target)?.let { content ->
+                        val authoredInstruction =
+                            if (language == AppLanguage.TAMIL) step.ta else step.en
+                        val guidedInstruction = authoredInstruction.ifBlank {
+                            guidedFallbackNarration(
+                                language = language,
+                                label = content.label(language),
+                                tool = step.tool,
+                            )
+                        }
+                        narrator.speak(
+                            content.guidedNarration(
+                                language = language,
+                                stepNumber = safeIndex + 1,
+                                stepCount = guidedSteps.size,
+                                stepCue = guidedStepCue,
+                                locationCue = audioLocationCue,
+                                functionCue = audioFunctionCue,
+                                actionCue = guidedActionCue,
+                                instruction = guidedInstruction,
+                            ),
+                            language,
+                        )
+                    }
+                }
             }
         }
     }
@@ -142,10 +180,31 @@ fun AtlasScreen(
         }
     }
 
-    LaunchedEffect(physiologyPlaying, respiratorySequence) {
+    LaunchedEffect(
+        physiologyPlaying,
+        respiratorySequence,
+        language,
+        audioEnabled,
+    ) {
         while (physiologyPlaying && respiratorySequence.isNotEmpty()) {
-            selectedId = respiratorySequence[physiologyIndex % respiratorySequence.size]
-            delay(1800)
+            val safeIndex = physiologyIndex % respiratorySequence.size
+            val target = respiratorySequence[safeIndex]
+            selectedId = target
+
+            if (audioEnabled) {
+                repository.contentFor(target)?.let { content ->
+                    narrator.speak(
+                        content.physiologyNarration(
+                            language = language,
+                            processCue = physiologyProcessCue,
+                            functionCue = audioFunctionCue,
+                        ),
+                        language,
+                    )
+                }
+            }
+
+            delay(if (audioEnabled) 6500 else 1800)
             physiologyIndex = (physiologyIndex + 1) % respiratorySequence.size
         }
     }
@@ -717,6 +776,70 @@ private fun ScientificContentRepository.StructureContent.extendedNarration(
         .map { it.trim().trimEnd('.') }
         .filter { it.isNotBlank() }
         .joinToString(". ", postfix = ".")
+
+private fun ScientificContentRepository.StructureContent.guidedNarration(
+    language: AppLanguage,
+    stepNumber: Int,
+    stepCount: Int,
+    stepCue: String,
+    locationCue: String,
+    functionCue: String,
+    actionCue: String,
+    instruction: String,
+): String =
+    listOf(
+        stepCue + " " + stepNumber + " / " + stepCount,
+        label(language),
+        location(language).takeIf { it.isNotBlank() }?.let { locationCue + ": " + it },
+        function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
+        instruction.takeIf { it.isNotBlank() }?.let { actionCue + ": " + it },
+    )
+        .filterNotNull()
+        .map { it.trim().trimEnd('.') }
+        .filter { it.isNotBlank() }
+        .joinToString(". ", postfix = ".")
+
+private fun ScientificContentRepository.StructureContent.physiologyNarration(
+    language: AppLanguage,
+    processCue: String,
+    functionCue: String,
+): String =
+    listOf(
+        processCue + ": " + label(language),
+        function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
+        significance(language).takeIf { it.isNotBlank() },
+    )
+        .filterNotNull()
+        .map { it.trim().trimEnd('.') }
+        .filter { it.isNotBlank() }
+        .joinToString(". ", postfix = ".")
+
+private fun guidedFallbackNarration(
+    language: AppLanguage,
+    label: String,
+    tool: String,
+): String {
+    return when (language) {
+        AppLanguage.ENGLISH -> when (tool) {
+            "inspect" -> "Inspect and identify " + label
+            "probe" -> "Use the probe to identify " + label
+            "magnifier" -> "Use the magnifier to examine " + label
+            "forceps" -> "Use forceps carefully to expose or identify " + label
+            "pin" -> "Use pinning as directed to position " + label
+            "scissors" -> "Use scissors only as directed while identifying " + label
+            else -> "Identify and study " + label
+        }
+        AppLanguage.TAMIL -> when (tool) {
+            "inspect" -> label + " அமைப்பைக் கவனித்து அடையாளம் காணவும்"
+            "probe" -> "ஆய்வுக்கோலைப் பயன்படுத்தி " + label + " அமைப்பை அடையாளம் காணவும்"
+            "magnifier" -> "பெரிதாக்கியைப் பயன்படுத்தி " + label + " அமைப்பைக் கவனிக்கவும்"
+            "forceps" -> "இடுக்கியை கவனமாகப் பயன்படுத்தி " + label + " அமைப்பை வெளிப்படுத்தி அடையாளம் காணவும்"
+            "pin" -> "வழிகாட்டுதலின்படி ஊசியைப் பயன்படுத்தி " + label + " அமைப்பை நிலைநிறுத்தவும்"
+            "scissors" -> label + " அமைப்பை அடையாளம் காணும்போது வழிகாட்டுதலின்படி மட்டுமே கத்தரிக்கோலைப் பயன்படுத்தவும்"
+            else -> label + " அமைப்பைக் கவனித்து கற்கவும்"
+        }
+    }
+}
 
 @Composable
 private fun guidedToolLabel(tool: String): String = when (tool) {
