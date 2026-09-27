@@ -52,4 +52,20 @@
     <string name="atlas_audio_speaking">Speaking…</string>
     <string name="atlas_audio_unavailable">A suitable offline voice is not installed on this device.</string>
     <string name="atlas_audio_error">Audio explanation could not be played. Please try again.</string>
+    <string name="atlas_guided_mode">Guided anatomy</string>
+    <string name="atlas_guided_step_counter">Step %1$d of %2$d</string>
+    <string name="atlas_guided_previous">Previous</string>
+    <string name="atlas_guided_next">Next</string>
+    <string name="atlas_guided_fallback">Identify and study %1$s using the %2$s method.</string>
+    <string name="atlas_guided_tool_inspect">inspection</string>
+    <string name="atlas_guided_tool_probe">probe</string>
+    <string name="atlas_guided_tool_magnifier">magnifier</string>
+    <string name="atlas_guided_tool_forceps">forceps</string>
+    <string name="atlas_guided_tool_pin">pinning</string>
+    <string name="atlas_guided_tool_scissors">scissors</string>
+    <string name="atlas_physiology_start">Respiration animation</string>
+    <string name="atlas_physiology_stop">Stop animation</string>
+    <string name="atlas_physiology_title">Cutaneous respiration — animated focus</string>
+    <string name="atlas_physiology_stage">Current focus: %1$s</string>
+    <string name="atlas_physiology_notice">This is a teaching animation that sequentially highlights verified structures; it does not claim to map the literal spatial path of diffusing molecules.</string>
 </resources>
