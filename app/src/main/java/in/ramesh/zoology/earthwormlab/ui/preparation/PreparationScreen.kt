@@ -188,6 +188,11 @@ private fun DesignerCreditCard() {
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier.padding(top = 4.dp),
             )
+            Text(
+                text = stringResource(R.string.home_designer_institution),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(top = 2.dp),
+            )
 
             OutlinedButton(
                 onClick = {
