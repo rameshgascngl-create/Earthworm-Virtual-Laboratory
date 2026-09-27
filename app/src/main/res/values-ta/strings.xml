@@ -71,6 +71,7 @@
     <string name="atlas_process_cutaneous_respiration">தோல் வழிச் சுவாச செயல்முறை</string>
     <string name="atlas_process_blood_circulation">இரத்த ஓட்ட செயல்முறை</string>
     <string name="atlas_process_digestive_journey">செரிமானப் பயணம்</string>
+    <string name="atlas_process_nephridial_excretion">நெஃப்ரிடியக் கழிவுநீக்க செயல்முறை</string>
     <string name="atlas_process_play">செயல்முறையை இயக்கு</string>
     <string name="atlas_process_pause">இடைநிறுத்து</string>
     <string name="atlas_process_previous">முந்தைய பகுதி</string>
@@ -85,4 +86,11 @@
     <string name="atlas_process_phase_mechanical_digest">இயந்திரச் செரிமானம்</string>
     <string name="atlas_process_phase_chemical_digest">வேதியியல் செரிமானம்</string>
     <string name="atlas_process_phase_intestinal_processing">குடல் செரிமானம் மற்றும் உறிஞ்சல்</string>
+    <string name="atlas_process_phase_nephridial_processing">வடிகட்டல், மீளுறிஞ்சல் மற்றும் சுரப்பு</string>
+    <string name="atlas_process_phase_excretory_routes">வெளியேற்றப் பாதை ஒப்பீடு</string>
+    <string name="atlas_nephridial_compare_show">நெஃப்ரிடியா ஒப்பீடு</string>
+    <string name="atlas_nephridial_compare_hide">ஒப்பீட்டை மறை</string>
+    <string name="atlas_nephridial_compare_title">நெஃப்ரிடியா — ஒப்பீட்டு காட்சி</string>
+    <string name="atlas_nephridial_compare_intro">தொண்டை, இடைத்திரை மற்றும் உடற்சுவர் நெஃப்ரிடியாக்களை அவற்றின் அமைவிடம், பணி மற்றும் வெளியேற்றப் பாதையின் அடிப்படையில் ஒப்பிடுக.</string>
+    <string name="atlas_nephridial_discharge">வெளியேற்ற வகை / முக்கிய குறிப்பு</string>
 </resources>
