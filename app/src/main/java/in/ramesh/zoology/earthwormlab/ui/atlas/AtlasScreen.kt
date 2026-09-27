@@ -98,15 +98,13 @@ fun AtlasScreen(
     val audioFunctionCue = stringResource(R.string.atlas_audio_function)
     val audioTeachingCue = stringResource(R.string.atlas_audio_teaching)
     val audioCorrectionCue = stringResource(R.string.atlas_audio_correction)
-    val guidedActionCue = stringResource(R.string.atlas_audio_guided_action)
-    val guidedStepCue = stringResource(R.string.atlas_audio_guided_step)
-    val guidedOfCue = stringResource(R.string.atlas_audio_guided_of)
-    val physiologyProcessCue = stringResource(R.string.atlas_audio_process)
-    val guidedSteps = remember(system, repository) { repository.guidedStepsFor(system) }
-    var guidedMode by rememberSaveable(system.dataKey, "atlas-guided-mode") { mutableStateOf(false) }
-    var guidedIndex by rememberSaveable(system.dataKey, "atlas-guided-index") { mutableStateOf(0) }
-    var physiologyPlaying by rememberSaveable(system.dataKey, "atlas-physiology-playing") { mutableStateOf(false) }
-    var physiologyIndex by rememberSaveable(system.dataKey, "atlas-physiology-index") { mutableStateOf(0) }
+    val processCue = stringResource(R.string.atlas_audio_process)
+
+    val processDefinition = remember(system) { ProcessGuidance.forSystem(system) }
+    val processTitleText = processDefinition?.let { processTitle(it.process) }.orEmpty()
+    var processMode by rememberSaveable(system.dataKey, "atlas-process-mode") { mutableStateOf(false) }
+    var processPlaying by rememberSaveable(system.dataKey, "atlas-process-playing") { mutableStateOf(false) }
+    var processIndex by rememberSaveable(system.dataKey, "atlas-process-index") { mutableStateOf(0) }
 
     val selectStructure: (String) -> Unit = { structureId ->
         selectedId = structureId
@@ -124,47 +122,38 @@ fun AtlasScreen(
         }
     }
 
+    LaunchedEffect(system) {
+        processMode = false
+        processPlaying = false
+        processIndex = 0
+        narrator.stop()
+    }
+
     LaunchedEffect(language, detailedMode) {
         narrator.stop()
     }
 
     LaunchedEffect(
-        guidedMode,
-        guidedIndex,
-        system,
+        processMode,
+        processIndex,
         language,
         audioEnabled,
-        guidedSteps,
+        processDefinition,
     ) {
-        if (guidedMode && guidedSteps.isNotEmpty()) {
-            val safeIndex = guidedIndex.coerceIn(0, guidedSteps.lastIndex)
-            val step = guidedSteps[safeIndex]
-            val target = step.target
+        val definition = processDefinition
+        if (processMode && definition != null && definition.targets.isNotEmpty()) {
+            val safeIndex = processIndex.coerceIn(0, definition.targets.lastIndex)
+            val target = definition.targets[safeIndex]
             if (structures.any { it.id == target }) {
                 selectedId = target
-
                 if (audioEnabled) {
                     repository.contentFor(target)?.let { content ->
-                        val authoredInstruction =
-                            if (language == AppLanguage.TAMIL) step.ta else step.en
-                        val guidedInstruction = authoredInstruction.ifBlank {
-                            guidedFallbackNarration(
-                                language = language,
-                                label = content.label(language),
-                                tool = step.tool,
-                            )
-                        }
                         narrator.speak(
-                            content.guidedNarration(
+                            content.processNarration(
                                 language = language,
-                                stepNumber = safeIndex + 1,
-                                stepCount = guidedSteps.size,
-                                stepCue = guidedStepCue,
-                                ofCue = guidedOfCue,
-                                locationCue = audioLocationCue,
+                                processCue = processCue,
+                                processTitle = processTitleText,
                                 functionCue = audioFunctionCue,
-                                actionCue = guidedActionCue,
-                                instruction = guidedInstruction,
                             ),
                             language,
                         )
@@ -174,40 +163,12 @@ fun AtlasScreen(
         }
     }
 
-    val respiratorySequence = remember(system) {
-        if (system == EarthwormSystem.RESPIRATORY) {
-            listOf("mucus-film", "moist-epidermis", "cutaneous-capillaries", "cutaneous-exchange")
-        } else {
-            emptyList()
-        }
-    }
-
-    LaunchedEffect(
-        physiologyPlaying,
-        respiratorySequence,
-        language,
-        audioEnabled,
-    ) {
-        while (physiologyPlaying && respiratorySequence.isNotEmpty()) {
-            val safeIndex = physiologyIndex % respiratorySequence.size
-            val target = respiratorySequence[safeIndex]
-            selectedId = target
-
-            if (audioEnabled) {
-                repository.contentFor(target)?.let { content ->
-                    narrator.speak(
-                        content.physiologyNarration(
-                            language = language,
-                            processCue = physiologyProcessCue,
-                            functionCue = audioFunctionCue,
-                        ),
-                        language,
-                    )
-                }
-            }
-
-            delay(if (audioEnabled) 6500 else 1800)
-            physiologyIndex = (physiologyIndex + 1) % respiratorySequence.size
+    LaunchedEffect(processPlaying, processDefinition, audioEnabled, language) {
+        val definition = processDefinition ?: return@LaunchedEffect
+        while (processPlaying && processMode && definition.targets.isNotEmpty()) {
+            delay(if (audioEnabled) 8000 else 2200)
+            processIndex =
+                if (processIndex >= definition.targets.lastIndex) 0 else processIndex + 1
         }
     }
 
@@ -248,33 +209,15 @@ fun AtlasScreen(
                 },
                 label = { Text(stringResource(R.string.atlas_audio)) },
             )
-            if (guidedSteps.isNotEmpty()) {
+            if (processDefinition != null) {
                 FilterChip(
-                    selected = guidedMode,
+                    selected = processMode,
                     onClick = {
-                        guidedMode = !guidedMode
-                        physiologyPlaying = false
-                        if (guidedMode) guidedIndex = 0
+                        processMode = !processMode
+                        processPlaying = false
+                        if (processMode) processIndex = 0 else narrator.stop()
                     },
-                    label = { Text(stringResource(R.string.atlas_guided_mode)) },
-                )
-            }
-            if (system == EarthwormSystem.RESPIRATORY) {
-                FilterChip(
-                    selected = physiologyPlaying,
-                    onClick = {
-                        physiologyPlaying = !physiologyPlaying
-                        guidedMode = false
-                        if (physiologyPlaying) physiologyIndex = 0
-                    },
-                    label = {
-                        Text(
-                            stringResource(
-                                if (physiologyPlaying) R.string.atlas_physiology_stop
-                                else R.string.atlas_physiology_start
-                            )
-                        )
-                    },
+                    label = { Text(stringResource(R.string.atlas_process_mode)) },
                 )
             }
         }
@@ -310,19 +253,12 @@ fun AtlasScreen(
             }
         }
 
-        if (guidedMode && guidedSteps.isNotEmpty()) {
-            val step = guidedSteps[guidedIndex.coerceIn(0, guidedSteps.lastIndex)]
-            val structureContent = repository.contentFor(step.target)
-            val stepLabel = structureContent?.label(language).orEmpty().ifBlank { step.target }
-            val authoredInstruction =
-                if (language == AppLanguage.TAMIL) step.ta else step.en
-            val instruction = authoredInstruction.ifBlank {
-                stringResource(
-                    R.string.atlas_guided_fallback,
-                    stepLabel,
-                    guidedToolLabel(step.tool),
-                )
-            }
+        if (processMode && processDefinition != null && processDefinition.targets.isNotEmpty()) {
+            val safeIndex = processIndex.coerceIn(0, processDefinition.targets.lastIndex)
+            val currentTarget = processDefinition.targets[safeIndex]
+            val currentContent = repository.contentFor(currentTarget)
+            val currentLabel = currentContent?.label(language).orEmpty().ifBlank { currentTarget }
+            val currentFunction = currentContent?.function(language).orEmpty()
 
             OutlinedCard(
                 modifier = Modifier
@@ -331,74 +267,71 @@ fun AtlasScreen(
             ) {
                 Column(modifier = Modifier.padding(14.dp)) {
                     Text(
-                        text = stringResource(
-                            R.string.atlas_guided_step_counter,
-                            guidedIndex + 1,
-                            guidedSteps.size,
-                        ),
-                        style = MaterialTheme.typography.labelLarge,
+                        text = processTitleText,
+                        style = MaterialTheme.typography.titleMedium,
                         color = MaterialTheme.colorScheme.primary,
                     )
                     Text(
-                        text = stepLabel,
-                        style = MaterialTheme.typography.titleMedium,
-                        modifier = Modifier.padding(top = 4.dp),
+                        text = currentLabel,
+                        style = MaterialTheme.typography.titleSmall,
+                        modifier = Modifier.padding(top = 6.dp),
                     )
-                    Text(
-                        text = instruction,
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 6.dp, bottom = 8.dp),
-                    )
-                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        AssistChip(
-                            onClick = {
-                                guidedIndex = (guidedIndex - 1).coerceAtLeast(0)
-                            },
-                            enabled = guidedIndex > 0,
-                            label = { Text(stringResource(R.string.atlas_guided_previous)) },
-                        )
-                        AssistChip(
-                            onClick = {
-                                guidedIndex = (guidedIndex + 1).coerceAtMost(guidedSteps.lastIndex)
-                            },
-                            enabled = guidedIndex < guidedSteps.lastIndex,
-                            label = { Text(stringResource(R.string.atlas_guided_next)) },
+                    if (currentFunction.isNotBlank()) {
+                        Text(
+                            text = currentFunction,
+                            style = MaterialTheme.typography.bodyMedium,
+                            modifier = Modifier.padding(top = 4.dp),
                         )
                     }
-                }
-            }
-        }
-
-        if (system == EarthwormSystem.RESPIRATORY && respiratorySequence.isNotEmpty()) {
-            val currentTarget = respiratorySequence[
-                physiologyIndex.coerceIn(0, respiratorySequence.lastIndex)
-            ]
-            val currentLabel = repository.contentFor(currentTarget)?.label(language).orEmpty()
-                .ifBlank { currentTarget }
-            OutlinedCard(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 12.dp, vertical = 6.dp),
-            ) {
-                Column(modifier = Modifier.padding(14.dp)) {
                     Text(
-                        text = stringResource(R.string.atlas_physiology_title),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
-                    Text(
-                        text = stringResource(
-                            R.string.atlas_physiology_stage,
-                            currentLabel,
-                        ),
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier.padding(top = 4.dp),
-                    )
-                    Text(
-                        text = stringResource(R.string.atlas_physiology_notice),
+                        text = stringResource(R.string.atlas_process_notice),
                         style = MaterialTheme.typography.bodySmall,
                         color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        modifier = Modifier.padding(top = 4.dp),
+                        modifier = Modifier.padding(top = 6.dp, bottom = 8.dp),
                     )
+                    Row(
+                        modifier = Modifier.horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    ) {
+                        AssistChip(
+                            onClick = {
+                                processIndex =
+                                    if (processIndex <= 0) processDefinition.targets.lastIndex
+                                    else processIndex - 1
+                                processPlaying = false
+                            },
+                            label = { Text(stringResource(R.string.atlas_process_previous)) },
+                        )
+                        AssistChip(
+                            onClick = {
+                                processPlaying = !processPlaying
+                            },
+                            label = {
+                                Text(
+                                    stringResource(
+                                        if (processPlaying) R.string.atlas_process_pause
+                                        else R.string.atlas_process_play
+                                    )
+                                )
+                            },
+                        )
+                        AssistChip(
+                            onClick = {
+                                processIndex =
+                                    if (processIndex >= processDefinition.targets.lastIndex) 0
+                                    else processIndex + 1
+                                processPlaying = false
+                            },
+                            label = { Text(stringResource(R.string.atlas_process_next)) },
+                        )
+                        AssistChip(
+                            onClick = {
+                                processIndex = 0
+                                processPlaying = false
+                            },
+                            label = { Text(stringResource(R.string.atlas_process_restart)) },
+                        )
+                    }
                 }
             }
         }
@@ -779,36 +712,15 @@ private fun ScientificContentRepository.StructureContent.extendedNarration(
         .filter { it.isNotBlank() }
         .joinToString(". ", postfix = ".")
 
-private fun ScientificContentRepository.StructureContent.guidedNarration(
-    language: AppLanguage,
-    stepNumber: Int,
-    stepCount: Int,
-    stepCue: String,
-    ofCue: String,
-    locationCue: String,
-    functionCue: String,
-    actionCue: String,
-    instruction: String,
-): String =
-    listOf(
-        stepCue + " " + stepNumber + ". " + ofCue + " " + stepCount,
-        label(language),
-        location(language).takeIf { it.isNotBlank() }?.let { locationCue + ": " + it },
-        function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
-        instruction.takeIf { it.isNotBlank() }?.let { actionCue + ": " + it },
-    )
-        .filterNotNull()
-        .map { it.trim().trimEnd('.') }
-        .filter { it.isNotBlank() }
-        .joinToString(". ", postfix = ".")
-
-private fun ScientificContentRepository.StructureContent.physiologyNarration(
+private fun ScientificContentRepository.StructureContent.processNarration(
     language: AppLanguage,
     processCue: String,
+    processTitle: String,
     functionCue: String,
 ): String =
     listOf(
-        processCue + ": " + label(language),
+        processCue + ": " + processTitle,
+        label(language),
         function(language).takeIf { it.isNotBlank() }?.let { functionCue + ": " + it },
         significance(language).takeIf { it.isNotBlank() },
     )
@@ -817,42 +729,12 @@ private fun ScientificContentRepository.StructureContent.physiologyNarration(
         .filter { it.isNotBlank() }
         .joinToString(". ", postfix = ".")
 
-private fun guidedFallbackNarration(
-    language: AppLanguage,
-    label: String,
-    tool: String,
-): String {
-    return when (language) {
-        AppLanguage.ENGLISH -> when (tool) {
-            "inspect" -> "Inspect and identify " + label
-            "probe" -> "Use the probe to identify " + label
-            "magnifier" -> "Use the magnifier to examine " + label
-            "forceps" -> "Use forceps carefully to expose or identify " + label
-            "pin" -> "Use pinning as directed to position " + label
-            "scissors" -> "Use scissors only as directed while identifying " + label
-            else -> "Identify and study " + label
-        }
-        AppLanguage.TAMIL -> when (tool) {
-            "inspect" -> label + " அமைப்பைக் கவனித்து அடையாளம் காணவும்"
-            "probe" -> "ஆய்வுக்கோலைப் பயன்படுத்தி " + label + " அமைப்பை அடையாளம் காணவும்"
-            "magnifier" -> "பெரிதாக்கியைப் பயன்படுத்தி " + label + " அமைப்பைக் கவனிக்கவும்"
-            "forceps" -> "இடுக்கியை கவனமாகப் பயன்படுத்தி " + label + " அமைப்பை வெளிப்படுத்தி அடையாளம் காணவும்"
-            "pin" -> "வழிகாட்டுதலின்படி ஊசியைப் பயன்படுத்தி " + label + " அமைப்பை நிலைநிறுத்தவும்"
-            "scissors" -> label + " அமைப்பை அடையாளம் காணும்போது வழிகாட்டுதலின்படி மட்டுமே கத்தரிக்கோலைப் பயன்படுத்தவும்"
-            else -> label + " அமைப்பைக் கவனித்து கற்கவும்"
-        }
-    }
-}
-
 @Composable
-private fun guidedToolLabel(tool: String): String = when (tool) {
-    "inspect" -> stringResource(R.string.atlas_guided_tool_inspect)
-    "probe" -> stringResource(R.string.atlas_guided_tool_probe)
-    "magnifier" -> stringResource(R.string.atlas_guided_tool_magnifier)
-    "forceps" -> stringResource(R.string.atlas_guided_tool_forceps)
-    "pin" -> stringResource(R.string.atlas_guided_tool_pin)
-    "scissors" -> stringResource(R.string.atlas_guided_tool_scissors)
-    else -> tool
+private fun processTitle(process: BiologicalProcess): String = when (process) {
+    BiologicalProcess.CUTANEOUS_RESPIRATION ->
+        stringResource(R.string.atlas_process_cutaneous_respiration)
+    BiologicalProcess.BLOOD_CIRCULATION_OVERVIEW ->
+        stringResource(R.string.atlas_process_blood_circulation)
 }
 
 private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
