@@ -47,6 +47,10 @@
     <string name="atlas_audio_speaking">ஒலி விளக்கம் வழங்கப்படுகிறது…</string>
     <string name="atlas_audio_unavailable">இந்த சாதனத்தில் தேவையான உள்ளூர் தமிழ்/ஆங்கில குரல் தரவு கிடைக்கவில்லை.</string>
     <string name="atlas_audio_error">ஒலி விளக்கத்தை இயக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="atlas_audio_guided_action">வழிகாட்டிய செயல்</string>
+    <string name="atlas_audio_guided_step">படி</string>
+    <string name="atlas_audio_guided_of">மொத்த படிகள்</string>
+    <string name="atlas_audio_process">செயல்முறை</string>
     <string name="atlas_guided_mode">வழிகாட்டிய உடற்கூறு</string>
     <string name="atlas_guided_step_counter">படி %1$d / %2$d</string>
     <string name="atlas_guided_previous">முந்தையது</string>
