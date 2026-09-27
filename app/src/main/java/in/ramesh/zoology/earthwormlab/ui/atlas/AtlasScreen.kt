@@ -161,11 +161,10 @@ private fun AtlasPlate(
     var panY by rememberSaveable(system.dataKey, "atlas-pan-y") { mutableStateOf(0f) }
     var labelsVisible by rememberSaveable(system.dataKey, "atlas-labels") { mutableStateOf(true) }
 
-    val svg = remember(rawResId, context, selectedId, labelsVisible) {
+    val svg = remember(rawResId, context, labelsVisible) {
         loadAtlasSvg(
             context = context,
             rawResId = rawResId,
-            selectedId = selectedId,
             labelsVisible = labelsVisible,
         )
     }
@@ -219,15 +218,22 @@ private fun AtlasPlate(
             ) {
                 val plateWidth = maxWidth
                 val plateHeight = maxHeight
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .graphicsLayer {
+                val transformModifier =
+                    if (scale <= 1.001f && panX == 0f && panY == 0f) {
+                        Modifier
+                    } else {
+                        Modifier.graphicsLayer {
                             scaleX = scale
                             scaleY = scale
                             translationX = panX
                             translationY = panY
-                        },
+                        }
+                    }
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .then(transformModifier),
                 ) {
                     AndroidView(
                         modifier = Modifier.fillMaxSize(),
@@ -248,7 +254,7 @@ private fun AtlasPlate(
                         val label = repository.contentFor(structure.id)?.label(language).orEmpty()
                             .ifBlank { structure.id }
                         val selected = structure.id == selectedId
-                        val touchSize = 44.dp
+                        val touchSize = 48.dp
                         val xOffset = (plateWidth * x - touchSize / 2)
                             .coerceIn(0.dp, (plateWidth - touchSize).coerceAtLeast(0.dp))
                         val yOffset = (plateHeight * y - touchSize / 2)
@@ -264,18 +270,18 @@ private fun AtlasPlate(
                         ) {
                             Box(
                                 modifier = Modifier
-                                    .size(if (selected) 26.dp else 14.dp)
+                                    .size(if (selected) 18.dp else 10.dp)
                                     .background(
-                                        color = if (selected) {
-                                            MaterialTheme.colorScheme.primary.copy(alpha = 0.42f)
-                                        } else {
-                                            MaterialTheme.colorScheme.tertiary
-                                        },
+                                        color = Color.Transparent,
                                         shape = CircleShape,
                                     )
                                     .border(
-                                        width = if (selected) 3.dp else 2.dp,
-                                        color = Color.White,
+                                        width = if (selected) 2.dp else 1.dp,
+                                        color = if (selected) {
+                                            MaterialTheme.colorScheme.primary
+                                        } else {
+                                            Color.White.copy(alpha = 0.82f)
+                                        },
                                         shape = CircleShape,
                                     ),
                             )
@@ -386,7 +392,6 @@ private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
 private fun loadAtlasSvg(
     context: Context,
     @RawRes rawResId: Int,
-    selectedId: String?,
     labelsVisible: Boolean,
 ): SVG {
     val source = context.resources.openRawResource(rawResId)
@@ -421,24 +426,7 @@ private fun loadAtlasSvg(
             .replace("class=\"orientation-note\"", "class=\"orientation-note\" visibility=\"hidden\"")
     }
 
-    val hasSelectedSvgGroup = !selectedId.isNullOrBlank() &&
-        withLabelMode.contains("data-structure=\"$selectedId\"")
-
-    val withSelection = if (!hasSelectedSvgGroup) {
-        withLabelMode
-    } else {
-        val structureGroup = Regex(
-            """<g class="svg-structure" data-structure="([^"]+)"([^>]*)>"""
-        )
-        structureGroup.replace(withLabelMode) { match ->
-            val structureId = match.groupValues[1]
-            val remainingAttributes = match.groupValues[2]
-            val opacity = if (structureId == selectedId) "1" else "0.34"
-            """<g class="svg-structure" data-structure="$structureId"$remainingAttributes opacity="$opacity">"""
-        }
-    }
-
-    return SVG.getFromString(withSelection)
+    return SVG.getFromString(withLabelMode)
 }
 
 @RawRes
