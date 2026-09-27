@@ -31,7 +31,7 @@ const structures = Array.isArray(data.structures) ? data.structures :
 check(structures.length === 55, 'Scientific content contains exactly 55 structures');
 
 const geometry = read(geometryKt);
-const hotspotCount = (geometry.match(/Hotspot\.(?:Point|Rect|Polygon)\s*\(/g) || []).length;
+const hotspotCount = (geometry.match(/^\s*\"[^\"]+\"\s+to\s+\(/gm) || []).length;
 check(hotspotCount === 55, 'StructureGeometry.kt contains exactly 55 hotspot definitions');
 
 const hq = [
