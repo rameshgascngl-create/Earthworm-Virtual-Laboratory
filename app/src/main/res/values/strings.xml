@@ -107,4 +107,20 @@
     <string name="atlas_nephridial_compare_title">Nephridia — comparison view</string>
     <string name="atlas_nephridial_compare_intro">Compare pharyngeal, septal and integumentary nephridia by location, function and discharge route.</string>
     <string name="atlas_nephridial_discharge">Discharge type / key point</string>
+    <!-- Home / preparation presentation. UI-only; scientific content remains frozen. -->
+    <string name="home_graphic_description">Stylized earthworm learning graphic</string>
+    <string name="home_species">Metaphire posthuma</string>
+    <string name="home_tagline">Explore anatomy, physiological processes and practical-learning concepts through an offline bilingual virtual laboratory.</string>
+    <string name="home_learning_title">Learning experience</string>
+    <string name="home_highlight_anatomy">Interactive anatomical atlas with detailed reference images</string>
+    <string name="home_highlight_physiology">Guided physiology for circulation, respiration, digestion, excretion and nervous conduction</string>
+    <string name="home_highlight_bilingual">English–Tamil terminology with offline audio guidance</string>
+    <string name="home_designer_title">Academic design &amp; development</string>
+    <string name="home_designer_name">R. Ramesh</string>
+    <string name="home_designer_department">Department of Zoology</string>
+    <string name="home_designer_institution">Government Arts and Science College, Nagercoil</string>
+    <string name="home_designer_note">Developed as an offline teaching and practical-learning resource for Zoology students.</string>
+    <string name="privacy_policy_action">Privacy Policy</string>
+    <string name="privacy_policy_store_note">Opens the public privacy policy in your browser.</string>
+    <string name="privacy_policy_url" translatable="false">https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md</string>
 </resources>
