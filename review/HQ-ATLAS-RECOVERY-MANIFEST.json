@@ -1,0 +1,54 @@
+{
+  "purpose": "Visual-fidelity audit recovery only; not yet wired into application UI.",
+  "sourceBranch": "archive/hq-candidate-5dbc6fe-20260926",
+  "sourcePath": "app/src/main/assets/index.html",
+  "sourceGitBlob": "ff79a4fc360175cc64112b9727c69fcb5a8774f5",
+  "sourceObject": "HQ_ATLAS",
+  "dimensions": [
+    2048,
+    1536
+  ],
+  "format": "webp",
+  "assets": {
+    "external": {
+      "path": "app/src/main/res/drawable-nodpi/hq_atlas_external.webp",
+      "gitBlob": "3ae4139831f4ebce1556d33641d219c7c79abf6a",
+      "bytes": 705080
+    },
+    "digestive": {
+      "path": "app/src/main/res/drawable-nodpi/hq_atlas_digestive.webp",
+      "gitBlob": "684a8c96f78ea2065513c0932614217d8bcd2dd0",
+      "bytes": 564018
+    },
+    "circulatory": {
+      "path": "app/src/main/res/drawable-nodpi/hq_atlas_circulatory.webp",
+      "gitBlob": "557aad4c9879d0c5bb341f0c3ec7e3920c31f3fc",
+      "bytes": 791804
+    },
+    "respiratory": {
+      "path": "app/src/main/res/drawable-nodpi/hq_atlas_respiratory.webp",
+      "gitBlob": "60e94eb22a1e8760fdf5eb6f1a5a436ff8fce4ba",
+      "bytes": 737444
+    },
+    "excretory": {
+      "path": "app/src/main/res/drawable-nodpi/hq_atlas_excretory.webp",
+      "gitBlob": "0bf2a899ea6c330f6524991652b0b718408abe6a",
+      "bytes": 814344
+    },
+    "reproductive": {
+      "path": "app/src/main/res/drawable-nodpi/hq_atlas_reproductive.webp",
+      "gitBlob": "a12c46281259ede13f7e0b0c51fa4fe7b33a1007",
+      "bytes": 850040
+    },
+    "nervous": {
+      "path": "app/src/main/res/drawable-nodpi/hq_atlas_nervous.webp",
+      "gitBlob": "33826b087a4635341b64f194606dd42bcd5e5194",
+      "bytes": 416620
+    },
+    "crosssection": {
+      "path": "app/src/main/res/drawable-nodpi/hq_atlas_crosssection.webp",
+      "gitBlob": "9ff3089e0d998cbcf5975d3c6ae7715b2234b2de",
+      "bytes": 723848
+    }
+  }
+}
