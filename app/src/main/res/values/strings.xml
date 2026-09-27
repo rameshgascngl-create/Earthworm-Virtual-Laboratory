@@ -4,7 +4,7 @@
 
     <!-- System tab labels: taken verbatim from earthworm_content_v138.json → systems.*.en,
          the authoritative reviewed dataset — not retranslated. -->
-    <string name="system_preparation">Preparation</string>
+    <string name="system_preparation">Preparation</string>\n    <string name="nav_home">Home</string>
     <string name="system_external">External morphology</string>
     <string name="system_digestive">Digestive</string>
     <string name="system_circulatory">Circulatory</string>
