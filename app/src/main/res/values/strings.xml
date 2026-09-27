@@ -41,4 +41,5 @@
     <string name="atlas_mode_svg">Atlas SVG</string>
     <string name="atlas_mode_detailed">Detailed Image</string>
     <string name="atlas_mode_caption">Atlas SVG is interactive; Detailed Image is the high-resolution anatomical reference and has no hotspot overlay.</string>
+    <string name="atlas_audio">Audio explanation</string>
 </resources>
