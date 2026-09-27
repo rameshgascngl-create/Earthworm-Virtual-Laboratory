@@ -62,7 +62,8 @@ const manifest = read('app/src/main/AndroidManifest.xml');
 check(!/<uses-permission[^>]+android:name=["']android\.permission\.INTERNET["']/.test(manifest), 'INTERNET permission is absent');
 
 const appFiles = walk('app').filter(f => /\.(kt|java|gradle|kts|xml)$/i.test(f));
-const appText = appFiles.map(read).join('\n');
+const stripComments = x => x.replace(/\/\*[\s\S]*?\*\//g, '').replace(/^\s*\/\/.*$/gm, '');
+const appText = appFiles.map(f => stripComments(read(f))).join('\n');
 check(!/\bandroid\.webkit\.WebView\b|\bWebViewClient\b|androidx\.webkit/.test(appText), 'No WebView runtime dependency is present');
 check(!/\b(okhttp|retrofit|ktor-client|volley|fuel)\b/i.test(appText), 'No common network client dependency is present');
 
