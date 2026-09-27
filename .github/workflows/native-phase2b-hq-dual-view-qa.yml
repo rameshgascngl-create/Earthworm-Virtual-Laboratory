@@ -1,0 +1,260 @@
+name: Native Phase 2B HQ dual-view QA
+
+on:
+  push:
+    branches:
+      - native/v2-phase2b-hq-dual-view-qa-20260927-ci
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Install Android SDK packages
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'platform-tools'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Verify Phase 2B visual-fidelity invariants
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import hashlib
+          import json
+          import pathlib
+          import re
+          import struct
+
+          baseline = "12ee24e0cbc5b67ed66d8fcb3e2bffa733fd308c"
+
+          content_path = pathlib.Path("app/src/main/res/raw/earthworm_content_v138.json")
+          raw = content_path.read_bytes()
+          expected_content_sha = "f13e823bd1fdb97eb45dc154ed06cd52a9a52a8282ba0adbdad0458661cf1aea"
+          actual_content_sha = hashlib.sha256(raw).hexdigest()
+          assert actual_content_sha == expected_content_sha, (actual_content_sha, expected_content_sha)
+
+          data = json.loads(raw.decode("utf-8"))
+          assert len(data["systems"]) == 9
+          assert len(data["structures"]) == 55
+          assert sum(len(v) if isinstance(v, list) else 1 for v in data["questions"].values()) == 72
+
+          expected_hq = {
+              "external": "d439c1953e1e69acab0e26d2f4ca508a9260904b9fc7e9850fe3172847ed5026",
+              "digestive": "52ec7092e82b82ec14db508e6c8573ea5b0feb8989db060d4537e66691365506",
+              "circulatory": "76277234651906cf9f2aa5d3e0c7af86a450f845f968b02297c93a61d0004bb0",
+              "respiratory": "88e2ad2b73b3210ec4d3d877a55c04673a7de22e49643b843175e2f659da62fb",
+              "excretory": "8c56a27dd2262750a2fb5fc4923c4c4ba1a25825bb3ec5e308f37ae5ccec984e",
+              "reproductive": "23ef28d2e073a46afe01b026051b5da5d7e8d5ddaa08e6e344151f207a2ef212",
+              "nervous": "74bc0bb1272b6a0b444c08d475e633f66b4d49471402e80ed8944f9232d8c242",
+              "crosssection": "590cdb9f9d1b227ec8f4b990aa87ec6ea037f33bd5c0d7051a1cface293826ac",
+          }
+
+          def webp_size(blob: bytes):
+              assert blob[:4] == b"RIFF" and blob[8:12] == b"WEBP"
+              off = 12
+              while off + 8 <= len(blob):
+                  tag = blob[off:off+4]
+                  n = int.from_bytes(blob[off+4:off+8], "little")
+                  d = off + 8
+                  chunk = blob[d:d+n]
+                  if tag == b"VP8X":
+                      w = 1 + int.from_bytes(chunk[4:7], "little")
+                      h = 1 + int.from_bytes(chunk[7:10], "little")
+                      return w, h
+                  if tag == b"VP8 ":
+                      k = chunk.find(b"\x9d\x01\x2a")
+                      if k >= 0 and k + 7 <= len(chunk):
+                          w = int.from_bytes(chunk[k+3:k+5], "little") & 0x3FFF
+                          h = int.from_bytes(chunk[k+5:k+7], "little") & 0x3FFF
+                          return w, h
+                  if tag == b"VP8L":
+                      assert chunk and chunk[0] == 0x2F
+                      bits = int.from_bytes(chunk[1:5], "little")
+                      w = (bits & 0x3FFF) + 1
+                      h = ((bits >> 14) & 0x3FFF) + 1
+                      return w, h
+                  off = d + n + (n & 1)
+              raise AssertionError("Unable to read WebP dimensions")
+
+          for system, expected_sha in expected_hq.items():
+              p = pathlib.Path(f"app/src/main/res/drawable-nodpi/hq_atlas_{system}.webp")
+              blob = p.read_bytes()
+              actual_sha = hashlib.sha256(blob).hexdigest()
+              assert actual_sha == expected_sha, (system, actual_sha, expected_sha)
+              assert webp_size(blob) == (2048, 1536), (system, webp_size(blob))
+
+          geometry = pathlib.Path(
+              "app/src/main/java/in/ramesh/zoology/earthwormlab/data/DetailedImageGeometry.kt"
+          ).read_text(encoding="utf-8")
+          geometry_ids = re.findall(r'"([^"]+)"\s+to\s+\(', geometry)
+          assert len(geometry_ids) == 55, len(geometry_ids)
+          assert len(set(geometry_ids)) == 55
+          assert set(geometry_ids) == set(data["structures"].keys())
+
+          atlas = pathlib.Path(
+              "app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt"
+          ).read_text(encoding="utf-8")
+          required = [
+              "atlas_mode_svg",
+              "atlas_mode_detailed",
+              "DetailedImageGeometry.pointFor",
+              "ContentScale.Fit",
+              "HQ_ASPECT_RATIO = 4f / 3f",
+              "detailed-scale",
+              "detailed-pan-x",
+              "detailed-pan-y",
+              "detectTransformGestures",
+              "touchSize = 48.dp",
+              "size(if (selected) 18.dp else 10.dp)",
+          ]
+          for token in required:
+              assert token in atlas, token
+
+          forbidden = [
+              "ContentScale.Crop",
+              'opacity="$opacity"',
+              "structureGroup.replace(withLabelMode)",
+          ]
+          for token in forbidden:
+              assert token not in atlas, token
+
+          print("CONTENT_IDENTITY=PASS")
+          print("HQ_WEBP_IDENTITY=PASS")
+          print("HQ_WEBP_DIMENSIONS=2048x1536")
+          print("DETAILED_IMAGE_GEOMETRY=55/55")
+          print("DUAL_VIEW_SOURCE_CONTRACT=PASS")
+          PY
+
+          git diff --exit-code 12ee24e0cbc5b67ed66d8fcb3e2bffa733fd308c --             app/src/main/res/raw/earthworm_content_v138.json             app/src/main/res/raw/atlas_external_en.svg             app/src/main/res/raw/atlas_external_ta.svg             app/src/main/res/raw/atlas_digestive_en.svg             app/src/main/res/raw/atlas_digestive_ta.svg             app/src/main/res/raw/atlas_circulatory_en.svg             app/src/main/res/raw/atlas_circulatory_ta.svg             app/src/main/res/raw/atlas_respiratory_en.svg             app/src/main/res/raw/atlas_respiratory_ta.svg             app/src/main/res/raw/atlas_excretory_en.svg             app/src/main/res/raw/atlas_excretory_ta.svg             app/src/main/res/raw/atlas_reproductive_en.svg             app/src/main/res/raw/atlas_reproductive_ta.svg             app/src/main/res/raw/atlas_nervous_en.svg             app/src/main/res/raw/atlas_nervous_ta.svg             app/src/main/res/raw/atlas_crosssection_en.svg             app/src/main/res/raw/atlas_crosssection_ta.svg
+
+          if grep -RInE --include='*.kt' 'android\.webkit|androidx\.webkit|WebViewAssetLoader|\bWebView\b' app/src/main/java; then
+            echo "UNEXPECTED_APP_WEBVIEW_SOURCE=YES"
+            exit 31
+          fi
+          echo "UNEXPECTED_APP_WEBVIEW_SOURCE=NO"
+
+      - name: Clean
+        run: gradle --no-daemon clean
+
+      - name: Lint
+        run: gradle --no-daemon :app:lintDebug :app:lintRelease
+
+      - name: Unit tests
+        run: gradle --no-daemon :app:testDebugUnitTest
+
+      - name: Assemble Debug QA candidate
+        run: gradle --no-daemon :app:assembleDebug
+
+      - name: Inspect Debug APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/debug -name '*.apk' -type f | head -n1)"
+          test -n "$APK"
+
+          mkdir -p packaged-hq
+          unzip -qq "$APK" 'res/*hq_atlas_*.webp' -d packaged-hq
+
+          {
+            echo "APK=$APK"
+            sha256sum "$APK"
+
+            echo
+            echo "== BADGING =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt" dump badging "$APK"
+
+            echo
+            echo "== PERMISSIONS =="
+            "$ANDROID_HOME/build-tools/35.0.0/aapt" dump permissions "$APK"
+
+            echo
+            echo "== BROWSER PAYLOAD =="
+            if zipinfo -1 "$APK" | grep -Ei '\.(html|css|js)$'; then
+              echo "UNEXPECTED_BROWSER_PAYLOAD=YES"
+              exit 41
+            else
+              echo "UNEXPECTED_BROWSER_PAYLOAD=NO"
+            fi
+
+            echo
+            echo "== SVG PAYLOAD =="
+            SVG_COUNT="$(zipinfo -1 "$APK" | grep -Ec '(^|/)atlas_(external|digestive|circulatory|respiratory|excretory|reproductive|nervous|crosssection)_(en|ta)\.svg$' || true)"
+            echo "ATLAS_SVG_COUNT=$SVG_COUNT"
+            test "$SVG_COUNT" -eq 16
+
+            echo
+            echo "== HQ WEBP PAYLOAD =="
+            HQ_COUNT="$(zipinfo -1 "$APK" | grep -Ec '(^|/)hq_atlas_(external|digestive|circulatory|respiratory|excretory|reproductive|nervous|crosssection)\.webp$' || true)"
+            echo "HQ_WEBP_COUNT=$HQ_COUNT"
+            test "$HQ_COUNT" -eq 8
+
+            echo
+            echo "== PACKAGED HQ SHA256 =="
+            find packaged-hq -type f -name 'hq_atlas_*.webp' -print0 | sort -z | xargs -0 sha256sum
+          } | tee apk-inspection.txt
+
+          python3 - <<'PY'
+          import hashlib, pathlib
+          expected = {
+              "hq_atlas_external.webp": "d439c1953e1e69acab0e26d2f4ca508a9260904b9fc7e9850fe3172847ed5026",
+              "hq_atlas_digestive.webp": "52ec7092e82b82ec14db508e6c8573ea5b0feb8989db060d4537e66691365506",
+              "hq_atlas_circulatory.webp": "76277234651906cf9f2aa5d3e0c7af86a450f845f968b02297c93a61d0004bb0",
+              "hq_atlas_respiratory.webp": "88e2ad2b73b3210ec4d3d877a55c04673a7de22e49643b843175e2f659da62fb",
+              "hq_atlas_excretory.webp": "8c56a27dd2262750a2fb5fc4923c4c4ba1a25825bb3ec5e308f37ae5ccec984e",
+              "hq_atlas_reproductive.webp": "23ef28d2e073a46afe01b026051b5da5d7e8d5ddaa08e6e344151f207a2ef212",
+              "hq_atlas_nervous.webp": "74bc0bb1272b6a0b444c08d475e633f66b4d49471402e80ed8944f9232d8c242",
+              "hq_atlas_crosssection.webp": "590cdb9f9d1b227ec8f4b990aa87ec6ea037f33bd5c0d7051a1cface293826ac",
+          }
+          found = list(pathlib.Path("packaged-hq").rglob("hq_atlas_*.webp"))
+          assert len(found) == 8, len(found)
+          for p in found:
+              actual = hashlib.sha256(p.read_bytes()).hexdigest()
+              assert actual == expected[p.name], (p.name, actual, expected[p.name])
+          print("PACKAGED_HQ_BYTE_IDENTITY=PASS")
+          PY
+
+      - name: Release structural compile only
+        run: gradle --no-daemon :app:assembleRelease
+
+      - name: Upload Phase 2B debug QA APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase2b-hq-dual-view-debug-qa
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      - name: Upload APK inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase2b-hq-dual-view-apk-inspection
+          path: apk-inspection.txt
+          if-no-files-found: error
+
+      - name: Upload lint reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: earthworm-native-phase2b-hq-dual-view-lint
+          path: app/build/reports/lint-results*
+          if-no-files-found: warn
