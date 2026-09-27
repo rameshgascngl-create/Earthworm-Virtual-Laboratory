@@ -1,7 +1,12 @@
 package `in`.ramesh.zoology.earthwormlab.ui.preparation
 
+import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -170,6 +175,9 @@ private fun HomeHeroCard() {
 private fun DesignerCreditCard() {
     val context = LocalContext.current
     val privacyUrl = stringResource(R.string.privacy_policy_url)
+    val privacyFallbackUrl = stringResource(R.string.privacy_policy_fallback_url)
+    val privacyChooserTitle = stringResource(R.string.privacy_policy_chooser_title)
+    val privacyCopiedMessage = stringResource(R.string.privacy_policy_copied_message)
 
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -196,8 +204,13 @@ private fun DesignerCreditCard() {
 
             OutlinedButton(
                 onClick = {
-                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(privacyUrl))
-                    runCatching { context.startActivity(intent) }
+                    openPrivacyPolicy(
+                        context = context,
+                        primaryUrl = privacyUrl,
+                        fallbackUrl = privacyFallbackUrl,
+                        chooserTitle = privacyChooserTitle,
+                        copiedMessage = privacyCopiedMessage,
+                    )
                 },
                 modifier = Modifier.padding(top = 14.dp),
             ) {
@@ -210,4 +223,31 @@ private fun DesignerCreditCard() {
             )
         }
     }
+}
+
+
+private fun openPrivacyPolicy(
+    context: Context,
+    primaryUrl: String,
+    fallbackUrl: String,
+    chooserTitle: String,
+    copiedMessage: String,
+) {
+    val urls = listOf(primaryUrl, fallbackUrl).distinct()
+    for (url in urls) {
+        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+            addCategory(Intent.CATEGORY_BROWSABLE)
+        }
+        val chooser = Intent.createChooser(browserIntent, chooserTitle)
+        if (context !is Activity) {
+            chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+        if (runCatching { context.startActivity(chooser) }.isSuccess) {
+            return
+        }
+    }
+
+    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
+    clipboard?.setPrimaryClip(ClipData.newPlainText("Privacy Policy", primaryUrl))
+    Toast.makeText(context, copiedMessage, Toast.LENGTH_LONG).show()
 }
