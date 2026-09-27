@@ -76,6 +76,7 @@
     <string name="atlas_process_cutaneous_respiration">Cutaneous respiration process</string>
     <string name="atlas_process_blood_circulation">Blood circulation</string>
     <string name="atlas_process_digestive_journey">Digestive journey</string>
+    <string name="atlas_process_nephridial_excretion">Nephridial excretion</string>
     <string name="atlas_process_play">Play process</string>
     <string name="atlas_process_pause">Pause</string>
     <string name="atlas_process_previous">Previous part</string>
@@ -90,4 +91,11 @@
     <string name="atlas_process_phase_mechanical_digest">Mechanical digestion</string>
     <string name="atlas_process_phase_chemical_digest">Chemical digestion</string>
     <string name="atlas_process_phase_intestinal_processing">Intestinal digestion and absorption</string>
+    <string name="atlas_process_phase_nephridial_processing">Filtration, reabsorption and secretion</string>
+    <string name="atlas_process_phase_excretory_routes">Discharge-route comparison</string>
+    <string name="atlas_nephridial_compare_show">Compare nephridia</string>
+    <string name="atlas_nephridial_compare_hide">Hide comparison</string>
+    <string name="atlas_nephridial_compare_title">Nephridia — comparison view</string>
+    <string name="atlas_nephridial_compare_intro">Compare pharyngeal, septal and integumentary nephridia by location, function and discharge route.</string>
+    <string name="atlas_nephridial_discharge">Discharge type / key point</string>
 </resources>
