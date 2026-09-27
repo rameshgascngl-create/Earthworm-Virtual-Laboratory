@@ -8,17 +8,17 @@ import androidx.lifecycle.viewModelScope
 import `in`.ramesh.zoology.earthwormlab.data.ProgressRepository
 import `in`.ramesh.zoology.earthwormlab.model.EarthwormSystem
 import `in`.ramesh.zoology.earthwormlab.preferences.AppLanguage
-import `in`.ramesh.zoology.earthwormlab.preferences.UserPreferencesRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import java.util.Locale
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 data class EarthwormUiState(
-    val selectedSystem: EarthwormSystem = EarthwormSystem.EXTERNAL,
+    val selectedSystem: EarthwormSystem = EarthwormSystem.PREPARATION,
     val language: AppLanguage = AppLanguage.ENGLISH,
     val isLoading: Boolean = true,
 )
@@ -36,23 +36,23 @@ private const val KEY_SELECTED_SYSTEM = "selected_system"
 class EarthwormViewModel(
     private val savedStateHandle: SavedStateHandle,
     private val progressRepository: ProgressRepository,
-    private val userPreferencesRepository: UserPreferencesRepository,
 ) : ViewModel() {
 
     private val selectedSystem = savedStateHandle.getStateFlow(
         KEY_SELECTED_SYSTEM,
-        EarthwormSystem.EXTERNAL.dataKey,
+        EarthwormSystem.PREPARATION.dataKey,
     )
 
     private val isLoading = MutableStateFlow(true)
+    private val language = MutableStateFlow(currentAppLanguage())
 
     val uiState: StateFlow<EarthwormUiState> = combine(
         selectedSystem,
-        userPreferencesRepository.language,
+        language,
         isLoading,
     ) { systemKey, language, loading ->
         EarthwormUiState(
-            selectedSystem = EarthwormSystem.fromDataKey(systemKey) ?: EarthwormSystem.EXTERNAL,
+            selectedSystem = EarthwormSystem.fromDataKey(systemKey) ?: EarthwormSystem.PREPARATION,
             language = language,
             isLoading = loading,
         )
@@ -83,11 +83,19 @@ class EarthwormViewModel(
     }
 
     fun onLanguageSelected(language: AppLanguage) {
-        // AppCompatDelegate persists this itself and survives process death;
-        // DataStore is still the source of truth for our own UI (e.g. showing
-        // which option is checked) since AppCompatDelegate has no public
-        // synchronous getter that's safe to read before the framework applies it.
+        // AppCompat is the single locale source of truth. On Android 13+ this
+        // delegates to the framework locale manager; on Android 12 and lower
+        // AppCompat autoStoreLocales persists the selection declared in the manifest.
+        this.language.value = language
         AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(language.localeTag))
-        viewModelScope.launch { userPreferencesRepository.setLanguage(language) }
+    }
+
+    private fun currentAppLanguage(): AppLanguage {
+        val appLocale = AppCompatDelegate.getApplicationLocales()
+            .toLanguageTags()
+            .substringBefore(',')
+            .substringBefore('-')
+            .ifBlank { Locale.getDefault().language }
+        return if (appLocale == AppLanguage.TAMIL.localeTag) AppLanguage.TAMIL else AppLanguage.ENGLISH
     }
 }
