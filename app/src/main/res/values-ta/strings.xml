@@ -24,11 +24,11 @@
     <string name="placeholder_body">இந்த மண்டலத்தின் இடைச்செயல் உடற்கூறு அட்லஸ் இன்னும் Android செயலிக்கு மாற்றப்படவில்லை (கட்டம் 2). அதற்குப் பதிலாக வேறு உள்ளடக்கம் சேர்க்கப்படவில்லை.</string>
 
     <!-- கட்டம் 2: அட்லஸ் UI சொற்கள் மட்டும். அறிவியல் உரை earthworm_content_v138.json-இலிருந்து நேரடியாக வருகிறது. -->
-    <string name="atlas_hint">உடற்கூறு அமைப்பை அறிய குறியீட்டையோ அமைப்பின் பெயரையோ தொடவும்.</string>
+    <string name="atlas_hint">உடற்கூறு அமைப்பைத் தேர்ந்தெடுக்க குறியீட்டையோ அதன் பெயரையோ தொடவும். பெரிதாக்க அல்லது நகர்த்த இரண்டு விரல்களைப் பயன்படுத்தவும்.</string>
     <string name="atlas_structures">அமைப்புகள்</string>
     <string name="atlas_location">அமைவிடம்</string>
     <string name="atlas_function">பணி</string>
     <string name="atlas_significance">கற்பித்தல் குறிப்பு</string>
     <string name="atlas_correction">பொதுவான தவறுக்கான திருத்தம்</string>
-    <string name="atlas_selected">தேர்ந்தெடுக்கப்பட்ட அமைப்பு</string>
+    <string name="atlas_selected">தேர்ந்தெடுக்கப்பட்ட அமைப்பு</string>\n    <string name="atlas_labels">பெயர்க்குறிகள்</string>\n    <string name="atlas_reset_view">காட்சியை மீட்டமை</string>
 </resources>
