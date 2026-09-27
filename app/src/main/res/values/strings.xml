@@ -118,6 +118,7 @@
     <string name="home_designer_title">Academic design &amp; development</string>
     <string name="home_designer_name">R. Ramesh</string>
     <string name="home_designer_department">Department of Zoology</string>
+    <string name="home_designer_institution">Government Arts and Science College, Nagercoil</string>
     <string name="privacy_policy_action">Privacy Policy</string>
     <string name="privacy_policy_store_note">Opens the public privacy policy in your browser.</string>
     <string name="privacy_policy_url" translatable="false">https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md</string>
