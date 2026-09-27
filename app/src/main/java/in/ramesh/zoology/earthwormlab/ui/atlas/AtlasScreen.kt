@@ -31,6 +31,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.OutlinedCard
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -38,6 +39,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clipToBounds
 import androidx.compose.ui.Modifier
@@ -96,6 +98,11 @@ fun AtlasScreen(
     val audioFunctionCue = stringResource(R.string.atlas_audio_function)
     val audioTeachingCue = stringResource(R.string.atlas_audio_teaching)
     val audioCorrectionCue = stringResource(R.string.atlas_audio_correction)
+    val guidedSteps = remember(system, repository) { repository.guidedStepsFor(system) }
+    var guidedMode by rememberSaveable(system.dataKey, "atlas-guided-mode") { mutableStateOf(false) }
+    var guidedIndex by rememberSaveable(system.dataKey, "atlas-guided-index") { mutableStateOf(0) }
+    var physiologyPlaying by rememberSaveable(system.dataKey, "atlas-physiology-playing") { mutableStateOf(false) }
+    var physiologyIndex by rememberSaveable(system.dataKey, "atlas-physiology-index") { mutableStateOf(0) }
 
     val selectStructure: (String) -> Unit = { structureId ->
         selectedId = structureId
@@ -115,6 +122,32 @@ fun AtlasScreen(
 
     LaunchedEffect(language, detailedMode) {
         narrator.stop()
+    }
+
+    LaunchedEffect(guidedMode, guidedIndex, system) {
+        if (guidedMode && guidedSteps.isNotEmpty()) {
+            val safeIndex = guidedIndex.coerceIn(0, guidedSteps.lastIndex)
+            val target = guidedSteps[safeIndex].target
+            if (structures.any { it.id == target }) {
+                selectedId = target
+            }
+        }
+    }
+
+    val respiratorySequence = remember(system) {
+        if (system == EarthwormSystem.RESPIRATORY) {
+            listOf("mucus-film", "moist-epidermis", "cutaneous-capillaries", "cutaneous-exchange")
+        } else {
+            emptyList()
+        }
+    }
+
+    LaunchedEffect(physiologyPlaying, respiratorySequence) {
+        while (physiologyPlaying && respiratorySequence.isNotEmpty()) {
+            selectedId = respiratorySequence[physiologyIndex % respiratorySequence.size]
+            delay(1800)
+            physiologyIndex = (physiologyIndex + 1) % respiratorySequence.size
+        }
     }
 
     Column(
@@ -154,6 +187,35 @@ fun AtlasScreen(
                 },
                 label = { Text(stringResource(R.string.atlas_audio)) },
             )
+            if (guidedSteps.isNotEmpty()) {
+                FilterChip(
+                    selected = guidedMode,
+                    onClick = {
+                        guidedMode = !guidedMode
+                        physiologyPlaying = false
+                        if (guidedMode) guidedIndex = 0
+                    },
+                    label = { Text(stringResource(R.string.atlas_guided_mode)) },
+                )
+            }
+            if (system == EarthwormSystem.RESPIRATORY) {
+                FilterChip(
+                    selected = physiologyPlaying,
+                    onClick = {
+                        physiologyPlaying = !physiologyPlaying
+                        guidedMode = false
+                        if (physiologyPlaying) physiologyIndex = 0
+                    },
+                    label = {
+                        Text(
+                            stringResource(
+                                if (physiologyPlaying) R.string.atlas_physiology_stop
+                                else R.string.atlas_physiology_start
+                            )
+                        )
+                    },
+                )
+            }
         }
 
         Text(
@@ -184,6 +246,99 @@ fun AtlasScreen(
                     },
                     modifier = Modifier.padding(horizontal = 16.dp, vertical = 2.dp),
                 )
+            }
+        }
+
+        if (guidedMode && guidedSteps.isNotEmpty()) {
+            val step = guidedSteps[guidedIndex.coerceIn(0, guidedSteps.lastIndex)]
+            val structureContent = repository.contentFor(step.target)
+            val stepLabel = structureContent?.label(language).orEmpty().ifBlank { step.target }
+            val authoredInstruction =
+                if (language == AppLanguage.TAMIL) step.ta else step.en
+            val instruction = authoredInstruction.ifBlank {
+                stringResource(
+                    R.string.atlas_guided_fallback,
+                    stepLabel,
+                    guidedToolLabel(step.tool),
+                )
+            }
+
+            OutlinedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 6.dp),
+            ) {
+                Column(modifier = Modifier.padding(14.dp)) {
+                    Text(
+                        text = stringResource(
+                            R.string.atlas_guided_step_counter,
+                            guidedIndex + 1,
+                            guidedSteps.size,
+                        ),
+                        style = MaterialTheme.typography.labelLarge,
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+                    Text(
+                        text = stepLabel,
+                        style = MaterialTheme.typography.titleMedium,
+                        modifier = Modifier.padding(top = 4.dp),
+                    )
+                    Text(
+                        text = instruction,
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 6.dp, bottom = 8.dp),
+                    )
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        AssistChip(
+                            onClick = {
+                                guidedIndex = (guidedIndex - 1).coerceAtLeast(0)
+                            },
+                            enabled = guidedIndex > 0,
+                            label = { Text(stringResource(R.string.atlas_guided_previous)) },
+                        )
+                        AssistChip(
+                            onClick = {
+                                guidedIndex = (guidedIndex + 1).coerceAtMost(guidedSteps.lastIndex)
+                            },
+                            enabled = guidedIndex < guidedSteps.lastIndex,
+                            label = { Text(stringResource(R.string.atlas_guided_next)) },
+                        )
+                    }
+                }
+            }
+        }
+
+        if (system == EarthwormSystem.RESPIRATORY && respiratorySequence.isNotEmpty()) {
+            val currentTarget = respiratorySequence[
+                physiologyIndex.coerceIn(0, respiratorySequence.lastIndex)
+            ]
+            val currentLabel = repository.contentFor(currentTarget)?.label(language).orEmpty()
+                .ifBlank { currentTarget }
+            OutlinedCard(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp, vertical = 6.dp),
+            ) {
+                Column(modifier = Modifier.padding(14.dp)) {
+                    Text(
+                        text = stringResource(R.string.atlas_physiology_title),
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                    Text(
+                        text = stringResource(
+                            R.string.atlas_physiology_stage,
+                            currentLabel,
+                        ),
+                        style = MaterialTheme.typography.bodyMedium,
+                        modifier = Modifier.padding(top = 4.dp),
+                    )
+                    Text(
+                        text = stringResource(R.string.atlas_physiology_notice),
+                        style = MaterialTheme.typography.bodySmall,
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        modifier = Modifier.padding(top = 4.dp),
+                    )
+                }
             }
         }
 
@@ -562,6 +717,17 @@ private fun ScientificContentRepository.StructureContent.extendedNarration(
         .map { it.trim().trimEnd('.') }
         .filter { it.isNotBlank() }
         .joinToString(". ", postfix = ".")
+
+@Composable
+private fun guidedToolLabel(tool: String): String = when (tool) {
+    "inspect" -> stringResource(R.string.atlas_guided_tool_inspect)
+    "probe" -> stringResource(R.string.atlas_guided_tool_probe)
+    "magnifier" -> stringResource(R.string.atlas_guided_tool_magnifier)
+    "forceps" -> stringResource(R.string.atlas_guided_tool_forceps)
+    "pin" -> stringResource(R.string.atlas_guided_tool_pin)
+    "scissors" -> stringResource(R.string.atlas_guided_tool_scissors)
+    else -> tool
+}
 
 private fun Hotspot.anchor(): Pair<Float, Float> = when (this) {
     is Hotspot.Point -> xFraction to yFraction
