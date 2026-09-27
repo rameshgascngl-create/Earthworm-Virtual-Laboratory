@@ -24,7 +24,7 @@ import `in`.ramesh.zoology.earthwormlab.model.EarthwormSystem
 fun SystemTabRow(
     selected: EarthwormSystem,
     onSystemSelected: (EarthwormSystem) -> Unit,
-    labelFor: (EarthwormSystem) -> String,
+    labelFor: @Composable (EarthwormSystem) -> String,
     modifier: Modifier = Modifier,
 ) {
     val selectedIndex = EarthwormSystem.TAB_ORDER.indexOf(selected).coerceAtLeast(0)
