@@ -5,10 +5,9 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.savedstate.SavedStateRegistryOwner
 import `in`.ramesh.zoology.earthwormlab.data.ProgressRepository
-import `in`.ramesh.zoology.earthwormlab.preferences.UserPreferencesRepository
 
 /**
- * Deliberately not a Dagger/Hilt module: two repositories, no interfaces
+ * Deliberately not a Dagger/Hilt module: the Phase-1 ViewModel has a small dependency surface, no interfaces
  * needed yet, no test doubles required for Phase 1. Introduce DI only when
  * this factory's parameter list actually becomes unwieldy.
  */
@@ -26,7 +25,6 @@ class EarthwormViewModelFactory(
         return EarthwormViewModel(
             savedStateHandle = handle,
             progressRepository = ProgressRepository(appContext),
-            userPreferencesRepository = UserPreferencesRepository(appContext),
         ) as T
     }
 }
