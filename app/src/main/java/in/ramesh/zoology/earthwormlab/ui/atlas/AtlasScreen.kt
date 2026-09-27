@@ -262,6 +262,9 @@ private fun InteractiveAtlasPlate(
                     )
                 },
         ) {
+            val viewportWidth = maxWidth
+            val viewportHeight = maxHeight
+
             Box(
                 modifier = Modifier
                     .fillMaxSize()
@@ -293,10 +296,10 @@ private fun InteractiveAtlasPlate(
                         .ifBlank { structure.id }
                     val selected = structure.id == selectedId
                     val touchSize = 44.dp
-                    val xOffset = (maxWidth * x - touchSize / 2)
-                        .coerceIn(0.dp, (maxWidth - touchSize).coerceAtLeast(0.dp))
-                    val yOffset = (maxHeight * y - touchSize / 2)
-                        .coerceIn(0.dp, (maxHeight - touchSize).coerceAtLeast(0.dp))
+                    val xOffset = (viewportWidth * x - touchSize / 2)
+                        .coerceIn(0.dp, (viewportWidth - touchSize).coerceAtLeast(0.dp))
+                    val yOffset = (viewportHeight * y - touchSize / 2)
+                        .coerceIn(0.dp, (viewportHeight - touchSize).coerceAtLeast(0.dp))
 
                     Box(
                         modifier = Modifier
