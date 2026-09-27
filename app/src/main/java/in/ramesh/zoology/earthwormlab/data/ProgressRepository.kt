@@ -24,7 +24,7 @@ private val Context.progressDataStore: DataStore<Preferences> by preferencesData
 /**
  * Kotlin/DataStore equivalent of ProgressStore.java. Same four fields,
  * same semantics (verified against the Java source):
- *   last_system      String  → EarthwormSystem, default EXTERNAL
+ *   last_system      String  → EarthwormSystem, default PREPARATION
  *   visited          Set<String> of structure ids
  *   assessment_score Int, default 0
  * Plain key-value shape — Room is not warranted here (per migration
@@ -40,7 +40,7 @@ class ProgressRepository(private val context: Context) {
     }
 
     val lastSystem: Flow<EarthwormSystem> = context.progressDataStore.data.map { prefs ->
-        prefs[Keys.LAST_SYSTEM]?.let(EarthwormSystem::fromDataKey) ?: EarthwormSystem.EXTERNAL
+        prefs[Keys.LAST_SYSTEM]?.let(EarthwormSystem::fromDataKey) ?: EarthwormSystem.PREPARATION
     }
 
     val visitedStructureIds: Flow<Set<String>> = context.progressDataStore.data.map { prefs ->
