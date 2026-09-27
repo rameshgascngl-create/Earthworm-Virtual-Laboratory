@@ -45,9 +45,9 @@ fun EarthwormApp(viewModel: EarthwormViewModel) {
     }
 
     BackHandler(
-        enabled = uiState.selectedSystem != EarthwormSystem.PREPARATION,
+        enabled = uiState.canNavigateBack,
     ) {
-        viewModel.onSystemSelected(EarthwormSystem.PREPARATION)
+        viewModel.navigateBack()
     }
 
     EarthwormTheme {
