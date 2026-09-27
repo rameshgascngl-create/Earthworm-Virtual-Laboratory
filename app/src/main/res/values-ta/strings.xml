@@ -69,12 +69,15 @@
     <string name="atlas_physiology_notice">இது உறுதிப்படுத்தப்பட்ட அமைப்புகளைத் தொடர்ச்சியாக ஒளிவலியுறுத்தும் கற்றல் இயக்கம்; துகள்களின் உண்மையான இடப்பாதையை வரைபடமாகக் காட்டுவதல்ல.</string>
     <string name="atlas_process_mode">உயிரியல் செயல்முறை</string>
     <string name="atlas_process_cutaneous_respiration">தோல் வழிச் சுவாச செயல்முறை</string>
-    <string name="atlas_process_blood_circulation">இரத்த ஓட்ட செயல்முறை — மேலோட்டம்</string>
+    <string name="atlas_process_blood_circulation">இரத்த ஓட்ட செயல்முறை</string>
     <string name="atlas_process_play">செயல்முறையை இயக்கு</string>
     <string name="atlas_process_pause">இடைநிறுத்து</string>
     <string name="atlas_process_previous">முந்தைய பகுதி</string>
     <string name="atlas_process_next">அடுத்த பகுதி</string>
     <string name="atlas_process_restart">மீண்டும் தொடங்கு</string>
     <string name="atlas_process_notice">இந்தக் காட்சி உறுதிப்படுத்தப்பட்ட அமைப்புகளின் செயல்பாடுகளை கற்றல் வரிசையில் இணைக்கிறது. இது துகள்கள் அல்லது இரத்தம் செல்லும் ஒவ்வொரு நுண்ணிய பாதையையும் நேரடியாக வரைபடமாகக் காட்டுவதல்ல.</string>
-    <string name="atlas_process_direction">செயலியக்கத் திசை: %1$s</string>
+    <string name="atlas_process_direction">உயிரியல் இயக்கத் திசை: %1$s</string>
+    <string name="atlas_process_phase_gas_exchange">வாயுப் பரிமாற்றம்</string>
+    <string name="atlas_process_phase_distribution">இரத்த விநியோகப் பகுதி</string>
+    <string name="atlas_process_phase_collection">சேகரிப்பு / முன்புற நாள வலை</string>
 </resources>
