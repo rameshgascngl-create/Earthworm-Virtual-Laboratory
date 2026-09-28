@@ -77,8 +77,7 @@ check(/applicationId\s+['"]in\.ramesh\.zoology\.earthwormlab['"]/.test(gradle), 
 check(/minSdk\s+24\b/.test(gradle), 'minSdk 24 retained');
 check(/targetSdk\s+36\b/.test(gradle), 'targetSdk 36 retained');
 check(new RegExp('versionCode\\s+' + expectedVersionCode + '\\b').test(gradle), 'versionCode ' + expectedVersionCode + ' retained');
-const escapedVersionName = expectedVersionName.replace(/[.*+?^${}()|[\\]\\]/g, '\\check(/versionCode\s+10308\b/.test(gradle), 'versionCode 10308 retained');
-check(/versionName\s+['"]1\.3\.8['"]/.test(gradle), 'versionName 1.3.8 retained');');
+const escapedVersionName = expectedVersionName.replace(/[.*+?^$\{\}()|[\]\\]/g, '\\$&');
 check(new RegExp('versionName\\s+[\\\'"]' + escapedVersionName + '[\\\'"]').test(gradle), 'versionName ' + expectedVersionName + ' retained');
 
 console.log(JSON.stringify({
