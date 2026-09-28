@@ -175,8 +175,6 @@ private fun HomeHeroCard() {
 private fun DesignerCreditCard() {
     val context = LocalContext.current
     val privacyUrl = stringResource(R.string.privacy_policy_url)
-    val privacyFallbackUrl = stringResource(R.string.privacy_policy_fallback_url)
-    val privacyChooserTitle = stringResource(R.string.privacy_policy_chooser_title)
     val privacyCopiedMessage = stringResource(R.string.privacy_policy_copied_message)
 
     Card(modifier = Modifier.fillMaxWidth()) {
@@ -206,9 +204,7 @@ private fun DesignerCreditCard() {
                 onClick = {
                     openPrivacyPolicy(
                         context = context,
-                        primaryUrl = privacyUrl,
-                        fallbackUrl = privacyFallbackUrl,
-                        chooserTitle = privacyChooserTitle,
+                        url = privacyUrl,
                         copiedMessage = privacyCopiedMessage,
                     )
                 },
@@ -228,26 +224,21 @@ private fun DesignerCreditCard() {
 
 private fun openPrivacyPolicy(
     context: Context,
-    primaryUrl: String,
-    fallbackUrl: String,
-    chooserTitle: String,
+    url: String,
     copiedMessage: String,
 ) {
-    val urls = listOf(primaryUrl, fallbackUrl).distinct()
-    for (url in urls) {
-        val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-            addCategory(Intent.CATEGORY_BROWSABLE)
-        }
-        val chooser = Intent.createChooser(browserIntent, chooserTitle)
+    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
+        addCategory(Intent.CATEGORY_BROWSABLE)
         if (context !is Activity) {
-            chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-        if (runCatching { context.startActivity(chooser) }.isSuccess) {
-            return
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
     }
 
+    if (runCatching { context.startActivity(browserIntent) }.isSuccess) {
+        return
+    }
+
     val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-    clipboard?.setPrimaryClip(ClipData.newPlainText("Privacy Policy", primaryUrl))
+    clipboard?.setPrimaryClip(ClipData.newPlainText("Privacy Policy", url))
     Toast.makeText(context, copiedMessage, Toast.LENGTH_LONG).show()
 }
