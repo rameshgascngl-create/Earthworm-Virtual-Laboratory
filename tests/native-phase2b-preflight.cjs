@@ -13,6 +13,8 @@ const walk = dir => fs.readdirSync(dir, {withFileTypes:true}).flatMap(e => {
   return e.isDirectory() ? walk(p) : [p];
 });
 const check = (v, m) => { assert.ok(v, m); console.log('PASS:', m); };
+const expectedVersionCode = process.env.EXPECTED_VERSION_CODE || '10308';
+const expectedVersionName = process.env.EXPECTED_VERSION_NAME || '1.3.8';
 
 check(exists('settings.gradle') || exists('settings.gradle.kts'), 'Android settings file exists');
 check(exists('app/build.gradle') || exists('app/build.gradle.kts'), 'Android app Gradle file exists');
@@ -74,8 +76,10 @@ const gradle = read('app/build.gradle');
 check(/applicationId\s+['"]in\.ramesh\.zoology\.earthwormlab['"]/.test(gradle), 'Expected applicationId retained');
 check(/minSdk\s+24\b/.test(gradle), 'minSdk 24 retained');
 check(/targetSdk\s+36\b/.test(gradle), 'targetSdk 36 retained');
-check(/versionCode\s+10308\b/.test(gradle), 'versionCode 10308 retained');
-check(/versionName\s+['"]1\.3\.8['"]/.test(gradle), 'versionName 1.3.8 retained');
+check(new RegExp('versionCode\\s+' + expectedVersionCode + '\\b').test(gradle), 'versionCode ' + expectedVersionCode + ' retained');
+const escapedVersionName = expectedVersionName.replace(/[.*+?^${}()|[\\]\\]/g, '\\check(/versionCode\s+10308\b/.test(gradle), 'versionCode 10308 retained');
+check(/versionName\s+['"]1\.3\.8['"]/.test(gradle), 'versionName 1.3.8 retained');');
+check(new RegExp('versionName\\s+[\\\'"]' + escapedVersionName + '[\\\'"]').test(gradle), 'versionName ' + expectedVersionName + ' retained');
 
 console.log(JSON.stringify({
   scope: 'native-phase2b-preflight',
