@@ -32,7 +32,7 @@ jobs:
           set -euo pipefail
           FROZEN=749bf37d4feef36c8d511220d08a2eccb335f543
           git cat-file -e "$FROZEN^{commit}"
-          bad="$(git diff --name-only "$FROZEN" HEAD | grep -Ev '^(app/build\.gradle|tests/native-phase2b-preflight\.cjs|\.github/workflows/android\.yml|\.github/workflows/release\.yml)$' || true)"
+          bad="$(git diff --name-only "$FROZEN" HEAD | grep -Ev '^(app/build\.gradle|tests/native-phase2b-preflight\.cjs|\.github/workflows/android\.yml|\.github/workflows/release\.yml|\.github/release/v1\.3\.9-production\.trigger)$' || true)"
           if [ -n "$bad" ]; then
             echo "Release branch changed files outside the authorised release-engineering scope:"
             echo "$bad"
