@@ -1,0 +1,3 @@
+Earthworm Virtual Laboratory v1.3.9 production signing trigger
+Validated native source: 749bf37d4feef36c8d511220d08a2eccb335f543
+Release merge: 0c827d3c3729dc55aea573ac325bc1368bf61ab8
