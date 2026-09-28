@@ -36,7 +36,7 @@ jobs:
           changed="$(git diff --name-only "$BASE" "$SOURCE")"
           printf '%s\n' "$changed"
           test "$(printf '%s\n' "$changed" | sed '/^$/d' | wc -l)" -eq 12
-          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance\.kt|app/src/main/res/raw/earthworm_content_v138\.json|reference/assessments\.json|app/src/main/res/values-ta/strings\.xml|app/src/main/res/raw/atlas_(external|digestive|circulatory|respiratory|excretory|reproductive|nervous|crosssection)_ta\.svg) || true)"
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/ProcessGuidance\.kt|app/src/main/res/raw/earthworm_content_v138\.json|reference/assessments\.json|app/src/main/res/values-ta/strings\.xml|app/src/main/res/raw/atlas_(external|digestive|circulatory|respiratory|excretory|reproductive|nervous|crosssection)_ta\.svg)
           test -z "$unexpected"
 
       - name: Prove JSON changes are Tamil-only
@@ -212,7 +212,7 @@ jobs:
         run: |
           set -euo pipefail
           BASE=56272ffea4aa93942b3728bdd3f881f7a96e3ae0
-          test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/StructureNarrator.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/data/StructureGeometry.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/app             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/preparation/PreparationScreen.kt             'app/src/main/res/raw/atlas_*_en.svg'             app/src/main/res/drawable-nodpi             app/src/main/res/values             app/src/main/res/values-ta             app/src/main/AndroidManifest.xml             app/build.gradle)"
+          test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/StructureNarrator.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/data/StructureGeometry.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/app             app/src/main/java/in/ramesh/zoology/earthwormlab/ui/preparation/PreparationScreen.kt             'app/src/main/res/raw/atlas_*_en.svg'             app/src/main/res/drawable-nodpi             app/src/main/res/values             app/src/main/AndroidManifest.xml             app/build.gradle)"
 
       - name: Security and offline contract
         shell: bash
