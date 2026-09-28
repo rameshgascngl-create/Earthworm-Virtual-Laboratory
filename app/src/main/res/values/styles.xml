@@ -1,11 +1,21 @@
 <resources>
-  <style name="AppTheme" parent="android:style/Theme.Material.NoActionBar">
-    <item name="android:fontFamily">sans</item>
+  <!--
+    Parent changed from android:style/Theme.Material.NoActionBar to
+    Theme.AppCompat.DayNight.NoActionBar: MainActivity now extends
+    AppCompatActivity (required for AppCompatDelegate per-app locale
+    switching on API 24–32 — see MainActivity.kt), and AppCompatActivity
+    requires a Theme.AppCompat (or Material Components) theme or it
+    throws at runtime. This XML theme only governs the window before/
+    around Compose content — actual UI theming is MaterialTheme in
+    EarthwormApp.kt (Compose Material 3), not this file.
+  -->
+  <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
     <item name="android:windowLightStatusBar">false</item>
     <item name="android:statusBarColor">#061515</item>
     <item name="android:navigationBarColor">#061515</item>
-    <item name="android:colorAccent">#38D6BC</item>
+    <item name="colorAccent">#38D6BC</item>
     <item name="android:windowActionModeOverlay">true</item>
     <item name="android:windowBackground">#061515</item>
   </style>
 </resources>
+

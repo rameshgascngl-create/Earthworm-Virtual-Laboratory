@@ -1,0 +1,300 @@
+{
+  "guidedModules": {
+    "setup": [
+      {
+        "tool": "pin",
+        "target": "pin-anterior",
+        "en": "Anchor the anterior end without piercing the prostomium.",
+        "ta": "முன்வாய்மடலைத் துளைக்காமல் முன்முனையை ஊசியால் நிலைநிறுத்தவும்."
+      },
+      {
+        "tool": "pin",
+        "target": "pin-posterior",
+        "en": "Gently extend and anchor the posterior end.",
+        "ta": "உடலை மெதுவாக நீட்டி பின்முனையை ஊசியால் நிலைநிறுத்தவும்."
+      },
+      {
+        "tool": "scissors",
+        "target": "dorsal-incision",
+        "en": "Make a shallow dorsolateral incision; avoid the mid-dorsal vessel.",
+        "ta": "நடுக்கோட்டு முதுகு நாளத்தைத் தவிர்த்து மேல்பக்கவாட்டில் ஆழமற்ற வெட்டினை உருவாக்குக."
+      },
+      {
+        "tool": "forceps",
+        "target": "open-flaps",
+        "en": "Lift the body wall, separate delicate septa and open the flaps laterally.",
+        "ta": "உடற்சுவரை உயர்த்தி மென்மையான இடைத்திரைகளைப் பிரித்து மடல்களைப் பக்கவாட்டில் திறக்குக."
+      },
+      {
+        "tool": "pin",
+        "target": "secure-flaps",
+        "en": "Pin the body-wall flaps at a shallow outward angle.",
+        "ta": "உடற்சுவர் மடல்களை வெளிநோக்கிய சாய்வில் ஊசிகளால் நிலைநிறுத்தவும்."
+      }
+    ],
+    "external": [
+      {
+        "tool": "inspect",
+        "target": "prostomium"
+      },
+      {
+        "tool": "inspect",
+        "target": "clitellum"
+      },
+      {
+        "tool": "probe",
+        "target": "setae"
+      },
+      {
+        "tool": "magnifier",
+        "target": "spermathecal-pores"
+      },
+      {
+        "tool": "magnifier",
+        "target": "male-pores"
+      }
+    ],
+    "digestive": [
+      {
+        "tool": "probe",
+        "target": "pharynx"
+      },
+      {
+        "tool": "probe",
+        "target": "oesophagus"
+      },
+      {
+        "tool": "magnifier",
+        "target": "gizzard"
+      },
+      {
+        "tool": "probe",
+        "target": "stomach"
+      },
+      {
+        "tool": "probe",
+        "target": "intestine"
+      },
+      {
+        "tool": "forceps",
+        "target": "intestinal-caeca"
+      },
+      {
+        "tool": "magnifier",
+        "target": "typhlosole"
+      }
+    ],
+    "circulatory": [
+      {
+        "tool": "probe",
+        "target": "dorsal-vessel"
+      },
+      {
+        "tool": "magnifier",
+        "target": "lateral-hearts"
+      },
+      {
+        "tool": "inspect",
+        "target": "supra-oesophageal-vessel"
+      },
+      {
+        "tool": "probe",
+        "target": "lateral-oesophageal-vessels"
+      },
+      {
+        "tool": "probe",
+        "target": "ventral-vessel"
+      },
+      {
+        "tool": "magnifier",
+        "target": "capillary-networks"
+      },
+      {
+        "tool": "probe",
+        "target": "subneural-vessel"
+      }
+    ],
+    "respiratory": [
+      {
+        "tool": "inspect",
+        "target": "moist-epidermis"
+      },
+      {
+        "tool": "inspect",
+        "target": "mucus-film"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cutaneous-capillaries"
+      },
+      {
+        "tool": "inspect",
+        "target": "cutaneous-exchange"
+      }
+    ],
+    "excretory": [
+      {
+        "tool": "magnifier",
+        "target": "pharyngeal-nephridia"
+      },
+      {
+        "tool": "magnifier",
+        "target": "septal-nephridia"
+      },
+      {
+        "tool": "magnifier",
+        "target": "integumentary-nephridia"
+      },
+      {
+        "tool": "magnifier",
+        "target": "nephridium"
+      }
+    ],
+    "reproductive": [
+      {
+        "tool": "magnifier",
+        "target": "spermathecae"
+      },
+      {
+        "tool": "magnifier",
+        "target": "testes"
+      },
+      {
+        "tool": "inspect",
+        "target": "seminal-vesicles"
+      },
+      {
+        "tool": "magnifier",
+        "target": "ovaries"
+      },
+      {
+        "tool": "probe",
+        "target": "oviducts"
+      },
+      {
+        "tool": "inspect",
+        "target": "prostate-glands"
+      },
+      {
+        "tool": "probe",
+        "target": "vasa-deferentia"
+      }
+    ],
+    "nervous": [
+      {
+        "tool": "magnifier",
+        "target": "cerebral-ganglia"
+      },
+      {
+        "tool": "probe",
+        "target": "circum-pharyngeal-connectives"
+      },
+      {
+        "tool": "inspect",
+        "target": "subpharyngeal-ganglion"
+      },
+      {
+        "tool": "probe",
+        "target": "ventral-nerve-cord"
+      },
+      {
+        "tool": "magnifier",
+        "target": "segmental-ganglia"
+      }
+    ],
+    "crosssection": [
+      {
+        "tool": "magnifier",
+        "target": "cs-cuticle"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-epidermis"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-circular-muscle"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-longitudinal-muscle"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-peritoneum"
+      },
+      {
+        "tool": "inspect",
+        "target": "cs-coelom"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-gut"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-dorsal-vessel"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-ventral-vessel"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-nerve-cord"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-subneural-vessel"
+      },
+      {
+        "tool": "magnifier",
+        "target": "cs-setae"
+      }
+    ]
+  },
+  "procedureSteps": [
+    {
+      "enTitle": "Orient the preserved specimen",
+      "taTitle": "மாதிரியைச் சரியாக வைத்தல்",
+      "en": "Place the worm in the tray with the darker dorsal surface uppermost. Confirm the prostomium, posterior end, clitellum and mid-dorsal vessel before using any instrument.",
+      "ta": "பதப்படுத்திய மண்புழுவைத் தட்டில் வைக்கவும். கருமையான முதுகுப்புறம் மேல்நோக்கி இருக்க வேண்டும். கருவியைப் பயன்படுத்தும் முன் முன்வாய்மடல், பின்முனை, கிளைட்டெல்லம், முதுகுப்புற இரத்த நாளம் ஆகியவற்றை அடையாளம் காணவும்."
+    },
+    {
+      "enTitle": "Anchor the anterior end",
+      "taTitle": "முன்முனையை நிலைநிறுத்துதல்",
+      "en": "Insert the first pin obliquely just behind the prostomium. Do not pierce the prostomium or mouth.",
+      "ta": "முன்வாய்மடலுக்குச் சற்றுப் பின்னால் முதல் ஊசியைச் சாய்வாகச் செலுத்தவும். முன்வாய்மடலையோ வாயையோ துளைக்க வேண்டாம்."
+    },
+    {
+      "enTitle": "Extend and pin the posterior end",
+      "taTitle": "பின்முனையை நிலைநிறுத்துதல்",
+      "en": "Gently extend the specimen without overstretching the segments, then anchor the posterior end with a second oblique pin.",
+      "ta": "உடற்கண்டங்களை அதிகமாக இழுக்காமல், மாதிரியை மெதுவாக நீட்டவும். இரண்டாவது ஊசியைச் சாய்வாகச் செலுத்திப் பின்முனையை நிலைநிறுத்தவும்."
+    },
+    {
+      "enTitle": "Make a shallow dorsolateral incision",
+      "taTitle": "முதுகின் பக்கவாட்டில் ஆழமின்றி வெட்டுதல்",
+      "en": "Lift a small fold of body wall with forceps. Begin in the posterior region and advance anteriorly, slightly lateral to the dorsal midline. Keep the lower scissor blade raised to protect the gut and avoid the dorsal vessel.",
+      "ta": "உடற்சுவரின் சிறிய மடிப்பை இடுக்கியால் உயர்த்தவும். முதுகு நடுக்கோட்டிற்குச் சற்றுப் பக்கவாட்டில், பின்பகுதியிலிருந்து முன்நோக்கி மெதுவாக வெட்டவும். கத்தரிக்கோலின் கீழ் அலகை உயர்த்தி வைத்தால் குடலைப் பாதுகாக்கலாம். முதுகுப்புற இரத்த நாளத்தை வெட்டாமல் கவனிக்கவும்."
+    },
+    {
+      "enTitle": "Release the intersegmental septa",
+      "taTitle": "இடைக்கண்டத் திரைகளைப் பிரித்தல்",
+      "en": "Use a blunt probe and fine scissors to separate septa close to the inner body wall. Never pull across the gut, hearts, reproductive organs or nerve cord.",
+      "ta": "மழுங்கிய ஆய்வூசியையும் நுண் கத்தரிக்கோலையும் பயன்படுத்தவும். உடற்சுவரின் உட்பரப்புக்கு அருகில் இடைத்திரைகளை மெதுவாகப் பிரிக்கவும். குடல், இதய வளைவுகள், இனப்பெருக்க உறுப்புகள், நரம்புவடம் ஆகியவற்றின் குறுக்கே இழுக்க வேண்டாம்."
+    },
+    {
+      "enTitle": "Reflect the body-wall flaps",
+      "taTitle": "உடற்சுவர் மடல்களைத் திறத்தல்",
+      "en": "Open the flaps gradually with forceps. Keep the specimen moist with physiological saline or clean water appropriate to the teaching protocol; do not flood before the incision is controlled.",
+      "ta": "இடுக்கியால் உடற்சுவர் மடல்களை மெதுவாகப் பக்கவாட்டில் திறக்கவும். செய்முறை வழிமுறைக்கு ஏற்ற உடலியல் உப்புநீரையோ தூய நீரையோ பயன்படுத்தி மாதிரியை ஈரமாக வைத்திருக்கவும். வெட்டுப் பகுதியைச் சீராகத் திறப்பதற்கு முன் அதிக திரவத்தை ஊற்ற வேண்டாம்."
+    },
+    {
+      "enTitle": "Pin the flaps and inspect the intact organs",
+      "taTitle": "உள்ளுறுப்புகளை அடையாளம் காணுதல்",
+      "en": "Pin each flap at a shallow outward angle. Add enough fluid to prevent drying, then identify the alimentary canal and dorsal vessel before exposing deeper systems.",
+      "ta": "மடல்களில் ஊசிகளை வெளிநோக்கிச் சாய்வாகச் செலுத்தி நிலைநிறுத்தவும். மாதிரி உலராமல் இருக்கத் தேவையான அளவு திரவத்தைச் சேர்க்கவும். ஆழத்தில் உள்ள மண்டலங்களைப் பார்ப்பதற்கு முன், உணவுப்பாதையையும் முதுகுப்புற இரத்த நாளத்தையும் அடையாளம் காணவும்."
+    }
+  ]
+}

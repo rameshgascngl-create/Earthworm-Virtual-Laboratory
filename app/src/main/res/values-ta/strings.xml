@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Taken verbatim from earthworm_content_v138.json → systems.*.ta, the
+         same reviewed Tamil terminology already used by the hybrid
+         reference and the Java-native branches. Not retranslated here. -->
+    <string name="system_preparation">ஆயத்தம்</string>\n    <string name="nav_home">முகப்பு</string>
+    <string name="system_external">புற அமைப்பியல்</string>
+    <string name="system_digestive">செரிமான மண்டலம்</string>
+    <string name="system_circulatory">இரத்த ஓட்ட மண்டலம்</string>
+    <string name="system_respiratory">தோல் வழிச் சுவாசம்</string>
+    <string name="system_excretory">கழிவு நீக்க மண்டலம்</string>
+    <string name="system_reproductive">இனப்பெருக்க மண்டலம்</string>
+    <string name="system_nervous">நரம்பு மண்டலம்</string>
+    <string name="system_transverse_section">குறுக்குவெட்டுத் தோற்றம்</string>
+
+    <!-- Phase-1 UI copy reviewed for Tamil parity; system/anatomical terminology above is unchanged. -->
+    <string name="preparation_title">தொடங்குவதற்கு முன்</string>
+    <string name="preparation_intro">உடற்கூறு பிரித்தாய்வைத் தொடங்குவதற்கு முன் பின்வருவனவற்றைச் சரிபார்க்கவும்.</string>
+    <string name="preparation_item_specimen">பதப்படுத்தப்பட்ட மண்புழு மாதிரி (Metaphire posthuma)</string>
+    <string name="preparation_item_dissection_tray">மெழுகுத் தளத்துடன் கூடிய பிரித்தாய்வுத் தட்டு</string>
+    <string name="preparation_item_instruments">பிரித்தாய்வுக் கருவிகள்: அறுவைக் கத்தி, இடுக்கி, கத்தரிக்கோல், ஊசிகள்</string>
+    <string name="preparation_item_safety">கையுறைகள் மற்றும் கழிவுகளைப் பாதுகாப்பாக அகற்றும் கொள்கலன்</string>
+    <string name="placeholder_title">%1$s — உடற்கூறு அட்லஸ் மாற்றம் நிலுவையில்</string>
+    <string name="placeholder_body">இந்த மண்டலத்தின் இடைச்செயல் உடற்கூறு அட்லஸ் இன்னும் Android செயலிக்கு மாற்றப்படவில்லை (கட்டம் 2). அதற்குப் பதிலாக வேறு உள்ளடக்கம் சேர்க்கப்படவில்லை.</string>
+
+    <!-- கட்டம் 2: அட்லஸ் UI சொற்கள் மட்டும். அறிவியல் உரை earthworm_content_v138.json-இலிருந்து நேரடியாக வருகிறது. -->
+    <string name="atlas_hint">காட்சியைத் தேர்ந்தெடுக்கவும். SVG அட்லஸில் அமைப்பைத் தொடவும்; இரண்டு விரல்களால் பெரிதாக்கி, இழுத்து நகர்த்தவும்.</string>
+    <string name="atlas_structures">அமைப்புகள்</string>
+    <string name="atlas_location">அமைவிடம்</string>
+    <string name="atlas_function">பணி</string>
+    <string name="atlas_significance">கற்பித்தல் குறிப்பு</string>
+    <string name="atlas_correction">பொதுவான தவறுக்கான திருத்தம்</string>
+    <string name="atlas_selected">தேர்ந்தெடுக்கப்பட்ட அமைப்பு</string>
+    <string name="atlas_labels">பெயர்க்குறிகள்</string>
+    <string name="atlas_reset_view">காட்சியை மீட்டமை</string>
+    <string name="atlas_orientation_mode">திசை அமைவு</string>
+    <string name="atlas_focus_mode">கவன முறை</string>
+    <string name="atlas_zoom_overview">பெரிதாக்கம்: மேலோட்டம்</string>
+    <string name="atlas_zoom_detail">பெரிதாக்கம்: விவரம்</string>
+    <string name="atlas_mode_svg">SVG அட்லஸ்</string>
+    <string name="atlas_mode_detailed">விரிவான படம்</string>
+    <string name="atlas_mode_caption">SVG அட்லஸ் ஊடாடும் கற்றலுக்கானது. விரிவான படம் உயர்தெளிவுடைய உடற்கூறு குறிப்புப் படமாகும்; அதில் தொடு குறியீடுகள் காட்டப்படாது.</string>
+    <string name="atlas_audio">ஒலி விளக்கம்</string>
+    <string name="atlas_audio_location">அமைவிடம்</string>
+    <string name="atlas_audio_function">பணி</string>
+    <string name="atlas_audio_teaching">கற்பித்தல் குறிப்பு</string>
+    <string name="atlas_audio_correction">பொதுவான தவறுக்கான திருத்தம்</string>
+    <string name="atlas_audio_more">மேலும் விளக்கம்</string>
+    <string name="atlas_audio_stop">ஒலியை நிறுத்து</string>
+    <string name="atlas_audio_initializing">ஒலி அமைப்பு தயாராகிறது…</string>
+    <string name="atlas_audio_speaking">ஒலி விளக்கம் வழங்கப்படுகிறது…</string>
+    <string name="atlas_audio_unavailable">இந்த சாதனத்தில் தேவையான உள்ளூர் தமிழ்/ஆங்கில குரல் தரவு கிடைக்கவில்லை.</string>
+    <string name="atlas_audio_error">ஒலி விளக்கத்தை இயக்க முடியவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="atlas_audio_guided_action">வழிகாட்டிய செயல்</string>
+    <string name="atlas_audio_guided_step">படி</string>
+    <string name="atlas_audio_guided_of">மொத்த படிகள்</string>
+    <string name="atlas_audio_process">செயல்முறை</string>
+    <string name="atlas_guided_mode">வழிகாட்டிய உடற்கூறு</string>
+    <string name="atlas_guided_step_counter">படி %1$d / %2$d</string>
+    <string name="atlas_guided_previous">முந்தையது</string>
+    <string name="atlas_guided_next">அடுத்தது</string>
+    <string name="atlas_guided_fallback">%1$s அமைப்பை %2$s முறையில் கவனித்து அடையாளம் காணவும்.</string>
+    <string name="atlas_guided_tool_inspect">நேரடியாகக் கவனிக்கும்</string>
+    <string name="atlas_guided_tool_probe">ஆய்வுக்கோல் மூலம் ஆராயும்</string>
+    <string name="atlas_guided_tool_magnifier">பெரிதாக்கிக் கவனிக்கும்</string>
+    <string name="atlas_guided_tool_forceps">இடுக்கி கொண்டு வெளிப்படுத்தும்</string>
+    <string name="atlas_guided_tool_pin">ஊசி கொண்டு நிலைநிறுத்தும்</string>
+    <string name="atlas_guided_tool_scissors">கத்தரிக்கோல் கொண்டு பிரிக்கும்</string>
+    <string name="atlas_physiology_start">சுவாச இயக்கம்</string>
+    <string name="atlas_physiology_stop">இயக்கத்தை நிறுத்து</string>
+    <string name="atlas_physiology_title">தோல் வழிச் சுவாசம் — இயக்கக் காட்சி</string>
+    <string name="atlas_physiology_stage">தற்போதைய கவனம்: %1$s</string>
+    <string name="atlas_physiology_notice">இது உறுதிப்படுத்தப்பட்ட அமைப்புகளைத் தொடர்ச்சியாக ஒளிவலியுறுத்தும் கற்றல் இயக்கம்; துகள்களின் உண்மையான இடப்பாதையை வரைபடமாகக் காட்டுவதல்ல.</string>
+    <string name="atlas_process_mode">உயிரியல் செயல்முறை</string>
+    <string name="atlas_process_cutaneous_respiration">தோல் வழிச் சுவாச செயல்முறை</string>
+    <string name="atlas_process_blood_circulation">இரத்த ஓட்ட செயல்முறை</string>
+    <string name="atlas_process_digestive_journey">செரிமானப் பயணம்</string>
+    <string name="atlas_process_nephridial_excretion">நெஃப்ரீடியக் கழிவுநீக்க செயல்முறை</string>
+    <string name="atlas_process_nervous_conduction">நரம்புத் தூண்டல் கடத்தல்</string>
+    <string name="atlas_process_play">செயல்முறையை இயக்கு</string>
+    <string name="atlas_process_pause">இடைநிறுத்து</string>
+    <string name="atlas_process_previous">முந்தைய பகுதி</string>
+    <string name="atlas_process_next">அடுத்த பகுதி</string>
+    <string name="atlas_process_restart">மீண்டும் தொடங்கு</string>
+    <string name="atlas_process_notice">இந்தக் காட்சி உறுதிப்படுத்தப்பட்ட அமைப்புகளின் செயல்பாடுகளை கற்றல் வரிசையில் இணைக்கிறது. இது துகள்கள் அல்லது இரத்தம் செல்லும் ஒவ்வொரு நுண்ணிய பாதையையும் நேரடியாக வரைபடமாகக் காட்டுவதல்ல.</string>
+    <string name="atlas_process_direction">உயிரியல் இயக்கத் திசை: %1$s</string>
+    <string name="atlas_process_phase_gas_exchange">வாயுப் பரிமாற்றம்</string>
+    <string name="atlas_process_phase_distribution">இரத்த விநியோகப் பகுதி</string>
+    <string name="atlas_process_phase_collection">சேகரிப்பு / முன்புற நாள வலை</string>
+    <string name="atlas_process_phase_ingestion_transport">உணவு உள்ளிழுத்தல் மற்றும் கடத்தல்</string>
+    <string name="atlas_process_phase_mechanical_digest">இயந்திரச் செரிமானம்</string>
+    <string name="atlas_process_phase_chemical_digest">வேதியியல் செரிமானம்</string>
+    <string name="atlas_process_phase_intestinal_processing">குடல் செரிமானம் மற்றும் உறிஞ்சல்</string>
+    <string name="atlas_process_phase_nephridial_processing">வடிகட்டல், மீளுறிஞ்சல் மற்றும் சுரப்பு</string>
+    <string name="atlas_process_phase_excretory_routes">வெளியேற்றப் பாதை ஒப்பீடு</string>
+    <string name="atlas_process_phase_sensory_integration">உணர்வுத் தகவல் ஒருங்கிணைப்பு</string>
+    <string name="atlas_process_phase_nerve_ring_relay">நரம்பு வளையக் கடத்தல்</string>
+    <string name="atlas_process_phase_longitudinal_conduction">நீளவழி நரம்புத் தூண்டல் கடத்தல்</string>
+    <string name="atlas_process_phase_segmental_response">கண்டவாரியான ஒருங்கிணைப்பு மற்றும் மறுமொழி</string>
+    <string name="atlas_nephridial_compare_show">நெஃப்ரீடியா ஒப்பீடு</string>
+    <string name="atlas_nephridial_compare_hide">ஒப்பீட்டை மறை</string>
+    <string name="atlas_nephridial_compare_title">நெஃப்ரீடியா — ஒப்பீட்டு காட்சி</string>
+    <string name="atlas_nephridial_compare_intro">தொண்டை, இடைச் சுவர் மற்றும் தோல் நெஃப்ரீடியா வகைகளை அவற்றின் அமைவிடம், பணி மற்றும் வெளியேற்றப் பாதையின் அடிப்படையில் ஒப்பிடுக.</string>
+    <string name="atlas_nephridial_discharge">வெளியேற்ற வகை / முக்கிய குறிப்பு</string>
+    <!-- முகப்பு / ஆயத்தக் காட்சி: UI உரைகள் மட்டும். அறிவியல் உள்ளடக்கம் மாற்றப்படவில்லை. -->
+    <string name="home_graphic_description">மண்புழு கற்றல் குறியீட்டு படம்</string>
+    <string name="home_species">Metaphire posthuma</string>
+    <string name="home_tagline">உடற்கூறியல், உடற்செயலியல் செயல்முறைகள் மற்றும் செய்முறை கற்றலை இணைக்கும் இணையமில்லா இருமொழி மெய்நிகர் ஆய்வகம்.</string>
+    <string name="home_learning_title">கற்றல் அனுபவம்</string>
+    <string name="home_highlight_anatomy">விரிவான குறிப்புப் படங்களுடன் ஊடாடும் உடற்கூறு அட்லஸ்</string>
+    <string name="home_highlight_physiology">இரத்த ஓட்டம், சுவாசம், செரிமானம், கழிவுநீக்கம் மற்றும் நரம்புக் கடத்தலுக்கான வழிகாட்டிய உடற்செயலியல்</string>
+    <string name="home_highlight_bilingual">இணையமில்லா ஒலி வழிகாட்டலுடன் ஆங்கிலம்–தமிழ் அறிவியல் சொற்கள்</string>
+    <string name="home_designer_title">கல்விசார் வடிவமைப்பு மற்றும் உருவாக்கம்</string>
+    <string name="home_designer_name">R. Ramesh</string>
+    <string name="home_designer_department">விலங்கியல் துறை</string>
+    <string name="home_designer_institution">அரசு கலை மற்றும் அறிவியல் கல்லூரி, நாகர்கோவில்</string>
+    <string name="privacy_policy_action">தனியுரிமைக் கொள்கை</string>
+    <string name="privacy_policy_store_note">தனியுரிமைக் கொள்கையை செயலிக்குள்ளேயே திறக்கும். பொதுக் கடை இணையமுகவரி கொள்கைத் திரையில் காட்டப்படும்.</string>
+
+    <!-- செயலிக்குள் காட்டப்படும் இணையமில்லா தனியுரிமைக் கொள்கை. -->
+    <string name="privacy_screen_title">தனியுரிமைக் கொள்கை</string>
+    <string name="privacy_back">← மண்புழு மெய்நிகர் ஆய்வகத்திற்குத் திரும்பு</string>
+    <string name="privacy_back_short">பின்</string>
+    <string name="privacy_effective_date">அமல்படும் தேதி: 28 செப்டம்பர் 2026</string>
+    <string name="privacy_overview_title">மேலோட்டம்</string>
+    <string name="privacy_overview_body">Earthworm Virtual Laboratory என்பது இளநிலை விலங்கியல் கற்பித்தலுக்கான இணையமில்லா கல்விசார் செயலியாகும். பயனர் கணக்கு, விளம்பரம், பயன்பாட்டு பகுப்பாய்வு அல்லது தொலைத் தரவு சேகரிப்பு இன்றி செயல்படும் வகையில் இது வடிவமைக்கப்பட்டுள்ளது.</string>
+    <string name="privacy_information_collected_title">சேகரிக்கப்படும் தகவல்கள்</string>
+    <string name="privacy_information_collected_body">மாணவரின் பெயர், மின்னஞ்சல் முகவரி, தொலைபேசி எண், இருப்பிடம், தொடர்புகள், கேமரா தரவு, ஒலிப்பதிவுகள், புகைப்படங்கள், கோப்புகள் அல்லது விளம்பர அடையாள எண் ஆகியவற்றை செயலி கேட்கவோ சேகரிக்கவோ செய்யாது. Android செயலி INTERNET அனுமதியை கோராது; விளம்பர அல்லது பகுப்பாய்வு SDK-களும் சேர்க்கப்படவில்லை.</string>
+    <string name="privacy_stored_title">சாதனத்தில் சேமிக்கப்படும் தகவல்கள்</string>
+    <string name="privacy_stored_intro">கற்றல் அமர்வை தொடர்ந்து பயன்படுத்துவதற்காக, குறைந்தளவு கற்றல் நிலை மற்றும் விருப்பத் தகவல்கள் சாதனத்திலேயே சேமிக்கப்படலாம். பயன்படுத்தப்படும் அம்சங்களின் அடிப்படையில் இதில் பின்வருவன இருக்கலாம்:</string>
+    <string name="privacy_stored_language">மொழி விருப்பம்</string>
+    <string name="privacy_stored_last_structure">கடைசியாகத் தேர்ந்தெடுக்கப்பட்ட உடற்கூறு மண்டலம் அல்லது அமைப்பு</string>
+    <string name="privacy_stored_assessment">பயன்படுத்தப்பட்டால், சாதனத்திலேயே சேமிக்கப்படும் மதிப்பீட்டு மதிப்பெண் / நிலைத் தகவல்கள்</string>
+    <string name="privacy_stored_acknowledgement">தனியுரிமைக் கொள்கை ஒப்புதல் குறித்த உள்ளூர் நிலை</string>
+    <string name="privacy_stored_closing">இந்தத் தகவல்கள் செயலியால் உருவாக்குநர், கல்லூரி, விளம்பரதாரர்கள் அல்லது பகுப்பாய்வு சேவைகளுக்கு அனுப்பப்படாது. Android cloud backup முடக்கப்பட்டுள்ளது. பயனர் செயலித் தரவை அழிக்கும் வரை அல்லது செயலியை நீக்கும் வரை உள்ளூர் தரவு சாதனத்தில் இருக்கலாம்.</string>
+    <string name="privacy_speech_title">ஒலி விளக்கம்</string>
+    <string name="privacy_speech_body">ஒலி விளக்கம் சாதனத்தில் நிறுவப்பட்ட Android text-to-speech குரல்களைப் பயன்படுத்துகிறது. இணையம் தேவையில்லை என்று Android தெரிவிக்கும் குரல்களையே செயலி தேர்ந்தெடுக்கிறது. ஒலி விளக்க உரை இணையவழி பேச்சுச் சேவைக்கு அனுப்பப்படாது.</string>
+    <string name="privacy_external_links_title">வெளிப்புற இணைப்புகள்</string>
+    <string name="privacy_external_links_body">இந்த செயலிக்கு INTERNET அனுமதி இல்லாததால் தொலைவிலுள்ள இணைய உள்ளடக்கத்தை செயலிக்குள் ஏற்றாது. கடை தனியுரிமைக் கொள்கை அல்லது அறிவியல் மேற்கோள் இணையமுகவரிகளை பயனர் தனியாக உலாவியில் திறக்கலாம். அந்த உலாவி மற்றும் இணையதளங்களின் தனியுரிமை நடைமுறைகள் தனித்தனியானவை.</string>
+    <string name="privacy_ads_title">விளம்பரம் மற்றும் பகுப்பாய்வு</string>
+    <string name="privacy_ads_body">செயலியில் விளம்பர SDK அல்லது பயன்பாட்டு பகுப்பாய்வு SDK இல்லை. மாணவர் தகவல்கள் விளம்பரதாரர்களுக்கு விற்கப்படவோ பகிரப்படவோ மாட்டாது.</string>
+    <string name="privacy_children_title">குழந்தைகள் மற்றும் மாணவர்கள்</string>
+    <string name="privacy_children_body">செயலி பயனர் கணக்குகளை உருவாக்காது; குழந்தைகள் அல்லது மாணவர்களின் தனிப்பட்ட தகவல்களை அறிந்தே சேகரிக்காது. கற்றல் நிலைத் தகவல்கள் சாதனத்திலேயே இருக்கும்.</string>
+    <string name="privacy_security_title">பாதுகாப்பு மற்றும் தரவு வைத்திருப்பு</string>
+    <string name="privacy_security_body">இந்த செயலி உள்ளூர் சேமிப்பைப் பயன்படுத்தும் இணையமில்லா கற்றல் வளமாக வடிவமைக்கப்பட்டுள்ளது. பயனர் செயலித் தரவை அழிக்கும் வரை அல்லது செயலியை நீக்கும் வரை உள்ளூர் தரவு சாதனத்தில் இருக்கும்.</string>
+    <string name="privacy_changes_title">இந்தக் கொள்கையில் மாற்றங்கள்</string>
+    <string name="privacy_changes_body">எதிர்கால பதிப்பில் அனுமதிகள், இணையப் பயன்பாடு, பகுப்பாய்வு, கணக்கு முறை அல்லது தரவு கையாளுதல் மாறினால், அந்தப் பதிப்பு வெளியிடப்படுவதற்கு முன் இந்தக் கொள்கை புதுப்பிக்கப்படும்.</string>
+    <string name="privacy_contact_title">தொடர்பு</string>
+    <string name="privacy_contact_body">விலங்கியல் துறை, அரசு கலை மற்றும் அறிவியல் கல்லூரி, நாகர்கோவில், தமிழ்நாடு, இந்தியா. மின்னஞ்சல்: rameshgascngl@gmail.com</string>
+    <string name="privacy_public_url_title">செயலி கடைக்கான பொதுத் தனியுரிமை இணையமுகவரி</string>
+    <string name="privacy_public_url_note">இந்த பொது HTTPS முகவரி Google Play மற்றும் பிற செயலி கடைப் பட்டியல்களுக்கு வழங்கப்படுகிறது. மேலுள்ள முழுக் கொள்கையையும் செயலிக்குள் இணையமின்றி வாசிக்கலாம்.</string>
+</resources>

@@ -1,1 +1,158 @@
-<resources><string name="app_name">Earthworm Virtual Laboratory</string></resources>
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Earthworm Virtual Laboratory</string>
+
+    <!-- System tab labels: taken verbatim from earthworm_content_v138.json → systems.*.en,
+         the authoritative reviewed dataset — not retranslated. -->
+    <string name="system_preparation">Preparation</string>\n    <string name="nav_home">Home</string>
+    <string name="system_external">External morphology</string>
+    <string name="system_digestive">Digestive</string>
+    <string name="system_circulatory">Circulatory</string>
+    <string name="system_respiratory">Cutaneous respiration</string>
+    <string name="system_excretory">Excretory</string>
+    <string name="system_reproductive">Reproductive</string>
+    <string name="system_nervous">Nervous</string>
+    <string name="system_transverse_section">Transverse section</string>
+
+    <!-- Preparation screen. This is Phase-1 UI copy, not scientific content
+         from earthworm_content_v138.json (the "setup" system has zero
+         structure entries there) — see PreparationScreen.kt doc comment. -->
+    <string name="preparation_title">Before you begin</string>
+    <string name="preparation_intro">Check the following before starting the dissection procedure.</string>
+    <string name="preparation_item_specimen">Preserved earthworm specimen (Metaphire posthuma)</string>
+    <string name="preparation_item_dissection_tray">Dissection tray with wax base</string>
+    <string name="preparation_item_instruments">Dissecting instruments: scalpel, forceps, scissors, pins</string>
+    <string name="preparation_item_safety">Gloves and safe disposal container</string>
+
+    <!-- Honest placeholder copy — Phase 1 only, see SystemPlaceholderScreen.kt -->
+    <string name="placeholder_title">%1$s — atlas migration pending</string>
+    <string name="placeholder_body">This system\'s interactive atlas has not been migrated to the native app yet (Phase 2). Nothing has been substituted in its place.</string>
+
+    <!-- Phase-2 native atlas UI chrome. Scientific/anatomical prose stays in earthworm_content_v138.json. -->
+    <string name="atlas_hint">Choose a view. In Atlas SVG, tap a structure; pinch to zoom and drag to pan.</string>
+    <string name="atlas_structures">Structures</string>
+    <string name="atlas_location">Location</string>
+    <string name="atlas_function">Function</string>
+    <string name="atlas_significance">Teaching point</string>
+    <string name="atlas_correction">Common correction</string>
+    <string name="atlas_selected">Selected structure</string>
+    <string name="atlas_labels">Labels</string>
+    <string name="atlas_reset_view">Reset view</string>
+    <string name="atlas_orientation_mode">Orientation</string>
+    <string name="atlas_focus_mode">Focus mode</string>
+    <string name="atlas_zoom_overview">Zoom: overview</string>
+    <string name="atlas_zoom_detail">Zoom: detail</string>
+    <string name="atlas_mode_svg">Atlas SVG</string>
+    <string name="atlas_mode_detailed">Detailed Image</string>
+    <string name="atlas_mode_caption">Atlas SVG is interactive; Detailed Image is the high-resolution anatomical reference and has no hotspot overlay.</string>
+    <string name="atlas_audio">Audio explanation</string>
+    <string name="atlas_audio_location">Location</string>
+    <string name="atlas_audio_function">Function</string>
+    <string name="atlas_audio_teaching">Teaching point</string>
+    <string name="atlas_audio_correction">Common correction</string>
+    <string name="atlas_audio_more">More explanation</string>
+    <string name="atlas_audio_stop">Stop audio</string>
+    <string name="atlas_audio_initializing">Preparing audio…</string>
+    <string name="atlas_audio_speaking">Speaking…</string>
+    <string name="atlas_audio_unavailable">A suitable offline voice is not installed on this device.</string>
+    <string name="atlas_audio_error">Audio explanation could not be played. Please try again.</string>
+    <string name="atlas_audio_guided_action">Guided action</string>
+    <string name="atlas_audio_guided_step">Step</string>
+    <string name="atlas_audio_guided_of">of</string>
+    <string name="atlas_audio_process">Process</string>
+    <string name="atlas_guided_mode">Guided anatomy</string>
+    <string name="atlas_guided_step_counter">Step %1$d of %2$d</string>
+    <string name="atlas_guided_previous">Previous</string>
+    <string name="atlas_guided_next">Next</string>
+    <string name="atlas_guided_fallback">Identify and study %1$s using the %2$s method.</string>
+    <string name="atlas_guided_tool_inspect">inspection</string>
+    <string name="atlas_guided_tool_probe">probe</string>
+    <string name="atlas_guided_tool_magnifier">magnifier</string>
+    <string name="atlas_guided_tool_forceps">forceps</string>
+    <string name="atlas_guided_tool_pin">pinning</string>
+    <string name="atlas_guided_tool_scissors">scissors</string>
+    <string name="atlas_physiology_start">Respiration animation</string>
+    <string name="atlas_physiology_stop">Stop animation</string>
+    <string name="atlas_physiology_title">Cutaneous respiration — animated focus</string>
+    <string name="atlas_physiology_stage">Current focus: %1$s</string>
+    <string name="atlas_physiology_notice">This is a teaching animation that sequentially highlights verified structures; it does not claim to map the literal spatial path of diffusing molecules.</string>
+    <string name="atlas_process_mode">Biological process</string>
+    <string name="atlas_process_cutaneous_respiration">Cutaneous respiration process</string>
+    <string name="atlas_process_blood_circulation">Blood circulation</string>
+    <string name="atlas_process_digestive_journey">Digestive journey</string>
+    <string name="atlas_process_nephridial_excretion">Nephridial excretion</string>
+    <string name="atlas_process_nervous_conduction">Nervous conduction</string>
+    <string name="atlas_process_play">Play process</string>
+    <string name="atlas_process_pause">Pause</string>
+    <string name="atlas_process_previous">Previous part</string>
+    <string name="atlas_process_next">Next part</string>
+    <string name="atlas_process_restart">Restart</string>
+    <string name="atlas_process_notice">This teaching sequence links the verified functions of existing structures. It does not claim to trace every microscopic path taken by diffusing gases or circulating blood.</string>
+    <string name="atlas_process_direction">Physiological direction: %1$s</string>
+    <string name="atlas_process_phase_gas_exchange">Gas exchange</string>
+    <string name="atlas_process_phase_distribution">Distribution phase</string>
+    <string name="atlas_process_phase_collection">Collecting / anterior vascular network</string>
+    <string name="atlas_process_phase_ingestion_transport">Ingestion and transport</string>
+    <string name="atlas_process_phase_mechanical_digest">Mechanical digestion</string>
+    <string name="atlas_process_phase_chemical_digest">Chemical digestion</string>
+    <string name="atlas_process_phase_intestinal_processing">Intestinal digestion and absorption</string>
+    <string name="atlas_process_phase_nephridial_processing">Filtration, reabsorption and secretion</string>
+    <string name="atlas_process_phase_excretory_routes">Discharge-route comparison</string>
+    <string name="atlas_process_phase_sensory_integration">Sensory integration</string>
+    <string name="atlas_process_phase_nerve_ring_relay">Nerve-ring relay</string>
+    <string name="atlas_process_phase_longitudinal_conduction">Longitudinal impulse conduction</string>
+    <string name="atlas_process_phase_segmental_response">Segmental integration and response</string>
+    <string name="atlas_nephridial_compare_show">Compare nephridia</string>
+    <string name="atlas_nephridial_compare_hide">Hide comparison</string>
+    <string name="atlas_nephridial_compare_title">Nephridia — comparison view</string>
+    <string name="atlas_nephridial_compare_intro">Compare pharyngeal, septal and integumentary nephridia by location, function and discharge route.</string>
+    <string name="atlas_nephridial_discharge">Discharge type / key point</string>
+    <!-- Home / preparation presentation. UI-only; scientific content remains frozen. -->
+    <string name="home_graphic_description">Stylized earthworm learning graphic</string>
+    <string name="home_species">Metaphire posthuma</string>
+    <string name="home_tagline">Explore anatomy, physiological processes and practical-learning concepts through an offline bilingual virtual laboratory.</string>
+    <string name="home_learning_title">Learning experience</string>
+    <string name="home_highlight_anatomy">Interactive anatomical atlas with detailed reference images</string>
+    <string name="home_highlight_physiology">Guided physiology for circulation, respiration, digestion, excretion and nervous conduction</string>
+    <string name="home_highlight_bilingual">English–Tamil terminology with offline audio guidance</string>
+    <string name="home_designer_title">Academic design &amp; development</string>
+    <string name="home_designer_name">R. Ramesh</string>
+    <string name="home_designer_department">Department of Zoology</string>
+    <string name="home_designer_institution">Government Arts and Science College, Nagercoil</string>
+    <string name="privacy_policy_action">Privacy Policy</string>
+    <string name="privacy_policy_store_note">Opens the Privacy Policy inside the app. The public store URL is shown on the policy screen.</string>
+    <string name="privacy_policy_url" translatable="false">https://rameshgascngl-create.github.io/Earthworm-Virtual-Laboratory/privacy.html</string>
+
+    <!-- Native offline privacy screen. -->
+    <string name="privacy_screen_title">Privacy Policy</string>
+    <string name="privacy_back">← Back to Earthworm Virtual Laboratory</string>
+    <string name="privacy_back_short">Back</string>
+    <string name="privacy_effective_date">Effective date: 28 September 2026</string>
+    <string name="privacy_overview_title">Overview</string>
+    <string name="privacy_overview_body">Earthworm Virtual Laboratory is an offline educational application for undergraduate Zoology teaching. It is designed to work without a user account, advertising, analytics, or remote data collection.</string>
+    <string name="privacy_information_collected_title">Information collected</string>
+    <string name="privacy_information_collected_body">The app does not ask for or collect a student’s name, email address, phone number, location, contacts, camera data, microphone recordings, photos, files, or advertising identifier. The Android application requests no INTERNET permission and includes no advertising or analytics SDK.</string>
+    <string name="privacy_stored_title">Information stored on the device</string>
+    <string name="privacy_stored_intro">The app may keep limited learning-state and preference information locally on the device so the learning experience can continue between sessions. Depending on the features used, this may include:</string>
+    <string name="privacy_stored_language">language preference</string>
+    <string name="privacy_stored_last_structure">the last selected anatomical system or structure</string>
+    <string name="privacy_stored_assessment">locally stored assessment score/state fields, where used</string>
+    <string name="privacy_stored_acknowledgement">a local privacy-policy acknowledgement state</string>
+    <string name="privacy_stored_closing">This information is not transmitted by the app to the developer, college, advertisers, or analytics services. Android cloud backup is disabled. Local app data normally remains until the user clears app data or uninstalls the app.</string>
+    <string name="privacy_speech_title">Speech</string>
+    <string name="privacy_speech_body">Narration uses Android text-to-speech voices installed on the device. The app selects voices reported by Android as not requiring a network connection. The application does not send narration text to an online speech service.</string>
+    <string name="privacy_external_links_title">External links</string>
+    <string name="privacy_external_links_body">The app itself does not load remote web content because it has no INTERNET permission. Public store-policy and scientific reference addresses may be opened separately in a web browser by the user. The browser and visited websites have their own privacy practices.</string>
+    <string name="privacy_ads_title">Advertising and analytics</string>
+    <string name="privacy_ads_body">The app contains no advertising SDK and no analytics SDK. The developer does not sell or share student information with advertisers.</string>
+    <string name="privacy_children_title">Children and students</string>
+    <string name="privacy_children_body">The app does not create user accounts and does not knowingly collect personal information from children or students. Learning-state information remains on the device.</string>
+    <string name="privacy_security_title">Security and retention</string>
+    <string name="privacy_security_body">The app is designed as an offline teaching resource with local-only storage. Local app data remains on the device until the user clears the app’s data or uninstalls the application.</string>
+    <string name="privacy_changes_title">Changes to this policy</string>
+    <string name="privacy_changes_body">If a future release changes permissions, network behaviour, analytics, account systems, or data handling, this policy will be updated before that release is distributed.</string>
+    <string name="privacy_contact_title">Contact</string>
+    <string name="privacy_contact_body">Department of Zoology, Government Arts and Science College, Nagercoil, Tamil Nadu, India. Email: rameshgascngl@gmail.com</string>
+    <string name="privacy_public_url_title">Public store policy URL</string>
+    <string name="privacy_public_url_note">This public HTTPS address is provided for Google Play and other app-store listings. The complete policy above is available offline inside the app.</string>
+</resources>

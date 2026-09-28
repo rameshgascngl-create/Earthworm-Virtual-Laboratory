@@ -1,0 +1,56 @@
+id,system,en,ta
+prostomium,external,Prostomium,முன்வாய்மடல்
+clitellum,external,Clitellum,கிளைட்டெல்லம் (சுரப்புப் பட்டை)
+setae,external,Perichaetine setae,சுற்றமைந்த சீட்டாக்கள் (நுண்முட்கள்)
+spermathecal-pores,external,Spermathecal pores,விந்தேற்புத் துளைகள்
+female-pore,external,Female genital pore,பெண் இனத்துளை
+male-pores,external,Male genital pores,ஆண் இனத்துளைகள்
+anus,external,Anus,மலத்துளை
+pharynx,digestive,Muscular pharynx,தசைமிகு தொண்டை
+oesophagus,digestive,Oesophagus,உணவுக்குழாய்
+gizzard,digestive,Gizzard,அரவைப்பை
+stomach,digestive,Glandular stomach,சுரப்புமிகு இரைப்பை
+intestine,digestive,Intestine,குடல்
+intestinal-caeca,digestive,Intestinal caeca,குடல் நீட்சிகள்
+typhlosole,digestive,Typhlosole,டைஃப்ளோசோல்
+dorsal-vessel,circulatory,Dorsal blood vessel,முதுகுப்புற இரத்த நாளம்
+lateral-hearts,circulatory,Four pairs of hearts,நான்கு இணை இதய வளைவுகள்
+supra-oesophageal-vessel,circulatory,Supra-oesophageal vessel,உணவுக்குழாய் மேல்நாளம்
+ventral-vessel,circulatory,Ventral blood vessel,வயிற்றுப்புற இரத்த நாளம்
+capillary-networks,circulatory,Segmental capillary networks,கண்டவாரியான இரத்த நுண்நாள வலையமைப்புகள்
+moist-epidermis,respiratory,Moist epidermis,ஈரமான புறத்தோல்
+mucus-film,respiratory,Mucus film,சளிப்பொருள் ஈரப்படலம்
+cutaneous-capillaries,respiratory,Subepidermal capillaries,புறத்தோலுக்குக் கீழுள்ள இரத்த நுண்நாளங்கள் (தந்துகிகள்)
+cutaneous-exchange,respiratory,Cutaneous gas exchange,தோல் வழி வாயுப் பரிமாற்றம்
+pharyngeal-nephridia,excretory,Pharyngeal nephridia,தொண்டை நெஃப்ரிடியாக்கள்
+septal-nephridia,excretory,Septal nephridia,இடைத்திரை நெஃப்ரிடியாக்கள்
+integumentary-nephridia,excretory,Integumentary nephridia,உடற்சுவர் நெஃப்ரிடியாக்கள்
+nephridium,excretory,Septal nephridium (enlarged),இடைத்திரை நெஃப்ரிடியம் (பெரிதாக்கம்)
+spermathecae,reproductive,Spermathecae,விந்தேற்புப் பைகள்
+testes,reproductive,Testes,விந்தகங்கள்
+seminal-vesicles,reproductive,Seminal vesicles,விந்துப் பைகள்
+ovaries,reproductive,Ovaries,அண்டகங்கள்
+oviducts,reproductive,Oviducal funnels and oviducts,அண்டநாளப் புனல்களும் அண்டநாள்களும்
+prostate-glands,reproductive,Prostate glands,புரோஸ்டேட் சுரப்பிகள்
+vasa-deferentia,reproductive,Vasa deferentia,விந்துநாளங்கள்
+cerebral-ganglia,nervous,Cerebral ganglia,மூளை நரம்புத் திரள்கள் (தொண்டைமேல் நரம்புத் திரள்கள்)
+circum-pharyngeal-connectives,nervous,Circumpharyngeal connectives,தொண்டைசுற்று நரம்பு இணைப்புகள்
+subpharyngeal-ganglion,nervous,Subpharyngeal ganglion,தொண்டைக்கீழ் நரம்புத் திரள்
+ventral-nerve-cord,nervous,Ventral nerve cord,வயிற்றுப்புற நரம்புவடம்
+segmental-ganglia,nervous,Segmental ganglia,கண்ட நரம்புத் திரள்கள்
+mouth,external,Mouth,வாய்
+dorsal-pores,external,Dorsal pores,முதுகுத் துளைகள்
+lateral-oesophageal-vessels,circulatory,Lateral-oesophageal vessels,உணவுக்குழாய் பக்கவாட்டு நாளங்கள்
+subneural-vessel,circulatory,Subneural vessel,நரம்புவடக் கீழ்நாளம்
+cs-cuticle,crosssection,Cuticle,கியூட்டிக்கிள்
+cs-epidermis,crosssection,Epidermis,புறத்தோல்
+cs-circular-muscle,crosssection,Circular muscle layer,வட்டத் தசைப்படலம்
+cs-longitudinal-muscle,crosssection,Longitudinal muscle layer,நீளவாட்டுத் தசைப்படலம்
+cs-peritoneum,crosssection,Peritoneum,பெரிட்டோனியம்
+cs-coelom,crosssection,Coelom and coelomic fluid,உடற்குழியும் உடற்குழித் திரவமும்
+cs-gut,crosssection,Intestinal wall and typhlosole,குடல் சுவரும் டைஃப்ளோசோலும்
+cs-dorsal-vessel,crosssection,Dorsal vessel in section,குறுக்குவெட்டில் முதுகுப்புற நாளம்
+cs-ventral-vessel,crosssection,Ventral vessel in section,குறுக்குவெட்டில் வயிற்றுப்புற நாளம்
+cs-nerve-cord,crosssection,Ventral nerve cord in section,குறுக்குவெட்டில் வயிற்றுப்புற நரம்புவடம்
+cs-subneural-vessel,crosssection,Subneural vessel in section,குறுக்குவெட்டில் நரம்புவடக் கீழ்நாளம்
+cs-setae,crosssection,Setae in section,குறுக்குவெட்டில் சீட்டாக்கள்
