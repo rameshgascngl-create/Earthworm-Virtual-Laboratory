@@ -120,7 +120,39 @@
     <string name="home_designer_department">Department of Zoology</string>
     <string name="home_designer_institution">Government Arts and Science College, Nagercoil</string>
     <string name="privacy_policy_action">Privacy Policy</string>
-    <string name="privacy_policy_store_note">Opens the public privacy policy in your browser.</string>
+    <string name="privacy_policy_store_note">Opens the Privacy Policy inside the app. The public store URL is shown on the policy screen.</string>
     <string name="privacy_policy_url" translatable="false">https://rameshgascngl-create.github.io/Earthworm-Virtual-Laboratory/privacy.html</string>
-    <string name="privacy_policy_copied_message">No browser could open the Privacy Policy. The public policy URL has been copied to the clipboard.</string>
+
+    <!-- Native offline privacy screen. -->
+    <string name="privacy_screen_title">Privacy Policy</string>
+    <string name="privacy_back">← Back to Earthworm Virtual Laboratory</string>
+    <string name="privacy_back_short">Back</string>
+    <string name="privacy_effective_date">Effective date: 28 September 2026</string>
+    <string name="privacy_overview_title">Overview</string>
+    <string name="privacy_overview_body">Earthworm Virtual Laboratory is an offline educational application for undergraduate Zoology teaching. It is designed to work without a user account, advertising, analytics, or remote data collection.</string>
+    <string name="privacy_information_collected_title">Information collected</string>
+    <string name="privacy_information_collected_body">The app does not ask for or collect a student’s name, email address, phone number, location, contacts, camera data, microphone recordings, photos, files, or advertising identifier. The Android application requests no INTERNET permission and includes no advertising or analytics SDK.</string>
+    <string name="privacy_stored_title">Information stored on the device</string>
+    <string name="privacy_stored_intro">The app may keep limited learning-state and preference information locally on the device so the learning experience can continue between sessions. Depending on the features used, this may include:</string>
+    <string name="privacy_stored_language">language preference</string>
+    <string name="privacy_stored_last_structure">the last selected anatomical system or structure</string>
+    <string name="privacy_stored_assessment">locally stored assessment score/state fields, where used</string>
+    <string name="privacy_stored_acknowledgement">a local privacy-policy acknowledgement state</string>
+    <string name="privacy_stored_closing">This information is not transmitted by the app to the developer, college, advertisers, or analytics services. Android cloud backup is disabled. Local app data normally remains until the user clears app data or uninstalls the app.</string>
+    <string name="privacy_speech_title">Speech</string>
+    <string name="privacy_speech_body">Narration uses Android text-to-speech voices installed on the device. The app selects voices reported by Android as not requiring a network connection. The application does not send narration text to an online speech service.</string>
+    <string name="privacy_external_links_title">External links</string>
+    <string name="privacy_external_links_body">The app itself does not load remote web content because it has no INTERNET permission. Public store-policy and scientific reference addresses may be opened separately in a web browser by the user. The browser and visited websites have their own privacy practices.</string>
+    <string name="privacy_ads_title">Advertising and analytics</string>
+    <string name="privacy_ads_body">The app contains no advertising SDK and no analytics SDK. The developer does not sell or share student information with advertisers.</string>
+    <string name="privacy_children_title">Children and students</string>
+    <string name="privacy_children_body">The app does not create user accounts and does not knowingly collect personal information from children or students. Learning-state information remains on the device.</string>
+    <string name="privacy_security_title">Security and retention</string>
+    <string name="privacy_security_body">The app is designed as an offline teaching resource with local-only storage. Local app data remains on the device until the user clears the app’s data or uninstalls the application.</string>
+    <string name="privacy_changes_title">Changes to this policy</string>
+    <string name="privacy_changes_body">If a future release changes permissions, network behaviour, analytics, account systems, or data handling, this policy will be updated before that release is distributed.</string>
+    <string name="privacy_contact_title">Contact</string>
+    <string name="privacy_contact_body">Department of Zoology, Government Arts and Science College, Nagercoil, Tamil Nadu, India. Email: rameshgascngl@gmail.com</string>
+    <string name="privacy_public_url_title">Public store policy URL</string>
+    <string name="privacy_public_url_note">This public HTTPS address is provided for Google Play and other app-store listings. The complete policy above is available offline inside the app.</string>
 </resources>
