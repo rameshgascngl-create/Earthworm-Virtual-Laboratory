@@ -1,12 +1,5 @@
 package `in`.ramesh.zoology.earthwormlab.ui.preparation
 
-import android.app.Activity
-import android.content.ClipData
-import android.content.ClipboardManager
-import android.content.Context
-import android.content.Intent
-import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,7 +14,6 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.res.stringResource
@@ -39,7 +31,10 @@ import kotlin.math.sin
  * Compose drawing primitives so the screen stays lightweight and offline.
  */
 @Composable
-fun PreparationScreen(modifier: Modifier = Modifier) {
+fun PreparationScreen(
+    onPrivacyPolicy: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     val checklist = listOf(
         R.string.preparation_item_specimen,
         R.string.preparation_item_dissection_tray,
@@ -102,7 +97,7 @@ fun PreparationScreen(modifier: Modifier = Modifier) {
         }
 
         item {
-            DesignerCreditCard()
+            DesignerCreditCard(onPrivacyPolicy = onPrivacyPolicy)
         }
     }
 }
@@ -172,10 +167,9 @@ private fun HomeHeroCard() {
 }
 
 @Composable
-private fun DesignerCreditCard() {
-    val context = LocalContext.current
-    val privacyUrl = stringResource(R.string.privacy_policy_url)
-    val privacyCopiedMessage = stringResource(R.string.privacy_policy_copied_message)
+private fun DesignerCreditCard(
+    onPrivacyPolicy: () -> Unit,
+) {
 
     Card(modifier = Modifier.fillMaxWidth()) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -201,13 +195,7 @@ private fun DesignerCreditCard() {
             )
 
             OutlinedButton(
-                onClick = {
-                    openPrivacyPolicy(
-                        context = context,
-                        url = privacyUrl,
-                        copiedMessage = privacyCopiedMessage,
-                    )
-                },
+                onClick = onPrivacyPolicy,
                 modifier = Modifier.padding(top = 14.dp),
             ) {
                 Text(stringResource(R.string.privacy_policy_action))
@@ -221,24 +209,3 @@ private fun DesignerCreditCard() {
     }
 }
 
-
-private fun openPrivacyPolicy(
-    context: Context,
-    url: String,
-    copiedMessage: String,
-) {
-    val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url)).apply {
-        addCategory(Intent.CATEGORY_BROWSABLE)
-        if (context !is Activity) {
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        }
-    }
-
-    if (runCatching { context.startActivity(browserIntent) }.isSuccess) {
-        return
-    }
-
-    val clipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as? ClipboardManager
-    clipboard?.setPrimaryClip(ClipData.newPlainText("Privacy Policy", url))
-    Toast.makeText(context, copiedMessage, Toast.LENGTH_LONG).show()
-}
