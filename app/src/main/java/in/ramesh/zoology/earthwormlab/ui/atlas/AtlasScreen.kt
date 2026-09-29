@@ -21,6 +21,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ExperimentalLayoutApi
+import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,15 +30,19 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.Card
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.OutlinedCard
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -57,6 +63,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.caverock.androidsvg.SVG
@@ -81,6 +88,7 @@ private const val HQ_ASPECT_RATIO = 4f / 3f
  * Scientific prose is not duplicated here. The detail card reads directly
  * from [ScientificContentRepository], which loads earthworm_content_v138.json.
  */
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun AtlasScreen(
     system: EarthwormSystem,
@@ -262,12 +270,12 @@ fun AtlasScreen(
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
         )
 
-        Row(
+        FlowRow(
             modifier = Modifier
                 .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
                 .padding(horizontal = 12.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             FilterChip(
                 selected = !detailedMode,
@@ -528,23 +536,13 @@ fun AtlasScreen(
             modifier = Modifier.padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 6.dp),
         )
 
-        Row(
-            modifier = Modifier
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState())
-                .padding(horizontal = 12.dp),
-            horizontalArrangement = Arrangement.spacedBy(8.dp),
-        ) {
-            structures.forEach { structure ->
-                val content = repository.contentFor(structure.id)
-                val label = content?.label(language).orEmpty().ifBlank { structure.id }
-                FilterChip(
-                    selected = structure.id == selectedId,
-                    onClick = { selectStructure(structure.id) },
-                    label = { Text(label) },
-                )
-            }
-        }
+        StructureSelector(
+            structures = structures,
+            repository = repository,
+            language = language,
+            selectedId = selectedId,
+            onSelect = selectStructure,
+        )
 
         if (selectedContent != null) {
             StructureDetailCard(
@@ -589,6 +587,81 @@ fun AtlasScreen(
 }
 
 @Composable
+private fun StructureSelector(
+    structures: List<AnatomicalStructure>,
+    repository: ScientificContentRepository,
+    language: AppLanguage,
+    selectedId: String?,
+    onSelect: (String) -> Unit,
+) {
+    BoxWithConstraints(modifier = Modifier.fillMaxWidth()) {
+        if (maxWidth < 600.dp) {
+            var expanded by remember { mutableStateOf(false) }
+            val selected = structures.firstOrNull { it.id == selectedId } ?: structures.firstOrNull()
+            val selectedLabel = selected?.let {
+                repository.contentFor(it.id)?.label(language).orEmpty().ifBlank { it.id }
+            }.orEmpty()
+
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 12.dp),
+            ) {
+                OutlinedButton(
+                    onClick = { expanded = true },
+                    modifier = Modifier.fillMaxWidth(),
+                ) {
+                    Text(
+                        text = selectedLabel,
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis,
+                    )
+                }
+                DropdownMenu(
+                    expanded = expanded,
+                    onDismissRequest = { expanded = false },
+                    modifier = Modifier.widthIn(min = 280.dp, max = 520.dp),
+                ) {
+                    structures.forEach { structure ->
+                        val label = repository.contentFor(structure.id)
+                            ?.label(language)
+                            .orEmpty()
+                            .ifBlank { structure.id }
+                        DropdownMenuItem(
+                            text = { Text(label, maxLines = 2) },
+                            onClick = {
+                                expanded = false
+                                onSelect(structure.id)
+                            },
+                        )
+                    }
+                }
+            }
+        } else {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .horizontalScroll(rememberScrollState())
+                    .padding(horizontal = 12.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+            ) {
+                structures.forEach { structure ->
+                    val label = repository.contentFor(structure.id)
+                        ?.label(language)
+                        .orEmpty()
+                        .ifBlank { structure.id }
+                    FilterChip(
+                        selected = structure.id == selectedId,
+                        onClick = { onSelect(structure.id) },
+                        label = { Text(label) },
+                    )
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun DetailedImagePlate(
     system: EarthwormSystem,
     modifier: Modifier = Modifier,
@@ -608,6 +681,7 @@ private fun DetailedImagePlate(
     }
 }
 
+@OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun AtlasPlate(
     system: EarthwormSystem,
@@ -656,13 +730,12 @@ private fun AtlasPlate(
 
     Card(modifier = modifier) {
         Column {
-            Row(
+            FlowRow(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .horizontalScroll(rememberScrollState())
                     .padding(horizontal = 10.dp, vertical = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 FilterChip(
                     selected = labelsVisible,
