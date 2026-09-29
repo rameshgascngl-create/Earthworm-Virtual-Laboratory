@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name" translatable="false">Earthworm Virtual Laboratory</string>
+    <string name="app_ui_title">Earthworm Lab</string>
+    <string name="nav_back">Back</string>
+    <string name="system_selector_hint">Select anatomical system</string>
 
     <!-- System tab labels: taken verbatim from earthworm_content_v138.json → systems.*.en,
          the authoritative reviewed dataset — not retranslated. -->
@@ -120,9 +123,11 @@
     <string name="home_designer_department">Department of Zoology</string>
     <string name="home_designer_institution">Government Arts and Science College, Nagercoil</string>
     <string name="privacy_policy_action">Privacy Policy</string>
-    <string name="privacy_policy_store_note">Opens the public privacy policy in your browser.</string>
+    <string name="privacy_policy_store_note">Privacy Policy is available offline inside the app.</string>
     <string name="privacy_policy_url" translatable="false">https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md</string>
     <string name="privacy_policy_fallback_url" translatable="false">https://raw.githubusercontent.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/main/PRIVACY.md</string>
     <string name="privacy_policy_chooser_title">Open Privacy Policy</string>
+    <string name="privacy_policy_local_note">This complete Privacy Policy is stored inside the app and is available offline.</string>
+    <string name="privacy_policy_public_action">Open public web copy</string>
     <string name="privacy_policy_copied_message">No browser could open the Privacy Policy. The public policy URL has been copied to the clipboard.</string>
 </resources>
