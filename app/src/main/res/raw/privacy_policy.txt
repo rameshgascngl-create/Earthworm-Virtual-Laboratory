@@ -1,0 +1,56 @@
+Privacy Policy — Earthworm Virtual Laboratory
+
+Effective date: 28 September 2026
+App: Earthworm Virtual Laboratory
+Package: in.ramesh.zoology.earthwormlab
+Developer / Institution: Department of Zoology, Government Arts and Science College, Nagercoil, Tamil Nadu, India
+Contact: rameshgascngl@gmail.com
+
+OVERVIEW
+
+Earthworm Virtual Laboratory is an offline educational application for undergraduate Zoology teaching. The app is designed to work without a user account, advertising, analytics, or remote data collection.
+
+INFORMATION COLLECTED
+
+The app does not ask for or collect a student's name, email address, phone number, location, contacts, camera data, microphone recordings, photos, files, or advertising identifier.
+
+The Android application requests no INTERNET permission and includes no advertising or analytics SDK.
+
+INFORMATION STORED ON THE DEVICE
+
+The app may keep limited learning-state and preference information locally on the device so that the learning experience can continue between sessions. Depending on the features used, this may include:
+• language preference;
+• the last selected anatomical system or structure;
+• locally stored guided-learning or assessment state.
+
+This information stays on the device and is not transmitted to the developer or college by the app. Android cloud backup is disabled.
+
+SPEECH
+
+Narration uses an Android text-to-speech voice installed on the device. The app selects voices that Android reports as not requiring a network connection. The application does not send narration text to an online speech service.
+
+EXTERNAL LINKS
+
+Scientific reference links and the optional public web copy of this Privacy Policy open only after a user action in the device's external browser. The app itself does not load remote web content.
+
+ADVERTISING AND ANALYTICS
+
+The app contains no advertising SDK and no analytics SDK. The developer does not sell or share student information with advertisers.
+
+CHILDREN'S PRIVACY
+
+The app does not create user accounts and does not knowingly collect personal information from children or students. Learning progress remains on the device.
+
+SECURITY AND RETENTION
+
+The app is designed as an offline teaching resource with local-only progress storage. Data remains on the device until app data is cleared or the application is uninstalled.
+
+CHANGES TO THIS POLICY
+
+If a future release changes permissions, network behaviour, analytics, account systems, or data handling, this policy will be updated before that release is distributed.
+
+CONTACT
+
+Department of Zoology
+Government Arts and Science College, Nagercoil, Tamil Nadu, India
+Email: rameshgascngl@gmail.com
