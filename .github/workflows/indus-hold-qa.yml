@@ -1,0 +1,116 @@
+name: Validate Indus hold correction
+on:
+  push:
+    branches:
+      - ci/v1.3.9-indus-hold-20260929
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+
+      - name: CI-only branch integrity
+        shell: bash
+        run: |
+          set -euo pipefail
+          SOURCE=2c649c473cad40dd220e25b3f6e7ce03cc365653
+          test "$(git merge-base "$SOURCE" HEAD)" = "$SOURCE"
+          unexpected="$(git diff --name-only "$SOURCE" HEAD | grep -Ev '^\.github/workflows/indus-hold-qa\.yml$' || true)"
+          test -z "$unexpected"
+
+      - name: Verify authorised hold-correction scope
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=4c16543c060af2c735145f7b7cbe08f981da3581
+          SOURCE=2c649c473cad40dd220e25b3f6e7ce03cc365653
+          changed="$(git diff --name-only "$BASE" "$SOURCE")"
+          printf '%s\n' "$changed"
+          test "$(printf '%s\n' "$changed" | sed '/^$/d' | wc -l)" -eq 8
+          unexpected="$(printf '%s\n' "$changed" | grep -Ev '^(app/src/main/java/in/ramesh/zoology/earthwormlab/ui/app/EarthwormApp\.kt|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen\.kt|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/navigation/SystemTabRow\.kt|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/preparation/PreparationScreen\.kt|app/src/main/java/in/ramesh/zoology/earthwormlab/ui/privacy/PrivacyPolicyScreen\.kt|app/src/main/res/raw/privacy_policy\.txt|app/src/main/res/values/strings\.xml|app/src/main/res/values-ta/strings\.xml)$' || true)"
+          test -z "$unexpected"
+
+      - name: Freeze scientific and anatomical content
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE=4c16543c060af2c735145f7b7cbe08f981da3581
+          test -z "$(git diff --name-only "$BASE" HEAD --             app/src/main/res/raw/earthworm_content_v138.json             reference             app/src/main/res/raw/atlas_*.svg             app/src/main/res/drawable-nodpi             app/src/main/java/in/ramesh/zoology/earthwormlab/data/StructureGeometry.kt             app/src/main/java/in/ramesh/zoology/earthwormlab/model             app/src/main/AndroidManifest.xml             app/build.gradle)"
+
+      - name: Verify privacy and responsive UI contracts
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -s app/src/main/res/raw/privacy_policy.txt
+          grep -q 'rameshgascngl@gmail.com' app/src/main/res/raw/privacy_policy.txt
+          grep -q 'PrivacyPolicyScreen' app/src/main/java/in/ramesh/zoology/earthwormlab/ui/app/EarthwormApp.kt
+          grep -q 'privacy_policy_short_action' app/src/main/java/in/ramesh/zoology/earthwormlab/ui/app/EarthwormApp.kt
+          grep -q 'maxWidth < 600.dp' app/src/main/java/in/ramesh/zoology/earthwormlab/ui/navigation/SystemTabRow.kt
+          grep -q 'maxWidth < 600.dp' app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt
+          grep -q 'FlowRow' app/src/main/java/in/ramesh/zoology/earthwormlab/ui/atlas/AtlasScreen.kt
+          ! grep -q 'android.permission.INTERNET' app/src/main/AndroidManifest.xml
+
+  build:
+    needs: validate
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v4
+
+      - name: Install Android SDK packages
+        run: sdkmanager 'platforms;android-36' 'build-tools;35.0.0' 'platform-tools'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.13'
+
+      - name: Clean, lint, test and build
+        run: gradle --no-daemon clean :app:lintDebug :app:lintRelease :app:testDebugUnitTest :app:assembleDebug :app:assembleRelease :app:bundleRelease
+
+      - name: Inspect QA APK
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="$(find app/build/outputs/apk/debug -maxdepth 1 -type f -name '*.apk' | head -n1)"
+          test -n "$APK" && test -f "$APK"
+          AAPT="$ANDROID_SDK_ROOT/build-tools/35.0.0/aapt"
+          "$AAPT" dump badging "$APK" > indus-badging.txt
+          "$AAPT" dump permissions "$APK" > indus-permissions.txt
+          grep -q "package: name='in.ramesh.zoology.earthwormlab'" indus-badging.txt
+          ! grep -q 'android.permission.INTERNET' indus-permissions.txt
+          {
+            echo "source_commit=2c649c473cad40dd220e25b3f6e7ce03cc365653"
+            echo "indus_hold_privacy=offline_native_screen"
+            echo "indus_hold_ui=responsive_phone_navigation"
+            echo "indus_hold_function_access=wrapped_controls_and_compact_selectors"
+            echo "APK_SHA256=$(sha256sum "$APK" | awk '{print $1}')"
+          } | tee indus-qa-evidence.txt
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Earthworm-Indus-Hold-Correction-DEVICE-QA
+          path: |
+            app/build/outputs/apk/debug/*.apk
+            indus-qa-evidence.txt
+            indus-badging.txt
+            indus-permissions.txt
+          if-no-files-found: error
