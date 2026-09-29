@@ -123,6 +123,7 @@
     <string name="home_designer_department">Department of Zoology</string>
     <string name="home_designer_institution">Government Arts and Science College, Nagercoil</string>
     <string name="privacy_policy_action">Privacy Policy</string>
+    <string name="privacy_policy_short_action">Privacy</string>
     <string name="privacy_policy_store_note">Privacy Policy is available offline inside the app.</string>
     <string name="privacy_policy_url" translatable="false">https://github.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/blob/main/PRIVACY.md</string>
     <string name="privacy_policy_fallback_url" translatable="false">https://raw.githubusercontent.com/rameshgascngl-create/Earthworm-Virtual-Laboratory/main/PRIVACY.md</string>
