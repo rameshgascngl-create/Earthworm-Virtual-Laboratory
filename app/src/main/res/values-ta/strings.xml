@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_ui_title">Earthworm Lab</string>
+    <string name="nav_back">பின்</string>
+    <string name="system_selector_hint">உடற்கூறு மண்டலத்தைத் தேர்ந்தெடுக்கவும்</string>
     <!-- Taken verbatim from earthworm_content_v138.json → systems.*.ta, the
          same reviewed Tamil terminology already used by the hybrid
          reference and the Java-native branches. Not retranslated here. -->
@@ -115,7 +118,9 @@
     <string name="home_designer_department">விலங்கியல் துறை</string>
     <string name="home_designer_institution">அரசு கலை மற்றும் அறிவியல் கல்லூரி, நாகர்கோவில்</string>
     <string name="privacy_policy_action">தனியுரிமைக் கொள்கை</string>
-    <string name="privacy_policy_store_note">பொதுவாக அணுகக்கூடிய தனியுரிமைக் கொள்கையை உலாவியில் திறக்கும்.</string>
+    <string name="privacy_policy_store_note">தனியுரிமைக் கொள்கை செயலிக்குள் இணையமின்றியும் கிடைக்கும்.</string>
     <string name="privacy_policy_chooser_title">தனியுரிமைக் கொள்கையைத் திறக்கவும்</string>
+    <string name="privacy_policy_local_note">முழு தனியுரிமைக் கொள்கையும் செயலிக்குள் சேமிக்கப்பட்டுள்ளது; இணையமின்றியும் படிக்கலாம்.</string>
+    <string name="privacy_policy_public_action">பொது இணையப் பிரதியைத் திற</string>
     <string name="privacy_policy_copied_message">தனியுரிமைக் கொள்கையை உலாவியில் திறக்க முடியவில்லை. பொதுக் கொள்கை இணையமுகவரி நகலெடுக்கப்பட்டது.</string>
 </resources>
