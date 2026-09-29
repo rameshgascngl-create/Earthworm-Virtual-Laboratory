@@ -14,8 +14,11 @@ import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,6 +31,7 @@ import `in`.ramesh.zoology.earthwormlab.preferences.AppLanguage
 import `in`.ramesh.zoology.earthwormlab.ui.atlas.AtlasScreen
 import `in`.ramesh.zoology.earthwormlab.ui.navigation.SystemTabRow
 import `in`.ramesh.zoology.earthwormlab.ui.preparation.PreparationScreen
+import `in`.ramesh.zoology.earthwormlab.ui.privacy.PrivacyPolicyScreen
 
 /**
  * Native application shell. Phase 2 replaces the eight system placeholders
@@ -43,26 +47,43 @@ fun EarthwormApp(viewModel: EarthwormViewModel) {
     val scientificContentRepository = remember(appContext) {
         ScientificContentRepository(appContext)
     }
+    var showPrivacyPolicy by rememberSaveable { mutableStateOf(false) }
 
     BackHandler(
-        enabled = uiState.canNavigateBack,
+        enabled = showPrivacyPolicy || uiState.canNavigateBack,
     ) {
-        viewModel.navigateBack()
+        if (showPrivacyPolicy) {
+            showPrivacyPolicy = false
+        } else {
+            viewModel.navigateBack()
+        }
     }
 
     EarthwormTheme {
         Scaffold(
             topBar = {
                 TopAppBar(
-                    title = { Text(stringResource(R.string.app_name)) },
+                    title = { Text(stringResource(R.string.app_ui_title)) },
                     navigationIcon = {
-                        if (uiState.selectedSystem != EarthwormSystem.PREPARATION) {
-                            TextButton(onClick = viewModel::navigateHome) {
-                                Text(stringResource(R.string.nav_home))
+                        when {
+                            showPrivacyPolicy -> {
+                                TextButton(onClick = { showPrivacyPolicy = false }) {
+                                    Text(stringResource(R.string.nav_back))
+                                }
+                            }
+                            uiState.selectedSystem != EarthwormSystem.PREPARATION -> {
+                                TextButton(onClick = viewModel::navigateHome) {
+                                    Text(stringResource(R.string.nav_home))
+                                }
                             }
                         }
                     },
                     actions = {
+                        if (!showPrivacyPolicy) {
+                            TextButton(onClick = { showPrivacyPolicy = true }) {
+                                Text(stringResource(R.string.privacy_policy_short_action))
+                            }
+                        }
                         TextButton(onClick = {
                             val next = if (uiState.language == AppLanguage.ENGLISH) AppLanguage.TAMIL else AppLanguage.ENGLISH
                             viewModel.onLanguageSelected(next)
@@ -78,24 +99,33 @@ fun EarthwormApp(viewModel: EarthwormViewModel) {
                 )
             },
         ) { innerPadding ->
-            Column(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
-                SystemTabRow(
-                    selected = uiState.selectedSystem,
-                    onSystemSelected = viewModel::onSystemSelected,
-                    labelFor = { system -> systemLabel(system) },
+            if (showPrivacyPolicy) {
+                PrivacyPolicyScreen(
+                    onBack = { showPrivacyPolicy = false },
+                    modifier = Modifier.padding(innerPadding),
                 )
-                if (uiState.isLoading) {
-                    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-                        CircularProgressIndicator(modifier = Modifier.padding(24.dp))
-                    }
-                } else {
-                    when (uiState.selectedSystem) {
-                        EarthwormSystem.PREPARATION -> PreparationScreen()
-                        else -> AtlasScreen(
-                            system = uiState.selectedSystem,
-                            language = uiState.language,
-                            repository = scientificContentRepository,
-                        )
+            } else {
+                Column(modifier = Modifier.fillMaxSize().padding(innerPadding)) {
+                    SystemTabRow(
+                        selected = uiState.selectedSystem,
+                        onSystemSelected = viewModel::onSystemSelected,
+                        labelFor = { system -> systemLabel(system) },
+                    )
+                    if (uiState.isLoading) {
+                        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                            CircularProgressIndicator(modifier = Modifier.padding(24.dp))
+                        }
+                    } else {
+                        when (uiState.selectedSystem) {
+                            EarthwormSystem.PREPARATION -> PreparationScreen(
+                                onPrivacyPolicy = { showPrivacyPolicy = true },
+                            )
+                            else -> AtlasScreen(
+                                system = uiState.selectedSystem,
+                                language = uiState.language,
+                                repository = scientificContentRepository,
+                            )
+                        }
                     }
                 }
             }
